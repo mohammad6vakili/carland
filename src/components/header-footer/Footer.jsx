@@ -24,8 +24,9 @@ const Footer = () => {
                 <Image
                   src={"/assets/carland-logo.svg"}
                   alt=""
-                  width={30}
-                  height={30}
+                  width={50}
+                  height={50}
+                  style={{ color: "#fff" }}
                 />
               </div>
 
@@ -47,23 +48,23 @@ const Footer = () => {
                 <div className={styles.logo}>
                   <PhoneOutlined />
                 </div>
+
+                <div className={styles.texts}>
+                  <p>
+                    <span>021</span> - 45123132
+                  </p>
+                  <p>خدمات و پشتیبانی 24 ساعته!</p>
+                </div>
               </div>
-              <div className={styles.texts}>
-                <p>
-                  <span>021</span> - 45123132
-                </p>
-                <p>خدمات و پشتیبانی 24 ساعته!</p>
-              </div>
+
               <div className={styles.address}>
-                <div className={styles.phone}>
-                  <div className={styles.logo}>
-                    <Image
-                      src={"/assets/location.svg"}
-                      alt=""
-                      width={20}
-                      height={20}
-                    />
-                  </div>
+                <div className={styles.logo}>
+                  <Image
+                    src={"/assets/location.svg"}
+                    alt=""
+                    width={20}
+                    height={20}
+                  />
                 </div>
                 <div className={styles.texts}>
                   <p>تهران خیابان ولیعصر بین کاظمی</p>
@@ -76,54 +77,70 @@ const Footer = () => {
           <div className={styles.tags}>
             <div className={styles.texts}>
               <div>
-                <span className={styles.head}>خدمات مشتریان</span>
-                <span>
-                  درباره ما <div className={styles.blue_box}></div>
+                <span className={styles.head}>
+                  <div className={styles.blue_box}></div>
+                  خدمات مشتریان
                 </span>
                 <span>
-                  فروشگاه <div className={styles.blue_box}></div>
+                  <div className={styles.blue_box}></div>
+                  درباره ما
                 </span>
                 <span>
-                  دسته بندی <div className={styles.blue_box}></div>
+                  <div className={styles.blue_box}></div>
+                  فروشگاه
                 </span>
                 <span>
-                  بلاگ <div className={styles.blue_box}></div>
+                  <div className={styles.blue_box}></div>
+                  دسته بندی
                 </span>
                 <span>
-                  تماس با ما <div className={styles.blue_box}></div>
+                  <div className={styles.blue_box}></div>
+                  بلاگ
+                </span>
+                <span>
+                  <div className={styles.blue_box}></div>
+                  تماس با ما
                 </span>
               </div>
               <div>
-                <span className={styles.head}>خدمات مشتریان</span>
-                <span>
-                  درباره ما <div className={styles.blue_box}></div>
+                <span className={styles.head}>
+                  <div className={styles.blue_box}></div>
+                  خدمات مشتریان
                 </span>
                 <span>
-                  فروشگاه <div className={styles.blue_box}></div>
+                  <div className={styles.blue_box}></div>
+                  درباره ما
                 </span>
                 <span>
-                  دسته بندی <div className={styles.blue_box}></div>
+                  <div className={styles.blue_box}></div>
+                  فروشگاه
                 </span>
                 <span>
-                  بلاگ <div className={styles.blue_box}></div>
+                  <div className={styles.blue_box}></div>
+                  دسته بندی
                 </span>
                 <span>
-                  تماس با ما <div className={styles.blue_box}></div>
+                  <div className={styles.blue_box}></div>
+                  بلاگ
+                </span>
+                <span>
+                  <div className={styles.blue_box}></div>
+                  تماس با ما
                 </span>
               </div>
             </div>
 
             <div className={styles.buttons}>
-              <Button style={{ background: "none" }}>
+              <Button color="#fff" className={styles.btn}>
+                <InstagramOutlined style={{ color: "#fff", opacity: "0.6" }} />
+              </Button>
+              <Button className={styles.btn}>
                 <InstagramOutlined />
               </Button>
-              <Button>
+              <Button className={styles.btn}>
                 <InstagramOutlined />
               </Button>
-              <Button>
-                <InstagramOutlined />
-              </Button>
-              <Button>
+              <Button className={styles.btn}>
                 <InstagramOutlined />
               </Button>
             </div>

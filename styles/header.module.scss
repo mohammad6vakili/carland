@@ -98,16 +98,22 @@
   @include flex(column, flex-end, center);
   width: 100%;
   height: 386px;
+  font-size: 14px;
   color: #fff;
+  background: #000;
   position: relative;
+
+  p {
+    margin: 0;
+  }
 
   .background {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 100%;
-    height: 316px;
-    z-index: -1;
+    left: 0;
+    width: 80%;
+    height: 386px;
 
     img {
       width: 100%;
@@ -117,9 +123,131 @@
 
   .footer_content {
     @include flex(row, flex-start, center);
+    gap: 2%;
+    width: 100%;
+    height: 100%;
+    padding: 2% 5%;
+    padding-left: 10%;
+    z-index: 1;
 
-    .logo_texts {
+    .contact_details {
+      @include flex(column, flex-start, flex-start);
+      max-width: 40%;
+
+      .logo_texts {
+        @include flex(row, flex-start, center);
+        gap: 5%;
+        width: 100%;
+
+        .logo {
+          height: 50%;
+        }
+
+        .texts {
+          @include flex(column, flex-start, center);
+
+          div {
+            @include flex(row, flex-start, center);
+            gap: 5%;
+            width: 100%;
+            h1 {
+              color: #4a80e8;
+            }
+          }
+        }
+      }
+
+      .contatcs {
+        @include flex(row, space-between, center);
+        gap: 2%;
+
+        .phone,
+        .address {
+          @include flex(row, center, center);
+          gap: 10px;
+
+          .logo {
+            background-color: hsl(0, 0%, 64%, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+          }
+
+          .texts {
+            :nth-child(2) {
+              color: #c1c1c1;
+              font-size: 0.7em;
+            }
+          }
+        }
+      }
+    }
+
+    .tags {
+      @include flex(column, space-between, flex-start);
+      gap: 20px;
+      width: 25%;
+
+      .texts {
+        @include flex(row, space-evenly, center);
+        gap: 2%;
+        width: 100%;
+        border-left: 1px solid #ececec;
+
+        div {
+          :nth-child(1) {
+            font-size: 1.2em;
+            padding: 0;
+          }
+          span {
+            @include flex(row, flex-start, center);
+            gap: 5px;
+            padding-right: 10%;
+            .blue_box {
+              width: 8px;
+              height: 8px;
+              background-color: #4a80e8;
+              border-radius: 2px;
+            }
+          }
+        }
+      }
+
+      .buttons {
+        @include flex(row, flex-start, center);
+        width: 100%;
+        gap: 8%;
+
+        .btn {
+          @include flex(row, center, center);
+          background: #142d5d;
+          border: none;
+          padding: 1rem;
+          border-radius: 15px;
+        }
+      }
+    }
+
+    .trust_links {
       @include flex(row, center, center);
+      gap: 4%;
+      width: 25%;
+
+      div {
+        @include flex(column, center, center);
+
+        .box {
+          width: 90px;
+          height: 90px;
+          border-radius: 20px;
+          background: #fff;
+          margin: 4%;
+
+          img {
+            width: 100%;
+            height: 80%;
+          }
+        }
+      }
     }
   }
 
