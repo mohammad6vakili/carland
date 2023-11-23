@@ -90,6 +90,37 @@
     .account_info {
       @include flex(row, center, center);
       gap: 10px;
+
+      .shop {
+        background: #eaedf3;
+        position: relative;
+
+        .badge {
+          @include flex(row, center, center);
+          width: 25px;
+          height: 25px;
+          background-image: url("../public/assets/badge.svg");
+          background-repeat: no-repeat;
+          color: #fff;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transform: translate(50%, -50%);
+        }
+      }
+
+      .login {
+        @include flex(row, center, center);
+        gap: 2px;
+        background: #142d5d;
+        color: #fff;
+
+        .line {
+          width: 2px;
+          height: 80%;
+          background: #fff;
+        }
+      }
     }
   }
 }
@@ -219,7 +250,6 @@
 
         .btn {
           @include flex(row, center, center);
-          background: #142d5d;
           border: none;
           padding: 1rem;
           border-radius: 15px;

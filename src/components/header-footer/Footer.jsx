@@ -131,7 +131,7 @@ const Footer = () => {
             </div>
 
             <div className={styles.buttons}>
-              <Button color="#fff" className={styles.btn}>
+              <Button color="main-primary" className={styles.btn}>
                 <InstagramOutlined style={{ color: "#fff", opacity: "0.6" }} />
               </Button>
               <Button className={styles.btn}>

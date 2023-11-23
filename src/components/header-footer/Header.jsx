@@ -62,10 +62,12 @@ const Header = () => {
           </div>
 
           <div className={styles.account_info}>
-            <button>
+            <Button className={styles.shop} color="#EAEDF3">
               <ShoppingCartOutlined />
-            </button>
-            <button>
+              <div className={styles.badge}></div>
+            </Button>
+
+            <Button className={styles.login} color="#142D5D">
               ثبت نام / ورود <div className={styles.line}></div>{" "}
               <Image
                 src={"/assets/user-icon.svg"}
@@ -73,7 +75,7 @@ const Header = () => {
                 width={20}
                 height={20}
               />
-            </button>
+            </Button>
           </div>
         </section>
       </div>
