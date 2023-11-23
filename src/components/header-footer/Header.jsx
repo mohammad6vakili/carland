@@ -1,17 +1,14 @@
-"use client";
 import Image from "next/image";
 import styles from "../../../styles/header.module.scss";
 import { useRouter } from "next/navigation";
-import { Button, ConfigProvider } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Button } from "reactstrap";
 
 const Header = () => {
   const router = useRouter();
 
   return (
     <>
-      {/* <ConfigProvider> */}
-      {/* <Button>hello</Button> */}
       <div className={styles.header}>
         <section className={styles.background}>
           <Image
@@ -80,7 +77,6 @@ const Header = () => {
           </div>
         </section>
       </div>
-      {/* </ConfigProvider> `*/}
     </>
   );
 };
