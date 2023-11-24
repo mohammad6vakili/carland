@@ -1,0 +1,87 @@
+@font-face {
+  font-family: dana;
+  src: url("../public/fonts/Dana-Medium.ttf");
+}
+
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+
+.main {
+  @include flex(column, flex-start, center);
+  width: 100%;
+
+  .head_carousel {
+    width: 90%;
+    margin: 2rem 0;
+    height: 380px;
+    border-radius: 25px;
+
+    .mySwiper {
+      width: 100%;
+      height: 100%;
+
+      .swiper_slide {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .content {
+        @include flex(row, space-around, center);
+        color: #fff;
+
+        .texts {
+          @include flex(column, flex-start, flex-start);
+          max-width: 40%;
+          padding: 0 1rem;
+
+          h1 {
+            font-size: 2em;
+          }
+          p {
+            opacity: 0.6;
+          }
+
+          .btn {
+            @include flex(row, center, center);
+            gap: 5px;
+            background-color: #fff;
+            color: #000;
+
+            div {
+              @include flex(row, center, center);
+              background: #142d5d;
+              width: 20px;
+              height: 30px;
+              padding: 2px 8px;
+              border-radius: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .service_category {
+    width: 100%;
+    height: 640px;
+    background-image: url("../public/assets/main/service-background.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+}

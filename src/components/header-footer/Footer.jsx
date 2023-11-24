@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "../../../styles/header.module.scss";
-import { PhoneOutlined } from "@ant-design/icons";
+import { PhoneOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { InstagramOutlined } from "@ant-design/icons";
 
@@ -187,7 +187,23 @@ const Footer = () => {
           </div>
         </section>
 
-        <section className={styles.develop_tag}></section>
+        <section className={styles.develop_tag}>
+          <span>
+            کلیه حقوق این سرویس (وب سایت و اپلیکیشن‌های موبایل) محفوظ و متعلق به
+            شرکت تجارت الکترونیک مهرایرانیان می‌باشد.
+          </span>
+
+          <div>
+            <span>Made with ❤️ in CarLand R&D Team</span>
+            <Button
+              color="dark"
+              style={{ color: "#4A80E8", border: "1px solid #142D5D" }}
+            >
+              بازگشت به بالا
+              <ArrowUpOutlined />
+            </Button>
+          </div>
+        </section>
       </div>
     </>
   );

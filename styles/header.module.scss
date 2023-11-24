@@ -163,7 +163,9 @@
 
     .contact_details {
       @include flex(column, flex-start, flex-start);
+      gap: 20%;
       max-width: 40%;
+      height: 100%;
 
       .logo_texts {
         @include flex(row, flex-start, center);
@@ -282,10 +284,16 @@
   }
 
   .develop_tag {
+    @include flex(row, space-around, center);
     width: 100%;
     height: 70px;
     border-top: 1px solid #fff;
     background: rgba(81, 81, 81, 0.2);
     backdrop-filter: blur(50px);
+    div,
+    button {
+      @include flex(row, space-between, center);
+      gap: 20px;
+    }
   }
 }
