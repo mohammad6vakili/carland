@@ -537,7 +537,7 @@ const Main = () => {
           <section className={styles.cards}>
             {ads.map((ad, index) => (
               <AdsCard
-                key={Math.random() * 100}
+                key={Math.random() * index}
                 image={ad.image}
                 title={ad.title}
                 details={ad.details}
@@ -546,6 +546,7 @@ const Main = () => {
                 rate={ad.rate}
               />
             ))}
+            <div className={styles.opacity}></div>
           </section>
         </div>
       </section>

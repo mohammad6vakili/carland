@@ -11,35 +11,48 @@ const AdsCard = ({ image, title, details, location, time, rate }) => {
           <Image src={image} alt="" width={240} height={50} />
         </div>
 
-        <div className={styles.title}>{title}</div>
+        <div className={styles.title}>
+          <span>{title}</span>
+        </div>
 
         <div className={styles.details}>
           <section className={styles.option}>
             <Image
               src={"/assets/main/speed.svg"}
               alt=""
-              width={15}
-              height={15}
+              width={20}
+              height={20}
             />
-            <div>کیلومتر {details.kms}</div>
+            <div>
+              <span>{details.kms}</span>
+              کیلومتر
+            </div>
           </section>
+
           <section className={styles.option}>
             <Image
               src={"/assets/main/calendar.svg"}
               alt=""
-              width={15}
-              height={15}
+              width={20}
+              height={20}
             />
-            <div>کیلومتر {details.kms}</div>
+            <div>
+              <span>{details.createYear}</span>
+              تولید
+            </div>
           </section>
+
           <section className={styles.option}>
             <Image
               src={"/assets/main/color-palette.svg"}
               alt=""
-              width={15}
-              height={15}
+              width={20}
+              height={20}
             />
-            <div>کیلومتر {details.kms}</div>
+            <div>
+              <span>{details.color}</span>
+              رنگ
+            </div>
           </section>
         </div>
 
@@ -58,14 +71,17 @@ const AdsCard = ({ image, title, details, location, time, rate }) => {
           </div>
 
           <div className={styles.rate}>
-            <StarFilled style={{ color: "#FFD029" }} /> {rate}
+            {rate}
+            <StarFilled style={{ color: "#FFD029" }} />
           </div>
         </div>
 
         <div className={styles.link}>
           <Button color="main-primary">
-            مشاهده
-            <LeftOutlined />
+            <span>مشاهده</span>
+            <div>
+              <LeftOutlined style={{ color: "#000" }} />
+            </div>
           </Button>
         </div>
       </div>
