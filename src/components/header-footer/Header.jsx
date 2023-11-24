@@ -21,7 +21,7 @@ const Header = () => {
 
         <section className={styles.content}>
           <span>ثبت آگهی</span>
-          <button>رایگان شروع کنید</button>
+          <Button style={{ background: "#FED30B" }}>رایگان شروع کنید</Button>
         </section>
 
         <section className={styles.header_content}>
