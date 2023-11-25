@@ -60,6 +60,7 @@ const Offers = () => {
     },
   ];
   const [cSelected, setCSelected] = useState([]);
+  const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [Offers, setOffers] = useState("فروش");
 
@@ -73,6 +74,16 @@ const Offers = () => {
       cSelected.splice(index, 1);
     }
     setCSelected([...cSelected]);
+  };
+
+  const handleCatCBClick = (selected) => {
+    const index = categorySelected.indexOf(selected);
+    if (index < 0) {
+      categorySelected.push(selected);
+    } else {
+      categorySelected.splice(index, 1);
+    }
+    setcategorySelected([...categorySelected]);
   };
 
   return (
@@ -311,13 +322,55 @@ const Offers = () => {
               دسته بندی <DownOutlined />
             </div>
             <div className={s.list}>
-              <section className={s.list_item}>خودرو</section>
-              <section className={s.list_item}>خودرو</section>
-              <section className={s.list_item}>خودرو</section>
-              <section className={s.list_item}>خودرو</section>
-              <section className={s.list_item}>خودرو</section>
-              <section className={s.list_item}>خودرو</section>
-              <section className={s.list_item}>خودرو</section>
+              <section className={s.list_item}>
+                خودرو{" "}
+                <Button
+                  onClick={() => handleCatCBClick(1)}
+                  active={categorySelected.includes(1)}
+                ></Button>{" "}
+              </section>
+              <section className={s.list_item}>
+                خودرو{" "}
+                <Button
+                  onClick={() => handleCatCBClick(2)}
+                  active={categorySelected.includes(2)}
+                ></Button>{" "}
+              </section>
+              <section className={s.list_item}>
+                خودرو{" "}
+                <Button
+                  onClick={() => handleCatCBClick(3)}
+                  active={categorySelected.includes(3)}
+                ></Button>{" "}
+              </section>
+              <section className={s.list_item}>
+                خودرو{" "}
+                <Button
+                  onClick={() => handleCatCBClick(4)}
+                  active={categorySelected.includes(4)}
+                ></Button>{" "}
+              </section>
+              <section className={s.list_item}>
+                خودرو{" "}
+                <Button
+                  onClick={() => handleCatCBClick(5)}
+                  active={categorySelected.includes(5)}
+                ></Button>{" "}
+              </section>
+              <section className={s.list_item}>
+                خودرو{" "}
+                <Button
+                  onClick={() => handleCatCBClick(6)}
+                  active={categorySelected.includes(6)}
+                ></Button>{" "}
+              </section>
+              <section className={s.list_item}>
+                خودرو{" "}
+                <Button
+                  onClick={() => handleCatCBClick(1)}
+                  active={categorySelected.includes(1)}
+                ></Button>{" "}
+              </section>
             </div>
           </section>
 

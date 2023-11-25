@@ -13,6 +13,7 @@
 .main {
   @include flex(column, flex-start, center);
   width: 100%;
+  font-size: 16px;
   font-family: dana;
 
   ::-webkit-scrollbar {
@@ -959,6 +960,17 @@
             border-bottom: 1px solid #e6e6e6;
             padding: 5px;
             margin: 0 10%;
+
+            button {
+              width: 18px;
+              height: 18px;
+              border-radius: 5px;
+              border: 1px solid #2d3142;
+              padding: 0;
+              :active {
+                background: #4a80e8;
+              }
+            }
           }
         }
       }
@@ -1245,5 +1257,11 @@
         }
       }
     }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .main {
+    font-size: 12px;
   }
 }
