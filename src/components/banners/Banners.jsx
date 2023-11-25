@@ -437,17 +437,30 @@ const Banners = () => {
             </div>
           </div>
 
-          {marketItems.map((item, index) => (
-            <MarketCard
-              key={Math.random * index}
-              image={item.image}
-              off={item.off}
-              title={item.title}
-              description={item.description}
-              price={item.price}
-              index={index + 1}
-            />
-          ))}
+          {banners !== "buy-sale"
+            ? marketItems.map((item, index) => (
+                <MarketCard
+                  key={Math.random * index}
+                  image={item.image}
+                  off={item.off}
+                  title={item.title}
+                  description={item.description}
+                  price={item.price}
+                  index={index + 1}
+                />
+              ))
+            : marketItems.map((item, index) => (
+                <MarketCard
+                  key={Math.random * index}
+                  createYear={item.createYear}
+                  image={item.image}
+                  title={item.title}
+                  description={item.description}
+                  timePosted={item.timePosted}
+                  location={item.location}
+                  price={item.price}
+                />
+              ))}
         </div>
       </section>
     </div>
