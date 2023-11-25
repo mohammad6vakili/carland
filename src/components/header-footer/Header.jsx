@@ -27,7 +27,14 @@ const Header = () => {
         </section>
 
         <section className={styles.header_content}>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              height: "100%",
+            }}
+          >
             <div className={styles.symbol}>
               <section className={styles.logo}>
                 <Image
@@ -55,20 +62,49 @@ const Header = () => {
                 دسته بندی
               </span>
 
-              <Link style={{ textDecoration: "none" }} href={"/"}>
-                <span> بازارچه</span>
+              <Link href={"/"}>
+                <span className={pathname === "/" ? styles.selected : ""}>
+                  {" "}
+                  بازارچه
+                  <div className={styles.line1}></div>
+                  <div className={styles.line2}></div>
+                </span>
               </Link>
-              <Link style={{ textDecoration: "none" }} href={"/offers"}>
-                <span> خرید و فروش</span>
+              <Link href={"/offers"}>
+                <span className={pathname === "/offers" ? styles.selected : ""}>
+                  {" "}
+                  خرید و فروش
+                  <div className={styles.line1}></div>
+                  <div className={styles.line2}></div>
+                </span>
               </Link>
-              <Link style={{ textDecoration: "none" }} href={"/"}>
-                <span> کلوپ</span>
+              <Link href={"/"}>
+                <span className={pathname === "/club" ? styles.selected : ""}>
+                  {" "}
+                  کلوپ
+                  <div className={styles.line1}></div>
+                  <div className={styles.line2}></div>
+                </span>
               </Link>
-              <Link style={{ textDecoration: "none" }} href={"/"}>
-                <span> مجله</span>
+              <Link href={"/"}>
+                <span
+                  className={pathname === "/magazine" ? styles.selected : ""}
+                >
+                  {" "}
+                  مجله
+                  <div className={styles.line1}></div>
+                  <div className={styles.line2}></div>
+                </span>
               </Link>
-              <Link style={{ textDecoration: "none" }} href={"/"}>
-                <span> درباره ما</span>
+              <Link href={"/"}>
+                <span
+                  className={pathname === "/about_us" ? styles.selected : ""}
+                >
+                  {" "}
+                  درباره ما
+                  <div className={styles.line1}></div>
+                  <div className={styles.line2}></div>
+                </span>
               </Link>
             </div>
           </div>

@@ -800,10 +800,10 @@
 
       .title {
         @include flex(row, flex-start, center);
-        gap: 10px;
+        gap: 5px;
         font-size: 2em;
         margin-bottom: 3rem;
-        div {
+        span {
           color: #265dc7;
         }
       }

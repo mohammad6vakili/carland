@@ -75,20 +75,48 @@
     .routes {
       @include flex(row, space-between, center);
       gap: 1rem;
-      width: auto;
       height: 100%;
 
       .category {
         @include flex(row, space-between, center);
         gap: 5px;
+        height: 50%;
         border-left: 1px solid #161a1d;
       }
 
-      span {
+      a {
+        text-decoration: none;
+        height: 100%;
+      }
+
+      span,
+      .selected {
+        @include flex(row, space-between, center);
         color: #7f7f7f;
         padding: 0 15px;
-        height: 100%;
+        height: calc(100% - 2px);
         cursor: pointer;
+      }
+      .selected {
+        border-left: 1px solid rgba(20, 45, 93, 0.4);
+        border-right: 1px solid rgba(20, 45, 93, 0.4);
+        color: #142d5d;
+        position: relative;
+        background: #f6f9ff;
+        .line1,
+        .line2 {
+          width: 50%;
+          height: 30%;
+          position: absolute;
+          left: 0;
+          border-right: 2px dashed #142d5d;
+        }
+        .line1 {
+          bottom: 0;
+        }
+        .line2 {
+          top: 0;
+        }
       }
     }
 

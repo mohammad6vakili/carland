@@ -918,10 +918,9 @@ const Main = () => {
         <div className={styles.install_app}>
           <div className={styles.texts}>
             <div>
-              <div className={styles.title}>
-                دانلود اپلیکیشن
-                <div>کارلند سرزمین خودرو</div>
-              </div>
+              <span className={styles.title}>
+                دانلود اپلیکیشن <span>کارلند سرزمین خودرو</span>
+              </span>
               <p>
                 میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
                 پیش آمده تمام قطعات رو اینجا پیدا کنید. همچنین برای دانلود سریع
