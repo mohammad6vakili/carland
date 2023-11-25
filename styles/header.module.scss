@@ -75,6 +75,7 @@
     .routes {
       @include flex(row, space-between, center);
       gap: 1rem;
+      width: auto;
       height: 100%;
 
       .category {
