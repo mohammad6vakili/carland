@@ -2,7 +2,10 @@
 const nextConfig = {
   output: "export",
   distDir: "build",
-  reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
+  reactStrictMode: false,
   transpilePackages: [
     "antd",
     "@ant-design/colors",
