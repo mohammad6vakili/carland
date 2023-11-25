@@ -1,11 +1,13 @@
 import Image from "next/image";
 import styles from "../../../styles/header.module.scss";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
+import Link from "next/link";
 
 const Header = () => {
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <>
@@ -19,7 +21,7 @@ const Header = () => {
           />
         </section>
 
-        <section className={styles.content}>
+        <section className={styles.start}>
           <span>ثبت آگهی</span>
           <Button style={{ background: "#FED30B" }}>رایگان شروع کنید</Button>
         </section>
@@ -42,7 +44,7 @@ const Header = () => {
             </div>
 
             <div className={styles.routes}>
-              <span className={styles.category}>
+              <span style={{ color: "#000" }} className={styles.category}>
                 {" "}
                 <Image
                   src={"/assets/category.svg"}
@@ -53,18 +55,28 @@ const Header = () => {
                 دسته بندی
               </span>
 
-              <span>بازارچه</span>
-              <span>خرید و فروش</span>
-              <span>کلوپ</span>
-              <span>مجله</span>
-              <span>درباره ما</span>
+              <Link style={{ textDecoration: "none" }} href={"/"}>
+                <span> بازارچه</span>
+              </Link>
+              <Link style={{ textDecoration: "none" }} href={"/offers"}>
+                <span> خرید و فروش</span>
+              </Link>
+              <Link style={{ textDecoration: "none" }} href={"/"}>
+                <span> کلوپ</span>
+              </Link>
+              <Link style={{ textDecoration: "none" }} href={"/"}>
+                <span> مجله</span>
+              </Link>
+              <Link style={{ textDecoration: "none" }} href={"/"}>
+                <span> درباره ما</span>
+              </Link>
             </div>
           </div>
 
           <div className={styles.account_info}>
             <Button className={styles.shop} color="#EAEDF3">
               <ShoppingCartOutlined />
-              <div className={styles.badge}></div>
+              <div className={styles.badge}>۳</div>
             </Button>
 
             <Button className={styles.login} color="#142D5D">

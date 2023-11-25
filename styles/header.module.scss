@@ -31,7 +31,7 @@
     }
   }
 
-  .content {
+  .start {
     @include flex(row, center, center);
     gap: 10px;
     width: 100%;
@@ -75,6 +75,7 @@
     .routes {
       @include flex(row, space-between, center);
       gap: 1rem;
+      height: 100%;
 
       .category {
         @include flex(row, space-between, center);
@@ -85,6 +86,8 @@
       span {
         color: #7f7f7f;
         padding: 0 15px;
+        height: 100%;
+        cursor: pointer;
       }
     }
 

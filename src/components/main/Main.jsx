@@ -493,7 +493,7 @@ const Main = () => {
           <div className={styles.market_materials1}>
             {marketItems.map((item, index) => (
               <MarketCard
-                key={Math.random * index}
+                key={Math.random() * index}
                 image={item.image}
                 off={item.off}
                 title={item.title}
@@ -507,7 +507,7 @@ const Main = () => {
           <div className={styles.market_materials2}>
             {marketItems.map((item, index) => (
               <MarketCard
-                key={Math.random * index}
+                key={Math.random() * index}
                 image={item.image}
                 off={item.off}
                 title={item.title}

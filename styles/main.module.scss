@@ -824,7 +824,7 @@
   }
 }
 
-//banners
+//offers styles
 .offers {
   @include flex(column, flex-start, center);
   width: 100%;
@@ -1056,7 +1056,7 @@
         .tabs_names {
           @include flex(row, flex-start, center);
           width: 60%;
-          gap: 10%;
+          gap: 5%;
           padding: 1rem;
           p {
             @include flex(row, flex-start, center);

@@ -442,7 +442,7 @@ const Offers = () => {
           {Offers !== "buy-sale"
             ? marketItems.map((item, index) => (
                 <MarketCard
-                  key={Math.random * index}
+                  key={Math.random() * index}
                   image={item.image}
                   off={item.off}
                   title={item.title}
@@ -453,7 +453,7 @@ const Offers = () => {
               ))
             : marketItems.map((item, index) => (
                 <BuySaleCard
-                  key={Math.random * index}
+                  key={Math.random() * index}
                   createYear={"۱۳۹۲"}
                   image={"/assets/offers/banner-buy-sale.png"}
                   title={"ام وی ام"}
