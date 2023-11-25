@@ -12,8 +12,9 @@ import {
 } from "reactstrap";
 import { LeftOutlined, DownOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import BuySaleCard from "./BuySaleCard";
 
-const Banners = () => {
+const Offers = () => {
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -60,7 +61,7 @@ const Banners = () => {
   ];
   const [cSelected, setCSelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [banners, setBanners] = useState("فروش");
+  const [Offers, setOffers] = useState("فروش");
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -75,7 +76,7 @@ const Banners = () => {
   };
 
   return (
-    <div className={s.banners}>
+    <div className={s.offers}>
       <div className={s.head_carousel}>
         <Swiper
           spaceBetween={30}
@@ -398,12 +399,13 @@ const Banners = () => {
             </div>
           </section>
         </div>
+
         <div className={s.market_items}>
           <div className={s.tabs}>
             <section className={s.tabs_names}>
               <p>
                 <Image
-                  src={"/assets/banners/setting.svg"}
+                  src={"/assets/Offers/setting.svg"}
                   alt=""
                   width={15}
                   height={18}
@@ -420,15 +422,15 @@ const Banners = () => {
               <Dropdown isOpen={dropdownOpen} toggle={toggle} direction={"up"}>
                 <DropdownToggle caret>صفحات آگهی</DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem onClick={() => setBanners("sale")}>
+                  <DropdownItem onClick={() => setOffers("sale")}>
                     {" "}
                     فروش
                   </DropdownItem>
-                  <DropdownItem onClick={() => setBanners("buy-sale")}>
+                  <DropdownItem onClick={() => setOffers("buy-sale")}>
                     {" "}
                     خرید و فروش
                   </DropdownItem>
-                  <DropdownItem onClick={() => setBanners("service")}>
+                  <DropdownItem onClick={() => setOffers("service")}>
                     {" "}
                     خدمات
                   </DropdownItem>
@@ -437,7 +439,7 @@ const Banners = () => {
             </div>
           </div>
 
-          {banners !== "buy-sale"
+          {Offers !== "buy-sale"
             ? marketItems.map((item, index) => (
                 <MarketCard
                   key={Math.random * index}
@@ -450,15 +452,15 @@ const Banners = () => {
                 />
               ))
             : marketItems.map((item, index) => (
-                <MarketCard
+                <BuySaleCard
                   key={Math.random * index}
-                  createYear={item.createYear}
-                  image={item.image}
-                  title={item.title}
-                  description={item.description}
-                  timePosted={item.timePosted}
-                  location={item.location}
-                  price={item.price}
+                  createYear={"1392"}
+                  image={"/assets/offers/banner-buy-sale.png"}
+                  title={"ام وی ام"}
+                  description={"ام وی ام اتوماتیک ۹۲"}
+                  timePosted={"۲ هفته پیش"}
+                  location={"تهران"}
+                  price={"۹,۹۰۰,۰۰۰,۰۰۰"}
                 />
               ))}
         </div>
@@ -467,4 +469,4 @@ const Banners = () => {
   );
 };
 
-export default Banners;
+export default Offers;

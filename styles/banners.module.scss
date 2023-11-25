@@ -12,7 +12,7 @@
   align-items: $a;
 }
 
-.banners {
+.offers {
   .cards {
     @include flex(row, flex-start, center);
     overflow-x: scroll;

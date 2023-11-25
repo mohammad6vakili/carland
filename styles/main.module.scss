@@ -825,7 +825,7 @@
 }
 
 //banners
-.banners {
+.offers {
   @include flex(column, flex-start, center);
   width: 100%;
   font-family: dana;
@@ -1139,6 +1139,41 @@
 
       .market_card:last-child {
         margin-left: auto !important;
+      }
+
+      .buy_sale_card {
+        @include flex(column, flex-start, center);
+        width: 260px;
+        min-width: 20%;
+        height: 325px;
+        border-radius: 15px;
+        box-shadow: 11px -3px 30px 0px rgba(216, 7, 57, 0.12);
+        position: relative;
+        margin: 5rem 1rem;
+
+        .image {
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+          overflow: hidden;
+          img {
+            width: 100%;
+          }
+        }
+
+        .details {
+          width: 80%;
+          color: #fff;
+          padding: 1rem;
+          position: absolute;
+          bottom: 0;
+          transform: translate(0, 50%);
+          border-radius: 20px;
+          border: 1px solid #fff;
+          background: rgba(22, 41, 211, 0.5);
+          backdrop-filter: blur(45px);
+          z-index: 2;
+        }
       }
     }
   }

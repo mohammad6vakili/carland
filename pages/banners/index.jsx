@@ -1,4 +1,4 @@
-import Banners from "@/src/components/banners/Banners";
+import Offers from "@/src/components/offers/Offers";
 import Footer from "@/src/components/header-footer/Footer";
 import Header from "@/src/components/header-footer/Header";
 
@@ -6,7 +6,7 @@ const index = () => {
   return (
     <>
       <Header />
-      <Banners />
+      <Offers />
       <Footer />
     </>
   );
