@@ -20,7 +20,7 @@ const BuySaleCard = ({
           <div className={s.texts}>
             <div className={s.year_box}>
               ساخت
-              {createYear}
+              <span>{createYear}</span>
             </div>
 
             <div className={s.share_bookmark}>
@@ -45,12 +45,18 @@ const BuySaleCard = ({
         </section>
 
         <section className={s.details}>
-          <span>{title}</span>
+          <span className={s.title}>{title}</span>
           <p>{description}</p>
           <span>{timePosted}</span>
           <span>
+            <Image
+              style={{ color: "#fff !important" }}
+              src={"/assets/location.svg"}
+              alt=""
+              width={15}
+              height={15}
+            />
             {location}{" "}
-            <Image src={"/assets/location.svg"} alt="" width={15} height={15} />
           </span>
           <div className={s.button}>
             <Button>

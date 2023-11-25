@@ -454,7 +454,7 @@ const Offers = () => {
             : marketItems.map((item, index) => (
                 <BuySaleCard
                   key={Math.random * index}
-                  createYear={"1392"}
+                  createYear={"۱۳۹۲"}
                   image={"/assets/offers/banner-buy-sale.png"}
                   title={"ام وی ام"}
                   description={"ام وی ام اتوماتیک ۹۲"}

@@ -830,6 +830,10 @@
   width: 100%;
   font-family: dana;
 
+  p {
+    margin: 0;
+  }
+
   .head_carousel {
     width: 90%;
     margin: 2rem 0;
@@ -1039,6 +1043,7 @@
 
     .market_items {
       @include flex(row, flex-start, flex-start);
+      gap: 1rem;
       flex-wrap: wrap;
       width: 100%;
       padding: 2rem;
@@ -1149,22 +1154,64 @@
         border-radius: 15px;
         box-shadow: 11px -3px 30px 0px rgba(216, 7, 57, 0.12);
         position: relative;
-        margin: 5rem 1rem;
+        margin: 5rem auto;
 
         .image {
           width: 100%;
           height: 100%;
           border-radius: 20px;
           overflow: hidden;
+          position: relative;
           img {
             width: 100%;
+            height: 100%;
+          }
+
+          .texts {
+            @include flex(column, flex-start, flex-start);
+            gap: 5px;
+            z-index: 2;
+            width: 20%;
+            position: absolute;
+            left: 5%;
+            top: 5%;
+
+            .year_box {
+              @include flex(column, center, center);
+              width: 100%;
+              border-radius: 12px;
+              border: 1px solid #142d5d;
+              background: #eaedf3;
+              padding: 0.5rem 1rem;
+            }
+
+            .share_bookmark {
+              @include flex(row, center, center);
+              gap: 10%;
+              width: 100%;
+              padding: 5px;
+
+              div {
+                border-radius: 6px;
+                border: 1px solid #fff;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(35px);
+                img {
+                  width: 1.2rem;
+                  height: 1.2rem;
+                }
+              }
+            }
           }
         }
 
         .details {
+          @include flex(column, flex-end, flex-start);
+          gap: 5px;
           width: 80%;
           color: #fff;
           padding: 1rem;
+          padding-bottom: 0;
           position: absolute;
           bottom: 0;
           transform: translate(0, 50%);
@@ -1173,6 +1220,28 @@
           background: rgba(22, 41, 211, 0.5);
           backdrop-filter: blur(45px);
           z-index: 2;
+
+          .title {
+            font-size: 1.2em;
+            font-weight: bold;
+          }
+
+          .button {
+            @include flex(row, center, flex-end);
+            width: 100%;
+            margin-top: auto;
+            button {
+              color: #fff;
+              border-radius: 10px 10px 0px 0px;
+              border-top: 1px solid #fff;
+              border-right: 1px solid #fff;
+              border-left: 1px solid #fff;
+              background: rgba(255, 255, 255, 0.2);
+              span {
+                color: #101010;
+              }
+            }
+          }
         }
       }
     }
