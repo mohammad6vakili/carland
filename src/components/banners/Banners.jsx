@@ -3,12 +3,66 @@ import MarketCard from "../main/MarketCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
-import { Button } from "reactstrap";
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
 import { LeftOutlined, DownOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 const Banners = () => {
+  const marketItems = [
+    {
+      image: "/assets/main/market-1.png",
+      off: "30%",
+      title: "روغن موتور ادینول",
+      description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
+      price: "۲,۵۰۰,۰۰۰",
+    },
+    {
+      image: "/assets/main/market-1.png",
+      off: "30%",
+      title: "روغن موتور ادینول",
+      description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
+      price: "۲,۵۰۰,۰۰۰",
+    },
+    {
+      image: "/assets/main/market-1.png",
+      off: "30%",
+      title: "روغن موتور ادینول",
+      description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
+      price: "۲,۵۰۰,۰۰۰",
+    },
+    {
+      image: "/assets/main/market-1.png",
+      off: "30%",
+      title: "روغن موتور ادینول",
+      description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
+      price: "۲,۵۰۰,۰۰۰",
+    },
+    {
+      image: "/assets/main/market-1.png",
+      off: "30%",
+      title: "روغن موتور ادینول",
+      description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
+      price: "۲,۵۰۰,۰۰۰",
+    },
+    {
+      image: "/assets/main/market-1.png",
+      off: "30%",
+      title: "روغن موتور ادینول",
+      description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
+      price: "۲,۵۰۰,۰۰۰",
+    },
+  ];
   const [cSelected, setCSelected] = useState([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [banners, setBanners] = useState("فروش");
+
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   const onCheckboxBtnClick = (selected) => {
     const index = cSelected.indexOf(selected);
@@ -344,16 +398,56 @@ const Banners = () => {
             </div>
           </section>
         </div>
+        <div className={s.market_items}>
+          <div className={s.tabs}>
+            <section className={s.tabs_names}>
+              <p>
+                <Image
+                  src={"/assets/banners/setting.svg"}
+                  alt=""
+                  width={15}
+                  height={18}
+                />
+                پیش فرض
+              </p>
+              <span>جدیدترین</span>
+              <span>پرفروش‌ترین</span>
+              <span>ارزان‌ترین</span>
+              <span>گران‌ترین</span>
+            </section>
 
-        <div className={s.market_materials1}>
-          <MarketCard
-            // key={Math.random * index}
-            image={"/assets/main/club.png"}
-            off={"item.off"}
-            title={"item.title"}
-            description={"item.description"}
-            price={"item.price"}
-          />
+            <div className="d-flex p-3">
+              <Dropdown isOpen={dropdownOpen} toggle={toggle} direction={"up"}>
+                <DropdownToggle caret>صفحات آگهی</DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={() => setBanners("sale")}>
+                    {" "}
+                    فروش
+                  </DropdownItem>
+                  <DropdownItem onClick={() => setBanners("buy-sale")}>
+                    {" "}
+                    خرید و فروش
+                  </DropdownItem>
+                  <DropdownItem onClick={() => setBanners("service")}>
+                    {" "}
+                    خدمات
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          </div>
+
+          {marketItems.map((item, index) => (
+            <MarketCard
+              key={Math.random * index}
+              image={item.image}
+              off={item.off}
+              title={item.title}
+              description={item.description}
+              price={item.price}
+              index={index + 1}
+            />
+          ))}
         </div>
       </section>
     </div>
