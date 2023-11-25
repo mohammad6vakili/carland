@@ -3,7 +3,7 @@ import styles from "../../../styles/main.module.scss";
 import { LeftOutlined, StarFilled, CaretLeftFilled } from "@ant-design/icons";
 import { Button } from "reactstrap";
 
-const AdsCard = ({ image, title, details, location, time, rate }) => {
+const BannersCard = ({ image, title, details, location, time, rate }) => {
   return (
     <>
       <div className={styles.ad_card}>
@@ -89,4 +89,4 @@ const AdsCard = ({ image, title, details, location, time, rate }) => {
   );
 };
 
-export default AdsCard;
+export default BannersCard;

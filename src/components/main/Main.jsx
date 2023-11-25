@@ -4,7 +4,7 @@ import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { Button } from "reactstrap";
-import AdsCard from "./AdsCard";
+import BannersCard from "./BannersCard";
 import MarketCard from "./MarketCard";
 
 const Main = () => {
@@ -624,7 +624,7 @@ const Main = () => {
 
           <section className={styles.cards}>
             {ads.map((ad, index) => (
-              <AdsCard
+              <BannersCard
                 key={Math.random() * index}
                 image={ad.image}
                 title={ad.title}
