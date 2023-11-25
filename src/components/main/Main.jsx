@@ -492,6 +492,78 @@ const Main = () => {
                     />
                     <span>بیمه ماشین</span>
                   </div>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
+                  </div>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
+                  </div>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
+                  </div>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
+                  </div>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
+                  </div>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
+                  </div>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
+                  </div>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
+                  </div>
                 </section>
 
                 <section className={styles.down_content}>
@@ -515,36 +587,6 @@ const Main = () => {
                   </div>
 
                   <div className={styles.texts}>
-                    <div className={styles.service_list}>
-                      <div className={styles.service}>
-                        <Image
-                          alt=""
-                          width={55}
-                          height={55}
-                          src={"/assets/main/service-1.svg"}
-                        />
-                        <span>بیمه ماشین</span>
-                      </div>
-                      <div className={styles.service}>
-                        <Image
-                          alt=""
-                          width={55}
-                          height={55}
-                          src={"/assets/main/service-1.svg"}
-                        />
-                        <span>بیمه ماشین</span>
-                      </div>
-                      <div className={styles.service}>
-                        <Image
-                          alt=""
-                          width={55}
-                          height={55}
-                          src={"/assets/main/service-1.svg"}
-                        />
-                        <span>بیمه ماشین</span>
-                      </div>
-                    </div>
-
                     <p>000049km</p>
                   </div>
 
@@ -607,7 +649,10 @@ const Main = () => {
               />
             </div>
             <section className={styles.texts}>
-              <h1>همین الان فروشنده شو!</h1>
+              <h1>
+                همین الان
+                <span>فروشنده شو!</span>
+              </h1>
               <p>
                 میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
                 پیش آمده تمام قطعات رو اینجا پیدا کنید.
@@ -625,7 +670,7 @@ const Main = () => {
               <Image
                 src={"/assets/main/infos/info-1.png"}
                 alt=""
-                width={50}
+                width={100}
                 height={220}
               />
             </div>
@@ -651,7 +696,7 @@ const Main = () => {
               <Image
                 src={"/assets/main/infos/info-2.png"}
                 alt=""
-                width={50}
+                width={100}
                 height={220}
               />
             </div>
@@ -851,7 +896,7 @@ const Main = () => {
               <Image
                 src={"/assets/main/infos/info-1.png"}
                 alt=""
-                width={50}
+                width={100}
                 height={220}
               />
             </div>
@@ -877,10 +922,260 @@ const Main = () => {
               <Image
                 src={"/assets/main/infos/info-2.png"}
                 alt=""
-                width={50}
+                width={100}
                 height={220}
               />
             </div>
+          </div>
+        </div>
+
+        <div className={styles.fan_club}>
+          <section className={styles.title}>
+            <h1>
+              کلوب هواداران <div className={styles.line}></div>
+            </h1>
+          </section>
+
+          <section className={styles.club_list}>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className={styles.box}>
+              <Image
+                src={"/assets/main/club.svg"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+          </section>
+        </div>
+
+        <div className={styles.mags_link}>
+          <section className={styles.mag}>
+            <div className={styles.pic}>
+              <Image
+                src={"/assets/main/mag-back.png"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+
+            <div className={styles.texts}>
+              <h1>تاریخچه خودروهای قدیمی</h1>
+              <div className={styles.refrences}>
+                <div>
+                  <div className={styles.profile}></div>
+                  <span>مهزیار رازه </span>
+                </div>
+                <Button>
+                  مشاهده{" "}
+                  <div>
+                    <Image
+                      src={"/assets/main/see-more.svg"}
+                      alt=""
+                      width={15}
+                      height={15}
+                    />
+                  </div>
+                </Button>
+              </div>
+            </div>
+          </section>
+          <section className={styles.mag}>
+            <div className={styles.pic}>
+              <Image
+                src={"/assets/main/mag-back.png"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+
+            <div className={styles.texts}>
+              <h1>تاریخچه خودروهای قدیمی</h1>
+              <div className={styles.refrences}>
+                <div>
+                  <div className={styles.profile}></div>
+                  <span>مهزیار رازه </span>
+                </div>
+                <Button>
+                  مشاهده{" "}
+                  <div>
+                    <Image
+                      src={"/assets/main/see-more.svg"}
+                      alt=""
+                      width={15}
+                      height={15}
+                    />
+                  </div>
+                </Button>
+              </div>
+            </div>
+          </section>
+          <section className={styles.mag}>
+            <div className={styles.pic}>
+              <Image
+                src={"/assets/main/mag-back.png"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+
+            <div className={styles.texts}>
+              <h1>تاریخچه خودروهای قدیمی</h1>
+              <div className={styles.refrences}>
+                <div>
+                  <div className={styles.profile}></div>
+                  <span>مهزیار رازه </span>
+                </div>
+                <Button>
+                  مشاهده{" "}
+                  <div>
+                    <Image
+                      src={"/assets/main/see-more.svg"}
+                      alt=""
+                      width={15}
+                      height={15}
+                    />
+                  </div>
+                </Button>
+              </div>
+            </div>
+          </section>
+          <section className={styles.mag}>
+            <div className={styles.pic}>
+              <Image
+                src={"/assets/main/mag-back.png"}
+                alt=""
+                width={50}
+                height={50}
+              />
+            </div>
+
+            <div className={styles.texts}>
+              <h1>تاریخچه خودروهای قدیمی</h1>
+              <div className={styles.refrences}>
+                <div>
+                  <div className={styles.profile}></div>
+                  <span>مهزیار رازه </span>
+                </div>
+                <Button>
+                  مشاهده{" "}
+                  <div>
+                    <Image
+                      src={"/assets/main/see-more.svg"}
+                      alt=""
+                      width={15}
+                      height={15}
+                    />
+                  </div>
+                </Button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div className={styles.install_app}>
+          <div className={styles.texts}>
+            <div>
+              <div className={styles.title}>
+                دانلود اپلیکیشن
+                <div>کارلند سرزمین خودرو</div>
+              </div>
+              <p>
+                میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
+                پیش آمده تمام قطعات رو اینجا پیدا کنید. همچنین برای دانلود سریع
+                و بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده در
+                موبایل خود انجام دهید.
+              </p>
+            </div>
+
+            <div className={styles.btns}>
+              <Button color="none">بازار</Button>
+              <Button color="none">بازار</Button>
+              <Button color="none">بازار</Button>
+              <Button color="none">بازار</Button>
+              <Button color="none">بازار</Button>
+            </div>
+          </div>
+
+          <div className={styles.pics}>
+            <Image
+              src={"/assets/main/install-app1.png"}
+              alt=""
+              width={300}
+              height={600}
+            />
+            <Image
+              src={"/assets/main/install-app2.png"}
+              alt=""
+              width={300}
+              height={600}
+            />
           </div>
         </div>
       </section>
