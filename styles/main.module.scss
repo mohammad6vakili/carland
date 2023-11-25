@@ -320,7 +320,7 @@
     @include flex(row, space-between, center);
     height: 230px;
     width: 100%;
-    margin: 2rem;
+    margin: 40px;
 
     .info {
       @include flex(row, space-between, center);
