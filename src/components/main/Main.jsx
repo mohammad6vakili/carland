@@ -399,17 +399,41 @@ const Main = () => {
           </section>
 
           <section className={styles.cards}>
-            {ads.map((ad, index) => (
-              <BannersCard
-                key={Math.random() * index}
-                image={ad.image}
-                title={ad.title}
-                details={ad.details}
-                location={ad.location}
-                time={ad.time}
-                rate={ad.rate}
-              />
-            ))}
+            <Swiper
+              slidesPerView={6}
+              spaceBetween={30}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 50,
+                },
+              }}
+              grabCursor={true}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {ads.map((ad, index) => (
+                <SwiperSlide>
+                  <BannersCard
+                    key={Math.random() * index}
+                    image={ad.image}
+                    title={ad.title}
+                    details={ad.details}
+                    location={ad.location}
+                    time={ad.time}
+                    rate={ad.rate}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
             <div className={styles.opacity}></div>
           </section>
         </div>
@@ -940,13 +964,13 @@ const Main = () => {
 
           <div className={styles.pics}>
             <Image
-              src={"/assets/main/install-app1.png"}
+              src={"/assets/main/install-app-1.png"}
               alt=""
               width={300}
               height={600}
             />
             <Image
-              src={"/assets/main/install-app2.png"}
+              src={"/assets/main/install-app-2.png"}
               alt=""
               width={300}
               height={600}

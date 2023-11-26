@@ -24,15 +24,15 @@ const HCarousel = () => {
           className={styles.mySwiper}
         >
           <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={styles.background}
-            />
-
             <div className={styles.content}>
+              <Image
+                src={"/assets/main/head-carousel-background.svg"}
+                alt=""
+                width={1000}
+                height={386}
+                className={styles.background}
+              />
+
               <div className={styles.texts}>
                 <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
                 <p>
@@ -59,15 +59,15 @@ const HCarousel = () => {
           </SwiperSlide>
 
           <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={styles.background}
-            />
-
             <div className={styles.content}>
+              <Image
+                src={"/assets/main/head-carousel-background.svg"}
+                alt=""
+                width={1000}
+                height={386}
+                className={styles.background}
+              />
+
               <div className={styles.texts}>
                 <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
                 <p>
@@ -92,17 +92,16 @@ const HCarousel = () => {
               />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={styles.background}
-            />
-
             <div className={styles.content}>
+              <Image
+                src={"/assets/main/head-carousel-background.svg"}
+                alt=""
+                width={1000}
+                height={386}
+                className={styles.background}
+              />
+
               <div className={styles.texts}>
                 <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
                 <p>
@@ -127,17 +126,16 @@ const HCarousel = () => {
               />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={styles.background}
-            />
-
             <div className={styles.content}>
+              <Image
+                src={"/assets/main/head-carousel-background.svg"}
+                alt=""
+                width={1000}
+                height={386}
+                className={styles.background}
+              />
+
               <div className={styles.texts}>
                 <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
                 <p>
@@ -162,52 +160,16 @@ const HCarousel = () => {
               />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={styles.background}
-            />
-
             <div className={styles.content}>
-              <div className={styles.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={styles.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
               <Image
-                src={"/assets/main/car-1.svg"}
+                src={"/assets/main/head-carousel-background.svg"}
                 alt=""
-                width={386}
+                width={1000}
                 height={386}
-                className={styles.car}
+                className={styles.background}
               />
-            </div>
-          </SwiperSlide>
 
-          <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={styles.background}
-            />
-
-            <div className={styles.content}>
               <div className={styles.texts}>
                 <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
                 <p>
