@@ -1,12 +1,18 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "../../../styles/main.module.scss";
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Autoplay, Navigation, Pagination, A11y } from "swiper/modules";
+import {
+  LeftOutlined,
+  RightOutlined,
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+} from "@ant-design/icons";
 import Image from "next/image";
 import { Button } from "reactstrap";
 import BannersCard from "./BannersCard";
 import MarketCard from "./MarketCard";
 import HCarousel from "./HCarousel";
+import { useEffect, useRef, useState } from "react";
 
 const Main = () => {
   const ads = [
@@ -95,7 +101,6 @@ const Main = () => {
       rate: "4.5",
     },
   ];
-
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -140,6 +145,43 @@ const Main = () => {
       price: "۲,۵۰۰,۰۰۰",
     },
   ];
+  const clubs = [{ src: "/assets/main/club.svg" }];
+
+  const [adsSwiper, setAdsSwiper] = useState();
+  const [marketRSwiper, setMarketRSwiper] = useState();
+  const [marketBSwiper, setMarketBSwiper] = useState();
+  const prevAdRef = useRef();
+  const nextAdRef = useRef();
+  const prevMarketRRef = useRef();
+  const nextMarketRRef = useRef();
+  const prevMarketBRef = useRef();
+  const nextMarketBRef = useRef();
+
+  useEffect(() => {
+    if (adsSwiper) {
+      console.log("Swiper instance:", adsSwiper);
+      adsSwiper.params.navigation.prevEl = prevAdRef.current;
+      adsSwiper.params.navigation.nextEl = nextAdRef.current;
+      adsSwiper.navigation.init();
+      adsSwiper.navigation.update();
+    }
+  }, [adsSwiper]);
+  useEffect(() => {
+    if (marketRSwiper) {
+      marketRSwiper.params.navigation.prevEl = prevMarketRRef.current;
+      marketRSwiper.params.navigation.nextEl = nextMarketRRef.current;
+      marketRSwiper.navigation.init();
+      marketRSwiper.navigation.update();
+    }
+  }, [marketRSwiper]);
+  useEffect(() => {
+    if (marketBSwiper) {
+      marketBSwiper.params.navigation.prevEl = prevMarketBRef.current;
+      marketBSwiper.params.navigation.nextEl = nextMarketBRef.current;
+      marketBSwiper.navigation.init();
+      marketBSwiper.navigation.update();
+    }
+  }, [marketBSwiper]);
 
   return (
     <>
@@ -400,30 +442,32 @@ const Main = () => {
 
           <section className={styles.cards}>
             <Swiper
-              slidesPerView={6}
-              spaceBetween={30}
+              navigation={{
+                prevEl: prevAdRef?.current,
+                nextEl: nextAdRef?.current,
+              }}
               breakpoints={{
                 640: {
                   slidesPerView: 2,
                   spaceBetween: 20,
                 },
                 768: {
-                  slidesPerView: 4,
+                  slidesPerView: 3,
                   spaceBetween: 40,
                 },
                 1024: {
-                  slidesPerView: 4,
+                  slidesPerView: 5.1,
                   spaceBetween: 50,
                 },
               }}
               grabCursor={true}
-              modules={[Pagination]}
+              modules={[Navigation]}
+              onSwiper={setAdsSwiper}
               className="mySwiper"
             >
               {ads.map((ad, index) => (
-                <SwiperSlide>
+                <SwiperSlide key={Math.random() * index}>
                   <BannersCard
-                    key={Math.random() * index}
                     image={ad.image}
                     title={ad.title}
                     details={ad.details}
@@ -434,6 +478,12 @@ const Main = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
+            <div className={styles.swiper_next} ref={nextAdRef}>
+              <ArrowLeftOutlined style={{ color: "#fff" }} />
+            </div>
+            <div className={styles.swiper_prev} ref={prevAdRef}>
+              <ArrowRightOutlined style={{ color: "#fff" }} />
+            </div>
             <div className={styles.opacity}></div>
           </section>
         </div>
@@ -515,31 +565,95 @@ const Main = () => {
           </div>
 
           <div className={styles.market_materials1}>
-            {marketItems.map((item, index) => (
-              <MarketCard
-                key={Math.random() * index}
-                image={item.image}
-                off={item.off}
-                title={item.title}
-                description={item.description}
-                price={item.price}
-                index={index}
-              />
-            ))}
+            <Swiper
+              navigation={{
+                prevEl: prevMarketRRef?.current,
+                nextEl: nextMarketRRef?.current,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 4.5,
+                  spaceBetween: 50,
+                },
+              }}
+              grabCursor={true}
+              modules={[Navigation]}
+              onSwiper={setMarketRSwiper}
+              className="mySwiper"
+            >
+              {marketItems.map((item, index) => (
+                <SwiperSlide key={Math.random() * index}>
+                  <MarketCard
+                    image={item.image}
+                    off={item.off}
+                    title={item.title}
+                    description={item.description}
+                    price={item.price}
+                    index={index}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className={styles.swiper_next} ref={nextMarketRRef}>
+              <ArrowLeftOutlined style={{ color: "#fff" }} />
+            </div>
+            <div className={styles.swiper_prev} ref={prevMarketRRef}>
+              <ArrowRightOutlined style={{ color: "#fff" }} />
+            </div>
           </div>
 
           <div className={styles.market_materials2}>
-            {marketItems.map((item, index) => (
-              <MarketCard
-                key={Math.random() * index}
-                image={item.image}
-                off={item.off}
-                title={item.title}
-                description={item.description}
-                price={item.price}
-                index={index}
-              />
-            ))}
+            <Swiper
+              navigation={{
+                prevEl: prevMarketBRef?.current,
+                nextEl: nextMarketBRef?.current,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 4.5,
+                  spaceBetween: 50,
+                },
+              }}
+              grabCursor={true}
+              modules={[Navigation]}
+              onSwiper={setMarketBSwiper}
+              className="mySwiper"
+            >
+              {marketItems.map((item, index) => (
+                <SwiperSlide key={Math.random() * index}>
+                  <MarketCard
+                    image={item.image}
+                    off={item.off}
+                    title={item.title}
+                    description={item.description}
+                    price={item.price}
+                    index={index}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className={styles.swiper_next} ref={nextMarketBRef}>
+              <ArrowLeftOutlined style={{ color: "#fff" }} />
+            </div>
+            <div className={styles.swiper_prev} ref={prevMarketBRef}>
+              <ArrowRightOutlined style={{ color: "#fff" }} />
+            </div>
           </div>
         </div>
 
@@ -737,78 +851,15 @@ const Main = () => {
           </section>
 
           <section className={styles.club_list}>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-            <div className={styles.box}>
-              <Image
-                src={"/assets/main/club.svg"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
+            <Swiper>
+              {clubs.map((club, index) => (
+                <SwiperSlide>
+                  <div className={styles.box}>
+                    <Image src={club.src} alt="" width={50} height={50} />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </section>
         </div>
 
@@ -954,11 +1005,54 @@ const Main = () => {
             </div>
 
             <div className={styles.btns}>
-              <Button color="none">بازار</Button>
-              <Button color="none">بازار</Button>
-              <Button color="none">بازار</Button>
-              <Button color="none">بازار</Button>
-              <Button color="none">بازار</Button>
+              <Button>
+                <Image
+                  src={"/assets/logos/bazzar.png"}
+                  alt=""
+                  width={50}
+                  height={30}
+                />
+              </Button>
+              <Button>
+                <Image
+                  src={"/assets/logos/sib-app.svg"}
+                  alt=""
+                  width={60}
+                  height={15}
+                />
+              </Button>
+              <Button>
+                <Image
+                  src={"/assets/logos/google-play.png"}
+                  alt=""
+                  width={75}
+                  height={40}
+                />
+              </Button>
+              <Button>
+                <Image
+                  src={"/assets/logos/app-store.png"}
+                  alt=""
+                  width={25}
+                  height={25}
+                />
+                اپ استور
+              </Button>
+              <Button>
+                <Image
+                  src={"/assets/logos/miket.png"}
+                  alt=""
+                  width={22}
+                  height={22}
+                />
+                مایکت
+              </Button>
+              <Button style={{ height: "50px" }} color="main-secondary">
+                دانلود مستقیم
+                <div>
+                  <LeftOutlined style={{ color: "#000" }} />
+                </div>
+              </Button>
             </div>
           </div>
 

@@ -187,9 +187,8 @@
 
   .ads {
     width: 100%;
-    height: 470px;
     margin: 2em;
-    margin-right: 2em auto;
+    padding: 0 2rem;
     position: relative;
 
     .title {
@@ -207,103 +206,95 @@
       }
     }
 
-    .swiper {
-      @include flex(row, flex-start, center);
-      width: 100%;
-      height: 100%;
+    .cards {
+      padding: 0 2rem;
       position: relative;
-    }
+      .ad_card {
+        @include flex(column, space-between, center);
+        width: 260px;
+        min-width: 260px;
+        height: 90%;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0px 4px 70px 0px rgba(0, 0, 0, 0.06);
+        padding: 2em;
+        margin: 2em 0;
 
-    .swiper_slide {
-      @include flex(row, flex-start, center);
-      width: 260px;
-      min-width: 260px;
-    }
-
-    .ad_card {
-      @include flex(column, space-between, center);
-      width: 260px;
-      min-width: 260px;
-      height: 90%;
-      border-radius: 20px;
-      background: #fff;
-      box-shadow: 0px 4px 70px 0px rgba(0, 0, 0, 0.06);
-      padding: 2em;
-
-      .image {
-        height: 35%;
-        width: 100%;
-        img {
+        .image {
+          height: 35%;
           width: 100%;
-          height: 100%;
-        }
-      }
-
-      .title {
-        width: 100%;
-        font-weight: bold;
-        padding: 8px;
-      }
-
-      .details {
-        @include flex(row, space-between, center);
-        width: calc(100% + 2em);
-        border-top: 1px solid hsla(0, 0%, 0%, 0.1);
-        border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
-        background: rgba(217, 217, 217, 0.2);
-
-        .option {
-          @include flex(column, space-around, center);
-          padding: 1em;
-          div {
-            @include flex(column, space-around, center);
+          img {
+            width: 100%;
             height: 100%;
-            font-size: 0.8em;
-            color: #4a80e8;
-            span {
-              font-weight: bold;
+          }
+        }
+
+        .title {
+          width: 100%;
+          font-weight: bold;
+          padding: 8px;
+        }
+
+        .details {
+          @include flex(row, space-between, center);
+          width: calc(100% + 2em);
+          border-top: 1px solid hsla(0, 0%, 0%, 0.1);
+          border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+          background: rgba(217, 217, 217, 0.2);
+
+          .option {
+            @include flex(column, space-around, center);
+            padding: 1em;
+            div {
+              @include flex(column, space-around, center);
+              height: 100%;
+              font-size: 0.8em;
+              color: #4a80e8;
+              span {
+                font-weight: bold;
+              }
             }
           }
         }
-      }
 
-      .location_rate {
-        @include flex(row, space-between, center);
-        width: 100%;
-        padding: 1em 0;
-
-        .rate,
-        .location {
-          @include flex(row, center, flex-start);
-        }
-
-        .location {
-          flex-direction: column;
-          :nth-child(2) {
-            color: #3c3c3c;
-            font-size: 0.9em;
-          }
-        }
-      }
-
-      .link {
-        width: 100%;
-        button {
+        .location_rate {
           @include flex(row, space-between, center);
           width: 100%;
-          color: #fff;
+          padding: 1em 0;
 
-          span {
-            margin: 0 auto;
-            font-size: 0.9em;
+          .rate,
+          .location {
+            @include flex(row, center, flex-start);
           }
 
-          div {
-            width: 20%;
-            height: 100%;
-            background-image: url("../public/assets/main/link-back.svg");
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
+          .location {
+            flex-direction: column;
+            :nth-child(2) {
+              color: #3c3c3c;
+              font-size: 0.9em;
+            }
+          }
+        }
+
+        .link {
+          width: 100%;
+          button {
+            @include flex(row, space-between, center);
+            width: 100%;
+            color: #fff;
+
+            span {
+              margin: 0 auto;
+              font-size: 0.9em;
+            }
+
+            div {
+              width: 20%;
+              height: 100%;
+              background-image: url("../public/assets/main/link-back.svg");
+              background-repeat: no-repeat;
+              background-size: 100% 100%;
+            }
           }
         }
       }
@@ -312,11 +303,62 @@
     .opacity {
       position: absolute;
       left: 0;
+      top: 0;
       width: 200px;
       height: 450px;
       opacity: 30%;
       background: #fff;
       box-shadow: 20px 0 50px #fff;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .swiper {
+      @include flex(row, flex-start, center);
+      width: 120%;
+      height: 100%;
+      position: relative;
+      padding: 1rem;
+    }
+
+    .swiper_slide {
+      @include flex(row, flex-start, center);
+      gap: 20px;
+    }
+
+    .swiper_prev,
+    .swiper_next {
+      @include flex(row, center, center);
+      position: absolute;
+      padding: 0;
+      cursor: pointer;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      z-index: 3;
+      width: 55px;
+      height: 55px;
+      background: #142d5d;
+      border: 1px solid gray;
+      border-radius: 50%;
+      font-weight: 700;
+      outline: 0;
+      transition: background-color 0.2s ease, color 0.2s ease;
+
+      span {
+        width: 50%;
+        height: 50%;
+        pointer-events: none;
+        svg {
+          width: 100%;
+          pointer-events: none;
+          height: 100%;
+        }
+      }
+    }
+
+    .swiper_prev {
+      right: 0;
     }
   }
 
@@ -421,18 +463,24 @@
           background: #e6e6e6;
         }
       }
+
+      button {
+        background: #142d5d;
+        border-radius: 5px;
+        color: #fff;
+      }
     }
 
     .market_materials1,
     .market_materials2 {
       @include flex(row, flex-start, center);
       width: 100%;
-      overflow-x: scroll;
       height: 460px;
       border-radius: 40px;
       border: 1px solid #d80739;
       background: #fff;
       padding: 0 1.5rem;
+      position: relative;
 
       .market_card {
         @include flex(column, flex-start, center);
@@ -469,7 +517,8 @@
           gap: 10px;
           padding: 0 1rem;
           h1 {
-            font-size: 1.5em;
+            font-size: 1.2em;
+            font-weight: bold;
           }
           p {
             color: #3f3f3f;
@@ -525,7 +574,7 @@
         position: relative;
 
         .title {
-          @include flex(row, space-around, center);
+          @include flex(row, space-between, center);
         }
 
         .image {
@@ -579,13 +628,61 @@
         background: #142d5d;
       }
     }
+
+    .swiper {
+      @include flex(row, flex-start, center);
+      width: 120%;
+      height: 100%;
+      position: relative;
+      padding: 1rem;
+    }
+
+    .swiper_slide {
+      @include flex(row, flex-start, center);
+      gap: 20px;
+    }
+
+    .swiper_prev,
+    .swiper_next {
+      @include flex(row, center, center);
+      position: absolute;
+      padding: 0;
+      cursor: pointer;
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      width: 55px;
+      height: 55px;
+      background: #142d5d;
+      border: 1px solid gray;
+      border-radius: 50%;
+      font-weight: 700;
+      outline: 0;
+      transition: background-color 0.2s ease, color 0.2s ease;
+
+      span {
+        width: 50%;
+        height: 50%;
+        pointer-events: none;
+        svg {
+          width: 100%;
+          pointer-events: none;
+          height: 100%;
+        }
+      }
+    }
+
+    .swiper_prev {
+      right: 0;
+      transform: translate(50%, -50%);
+    }
   }
 
   .magazine {
     @include flex(column, flex-start, center);
     gap: 1rem;
     width: 100%;
-    height: 500px;
     margin: 2rem;
     padding: 0 2rem;
 
@@ -611,16 +708,16 @@
     }
 
     .content {
-      @include flex(row, space-around, center);
+      @include flex(row, space-between, center);
       width: 100%;
       height: 100%;
 
       .solid_pic {
-        @include flex(row, center, center);
+        @include flex(row, flex-start, center);
         width: 50%;
         position: relative;
         img {
-          width: 90%;
+          width: 100%;
           height: 100%;
           border-radius: 20px;
         }
@@ -815,6 +912,24 @@
         opacity: 60%;
         margin-bottom: auto;
       }
+
+      .btns {
+        @include flex(row, flex-start, flex-start);
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+        button {
+          @include flex(row, center, center);
+          gap: 5px;
+          border: 1px solid hsl(0, 0%, 0%, 0.1);
+          height: 63px;
+          div {
+            background: #fff;
+            border-radius: 10px;
+            padding: 0 3px;
+          }
+        }
+      }
     }
 
     .pics {
@@ -906,6 +1021,10 @@
     width: 100%;
     padding: 2rem;
 
+    .title {
+      cursor: pointer;
+    }
+
     ::-webkit-scrollbar {
       width: 12px;
     }
@@ -935,7 +1054,7 @@
         @include flex(column, flex-start, flex-start);
         gap: 10px;
         width: 250px;
-        height: 250px;
+        max-height: 250px;
         padding: 1rem;
 
         .title {
@@ -1082,12 +1201,12 @@
       .market_card {
         @include flex(column, flex-start, center);
         width: 260px;
-        min-width: 20%;
+        min-width: 260px;
         height: 380px;
         border-radius: 15px;
         box-shadow: 11px -3px 30px 0px rgba(216, 7, 57, 0.12);
         position: relative;
-        margin: 1rem auto;
+        margin: 0 auto;
 
         .badge {
           @include flex(column, flex-start, center);
@@ -1115,7 +1234,8 @@
           gap: 10px;
           padding: 0 1rem;
           h1 {
-            font-size: 1.5em;
+            font-size: 1.2em;
+            font-weight: bold;
           }
           p {
             color: #3f3f3f;

@@ -5,12 +5,14 @@ import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
 import {
   Button,
+  Card,
+  Collapse,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
-import { LeftOutlined, DownOutlined } from "@ant-design/icons";
+import { LeftOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import BuySaleCard from "./BuySaleCard";
 
@@ -59,10 +61,18 @@ const Offers = () => {
       price: "۲,۵۰۰,۰۰۰",
     },
   ];
+  const categoryFillters = [
+    { name: "خودرو", selected: "0" },
+    { name: "خودرو", selected: "0" },
+    { name: "خودرو", selected: "0" },
+    { name: "خودرو", selected: "0" },
+    { name: "خودرو", selected: "0" },
+  ];
   const [cSelected, setCSelected] = useState([]);
   const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [Offers, setOffers] = useState("فروش");
+  const [categoryOpen, setCategoryOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -318,60 +328,24 @@ const Offers = () => {
       <section className={s.market}>
         <div className={s.market_filters}>
           <section className={s.categories}>
-            <div className={s.title}>
-              دسته بندی <DownOutlined />
+            <div
+              onClick={() => setCategoryOpen(!categoryOpen)}
+              className={s.title}
+            >
+              دسته بندی
+              {categoryOpen ? <UpOutlined /> : <DownOutlined />}
             </div>
-            <div className={s.list}>
-              <section className={s.list_item}>
-                خودرو{" "}
-                <Button
-                  onClick={() => handleCatCBClick(1)}
-                  active={categorySelected.includes(1)}
-                ></Button>{" "}
-              </section>
-              <section className={s.list_item}>
-                خودرو{" "}
-                <Button
-                  onClick={() => handleCatCBClick(2)}
-                  active={categorySelected.includes(2)}
-                ></Button>{" "}
-              </section>
-              <section className={s.list_item}>
-                خودرو{" "}
-                <Button
-                  onClick={() => handleCatCBClick(3)}
-                  active={categorySelected.includes(3)}
-                ></Button>{" "}
-              </section>
-              <section className={s.list_item}>
-                خودرو{" "}
-                <Button
-                  onClick={() => handleCatCBClick(4)}
-                  active={categorySelected.includes(4)}
-                ></Button>{" "}
-              </section>
-              <section className={s.list_item}>
-                خودرو{" "}
-                <Button
-                  onClick={() => handleCatCBClick(5)}
-                  active={categorySelected.includes(5)}
-                ></Button>{" "}
-              </section>
-              <section className={s.list_item}>
-                خودرو{" "}
-                <Button
-                  onClick={() => handleCatCBClick(6)}
-                  active={categorySelected.includes(6)}
-                ></Button>{" "}
-              </section>
-              <section className={s.list_item}>
-                خودرو{" "}
-                <Button
-                  onClick={() => handleCatCBClick(1)}
-                  active={categorySelected.includes(1)}
-                ></Button>{" "}
-              </section>
-            </div>
+            <Collapse isOpen={categoryOpen} className={s.list}>
+              {categoryFillters.map((cat, index) => (
+                <section key={Math.random() * index} className={s.list_item}>
+                  {cat.name}
+                  <Button
+                    onClick={() => handleCatCBClick(index + 1)}
+                    active={categorySelected.includes(index + 1)}
+                  ></Button>{" "}
+                </section>
+              ))}
+            </Collapse>
           </section>
 
           <section className={s.brands}>
