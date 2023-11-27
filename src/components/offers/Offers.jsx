@@ -11,12 +11,16 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Nav,
+  NavItem,
+  NavLink,
 } from "reactstrap";
 import { LeftOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BuySaleCard from "./BuySaleCard";
+import JobsCard from "./JobsCard";
 
-const Offers = () => {
+const offers = () => {
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -60,8 +64,33 @@ const Offers = () => {
       description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
       price: "۲,۵۰۰,۰۰۰",
     },
+    {
+      image: "/assets/main/market-1.png",
+      off: "30%",
+      title: "روغن موتور ادینول",
+      description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
+      price: "۲,۵۰۰,۰۰۰",
+    },
+    {
+      image: "/assets/main/market-1.png",
+      off: "30%",
+      title: "روغن موتور ادینول",
+      description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
+      price: "۲,۵۰۰,۰۰۰",
+    },
+  ];
+  const brandsFillters = [
+    { name: "ورچیتو", selected: "0" },
+    { name: "ورچیتو", selected: "0" },
+    { name: "ورچیتو", selected: "0" },
+    { name: "ورچیتو", selected: "0" },
+    { name: "ورچیتو", selected: "0" },
+    { name: "ورچیتو", selected: "0" },
+    { name: "ورچیتو", selected: "0" },
   ];
   const categoryFillters = [
+    { name: "خودرو", selected: "0" },
+    { name: "خودرو", selected: "0" },
     { name: "خودرو", selected: "0" },
     { name: "خودرو", selected: "0" },
     { name: "خودرو", selected: "0" },
@@ -71,8 +100,12 @@ const Offers = () => {
   const [cSelected, setCSelected] = useState([]);
   const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [Offers, setOffers] = useState("فروش");
-  const [categoryOpen, setCategoryOpen] = useState(false);
+  const [offers, setOffers] = useState("jobs");
+  const [categoryOpen, setCategoryOpen] = useState(true);
+  const [brandsOpen, setBrandsOpen] = useState(true);
+  const [yearsOpen, setYearsOpen] = useState(true);
+  const [priceRangeOpen, setPriceRangeOpen] = useState(true);
+  const [colorSelectOpen, setColorSelectOpen] = useState(true);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -95,6 +128,8 @@ const Offers = () => {
     }
     setcategorySelected([...categorySelected]);
   };
+
+  useEffect(() => console.log(offers), [offers]);
 
   return (
     <div className={s.offers}>
@@ -333,117 +368,174 @@ const Offers = () => {
               className={s.title}
             >
               دسته بندی
-              {categoryOpen ? <UpOutlined /> : <DownOutlined />}
+              {categoryOpen ? <DownOutlined /> : <UpOutlined />}
             </div>
-            <Collapse isOpen={categoryOpen} className={s.list}>
-              {categoryFillters.map((cat, index) => (
-                <section key={Math.random() * index} className={s.list_item}>
-                  {cat.name}
-                  <Button
-                    onClick={() => handleCatCBClick(index + 1)}
-                    active={categorySelected.includes(index + 1)}
-                  ></Button>{" "}
-                </section>
-              ))}
+            <Collapse
+              style={{ width: "100%", overflow: "hidden" }}
+              isOpen={categoryOpen}
+            >
+              <div className={s.list}>
+                {categoryFillters.map((cat, index) => (
+                  <section key={Math.random() * index} className={s.list_item}>
+                    {cat.name}
+                    <Button
+                      onClick={() => handleCatCBClick(index + 1)}
+                      active={categorySelected.includes(index + 1)}
+                    ></Button>{" "}
+                  </section>
+                ))}
+              </div>
             </Collapse>
           </section>
 
           <section className={s.brands}>
-            <div className={s.title}>
-              برندها <DownOutlined />
+            <div onClick={() => setBrandsOpen(!brandsOpen)} className={s.title}>
+              برندها
+              {brandsOpen ? <DownOutlined /> : <UpOutlined />}
             </div>
-            <div className={s.list}>
-              <section className={s.list_item}>ورچیتو</section>
-              <section className={s.list_item}>هلیا</section>
-              <section className={s.list_item}>بلو</section>
-              <section className={s.list_item}>سامسونگ</section>
-            </div>
+            <Collapse
+              style={{ width: "100%", overflow: "hidden" }}
+              isOpen={brandsOpen}
+            >
+              <div className={s.list}>
+                {brandsFillters.map((cat, index) => (
+                  <section key={Math.random() * index} className={s.list_item}>
+                    {cat.name}
+                    <Button
+                      onClick={() => onCheckboxBtnClick(index + 1)}
+                      active={cSelected.includes(index + 1)}
+                    ></Button>{" "}
+                  </section>
+                ))}
+              </div>
+            </Collapse>
           </section>
 
           <section className={s.year}>
-            <div className={s.title}>
-              سال <DownOutlined />
+            <div onClick={() => setYearsOpen(!yearsOpen)} className={s.title}>
+              سال
+              {yearsOpen ? <DownOutlined /> : <UpOutlined />}
             </div>
-            <div className={s.list}>
-              <div className={s.list_item}>
-                <Button
-                  onClick={() => onCheckboxBtnClick(1)}
-                  active={cSelected.includes(1)}
-                ></Button>{" "}
-                1402
+            <Collapse
+              isOpen={yearsOpen}
+              style={{ width: "100%", overflow: "hidden" }}
+            >
+              <div className={s.list}>
+                <div className={s.list_item}>
+                  <Button
+                  // onClick={() => onCheckboxBtnClick(1)}
+                  // active={cSelected.includes(1)}
+                  ></Button>{" "}
+                  1402
+                </div>
+                <div className={s.list_item}>
+                  <Button
+                  // onClick={() => onCheckboxBtnClick(2)}
+                  // active={cSelected.includes(2)}
+                  ></Button>{" "}
+                  1402
+                </div>
+                <div className={s.list_item}>
+                  <Button
+                  // onClick={() => onCheckboxBtnClick(3)}
+                  // active={cSelected.includes(3)}
+                  ></Button>{" "}
+                  1402
+                </div>
+                <div className={s.list_item}>
+                  <Button
+                  // onClick={() => onCheckboxBtnClick(4)}
+                  // active={cSelected.includes(4)}
+                  ></Button>{" "}
+                  1402
+                </div>
+                <div className={s.list_item}>
+                  <Button
+                  // onClick={() => onCheckboxBtnClick(5)}
+                  // active={cSelected.includes(5)}
+                  ></Button>{" "}
+                  1402
+                </div>
               </div>
-              <div className={s.list_item}>
-                <Button
-                  onClick={() => onCheckboxBtnClick(2)}
-                  active={cSelected.includes(2)}
-                ></Button>{" "}
-                1402
-              </div>
-              <div className={s.list_item}>
-                <Button
-                  onClick={() => onCheckboxBtnClick(3)}
-                  active={cSelected.includes(3)}
-                ></Button>{" "}
-                1402
-              </div>
-              <div className={s.list_item}>
-                <Button
-                  onClick={() => onCheckboxBtnClick(4)}
-                  active={cSelected.includes(4)}
-                ></Button>{" "}
-                1402
-              </div>
-              <div className={s.list_item}>
-                <Button
-                  onClick={() => onCheckboxBtnClick(5)}
-                  active={cSelected.includes(5)}
-                ></Button>{" "}
-                1402
-              </div>
-            </div>
+            </Collapse>
           </section>
 
           <section className={s.price_range}>
-            <div className={s.title}>
-              محدوده قیمت <DownOutlined />
+            <div
+              onClick={() => setPriceRangeOpen(!priceRangeOpen)}
+              className={s.title}
+            >
+              محدوده قیمت
+              {priceRangeOpen ? <DownOutlined /> : <UpOutlined />}
             </div>
-            <div className={s.range}>
-              <span className={s.from}>۲۰,۶۰۰,۰۰۰ تومان</span>
-              <div className={s.range_input}></div>
-              <span className={s.to}>۲۰,۶۰۰,۰۰۰ تومان</span>
-            </div>
+            <Collapse
+              isOpen={priceRangeOpen}
+              style={{ width: "100%", overflow: "hidden" }}
+            >
+              <div className={s.range}>
+                <span className={s.from}>۲۰,۶۰۰,۰۰۰ تومان</span>
+                <div className={s.range_input}></div>
+                <span className={s.to}>۲۰,۶۰۰,۰۰۰ تومان</span>
+              </div>
+            </Collapse>
           </section>
 
           <section className={s.color_select}>
-            <div className={s.title}>
-              انتخاب رنگ <DownOutlined />
+            <div
+              onClick={() => setColorSelectOpen(!colorSelectOpen)}
+              className={s.title}
+            >
+              انتخاب رنگ
+              {colorSelectOpen ? <DownOutlined /> : <UpOutlined />}
             </div>
-            <div className={s.color_list}>
-              <div className={s.color_box}></div>
-              <div className={s.color_box}></div>
-              <div className={s.color_box}></div>
-              <div className={s.color_box}></div>
-            </div>
+            <Collapse
+              isOpen={colorSelectOpen}
+              style={{ width: "100%", overflow: "hidden" }}
+            >
+              <div className={s.color_list}>
+                <div className={s.color_box}></div>
+                <div className={s.color_box}></div>
+                <div className={s.color_box}></div>
+                <div className={s.color_box}></div>
+              </div>
+            </Collapse>
           </section>
         </div>
 
         <div className={s.market_items}>
           <div className={s.tabs}>
-            <section className={s.tabs_names}>
-              <p>
-                <Image
-                  src={"/assets/Offers/setting.svg"}
-                  alt=""
-                  width={15}
-                  height={18}
-                />
-                پیش فرض
-              </p>
-              <span>جدیدترین</span>
-              <span>پرفروش‌ترین</span>
-              <span>ارزان‌ترین</span>
-              <span>گران‌ترین</span>
-            </section>
+            <Nav className={s.tabs_names}>
+              <NavItem>
+                <NavLink disabled>
+                  <Image
+                    src={"/assets/offers/setting.svg"}
+                    alt=""
+                    width={15}
+                    height={18}
+                  />
+                  پیش فرض
+                </NavLink>
+              </NavItem>
+              <NavItem style={{ height: "100%" }}>
+                <NavLink
+                  style={{
+                    borderBottom: "2px solid blue",
+                  }}
+                  active
+                >
+                  جدیدترین
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink disabled>پرفروش‌ترین</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink disabled>ارزان‌ترین</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink disabled>گران‌ترین</NavLink>
+              </NavItem>
+            </Nav>
 
             <div className="d-flex p-3">
               <Dropdown isOpen={dropdownOpen} toggle={toggle} direction={"up"}>
@@ -461,24 +553,17 @@ const Offers = () => {
                     {" "}
                     خدمات
                   </DropdownItem>
+                  <DropdownItem onClick={() => setOffers("jobs")}>
+                    {" "}
+                    کسب و کار
+                  </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </div>
           </div>
 
-          {Offers !== "buy-sale"
+          {offers === "buy-sale"
             ? marketItems.map((item, index) => (
-                <MarketCard
-                  key={Math.random() * index}
-                  image={item.image}
-                  off={item.off}
-                  title={item.title}
-                  description={item.description}
-                  price={item.price}
-                  index={index + 1}
-                />
-              ))
-            : marketItems.map((item, index) => (
                 <BuySaleCard
                   key={Math.random() * index}
                   createYear={"۱۳۹۲"}
@@ -489,6 +574,32 @@ const Offers = () => {
                   location={"تهران"}
                   price={"۹,۹۰۰,۰۰۰,۰۰۰"}
                 />
+              ))
+            : offers === "jobs"
+            ? marketItems.map((item, index) => (
+                <JobsCard
+                  key={Math.random() * index}
+                  image={"/assets/offers/jobs-1.png"}
+                  rate={"۴.۵"}
+                  title={"لوازم یدکی میلاد"}
+                  description={
+                    "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و ..."
+                  }
+                  isOpen={true}
+                  location={"تهران"}
+                  workTime={"ساعت کاری: ۹ تا ۲۲"}
+                />
+              ))
+            : marketItems.map((item, index) => (
+                <MarketCard
+                  key={Math.random() * index}
+                  image={item.image}
+                  off={item.off}
+                  title={item.title}
+                  description={item.description}
+                  price={item.price}
+                  index={index + 1}
+                />
               ))}
         </div>
       </section>
@@ -496,4 +607,4 @@ const Offers = () => {
   );
 };
 
-export default Offers;
+export default offers;
