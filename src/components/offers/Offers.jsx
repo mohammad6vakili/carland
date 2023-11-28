@@ -539,7 +539,7 @@ const offers = () => {
 
             <div className="d-flex p-3">
               <Dropdown isOpen={dropdownOpen} toggle={toggle} direction={"up"}>
-                <DropdownToggle caret>صفحات آگهی</DropdownToggle>
+                <DropdownToggle caret>{offers}</DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem onClick={() => setOffers("sale")}>
                     {" "}
