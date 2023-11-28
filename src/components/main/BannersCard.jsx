@@ -2,8 +2,11 @@ import Image from "next/image";
 import styles from "../../../styles/main.module.scss";
 import { LeftOutlined, StarFilled, CaretLeftFilled } from "@ant-design/icons";
 import { Button } from "reactstrap";
+import { useRouter } from "next/navigation";
 
 const BannersCard = ({ image, title, details, location, time, rate }) => {
+  const router = useRouter();
+
   return (
     <>
       <div className={styles.ad_card}>
@@ -77,7 +80,7 @@ const BannersCard = ({ image, title, details, location, time, rate }) => {
         </div>
 
         <div className={styles.link}>
-          <Button color="main-primary">
+          <Button onClick={() => router.push("/offers")} color="main-primary">
             <span>مشاهده</span>
             <div>
               <LeftOutlined style={{ color: "#000" }} />

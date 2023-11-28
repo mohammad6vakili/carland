@@ -35,7 +35,7 @@ const Header = () => {
               height: "100%",
             }}
           >
-            <div className={styles.symbol}>
+            <div onClick={() => router.push("/")} className={styles.symbol}>
               <section className={styles.logo}>
                 <Image
                   src={"/assets/carland-logo.svg"}
@@ -63,7 +63,7 @@ const Header = () => {
               </span>
 
               <Link href={"/"}>
-                <span className={pathname === "/" ? styles.selected : ""}>
+                <span className={pathname === "/market" ? styles.selected : ""}>
                   {" "}
                   بازارچه
                   <div className={styles.line1}></div>

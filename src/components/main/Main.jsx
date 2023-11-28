@@ -145,17 +145,28 @@ const Main = () => {
       price: "۲,۵۰۰,۰۰۰",
     },
   ];
-  const clubs = [{ src: "/assets/main/club.svg" }];
+  const clubs = [
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+  ];
 
   const [adsSwiper, setAdsSwiper] = useState();
   const [marketRSwiper, setMarketRSwiper] = useState();
   const [marketBSwiper, setMarketBSwiper] = useState();
+  const [fanClubSwiper, setFanClubSwiper] = useState();
   const prevAdRef = useRef();
   const nextAdRef = useRef();
   const prevMarketRRef = useRef();
   const nextMarketRRef = useRef();
   const prevMarketBRef = useRef();
   const nextMarketBRef = useRef();
+  const nextFanClubRef = useRef();
+  const prevFanClubRef = useRef();
 
   useEffect(() => {
     if (adsSwiper) {
@@ -182,6 +193,14 @@ const Main = () => {
       marketBSwiper.navigation.update();
     }
   }, [marketBSwiper]);
+  useEffect(() => {
+    if (fanClubSwiper) {
+      fanClubSwiper.params.navigation.prevEl = prevFanClubRef.current;
+      fanClubSwiper.params.navigation.nextEl = nextFanClubRef.current;
+      fanClubSwiper.navigation.init();
+      fanClubSwiper.navigation.update();
+    }
+  }, [fanClubSwiper]);
 
   return (
     <>
@@ -466,14 +485,17 @@ const Main = () => {
               className="mySwiper"
             >
               {ads.map((ad, index) => (
-                <SwiperSlide key={Math.random() * index}>
+                <SwiperSlide
+                  className={styles.slide}
+                  key={Math.random() * index}
+                >
                   <BannersCard
                     image={ad.image}
                     title={ad.title}
                     details={ad.details}
                     location={ad.location}
                     time={ad.time}
-                    rate={ad.rate}
+                    rate={"۴.۵"}
                   />
                 </SwiperSlide>
               ))}
@@ -851,15 +873,32 @@ const Main = () => {
           </section>
 
           <section className={styles.club_list}>
-            <Swiper>
+            <Swiper
+              slidesPerView={6}
+              spaceBetween={50}
+              navigation={{
+                nextEl: nextFanClubRef?.current,
+                prevEl: prevFanClubRef?.current,
+              }}
+              grabCursor={true}
+              modules={[Navigation]}
+              onSwiper={setFanClubSwiper}
+            >
               {clubs.map((club, index) => (
-                <SwiperSlide>
+                <SwiperSlide key={Math.random() * index}>
                   <div className={styles.box}>
                     <Image src={club.src} alt="" width={50} height={50} />
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
+
+            <div className={styles.next} ref={nextFanClubRef}>
+              <ArrowLeftOutlined style={{ color: "#fff" }} />
+            </div>
+            <div className={styles.prev} ref={prevFanClubRef}>
+              <ArrowRightOutlined style={{ color: "#fff" }} />
+            </div>
           </section>
         </div>
 

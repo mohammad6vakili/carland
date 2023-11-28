@@ -2,8 +2,11 @@ import Image from "next/image";
 import styles from "../../../styles/main.module.scss";
 import { LeftOutlined, ShopFilled } from "@ant-design/icons";
 import { Button } from "reactstrap";
+import { useRouter } from "next/navigation";
 
 const MarketCard = ({ image, off, title, description, price, index }) => {
+  const router = useRouter();
+
   return (
     <>
       {index + 1 === 1 ? (
@@ -63,7 +66,10 @@ const MarketCard = ({ image, off, title, description, price, index }) => {
           </div>
 
           <div className={styles.button}>
-            <Button color="main-secondary">
+            <Button
+              onClick={() => router.push("/offers/trades/id")}
+              color="main-secondary"
+            >
               <span>خرید</span>
               <div>
                 <LeftOutlined />

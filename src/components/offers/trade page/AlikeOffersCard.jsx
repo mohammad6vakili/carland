@@ -1,5 +1,5 @@
 import Image from "next/image";
-import s from "../../../styles/main.module.scss";
+import s from "../../../../styles/main.module.scss";
 import { Button } from "reactstrap";
 
 const AlikeOfferso = ({ image, title, description, time }) => {

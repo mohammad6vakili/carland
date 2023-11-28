@@ -100,7 +100,7 @@ const offers = () => {
   const [cSelected, setCSelected] = useState([]);
   const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [offers, setOffers] = useState("jobs");
+  const [offers, setOffers] = useState("buy-sale");
   const [categoryOpen, setCategoryOpen] = useState(true);
   const [brandsOpen, setBrandsOpen] = useState(true);
   const [yearsOpen, setYearsOpen] = useState(true);

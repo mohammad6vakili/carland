@@ -1,4 +1,4 @@
-import s from "../../../styles/main.module.scss";
+import s from "../../../../styles/main.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";

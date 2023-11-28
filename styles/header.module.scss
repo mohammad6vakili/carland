@@ -48,6 +48,7 @@
     .symbol {
       @include flex(row, space-between, center);
       color: #3c3c3c;
+      cursor: pointer;
 
       .logo {
         width: 100%;

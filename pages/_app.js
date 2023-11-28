@@ -11,7 +11,6 @@ import "swiper/css/thumbs";
 const App = ({ Component, pageProps }) => {
   return (
     // <ConfigProvider theme={theme}>
-    // <ConfigProvider>
     <Component {...pageProps} />
     // </ConfigProvider>
   );
