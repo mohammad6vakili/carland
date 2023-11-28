@@ -1,6 +1,7 @@
 import Image from "next/image";
 import s from "../../../styles/main.module.scss";
 import { Button } from "reactstrap";
+import { useRouter } from "next/navigation";
 
 const BuySaleCard = ({
   createYear,
@@ -11,9 +12,14 @@ const BuySaleCard = ({
   location,
   price,
 }) => {
+  const router = useRouter();
+
   return (
     <>
-      <div className={s.buy_sale_card}>
+      <div
+        onClick={() => router.push("/offers/trades/id")}
+        className={s.buy_sale_card}
+      >
         <section className={s.image}>
           <Image src={image} alt="" width={200} height={400} />
 

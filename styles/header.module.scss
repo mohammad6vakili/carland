@@ -127,11 +127,13 @@
       .shop {
         background: #eaedf3;
         position: relative;
+        height: 50px;
 
         .badge {
           @include flex(row, center, center);
           width: 25px;
           height: 25px;
+          font-size: 0.8em;
           background-image: url("../public/assets/badge.svg");
           background-repeat: no-repeat;
           color: #fff;
@@ -147,10 +149,10 @@
         gap: 2px;
         background: #142d5d;
         color: #fff;
+        height: 50px;
 
         .line {
           width: 2px;
-          height: 80%;
           background: #fff;
         }
       }

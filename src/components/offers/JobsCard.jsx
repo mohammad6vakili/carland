@@ -50,7 +50,7 @@ const JobsCard = ({
       </div>
 
       <div className={s.btn}>
-        <Button onClick={() => router.push("/offer/jobs/id")}>
+        <Button onClick={() => router.push("/offers/jobs/id")}>
           مشاهده{" "}
           <div>
             <LeftOutlined />

@@ -71,7 +71,11 @@ const Header = () => {
                 </span>
               </Link>
               <Link href={"/offers"}>
-                <span className={pathname === "/offers" ? styles.selected : ""}>
+                <span
+                  className={
+                    pathname?.includes("/offers") ? styles.selected : ""
+                  }
+                >
                   {" "}
                   خرید و فروش
                   <div className={styles.line1}></div>
@@ -111,7 +115,12 @@ const Header = () => {
 
           <div className={styles.account_info}>
             <Button className={styles.shop} color="#EAEDF3">
-              <ShoppingCartOutlined />
+              <Image
+                src={"/assets/main/shop.png"}
+                alt="user"
+                width={30}
+                height={30}
+              />
               <div className={styles.badge}>۳</div>
             </Button>
 
@@ -120,8 +129,8 @@ const Header = () => {
               <Image
                 src={"/assets/user-icon.svg"}
                 alt="user"
-                width={20}
-                height={20}
+                width={24}
+                height={24}
               />
             </Button>
           </div>
