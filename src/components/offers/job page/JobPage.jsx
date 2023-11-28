@@ -1,9 +1,15 @@
 import s from "../../../../styles/main.module.scss";
-import { StarFilled, InstagramFilled, LinkOutlined } from "@ant-design/icons";
+import {
+  StarFilled,
+  InstagramFilled,
+  LinkOutlined,
+  ArrowLeftOutlined,
+} from "@ant-design/icons";
 import Image from "next/image";
 import { Button } from "reactstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReactStars from "react-rating-stars-component";
+import CommentCard from "./CommentCard";
 
 const JobPage = () => {
   const photos = [
@@ -269,14 +275,63 @@ const JobPage = () => {
               count={5}
               // onChange={ratingChanged}
               size={24}
-              isHalf={true}
               emptyIcon={<i className="far fa-star"></i>}
-              halfIcon={<i className="fa fa-star-half-alt"></i>}
+              // halfIcon={<i className="fa fa-star-half-alt"></i>}
               fullIcon={<i className="fa fa-star"></i>}
               activeColor="#ffd700"
             />
             ۴.۶(امتیاز){" "}
           </div>
+        </div>
+
+        <div className={s.comments}>
+          <div className={s.not_logged_in}>
+            <div className={s.circle}></div>
+            <p>برای ارسال دیدگاه لازم است ابتدا وارد شده یا ثبت نام کنید!</p>
+
+            <Button className={s.btn}>
+              ورود/ثبت نام{" "}
+              <div>
+                <ArrowLeftOutlined style={{ color: "#4A80E8", zIndex: "2" }} />
+                <Image
+                  src={"/assets/jobs/rectangle.svg"}
+                  alt=""
+                  width={20}
+                  height={30}
+                  className={s.back}
+                />
+              </div>
+            </Button>
+          </div>
+
+          <section className={s.comments}>
+            <CommentCard
+              profile={"/assets/jobs/profile.png"}
+              name={"مهزیار رازه"}
+              content={
+                "میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن پیش آمده تمام قطعات رو اینجا پیدا کنید. البته  برای دانلودسریع و بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده درموبایل خود انجام دهید."
+              }
+              date={"۸ مرداد ۱۴۰۲"}
+              rate={"۴.۶"}
+              reactions={{ likes: "۲۱", dislikes: "۷" }}
+            />
+
+            <CommentCard
+              profile={"/assets/jobs/profile.png"}
+              name={"مهزیار رازه"}
+              content={
+                "میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن پیش آمده تمام قطعات رو اینجا پیدا کنید. البته  برای دانلودسریع و بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده درموبایل خود انجام دهید."
+              }
+              date={"۸ مرداد ۱۴۰۲"}
+              rate={"۴.۶"}
+              reactions={{ likes: "۲۱", dislikes: "۷" }}
+              reply={{
+                name: "ادمین کارلند",
+                content:
+                  "میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن پیش آمده تمام قطعات رو اینجا پیدا کنید. البته  برای دانلودسریع و بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده درموبایل خود انجام دهید.",
+              }}
+            />
+          </section>
         </div>
       </div>
     </>
