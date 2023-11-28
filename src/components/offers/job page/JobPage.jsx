@@ -4,14 +4,33 @@ import {
   InstagramFilled,
   LinkOutlined,
   ArrowLeftOutlined,
+  ArrowRightOutlined,
 } from "@ant-design/icons";
 import Image from "next/image";
 import { Button } from "reactstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import ReactStars from "react-rating-stars-component";
 import CommentCard from "./CommentCard";
+import SendComment from "./SendComment";
+import AlikeOffersCard from "../trade page/AlikeOffersCard";
+import { useEffect, useRef, useState } from "react";
 
 const JobPage = () => {
+  const [adsSwiper, setAdsSwiper] = useState();
+  const prevAdRef = useRef();
+  const nextAdRef = useRef();
+
+  useEffect(() => {
+    if (adsSwiper) {
+      console.log("Swiper instance:", adsSwiper);
+      adsSwiper.params.navigation.prevEl = prevAdRef.current;
+      adsSwiper.params.navigation.nextEl = nextAdRef.current;
+      adsSwiper.navigation.init();
+      adsSwiper.navigation.update();
+    }
+  }, [adsSwiper]);
+
   const photos = [
     { src: "/assets/trades/trade-1.png" },
     { src: "/assets/trades/trade-2.png" },
@@ -332,6 +351,56 @@ const JobPage = () => {
               }}
             />
           </section>
+        </div>
+
+        <SendComment />
+
+        <div className={s.around_jobs}>
+          <div className={s.title}>
+            <span>
+              <Image
+                src={"/assets/trades/triangle.svg"}
+                alt=""
+                width={15}
+                height={15}
+              />
+            </span>{" "}
+            <p>کسب و کارهای نزدیک</p>
+            <div className={s.next_prev_offers}>
+              <div className={s.prev} ref={prevAdRef}>
+                <ArrowRightOutlined />
+              </div>
+              <div className={s.next} ref={nextAdRef}>
+                <ArrowLeftOutlined />
+              </div>
+            </div>
+          </div>
+
+          <div className={s.cards}>
+            <Swiper
+              slidesPerView={3.5}
+              navigation={{
+                prevEl: prevAdRef?.current,
+                nextEl: nextAdRef?.current,
+              }}
+              modules={[Navigation]}
+              className="mySwiper2"
+              onSwiper={setAdsSwiper}
+            >
+              {photos.map((offer, index) => (
+                <SwiperSlide key={Math.random() * index}>
+                  <AlikeOffersCard
+                    image={"/assets/main/car-2.png"}
+                    title={"ام وی ام، X55 PRO"}
+                    description={
+                      "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و فوری از طریق مجموعه شعب نمایندگی 777 انجام می شود"
+                    }
+                    time={"۱۴۰۲/۰۸/۰۱"}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </div>
     </>

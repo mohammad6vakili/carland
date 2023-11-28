@@ -49,6 +49,20 @@
         height: 300px;
       }
 
+      .slide {
+        background-size: cover;
+        background-position: center;
+        margin-bottom: 2rem;
+      }
+
+      .slide2 {
+        overflow: hidden;
+        border-radius: 20px;
+        img {
+          width: 250px;
+        }
+      }
+
       .swiper-slide {
         background-size: cover;
         background-position: center;

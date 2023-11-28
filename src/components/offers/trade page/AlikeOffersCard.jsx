@@ -2,7 +2,7 @@ import Image from "next/image";
 import s from "../../../../styles/main.module.scss";
 import { Button } from "reactstrap";
 
-const AlikeOfferso = ({ image, title, description, time }) => {
+const AlikeOffersCard = ({ image, title, description, time }) => {
   return (
     <>
       <div className={s.card}>
@@ -34,4 +34,4 @@ const AlikeOfferso = ({ image, title, description, time }) => {
   );
 };
 
-export default AlikeOfferso;
+export default AlikeOffersCard;

@@ -750,7 +750,7 @@
 
       .mag_options {
         @include flex(column, flex-start, center);
-        gap: 5%;
+        gap: 20px;
         width: 45%;
         height: 100%;
 

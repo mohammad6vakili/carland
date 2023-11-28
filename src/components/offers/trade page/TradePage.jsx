@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
-import AlikeOffers from "./AlikeOffersCard";
+import AlikeOffersCard from "./AlikeOffersCard";
 
 const TradePage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -48,12 +48,13 @@ const TradePage = () => {
                   "--swiper-navigation-color": "#fff",
                   "--swiper-pagination-color": "#fff",
                 }}
+                spaceBetween={50}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
               >
                 {photos.map((ph, index) => (
-                  <SwiperSlide key={Math.random() * index}>
+                  <SwiperSlide className={s.slide} key={Math.random() * index}>
                     <Image src={ph.src} alt="" width={600} height={400} />
                   </SwiperSlide>
                 ))}
@@ -69,8 +70,8 @@ const TradePage = () => {
                 className="mySwiper"
               >
                 {photos.map((ph, index) => (
-                  <SwiperSlide key={Math.random() * index}>
-                    <Image src={ph.src} alt="" width={250} height={150} />
+                  <SwiperSlide className={s.slide2} key={Math.random() * index}>
+                    <Image src={ph.src} alt="" width={200} height={150} />
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -299,7 +300,7 @@ const TradePage = () => {
             >
               {photos.map((offer, index) => (
                 <SwiperSlide key={Math.random() * index}>
-                  <AlikeOffers
+                  <AlikeOffersCard
                     image={"/assets/main/car-2.png"}
                     title={"ام وی ام، X55 PRO"}
                     description={
