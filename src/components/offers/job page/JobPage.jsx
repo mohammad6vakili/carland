@@ -3,6 +3,7 @@ import { StarFilled, InstagramFilled, LinkOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { Button } from "reactstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ReactStars from "react-rating-stars-component";
 
 const JobPage = () => {
   const photos = [
@@ -252,7 +253,7 @@ const JobPage = () => {
           </div>
         </section>
 
-        {/* <div className={s.share}>
+        <div className={s.share}>
           <div className={s.links}>
             <p>اشتراک گذاری:</p>
             <div>
@@ -263,8 +264,20 @@ const JobPage = () => {
             </div>
           </div>
 
-          <div className={s.rate}> (امتیاز)۴.۶ </div>
-        </div> */}
+          <div className={s.rate}>
+            <ReactStars
+              count={5}
+              // onChange={ratingChanged}
+              size={24}
+              isHalf={true}
+              emptyIcon={<i className="far fa-star"></i>}
+              halfIcon={<i className="fa fa-star-half-alt"></i>}
+              fullIcon={<i className="fa fa-star"></i>}
+              activeColor="#ffd700"
+            />
+            ۴.۶(امتیاز){" "}
+          </div>
+        </div>
       </div>
     </>
   );

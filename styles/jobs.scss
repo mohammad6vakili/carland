@@ -202,8 +202,13 @@
   .share {
     @include flex(row, space-between, center);
     width: 50%;
+    margin-left: auto;
     border-radius: 12px;
     background: #fff;
     box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+
+    div {
+      @include flex(row, center, center);
+    }
   }
 }

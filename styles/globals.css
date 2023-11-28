@@ -85,7 +85,6 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
   direction: rtl;
   margin: 0 auto;
 }
