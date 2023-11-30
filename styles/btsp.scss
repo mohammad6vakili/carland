@@ -5,6 +5,22 @@ $theme-colors: (
   ":hover": #4a80e8,
 );
 
+$primary: #4a80e8;
+
 $btn-border-radius: 10px;
+
+$btn-hover: (
+  "backgroun-color": "#fff",
+);
+
+.btn-primary {
+  background-color: #fff;
+  color: #fff;
+
+  :hover {
+    color: #000 !important;
+    border: none;
+  }
+}
 
 @import "~bootstrap/scss/bootstrap";

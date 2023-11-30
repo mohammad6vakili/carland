@@ -40,7 +40,7 @@ const TradePage = () => {
           <h1>بی ام دبلیو ۵۱۰</h1>
         </div>
 
-        <div style={{ display: "flex", width: "100%", gap: "20px" }}>
+        <div className={s.contents}>
           <div className={s.main_content}>
             <div className={s.gallery}>
               <Swiper
@@ -289,10 +289,27 @@ const TradePage = () => {
 
           <div className={s.cards}>
             <Swiper
-              slidesPerView={3.5}
               navigation={{
                 prevEl: prevAdRef?.current,
                 nextEl: nextAdRef?.current,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 1.8,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 2.5,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 3.2,
+                  spaceBetween: 50,
+                },
+                1360: {
+                  slidesPerView: 3.8,
+                  spaceBetween: 50,
+                },
               }}
               modules={[Navigation]}
               className="mySwiper"

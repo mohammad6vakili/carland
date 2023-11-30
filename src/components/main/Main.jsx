@@ -470,14 +470,24 @@ const Main = () => {
             >
               {clubs.map(() => (
                 <SwiperSlide>
-                  <div className={styles.service}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "1rem 0",
+                    }}
+                  >
                     <Image
                       alt=""
                       width={100}
                       height={100}
                       src={"/assets/main/service-1.svg"}
                     />
-                    <span>بیمه ماشین</span>
+                    <p style={{ color: "#fff", fontSize: "1.1em" }}>
+                      بیمه ماشین
+                    </p>
                   </div>
                 </SwiperSlide>
               ))}
@@ -732,7 +742,7 @@ const Main = () => {
             <h1>مجله</h1>
 
             <div className={styles.btns}>
-              <Button>
+              <Button type="primary">
                 <RightOutlined style={{ color: "#fff" }} />
               </Button>
               <Button>

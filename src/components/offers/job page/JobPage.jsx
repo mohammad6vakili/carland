@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import { Button } from "reactstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { FreeMode, Navigation } from "swiper/modules";
 import ReactStars from "react-rating-stars-component";
 import CommentCard from "./CommentCard";
 import SendComment from "./SendComment";
@@ -379,12 +379,30 @@ const JobPage = () => {
 
           <div className={s.cards}>
             <Swiper
-              slidesPerView={3.5}
               navigation={{
                 prevEl: prevAdRef?.current,
                 nextEl: nextAdRef?.current,
               }}
-              modules={[Navigation]}
+              breakpoints={{
+                640: {
+                  slidesPerView: 1.8,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 2.5,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 3.2,
+                  spaceBetween: 50,
+                },
+                1360: {
+                  slidesPerView: 3.8,
+                  spaceBetween: 50,
+                },
+              }}
+              freeMode
+              modules={[Navigation, FreeMode]}
               className="mySwiper2"
               onSwiper={setAdsSwiper}
             >
