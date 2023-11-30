@@ -13,6 +13,7 @@ import BannersCard from "./BannersCard";
 import MarketCard from "./MarketCard";
 import HCarousel from "./HCarousel";
 import { useEffect, useRef, useState } from "react";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Main = () => {
   const ads = [
@@ -155,6 +156,7 @@ const Main = () => {
     { src: "/assets/main/club.svg" },
   ];
 
+  const size = useWindowSize();
   const [adsSwiper, setAdsSwiper] = useState();
   const [marketRSwiper, setMarketRSwiper] = useState();
   const [marketBSwiper, setMarketBSwiper] = useState();
@@ -212,245 +214,271 @@ const Main = () => {
             <span>دسته بندی خدمات</span>
             <div className={styles.pagination}></div>
           </section>
-          <Swiper
-            spaceBetween={30}
-            navigation={false}
-            modules={[Navigation, Pagination]}
-            className={styles.mySwiper}
-          >
-            <SwiperSlide>
-              <div className={styles.content}>
-                <section className={styles.service_list}>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                  <div className={styles.service}>
-                    <Image
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
-                    />
-                    <span>بیمه ماشین</span>
-                  </div>
-                </section>
 
-                <section className={styles.down_content}>
-                  <div className={styles.speed_ometeres}>
-                    <div className={styles.small_speedometer}>
+          {size.width > 1000 ? (
+            <Swiper
+              spaceBetween={30}
+              modules={[Navigation, Pagination]}
+              className={styles.mySwiper}
+            >
+              <SwiperSlide>
+                <div className={styles.content}>
+                  <section className={styles.service_list}>
+                    <div className={styles.service}>
                       <Image
                         alt=""
-                        width={350}
-                        height={350}
-                        src={"/assets/main/service-speed.png"}
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
                       />
+                      <span>بیمه ماشین</span>
                     </div>
-                    <div className={styles.big_speedometer}>
+                    <div className={styles.service}>
                       <Image
                         alt=""
-                        width={350}
-                        height={350}
-                        src={"/assets/main/service-speed-2.png"}
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
                       />
+                      <span>بیمه ماشین</span>
                     </div>
-                  </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                    <div className={styles.service}>
+                      <Image
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={"/assets/main/service-1.svg"}
+                      />
+                      <span>بیمه ماشین</span>
+                    </div>
+                  </section>
 
-                  <div className={styles.texts}>
-                    <p>000049km</p>
-                  </div>
+                  <section className={styles.down_content}>
+                    <div className={styles.speed_ometeres}>
+                      <div className={styles.small_speedometer}>
+                        <Image
+                          alt=""
+                          width={350}
+                          height={350}
+                          src={"/assets/main/service-speed.png"}
+                        />
+                      </div>
+                      <div className={styles.big_speedometer}>
+                        <Image
+                          alt=""
+                          width={350}
+                          height={350}
+                          src={"/assets/main/service-speed-2.png"}
+                        />
+                      </div>
+                    </div>
 
-                  <div className={styles.speed_ometeres}>
-                    <div className={styles.big_speedometer}>
-                      <Image
-                        alt=""
-                        width={350}
-                        height={350}
-                        src={"/assets/main/service-speed-1.png"}
-                      />
+                    <div className={styles.texts}>
+                      <p>000049km</p>
                     </div>
-                    <div className={styles.small_speedometer}>
-                      <Image
-                        alt=""
-                        width={350}
-                        height={350}
-                        src={"/assets/main/service-speed.png"}
-                      />
+
+                    <div className={styles.speed_ometeres}>
+                      <div className={styles.big_speedometer}>
+                        <Image
+                          alt=""
+                          width={350}
+                          height={350}
+                          src={"/assets/main/service-speed-1.png"}
+                        />
+                      </div>
+                      <div className={styles.small_speedometer}>
+                        <Image
+                          alt=""
+                          width={350}
+                          height={350}
+                          src={"/assets/main/service-speed.png"}
+                        />
+                      </div>
                     </div>
+                  </section>
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          ) : (
+            <></>
+          )}
+          {size.width < 1000 ? (
+            <Swiper
+              slidesPerView={5}
+              spaceBetween={30}
+              modules={[Navigation, Pagination]}
+              className={styles.mySwiper2}
+            >
+              {clubs.map(() => (
+                <SwiperSlide>
+                  <div className={styles.service}>
+                    <Image
+                      alt=""
+                      width={100}
+                      height={100}
+                      src={"/assets/main/service-1.svg"}
+                    />
+                    <span>بیمه ماشین</span>
                   </div>
-                </section>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>slide2</SwiperSlide>
-            <SwiperSlide>slide3</SwiperSlide>
-          </Swiper>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <></>
+          )}
         </div>
 
         <div className={styles.ads}>
@@ -515,7 +543,7 @@ const Main = () => {
         </div>
 
         <div className={styles.infos}>
-          <div className={styles.info}>
+          <div className={styles.info_black}>
             <div className={styles.background}>
               <Image
                 src={"/assets/main/infos/info-back-1.svg"}
@@ -906,7 +934,7 @@ const Main = () => {
           </section>
         </div>
 
-        <div className={styles.mags_link}>
+        <div className={styles.club_link}>
           <section className={styles.mag}>
             <div className={styles.pic}>
               <Image

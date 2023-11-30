@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/thumbs";
 import localFont from "next/font/local";
+import MobileMenu from "@/src/components/mobile menu/MobileMenu";
 
 const dana = localFont({ src: "../public/fonts/Dana-Medium.ttf" });
 
@@ -16,6 +17,7 @@ const MyApp = ({ Component, pageProps }) => {
     // <ConfigProvider theme={theme}>
     <main className={dana.className}>
       <Component {...pageProps} />
+      <MobileMenu />
     </main>
     // </ConfigProvider>
   );

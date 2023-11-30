@@ -3,8 +3,11 @@ import styles from "../../../styles/header.module.scss";
 import { PhoneOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { InstagramOutlined } from "@ant-design/icons";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Footer = () => {
+  const size = useWindowSize();
+
   return (
     <>
       <div className={styles.footer}>
@@ -12,7 +15,7 @@ const Footer = () => {
           <Image
             src={"/assets/footer-background.png"}
             alt=""
-            width={1600}
+            width={560}
             height={316}
           />
         </div>
@@ -43,35 +46,37 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className={styles.contatcs}>
-              <div className={styles.phone}>
-                <div className={styles.logo}>
-                  <PhoneOutlined />
+            {size.width > 1000 ? (
+              <div className={styles.contatcs}>
+                <div className={styles.phone}>
+                  <div className={styles.logo}>
+                    <PhoneOutlined />
+                  </div>
+
+                  <div className={styles.texts}>
+                    <p>
+                      <span>021</span> - 45123132
+                    </p>
+                    <p>خدمات و پشتیبانی 24 ساعته!</p>
+                  </div>
                 </div>
 
-                <div className={styles.texts}>
-                  <p>
-                    <span>021</span> - 45123132
-                  </p>
-                  <p>خدمات و پشتیبانی 24 ساعته!</p>
+                <div className={styles.address}>
+                  <div className={styles.logo}>
+                    <Image
+                      src={"/assets/location.svg"}
+                      alt=""
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <div className={styles.texts}>
+                    <p>تهران خیابان ولیعصر بین کاظمی</p>
+                    <p>بین هاشمی و خیابان آذر غربی</p>
+                  </div>
                 </div>
               </div>
-
-              <div className={styles.address}>
-                <div className={styles.logo}>
-                  <Image
-                    src={"/assets/location.svg"}
-                    alt=""
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <div className={styles.texts}>
-                  <p>تهران خیابان ولیعصر بین کاظمی</p>
-                  <p>بین هاشمی و خیابان آذر غربی</p>
-                </div>
-              </div>
-            </div>
+            ) : null}
           </div>
 
           <div className={styles.tags}>
@@ -130,20 +135,26 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className={styles.buttons}>
-              <Button color="main-primary" className={styles.btn}>
-                <InstagramOutlined style={{ color: "#fff", opacity: "0.6" }} />
-              </Button>
-              <Button className={styles.btn}>
-                <InstagramOutlined />
-              </Button>
-              <Button className={styles.btn}>
-                <InstagramOutlined />
-              </Button>
-              <Button className={styles.btn}>
-                <InstagramOutlined />
-              </Button>
-            </div>
+            {size.width > 1000 ? (
+              <div className={styles.buttons}>
+                <Button color="main-primary" className={styles.btn}>
+                  <InstagramOutlined
+                    style={{ color: "#fff", opacity: "0.6" }}
+                  />
+                </Button>
+                <Button className={styles.btn}>
+                  <InstagramOutlined />
+                </Button>
+                <Button className={styles.btn}>
+                  <InstagramOutlined />
+                </Button>
+                <Button className={styles.btn}>
+                  <InstagramOutlined />
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className={styles.trust_links}>
@@ -185,23 +196,93 @@ const Footer = () => {
               </div>
             </div>
           </div>
+
+          {size.width > 1000 ? (
+            <></>
+          ) : (
+            <div className={styles.links}>
+              <div className={styles.contatcs}>
+                <div className={styles.phone}>
+                  <div className={styles.logo}>
+                    <PhoneOutlined />
+                  </div>
+
+                  <div className={styles.texts}>
+                    <p>
+                      <span>021</span> - 45123132
+                    </p>
+                    <p>خدمات و پشتیبانی 24 ساعته!</p>
+                  </div>
+                </div>
+
+                <div className={styles.address}>
+                  <div className={styles.logo}>
+                    <Image
+                      src={"/assets/location.svg"}
+                      alt=""
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <div className={styles.texts}>
+                    <p>تهران خیابان ولیعصر بین کاظمی</p>
+                    <p>بین هاشمی و خیابان آذر غربی</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.buttons}>
+                <Button color="main-primary" className={styles.btn}>
+                  <InstagramOutlined
+                    style={{ color: "#fff", opacity: "0.6" }}
+                  />
+                </Button>
+                <Button className={styles.btn}>
+                  <InstagramOutlined />
+                </Button>
+                <Button className={styles.btn}>
+                  <InstagramOutlined />
+                </Button>
+                <Button className={styles.btn}>
+                  <InstagramOutlined />
+                </Button>
+              </div>
+
+              <Button
+                color="dark"
+                style={{ color: "#4A80E8", border: "1px solid #142D5D" }}
+              >
+                بازگشت به بالا
+                <ArrowUpOutlined />
+              </Button>
+
+              <span>
+                کلیه حقوق این سرویس (وب سایت و اپلیکیشن‌های موبایل) محفوظ و
+                متعلق به شرکت تجارت الکترونیک مهرایرانیان می‌باشد.
+              </span>
+            </div>
+          )}
         </section>
 
         <section className={styles.develop_tag}>
-          <span>
-            کلیه حقوق این سرویس (وب سایت و اپلیکیشن‌های موبایل) محفوظ و متعلق به
-            شرکت تجارت الکترونیک مهرایرانیان می‌باشد.
-          </span>
+          {size.width > 1000 ? (
+            <span>
+              کلیه حقوق این سرویس (وب سایت و اپلیکیشن‌های موبایل) محفوظ و متعلق
+              به شرکت تجارت الکترونیک مهرایرانیان می‌باشد.
+            </span>
+          ) : null}
 
           <div>
             <span>Made with ❤️ in CarLand R&D Team</span>
-            <Button
-              color="dark"
-              style={{ color: "#4A80E8", border: "1px solid #142D5D" }}
-            >
-              بازگشت به بالا
-              <ArrowUpOutlined />
-            </Button>
+            {size.width > 1000 ? (
+              <Button
+                color="dark"
+                style={{ color: "#4A80E8", border: "1px solid #142D5D" }}
+              >
+                بازگشت به بالا
+                <ArrowUpOutlined />
+              </Button>
+            ) : null}
           </div>
         </section>
       </div>

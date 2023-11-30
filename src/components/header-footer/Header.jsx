@@ -4,10 +4,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import Link from "next/link";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const size = useWindowSize();
 
   return (
     <>
@@ -23,7 +25,15 @@ const Header = () => {
 
         <section className={styles.start}>
           <span>ثبت آگهی</span>
-          <Button style={{ background: "#FED30B" }}>رایگان شروع کنید</Button>
+          <Button style={{ background: "#FED30B" }}>
+            <Image
+              src={"/assets/main/shield.svg"}
+              alt=""
+              width={15}
+              height={15}
+            />{" "}
+            رایگان شروع کنید{" "}
+          </Button>
         </section>
 
         <section className={styles.header_content}>
@@ -35,7 +45,12 @@ const Header = () => {
               height: "100%",
             }}
           >
-            <div onClick={() => router.push("/")} className={styles.symbol}>
+            <div
+              onClick={() => {
+                router.push("/");
+              }}
+              className={styles.symbol}
+            >
               <section className={styles.logo}>
                 <Image
                   src={"/assets/carland-logo.svg"}
@@ -50,69 +65,75 @@ const Header = () => {
               </section>
             </div>
 
-            <div className={styles.routes}>
-              <span
-                style={{ color: "#000", cursor: "auto" }}
-                className={styles.category}
-              >
-                <Image
-                  src={"/assets/category.svg"}
-                  alt="logo"
-                  width={15}
-                  height={15}
-                />
-                دسته بندی
-              </span>
+            {size.width > 1000 ? (
+              <div className={styles.routes}>
+                <span
+                  style={{ color: "#000", cursor: "auto" }}
+                  className={styles.category}
+                >
+                  <Image
+                    src={"/assets/category.svg"}
+                    alt="logo"
+                    width={15}
+                    height={15}
+                  />
+                  دسته بندی
+                </span>
 
-              <Link href={"/market"}>
-                <span className={pathname === "/market" ? styles.selected : ""}>
-                  {" "}
-                  بازارچه
-                  <div className={styles.line1}></div>
-                  <div className={styles.line2}></div>
-                </span>
-              </Link>
-              <Link href={"/offers"}>
-                <span
-                  className={
-                    pathname?.includes("/offers") ? styles.selected : ""
-                  }
-                >
-                  {" "}
-                  خرید و فروش
-                  <div className={styles.line1}></div>
-                  <div className={styles.line2}></div>
-                </span>
-              </Link>
-              <Link href={"/club"}>
-                <span className={pathname === "/club" ? styles.selected : ""}>
-                  {" "}
-                  کلوپ
-                  <div className={styles.line1}></div>
-                  <div className={styles.line2}></div>
-                </span>
-              </Link>
-              <Link href={"/magazine"}>
-                <span
-                  className={pathname === "/magazine" ? styles.selected : ""}
-                >
-                  {" "}
-                  مجله
-                  <div className={styles.line1}></div>
-                  <div className={styles.line2}></div>
-                </span>
-              </Link>
-              <Link href={"/about_us"}>
-                <span
-                  className={pathname === "/about_us" ? styles.selected : ""}
-                >
-                  {" "}
-                  درباره ما
-                  <div className={styles.line1}></div>
-                  <div className={styles.line2}></div>
-                </span>
-              </Link>
-            </div>
+                <Link href={"/market"}>
+                  <span
+                    className={pathname === "/market" ? styles.selected : ""}
+                  >
+                    {" "}
+                    بازارچه
+                    <div className={styles.line1}></div>
+                    <div className={styles.line2}></div>
+                  </span>
+                </Link>
+                <Link href={"/offers"}>
+                  <span
+                    className={
+                      pathname?.includes("/offers") ? styles.selected : ""
+                    }
+                  >
+                    {" "}
+                    خرید و فروش
+                    <div className={styles.line1}></div>
+                    <div className={styles.line2}></div>
+                  </span>
+                </Link>
+                <Link href={"/club"}>
+                  <span className={pathname === "/club" ? styles.selected : ""}>
+                    {" "}
+                    کلوپ
+                    <div className={styles.line1}></div>
+                    <div className={styles.line2}></div>
+                  </span>
+                </Link>
+                <Link href={"/magazine"}>
+                  <span
+                    className={pathname === "/magazine" ? styles.selected : ""}
+                  >
+                    {" "}
+                    مجله
+                    <div className={styles.line1}></div>
+                    <div className={styles.line2}></div>
+                  </span>
+                </Link>
+                <Link href={"/about_us"}>
+                  <span
+                    className={pathname === "/about_us" ? styles.selected : ""}
+                  >
+                    {" "}
+                    درباره ما
+                    <div className={styles.line1}></div>
+                    <div className={styles.line2}></div>
+                  </span>
+                </Link>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className={styles.account_info}>

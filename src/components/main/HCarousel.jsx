@@ -6,6 +6,8 @@ import { Button } from "reactstrap";
 import { LeftOutlined } from "@ant-design/icons";
 
 const HCarousel = () => {
+  const array = [{}, {}, {}, {}];
+
   return (
     <>
       <div className={styles.head_carousel}>
@@ -16,15 +18,14 @@ const HCarousel = () => {
             delay: 3000,
             disableOnInteraction: false,
           }}
-          navigation={false}
           pagination={{
             clickable: true,
           }}
-          modules={[Autoplay, EffectFade, Navigation, Pagination]}
+          modules={[Autoplay, EffectFade, Pagination]}
           className={styles.mySwiper}
         >
-          <SwiperSlide>
-            <div className={styles.content}>
+          {array.map((item, index) => (
+            <SwiperSlide key={Math.random() * index} className={styles.content}>
               <Image
                 src={"/assets/main/head-carousel-background.svg"}
                 alt=""
@@ -48,152 +49,16 @@ const HCarousel = () => {
                 </Button>
               </div>
 
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={styles.car}
-              />
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <div className={styles.content}>
-              <Image
-                src={"/assets/main/head-carousel-background.svg"}
-                alt=""
-                width={1000}
-                height={386}
-                className={styles.background}
-              />
-
-              <div className={styles.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={styles.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
+              <div className={styles.car}>
+                <Image
+                  src={"/assets/main/car-1.svg"}
+                  alt=""
+                  width={386}
+                  height={386}
+                />
               </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={styles.car}
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={styles.content}>
-              <Image
-                src={"/assets/main/head-carousel-background.svg"}
-                alt=""
-                width={1000}
-                height={386}
-                className={styles.background}
-              />
-
-              <div className={styles.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={styles.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={styles.car}
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={styles.content}>
-              <Image
-                src={"/assets/main/head-carousel-background.svg"}
-                alt=""
-                width={1000}
-                height={386}
-                className={styles.background}
-              />
-
-              <div className={styles.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={styles.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={styles.car}
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={styles.content}>
-              <Image
-                src={"/assets/main/head-carousel-background.svg"}
-                alt=""
-                width={1000}
-                height={386}
-                className={styles.background}
-              />
-
-              <div className={styles.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={styles.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={styles.car}
-              />
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </>
