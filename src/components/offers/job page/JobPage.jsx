@@ -53,6 +53,7 @@ const JobPage = () => {
                   alt=""
                   width={1000}
                   height={700}
+                  className={s.my_swiper}
                 />
                 <div className={s.details}>
                   <div className={s.title}>لوازم یدکی میلاد</div>

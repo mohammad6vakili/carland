@@ -51,8 +51,10 @@ const Header = () => {
             </div>
 
             <div className={styles.routes}>
-              <span style={{ color: "#000" }} className={styles.category}>
-                {" "}
+              <span
+                style={{ color: "#000", cursor: "auto" }}
+                className={styles.category}
+              >
                 <Image
                   src={"/assets/category.svg"}
                   alt="logo"

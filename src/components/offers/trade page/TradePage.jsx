@@ -51,7 +51,7 @@ const TradePage = () => {
                 spaceBetween={50}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper2"
+                className={s.my_swiper}
               >
                 {photos.map((ph, index) => (
                   <SwiperSlide className={s.slide} key={Math.random() * index}>
@@ -67,7 +67,7 @@ const TradePage = () => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper"
+                className={s.my_swiper2}
               >
                 {photos.map((ph, index) => (
                   <SwiperSlide className={s.slide2} key={Math.random() * index}>
@@ -202,7 +202,7 @@ const TradePage = () => {
           </div>
 
           <div className={s.other_details}>
-            <div className={s.image}>
+            <div className={s.banner}>
               <Image
                 src={"/assets/trades/other-detail-1.png"}
                 alt=""
@@ -211,7 +211,7 @@ const TradePage = () => {
               />
             </div>
 
-            <div className={s.image}>
+            <div className={s.banner}>
               <Image
                 src={"/assets/trades/other-detail-1.png"}
                 alt=""
@@ -238,7 +238,7 @@ const TradePage = () => {
                     <Image
                       src={"/assets/trades/fan-club-car.png"}
                       alt=""
-                      width={100}
+                      width={70}
                       height={70}
                     />
                   </div>

@@ -1,3 +1,5 @@
+$carousel-borderRadius: 50px;
+
 @font-face {
   font-family: dana;
   src: url("../public/fonts/Dana-Medium.ttf");
@@ -34,6 +36,9 @@
     width: 100%;
     font-size: 2em;
     padding: 2rem 0;
+    h1 {
+      font-weight: bold;
+    }
   }
 
   .main_content {
@@ -48,39 +53,32 @@
         height: 300px;
       }
 
-      .slide {
-        background-size: cover;
-        background-position: center;
-        margin-bottom: 2rem;
+      img {
+        width: 100%;
       }
 
-      .slide2 {
-        overflow: hidden;
-        border-radius: 20px;
-        img {
-          width: 250px;
+      .my_swiper {
+        box-sizing: border-box;
+        border-radius: 50px;
+        margin-bottom: 2rem;
+        .slide {
+          background-size: cover;
+          background-position: center;
+          // border-radius: 50px;
         }
       }
 
-      .swiper-slide {
-        background-size: cover;
-        background-position: center;
-      }
-
-      img {
+      .my_swiper2 {
+        height: 100%;
         width: 100%;
-        border-radius: 20px;
-      }
-
-      .mySwiper2 {
-        height: 80%;
-        width: 100%;
-      }
-
-      .mySwiper {
-        height: 10%;
-        box-sizing: border-box;
-        padding: 10px 0;
+        .slide2 {
+          width: 250px;
+          overflow: hidden;
+          img {
+            width: 100%;
+            border-radius: $carousel-borderRadius;
+          }
+        }
       }
 
       .mySwiper .swiper-slide {
@@ -173,11 +171,15 @@
     gap: 2rem;
     width: 40%;
 
-    .image {
-      @include flex(row, center, center);
+    .banner {
+      @include flex(row, flex-start, center);
       width: 100%;
+      max-height: 18%;
+      overflow: hidden;
+      border-radius: 20px;
       img {
-        border-radius: 20px;
+        width: 100%;
+        height: auto;
       }
     }
 
@@ -200,7 +202,9 @@
           box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
 
           .image {
-            max-width: 20%;
+            @include flex(row, center, center);
+            min-width: 25%;
+            height: 100%;
             img {
               border-radius: 20px;
               width: 80%;

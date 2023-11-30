@@ -31,6 +31,9 @@
   .main_title {
     @include flex(row, flex-start, center);
     width: 100%;
+    h1 {
+      font-weight: bold;
+    }
   }
 
   .contents {
@@ -47,18 +50,42 @@
         gap: 1rem;
         width: 100%;
 
-        .swiper {
+        .photos {
           width: 100%;
-          height: 100%;
+          position: relative;
+          overflow: hidden;
         }
 
-        // .slide {
-        //   width: 100%;
-        //   height: 100%;
-        //   img {
-        //     width: 100%;
-        //   }
-        // }
+        .my_swiper {
+          .slide {
+            width: 100%;
+            height: 100%;
+            img {
+              width: 100%;
+              border-radius: 50px;
+            }
+          }
+        }
+
+        .my_swiper2 {
+          position: absolute;
+          left: 2%;
+          top: 10%;
+          height: 500px;
+
+          .slide2 {
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            border: 5px solid #fff;
+            border-radius: 20px;
+            img {
+              width: 100%;
+              height: auto;
+              border-radius: 20px;
+            }
+          }
+        }
 
         .magazine_details {
           @include flex(row, flex-start, center);
@@ -140,9 +167,31 @@
           .image {
             width: 100%;
             margin-bottom: 1.5rem;
+            position: relative;
+            color: #fff;
             img {
               width: 100%;
               border-radius: 20px;
+            }
+            span {
+              position: absolute;
+              bottom: 3.5%;
+              z-index: 3;
+              left: 50%;
+              transform: translate(-50%);
+            }
+            div {
+              @include flex(row, center, center);
+              width: 100%;
+              position: absolute;
+              bottom: 0;
+              left: 50%;
+              transform: translate(-50%);
+              z-index: 2;
+              svg {
+                backdrop-filter: blur(17.5px);
+                border-radius: 0 0 20px 20px;
+              }
             }
           }
 
@@ -232,6 +281,7 @@
     @include flex(column, flex-start, center);
     gap: 2rem;
     width: 100%;
+    padding: 4rem 0;
 
     .title {
       font-size: 1.6em;

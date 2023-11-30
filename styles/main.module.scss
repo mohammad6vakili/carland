@@ -1,7 +1,5 @@
-@import "./offers.scss";
-@import "./trade.scss";
-@import "./jobs.scss";
-@import "./magazine.scss";
+@import "./offers.scss", "./trade.scss", "./jobs.scss", "./magazine.scss",
+  "./variables.scss", "./responsive.scss";
 
 @mixin flex($d, $j, $a) {
   display: flex;
