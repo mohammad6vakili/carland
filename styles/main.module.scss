@@ -1080,3 +1080,16 @@
     }
   }
 }
+
+@media only screen and (max-width: 700px) {
+  .main {
+    .ads,
+    .market_materials1,
+    .market_materials2 {
+      .swiper_prev,
+      .swiper_next {
+        display: none;
+      }
+    }
+  }
+}

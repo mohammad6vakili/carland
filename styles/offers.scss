@@ -107,6 +107,7 @@
 
     .market_filters {
       @include flex(column, flex-start, flex-start);
+      width: 30%;
 
       .categories,
       .brands,
@@ -115,7 +116,7 @@
       .color_select {
         @include flex(column, flex-start, flex-start);
         gap: 10px;
-        width: 250px;
+        width: 100%;
         max-height: 250px;
         padding: 1rem;
 
@@ -251,9 +252,8 @@
 
         .tabs_names {
           @include flex(row, flex-start, center);
-          width: 60%;
+          width: 85%;
           height: 100%;
-          gap: 5%;
           cursor: pointer;
           p {
             @include flex(row, flex-start, center);
@@ -537,6 +537,33 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1150px) {
+  .offers {
+    .market {
+      .market_items {
+        .market_card {
+          min-width: none;
+          width: 200px;
+          height: 330px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .offers {
+    .market {
+      .market_items {
+        width: 50%;
+      }
+      .market_filters {
+        width: 50%;
       }
     }
   }

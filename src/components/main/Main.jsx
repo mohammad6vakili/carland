@@ -1,6 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "../../../styles/main.module.scss";
-import { Autoplay, Navigation, Pagination, A11y } from "swiper/modules";
+import {
+  Autoplay,
+  Navigation,
+  Pagination,
+  A11y,
+  FreeMode,
+} from "swiper/modules";
 import {
   LeftOutlined,
   RightOutlined,
@@ -626,20 +632,25 @@ const Main = () => {
               }}
               breakpoints={{
                 640: {
-                  slidesPerView: 2,
+                  slidesPerView: 1,
                   spaceBetween: 20,
                 },
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: 2.5,
                   spaceBetween: 40,
                 },
                 1024: {
-                  slidesPerView: 4.5,
+                  slidesPerView: 3.5,
+                  spaceBetween: 50,
+                },
+                1360: {
+                  slidesPerView: 5,
                   spaceBetween: 50,
                 },
               }}
+              freeMode
               grabCursor={true}
-              modules={[Navigation]}
+              modules={[Navigation, FreeMode]}
               onSwiper={setMarketRSwiper}
               className="mySwiper"
             >
@@ -672,20 +683,25 @@ const Main = () => {
               }}
               breakpoints={{
                 640: {
-                  slidesPerView: 2,
+                  slidesPerView: 1,
                   spaceBetween: 20,
                 },
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: 2.5,
                   spaceBetween: 40,
                 },
                 1024: {
-                  slidesPerView: 4.5,
+                  slidesPerView: 3.5,
+                  spaceBetween: 50,
+                },
+                1360: {
+                  slidesPerView: 5,
                   spaceBetween: 50,
                 },
               }}
+              freeMode
               grabCursor={true}
-              modules={[Navigation]}
+              modules={[Navigation, FreeMode]}
               onSwiper={setMarketBSwiper}
               className="mySwiper"
             >

@@ -19,6 +19,7 @@ import { LeftOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import BuySaleCard from "./BuySaleCard";
 import JobsCard from "./JobsCard";
+import { useWindowSize } from "@uidotdev/usehooks";
 // import MultiRangeSlider from "multi-range-slider-react";
 
 const offers = () => {
@@ -98,10 +99,14 @@ const offers = () => {
     { name: "خودرو", selected: "0" },
     { name: "خودرو", selected: "0" },
   ];
+  const size = useWindowSize();
+
   const [cSelected, setCSelected] = useState([]);
   const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [offers, setOffers] = useState("خرید و فروش");
+  const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
+  const [filters, setFilters] = useState("جدید ترین");
   //control filters collapse
   const [categoryOpen, setCategoryOpen] = useState(true);
   const [brandsOpen, setBrandsOpen] = useState(true);
@@ -523,41 +528,112 @@ const offers = () => {
 
         <div className={s.market_items}>
           <div className={s.tabs}>
-            <Nav className={s.tabs_names}>
-              <NavItem>
-                <NavLink disabled>
-                  <Image
-                    src={"/assets/offers/setting.svg"}
-                    alt=""
-                    width={15}
-                    height={18}
-                  />
-                  پیش فرض
-                </NavLink>
-              </NavItem>
-              <NavItem style={{ height: "100%" }}>
-                <NavLink
-                  style={{
-                    borderBottom: "2px solid blue",
-                  }}
-                  active
+            {size.width > 1000 ? (
+              <Nav className={s.tabs_names}>
+                {offers === "کسب و کار" ? (
+                  <>
+                    <NavItem>
+                      <NavLink disabled>
+                        <Image
+                          src={"/assets/offers/setting.svg"}
+                          alt=""
+                          width={15}
+                          height={18}
+                        />
+                        پیش فرض
+                      </NavLink>
+                    </NavItem>
+                    <NavItem style={{ height: "100%" }}>
+                      <NavLink
+                        style={{
+                          borderBottom: "2px solid blue",
+                        }}
+                        active
+                      >
+                        جدیدترین
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink disabled>پرفروش‌ترین</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink disabled>نزدیک‌ترین</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink disabled>بهترین</NavLink>
+                    </NavItem>
+                  </>
+                ) : (
+                  <>
+                    <NavItem>
+                      <NavLink disabled>
+                        <Image
+                          src={"/assets/offers/setting.svg"}
+                          alt=""
+                          width={15}
+                          height={18}
+                        />
+                        پیش فرض
+                      </NavLink>
+                    </NavItem>
+                    <NavItem style={{ height: "100%" }}>
+                      <NavLink
+                        style={{
+                          borderBottom: "2px solid blue",
+                        }}
+                        active
+                      >
+                        جدیدترین
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink disabled>پرفروش‌ترین</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink disabled>ارزان‌ترین</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink disabled>گران‌ترین</NavLink>
+                    </NavItem>
+                  </>
+                )}
+              </Nav>
+            ) : (
+              <div className="d-flex p-3">
+                <Dropdown
+                  isOpen={filterDropdownOpen}
+                  toggle={() => setFilterDropdownOpen(!filterDropdownOpen)}
+                  direction={"down"}
                 >
-                  جدیدترین
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink disabled>پرفروش‌ترین</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink disabled>ارزان‌ترین</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink disabled>گران‌ترین</NavLink>
-              </NavItem>
-            </Nav>
+                  <DropdownToggle caret>{filters}</DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={() => setFilters("پیش فرض")}>
+                      {" "}
+                      پیش فرض
+                    </DropdownItem>
+                    <DropdownItem onClick={() => setFilters("پرفروش‌ترین")}>
+                      {" "}
+                      پرفروش‌ترین
+                    </DropdownItem>
+                    <DropdownItem onClick={() => setFilters("ارزان‌ترین")}>
+                      {" "}
+                      ارزان‌ترین
+                    </DropdownItem>
+                    <DropdownItem onClick={() => setFilters("گران‌ترین")}>
+                      {" "}
+                      گران‌ترین
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
+            )}
 
             <div className="d-flex p-3">
-              <Dropdown isOpen={dropdownOpen} toggle={toggle} direction={"up"}>
+              <Dropdown
+                isOpen={dropdownOpen}
+                toggle={toggle}
+                direction={"down"}
+              >
                 <DropdownToggle caret>{offers}</DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem onClick={() => setOffers("فروش")}>
