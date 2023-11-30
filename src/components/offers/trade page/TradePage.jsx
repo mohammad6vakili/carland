@@ -40,7 +40,7 @@ const TradePage = () => {
           <h1>بی ام دبلیو ۵۱۰</h1>
         </div>
 
-        <div style={{ display: "flex", width: "100%", gap: "3%" }}>
+        <div style={{ display: "flex", width: "100%", gap: "20px" }}>
           <div className={s.main_content}>
             <div className={s.gallery}>
               <Swiper

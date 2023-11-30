@@ -19,6 +19,7 @@ import { LeftOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import BuySaleCard from "./BuySaleCard";
 import JobsCard from "./JobsCard";
+// import MultiRangeSlider from "multi-range-slider-react";
 
 const offers = () => {
   const marketItems = [
@@ -100,12 +101,20 @@ const offers = () => {
   const [cSelected, setCSelected] = useState([]);
   const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [offers, setOffers] = useState("buy-sale");
+  const [offers, setOffers] = useState("خرید و فروش");
+  //control filters collapse
   const [categoryOpen, setCategoryOpen] = useState(true);
   const [brandsOpen, setBrandsOpen] = useState(true);
   const [yearsOpen, setYearsOpen] = useState(true);
   const [priceRangeOpen, setPriceRangeOpen] = useState(true);
   const [colorSelectOpen, setColorSelectOpen] = useState(true);
+  //range input control
+  const [minPriceValue, setMinPriceValue] = useState(0);
+  const [maxPriceValue, setMaxPiceValue] = useState(20000000);
+  const handleInput = (e) => {
+    set_minValue(e.minValue);
+    set_maxValue(e.maxValue);
+  };
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -474,7 +483,17 @@ const offers = () => {
             >
               <div className={s.range}>
                 <span className={s.from}>۲۰,۶۰۰,۰۰۰ تومان</span>
-                <div className={s.range_input}></div>
+                {/* <div className={s.range_input}></div> */}
+                {/* <MultiRangeSlider
+                  min={0}
+                  max={100}
+                  step={5}
+                  minValue={minValue}
+                  maxValue={maxValue}
+                  onInput={(e) => {
+                    handleInput(e);
+                  }}
+                /> */}
                 <span className={s.to}>۲۰,۶۰۰,۰۰۰ تومان</span>
               </div>
             </Collapse>
@@ -541,19 +560,19 @@ const offers = () => {
               <Dropdown isOpen={dropdownOpen} toggle={toggle} direction={"up"}>
                 <DropdownToggle caret>{offers}</DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem onClick={() => setOffers("sale")}>
+                  <DropdownItem onClick={() => setOffers("فروش")}>
                     {" "}
                     فروش
                   </DropdownItem>
-                  <DropdownItem onClick={() => setOffers("buy-sale")}>
+                  <DropdownItem onClick={() => setOffers("خرید و فروش")}>
                     {" "}
                     خرید و فروش
                   </DropdownItem>
-                  <DropdownItem onClick={() => setOffers("service")}>
+                  <DropdownItem onClick={() => setOffers("خدمات")}>
                     {" "}
                     خدمات
                   </DropdownItem>
-                  <DropdownItem onClick={() => setOffers("jobs")}>
+                  <DropdownItem onClick={() => setOffers("کسب و کار")}>
                     {" "}
                     کسب و کار
                   </DropdownItem>
@@ -562,7 +581,7 @@ const offers = () => {
             </div>
           </div>
 
-          {offers === "buy-sale"
+          {offers === "خرید و فروش"
             ? marketItems.map((item, index) => (
                 <BuySaleCard
                   key={Math.random() * index}
@@ -575,7 +594,7 @@ const offers = () => {
                   price={"۹,۹۰۰,۰۰۰,۰۰۰"}
                 />
               ))
-            : offers === "jobs"
+            : offers === "کسب و کار"
             ? marketItems.map((item, index) => (
                 <JobsCard
                   key={Math.random() * index}

@@ -62,7 +62,7 @@ const Header = () => {
                 دسته بندی
               </span>
 
-              <Link href={"/"}>
+              <Link href={"/market"}>
                 <span className={pathname === "/market" ? styles.selected : ""}>
                   {" "}
                   بازارچه
@@ -82,7 +82,7 @@ const Header = () => {
                   <div className={styles.line2}></div>
                 </span>
               </Link>
-              <Link href={"/"}>
+              <Link href={"/club"}>
                 <span className={pathname === "/club" ? styles.selected : ""}>
                   {" "}
                   کلوپ
@@ -90,7 +90,7 @@ const Header = () => {
                   <div className={styles.line2}></div>
                 </span>
               </Link>
-              <Link href={"/"}>
+              <Link href={"/magazine"}>
                 <span
                   className={pathname === "/magazine" ? styles.selected : ""}
                 >
@@ -100,7 +100,7 @@ const Header = () => {
                   <div className={styles.line2}></div>
                 </span>
               </Link>
-              <Link href={"/"}>
+              <Link href={"/about_us"}>
                 <span
                   className={pathname === "/about_us" ? styles.selected : ""}
                 >

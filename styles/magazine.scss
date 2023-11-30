@@ -1,0 +1,312 @@
+@font-face {
+  font-family: dana;
+  src: url("../public/fonts/Dana-Medium.ttf");
+}
+
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+
+.magazine_page {
+  @include flex(column, flex-start, center);
+  gap: 2rem;
+  padding: 2rem;
+  p {
+    margin: 0;
+  }
+
+  .title {
+    @include flex(row, flex-start, center);
+    width: 100%;
+    gap: 10px;
+    p {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
+
+  .main_title {
+    @include flex(row, flex-start, center);
+    width: 100%;
+  }
+
+  .contents {
+    @include flex(row, space-between, flex-start);
+    width: 100%;
+
+    .main_content {
+      @include flex(column, flex-start, center);
+      gap: 2rem;
+      width: 65%;
+
+      .gallery {
+        @include flex(column, center, flex-start);
+        gap: 1rem;
+        width: 100%;
+
+        .swiper {
+          width: 100%;
+          height: 100%;
+        }
+
+        // .slide {
+        //   width: 100%;
+        //   height: 100%;
+        //   img {
+        //     width: 100%;
+        //   }
+        // }
+
+        .magazine_details {
+          @include flex(row, flex-start, center);
+          gap: 10px;
+
+          .name {
+            color: #4a80e8;
+          }
+
+          span {
+            color: #d80739;
+          }
+        }
+      }
+
+      .texts {
+        @include flex(column, flex-start, flex-start);
+        gap: 10px;
+        width: 100%;
+        .title {
+          font-size: 1.1em;
+          color: #101010;
+          font-weight: 700;
+        }
+
+        .descriptions {
+          color: #3a3a3a;
+          text-align: justify;
+          line-height: 170%;
+        }
+      }
+
+      .share {
+        @include flex(row, space-between, center);
+        width: 100%;
+        padding: 25px 10px;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+
+        .links {
+          @include flex(row, flex-start, center);
+          gap: 20px;
+          div {
+            @include flex(row, center, center);
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            background: #f5f5f5;
+            cursor: pointer;
+          }
+        }
+
+        .text {
+          color: #4a80e8;
+        }
+      }
+    }
+
+    .other_contents {
+      @include flex(column, flex-start, center);
+      gap: 2rem;
+      padding: 0 2rem;
+      width: 35%;
+
+      .latest_clubs {
+        @include flex(column, flex-start, flex-start);
+        gap: 1.5rem;
+        width: 100%;
+
+        .list {
+          @include flex(column, flex-start, flex-start);
+          width: 100%;
+          border-radius: 20px;
+          background: #fff;
+          box-shadow: 0px 4px 100px 0px rgba(187, 187, 187, 0.2);
+          padding: 1rem;
+
+          .image {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            img {
+              width: 100%;
+              border-radius: 20px;
+            }
+          }
+
+          .list_item {
+            @include flex(column, flex-start, flex-start);
+            border-right: 1px dashed #4a80e866;
+            padding-bottom: 2rem;
+            .description {
+              padding-right: 25px;
+              color: #757575;
+            }
+          }
+          .list_item:last-child {
+            border: none;
+          }
+        }
+      }
+
+      .image {
+        width: 100%;
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 20px;
+        }
+      }
+
+      .best_clubs {
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
+        gap: 1rem;
+
+        .list {
+          @include flex(column, flex-start, center);
+          gap: 1rem;
+          width: 100%;
+
+          .card {
+            @include flex(row, flex-start, flex-start);
+            gap: 15px;
+            width: 100%;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+            padding: 1rem;
+
+            .image {
+              @include flex(row, center, center);
+              max-width: 25%;
+              img {
+                width: 80%;
+                height: 80%;
+              }
+            }
+
+            .texts {
+              @include flex(column, space-between, flex-start);
+              gap: 15px;
+              width: 100%;
+              height: 100%;
+              .title {
+                font-weight: bold;
+              }
+              .detail {
+                @include flex(row, space-between, center);
+                width: 100%;
+                button {
+                  @include flex(row, space-between, center);
+                  gap: 10px;
+                  border: 1px solid #4a80e8;
+                  div {
+                    height: 100%;
+                    img {
+                      width: 100%;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .suggested_clubs {
+    @include flex(column, flex-start, center);
+    gap: 2rem;
+    width: 100%;
+
+    .title {
+      font-size: 1.6em;
+      position: relative;
+
+      .next_prev_offers {
+        @include flex(row, center, center);
+        gap: 10px;
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        .next,
+        .prev {
+          @include flex(row, center, center);
+          width: 50px;
+          height: 50px;
+          cursor: pointer;
+          border-radius: 50%;
+          padding: 10px;
+          border: 1px solid #000;
+        }
+      }
+    }
+
+    .cards {
+      width: 100%;
+
+      .card {
+        @include flex(column, space-between, center);
+        gap: 1.5rem;
+        width: 300px;
+        padding: 1rem;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0px 4px 100px 0px rgba(187, 187, 187, 0.2);
+
+        .image {
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .texts {
+          border-bottom: 1px solid #e6e6e6;
+          padding-bottom: 1.5rem;
+          .title {
+            font-size: 1.1em;
+            font-weight: bold;
+          }
+          p {
+            opacity: 40%;
+          }
+        }
+
+        .bottom_content {
+          @include flex(row, space-between, center);
+          width: 100%;
+
+          button {
+            @include flex(row, space-between, center);
+            border: 1px solid #4a80e8;
+            color: #4a80e8;
+            position: relative;
+            padding: 5px 10px;
+            div {
+              width: 30%;
+              height: 100%;
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

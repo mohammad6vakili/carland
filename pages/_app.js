@@ -7,13 +7,18 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/thumbs";
+import localFont from "next/font/local";
 
-const App = ({ Component, pageProps }) => {
+const dana = localFont({ src: "../public/fonts/Dana-Medium.ttf" });
+
+const MyApp = ({ Component, pageProps }) => {
   return (
     // <ConfigProvider theme={theme}>
-    <Component {...pageProps} />
+    <main className={dana.className}>
+      <Component {...pageProps} />
+    </main>
     // </ConfigProvider>
   );
 };
 
-export default App;
+export default MyApp;

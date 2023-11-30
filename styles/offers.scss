@@ -1,8 +1,3 @@
-@font-face {
-  font-family: dana;
-  src: url("../public/fonts/Dana-Medium.ttf");
-}
-
 @mixin flex($d, $j, $a) {
   display: flex;
   flex-direction: $d;
@@ -14,7 +9,6 @@
 .offers {
   @include flex(column, flex-start, center);
   width: 100%;
-  font-family: dana;
 
   p {
     margin: 0;

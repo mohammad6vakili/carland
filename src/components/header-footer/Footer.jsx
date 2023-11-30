@@ -22,7 +22,7 @@ const Footer = () => {
             <div className={styles.logo_texts}>
               <div className={styles.logo}>
                 <Image
-                  src={"/assets/carland-logo.svg"}
+                  src={"/assets/carland-logo-fff.svg"}
                   alt=""
                   width={50}
                   height={50}

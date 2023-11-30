@@ -255,14 +255,14 @@ const JobPage = () => {
 
           <div className={s.address}>
             <div className={s.title}>
-              <span>
+              <div>
                 <Image
                   src={"/assets/trades/triangle.svg"}
                   alt=""
                   width={15}
                   height={15}
                 />
-              </span>
+              </div>
               <p>آدرس</p>
             </div>
             <div>تهران، میدان پیروزی، خیابان آزادی، روبروی سینما ازادی</div>

@@ -88,9 +88,9 @@ body {
   direction: rtl;
   margin: 0 auto;
 }
-
 body {
   color: rgb(var(--foreground-rgb));
+  font-family: dana;
 }
 
 body::-webkit-scrollbar {

@@ -1,11 +1,7 @@
 @import "./offers.scss";
 @import "./trade.scss";
 @import "./jobs.scss";
-
-@font-face {
-  font-family: dana;
-  src: url("../public/fonts/Dana-Medium.ttf");
-}
+@import "./magazine.scss";
 
 @mixin flex($d, $j, $a) {
   display: flex;
@@ -18,7 +14,6 @@
   @include flex(column, flex-start, center);
   width: 100%;
   font-size: 16px;
-  font-family: dana;
 
   ::-webkit-scrollbar {
     width: 20px;

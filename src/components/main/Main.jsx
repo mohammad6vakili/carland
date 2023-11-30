@@ -471,11 +471,15 @@ const Main = () => {
                   spaceBetween: 20,
                 },
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: 2.8,
                   spaceBetween: 40,
                 },
                 1024: {
-                  slidesPerView: 5.1,
+                  slidesPerView: 3.8,
+                  spaceBetween: 50,
+                },
+                1360: {
+                  slidesPerView: 5,
                   spaceBetween: 50,
                 },
               }}
