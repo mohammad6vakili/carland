@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <>
-      <div className={styles.header}>
+      <div id="header" className={styles.header}>
         <section className={styles.background}>
           <Image
             src={"/assets/header-background.png"}

@@ -11,6 +11,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Input,
   Nav,
   NavItem,
   NavLink,
@@ -20,7 +21,7 @@ import { useEffect, useState } from "react";
 import BuySaleCard from "./BuySaleCard";
 import JobsCard from "./JobsCard";
 import { useWindowSize } from "@uidotdev/usehooks";
-// import MultiRangeSlider from "multi-range-slider-react";
+import HCarousel from "../main/HCarousel";
 
 const offers = () => {
   const marketItems = [
@@ -114,11 +115,11 @@ const offers = () => {
   const [priceRangeOpen, setPriceRangeOpen] = useState(true);
   const [colorSelectOpen, setColorSelectOpen] = useState(true);
   //range input control
-  const [minPriceValue, setMinPriceValue] = useState(0);
-  const [maxPriceValue, setMaxPiceValue] = useState(20000000);
+  const [minPriceValue, setMinPriceValue] = useState(10);
+  const [maxPriceValue, setMaxPiceValue] = useState(100);
   const handleInput = (e) => {
-    set_minValue(e.minValue);
-    set_maxValue(e.maxValue);
+    setMinPriceValue(e.minValue);
+    setMaxPiceValue(e.maxValue);
   };
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -147,232 +148,7 @@ const offers = () => {
 
   return (
     <div className={s.offers}>
-      <div className={s.head_carousel}>
-        <Swiper
-          spaceBetween={30}
-          effect={"fade"}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          navigation={false}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Autoplay, EffectFade, Navigation, Pagination]}
-          className={s.mySwiper}
-        >
-          <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={s.background}
-            />
-
-            <div className={s.content}>
-              <div className={s.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={s.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={s.car}
-              />
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={s.background}
-            />
-
-            <div className={s.content}>
-              <div className={s.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={s.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={s.car}
-              />
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={s.background}
-            />
-
-            <div className={s.content}>
-              <div className={s.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={s.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={s.car}
-              />
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={s.background}
-            />
-
-            <div className={s.content}>
-              <div className={s.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={s.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={s.car}
-              />
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={s.background}
-            />
-
-            <div className={s.content}>
-              <div className={s.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={s.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={s.car}
-              />
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <Image
-              src={"/assets/main/head-carousel-background.svg"}
-              alt=""
-              width={1000}
-              height={386}
-              className={s.background}
-            />
-
-            <div className={s.content}>
-              <div className={s.texts}>
-                <h1>کارلند بهترین فروشگاه خودروی ایران</h1>
-                <p>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید.
-                </p>
-
-                <Button className={s.btn}>
-                  لوازم ماشین
-                  <div>
-                    <LeftOutlined style={{ color: "#fff" }} />
-                  </div>
-                </Button>
-              </div>
-
-              <Image
-                src={"/assets/main/car-1.svg"}
-                alt=""
-                width={386}
-                height={386}
-                className={s.car}
-              />
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </div>
+      <HCarousel />
 
       <section className={s.market}>
         <div className={s.market_filters}>
@@ -488,17 +264,9 @@ const offers = () => {
             >
               <div className={s.range}>
                 <span className={s.from}>۲۰,۶۰۰,۰۰۰ تومان</span>
-                {/* <div className={s.range_input}></div> */}
-                {/* <MultiRangeSlider
-                  min={0}
-                  max={100}
-                  step={5}
-                  minValue={minValue}
-                  maxValue={maxValue}
-                  onInput={(e) => {
-                    handleInput(e);
-                  }}
-                /> */}
+                <div className={s.range_input}>
+                  <Input style={{ background: "none" }} type="range" />
+                </div>
                 <span className={s.to}>۲۰,۶۰۰,۰۰۰ تومان</span>
               </div>
             </Collapse>

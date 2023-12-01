@@ -91,6 +91,7 @@ body {
 body {
   color: rgb(var(--foreground-rgb));
   font-family: dana;
+  scroll-behavior: smooth;
 }
 
 body::-webkit-scrollbar {

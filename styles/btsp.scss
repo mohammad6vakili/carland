@@ -9,15 +9,15 @@ $primary: #4a80e8;
 
 $btn-border-radius: 10px;
 
-$btn-hover: (
+$btn-primary: (
   "backgroun-color": "#fff",
 );
 
-.btn-primary {
+.btn {
   background-color: #fff;
   color: #fff;
 
-  :hover {
+  :focus {
     color: #000 !important;
     border: none;
   }

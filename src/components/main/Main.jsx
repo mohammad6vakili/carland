@@ -1102,7 +1102,7 @@ const Main = () => {
             </div>
 
             <div className={styles.btns}>
-              <Button>
+              <Button type="secondary">
                 <Image
                   src={"/assets/logos/bazzar.png"}
                   alt=""

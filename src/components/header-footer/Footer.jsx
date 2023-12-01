@@ -8,6 +8,13 @@ import { useWindowSize } from "@uidotdev/usehooks";
 const Footer = () => {
   const size = useWindowSize();
 
+  const scrollToHeader = () => {
+    const section2 = document.getElementById("header");
+    if (section2) {
+      section2.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <div className={styles.footer}>
@@ -250,8 +257,15 @@ const Footer = () => {
 
               <Button
                 color="dark"
-                style={{ color: "#4A80E8", border: "1px solid #142D5D" }}
+                style={{
+                  color: "#4A80E8",
+                  border: "1px solid #142D5D",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                onClick={() => scrollToHeader()}
               >
+                <a style={{ textDecoration: "none" }} href="#header"></a>
                 بازگشت به بالا
                 <ArrowUpOutlined />
               </Button>
@@ -277,8 +291,15 @@ const Footer = () => {
             {size.width > 1000 ? (
               <Button
                 color="dark"
-                style={{ color: "#4A80E8", border: "1px solid #142D5D" }}
+                style={{
+                  color: "#4A80E8",
+                  border: "1px solid #142D5D",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                onClick={() => scrollToHeader()}
               >
+                <a style={{ textDecoration: "none" }} href="#header"></a>
                 بازگشت به بالا
                 <ArrowUpOutlined />
               </Button>

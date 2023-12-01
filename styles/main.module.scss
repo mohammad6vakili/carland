@@ -983,7 +983,7 @@
 
     .pics {
       @include flex(row, center, center);
-      max-width: 40%;
+      min-width: 40%;
       img {
         max-width: 100%;
       }
@@ -1034,8 +1034,12 @@
           @include flex(row, flex-start, center);
           .texts {
             max-width: 60%;
+            max-height: 100%;
             h1 {
-              font-size: 1.5em;
+              font-size: 1.2em;
+            }
+            button {
+              padding: 2px 5px;
             }
           }
           .car {
