@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/thumbs";
+import "leaflet/dist/leaflet.css";
 import localFont from "next/font/local";
 import MobileMenu from "@/src/components/mobile menu/MobileMenu";
 

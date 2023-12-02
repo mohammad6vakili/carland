@@ -175,6 +175,12 @@
           gap: 30px;
           padding: 3px 10px;
           width: 100%;
+
+          span {
+            span {
+              margin: 0 10px;
+            }
+          }
         }
       }
 
@@ -537,12 +543,58 @@
 
 @media only screen and (max-width: 950px) {
   .job_page {
+    font-size: 12px;
+
+    .gallery {
+      .slide {
+        .details {
+          flex-direction: column-reverse;
+          top: inherit;
+          bottom: 5%;
+          .title {
+            padding: 5px;
+          }
+        }
+
+        .contatcs {
+          right: inherit;
+          left: 10px;
+          top: 5%;
+          align-items: flex-end;
+          div {
+            padding: 3px;
+          }
+        }
+      }
+    }
+
+    .comments {
+      .not_logged_in {
+        flex-direction: column;
+        gap: 20px;
+        button {
+          width: 150px;
+          height: 30px;
+          padding: 0;
+        }
+      }
+    }
+
     .send_comment,
     .not_logged_in,
     .comments .comments .comment_card,
-    .share {
+    .share,
+    .work_time {
       max-width: none !important;
       width: 100% !important;
+
+      .content .texts {
+        .rate_react {
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 20px;
+        }
+      }
     }
   }
 }

@@ -1,5 +1,3 @@
-@import "./responsive.scss";
-
 @mixin flex($d, $j, $a) {
   display: flex;
   flex-direction: $d;
@@ -189,7 +187,7 @@
 
   .footer_content {
     @include flex(row, flex-start, center);
-    gap: 2%;
+    gap: 5%;
     width: 100%;
     height: 100%;
     padding: 2% 5%;
@@ -349,6 +347,20 @@
 }
 
 @media only screen and (max-width: 1000px) {
+  .header {
+    font-size: 12px;
+    .header_content {
+      .symbol {
+        .logo {
+          img {
+            width: 35px;
+            height: 35px;
+          }
+        }
+      }
+    }
+  }
+
   .footer {
     height: auto;
     .footer_content {

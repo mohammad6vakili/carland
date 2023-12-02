@@ -160,6 +160,13 @@ const Main = () => {
     { src: "/assets/main/club.svg" },
     { src: "/assets/main/club.svg" },
     { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
+    { src: "/assets/main/club.svg" },
   ];
 
   const size = useWindowSize();
@@ -235,7 +242,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -244,7 +251,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -253,7 +260,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -262,7 +269,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -271,7 +278,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -280,7 +287,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -289,7 +296,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -298,7 +305,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -307,7 +314,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -316,7 +323,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -325,7 +332,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -334,7 +341,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -343,7 +350,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -352,7 +359,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -361,7 +368,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -370,7 +377,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -379,7 +386,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -388,7 +395,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -397,16 +404,7 @@ const Main = () => {
                         alt=""
                         width={100}
                         height={100}
-                        src={"/assets/main/service-1.svg"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.svg"}
+                        src={"/assets/main/service-1.png"}
                       />
                       <span>بیمه ماشین</span>
                     </div>
@@ -465,7 +463,11 @@ const Main = () => {
             <Swiper
               slidesPerView={5}
               spaceBetween={30}
-              modules={[Navigation, Pagination]}
+              autoplay={{
+                delay: 1000,
+                disableOnInteraction: false,
+              }}
+              modules={[Navigation, Pagination, Autoplay]}
               className={styles.mySwiper2}
             >
               {clubs.map(() => (
@@ -481,13 +483,11 @@ const Main = () => {
                   >
                     <Image
                       alt=""
-                      width={100}
-                      height={100}
-                      src={"/assets/main/service-1.svg"}
+                      width={80}
+                      height={80}
+                      src={"/assets/main/service-1.png"}
                     />
-                    <p style={{ color: "#fff", fontSize: "1.1em" }}>
-                      بیمه ماشین
-                    </p>
+                    <p style={{ color: "#fff", fontSize: "1.1em" }}>بیمه</p>
                   </div>
                 </SwiperSlide>
               ))}
@@ -646,7 +646,7 @@ const Main = () => {
                   spaceBetween: 20,
                 },
                 768: {
-                  slidesPerView: 2.5,
+                  slidesPerView: 2,
                   spaceBetween: 40,
                 },
                 1024: {
@@ -932,15 +932,38 @@ const Main = () => {
 
           <section className={styles.club_list}>
             <Swiper
-              slidesPerView={6}
-              spaceBetween={50}
+              spaceBetween={20}
+              slidesPerView={2}
               navigation={{
                 nextEl: nextFanClubRef?.current,
                 prevEl: prevFanClubRef?.current,
               }}
+              autoplay={{
+                delay: 1000,
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 5,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 6,
+                  spaceBetween: 50,
+                },
+                1360: {
+                  slidesPerView: 7.5,
+                  spaceBetween: 50,
+                },
+              }}
               grabCursor={true}
-              modules={[Navigation]}
+              modules={[Navigation, Autoplay]}
               onSwiper={setFanClubSwiper}
+              className={styles.mySwiper}
             >
               {clubs.map((club, index) => (
                 <SwiperSlide key={Math.random() * index}>

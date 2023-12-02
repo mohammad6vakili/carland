@@ -62,7 +62,7 @@ const Footer = () => {
 
                   <div className={styles.texts}>
                     <p>
-                      <span>021</span> - 45123132
+                      45123132 - <span>021</span>
                     </p>
                     <p>خدمات و پشتیبانی 24 ساعته!</p>
                   </div>
@@ -144,19 +144,28 @@ const Footer = () => {
 
             {size.width > 1000 ? (
               <div className={styles.buttons}>
-                <Button color="main-primary" className={styles.btn}>
+                <Button className={styles.btn}>
+                  <InstagramOutlined
+                    style={{
+                      color: "#fff",
+                      opacity: "0.6",
+                    }}
+                  />
+                </Button>
+                <Button className={styles.btn}>
                   <InstagramOutlined
                     style={{ color: "#fff", opacity: "0.6" }}
                   />
                 </Button>
                 <Button className={styles.btn}>
-                  <InstagramOutlined />
+                  <InstagramOutlined
+                    style={{ color: "#fff", opacity: "0.6" }}
+                  />
                 </Button>
                 <Button className={styles.btn}>
-                  <InstagramOutlined />
-                </Button>
-                <Button className={styles.btn}>
-                  <InstagramOutlined />
+                  <InstagramOutlined
+                    style={{ color: "#fff", opacity: "0.6" }}
+                  />
                 </Button>
               </div>
             ) : (
@@ -239,19 +248,28 @@ const Footer = () => {
               </div>
 
               <div className={styles.buttons}>
-                <Button color="main-primary" className={styles.btn}>
+                <Button className={styles.btn}>
+                  <InstagramOutlined
+                    style={{
+                      color: "#fff",
+                      opacity: "0.6",
+                    }}
+                  />
+                </Button>
+                <Button className={styles.btn}>
                   <InstagramOutlined
                     style={{ color: "#fff", opacity: "0.6" }}
                   />
                 </Button>
                 <Button className={styles.btn}>
-                  <InstagramOutlined />
+                  <InstagramOutlined
+                    style={{ color: "#fff", opacity: "0.6" }}
+                  />
                 </Button>
                 <Button className={styles.btn}>
-                  <InstagramOutlined />
-                </Button>
-                <Button className={styles.btn}>
-                  <InstagramOutlined />
+                  <InstagramOutlined
+                    style={{ color: "#fff", opacity: "0.6" }}
+                  />
                 </Button>
               </div>
 

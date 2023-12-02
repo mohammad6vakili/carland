@@ -15,11 +15,19 @@ import CommentCard from "./CommentCard";
 import SendComment from "./SendComment";
 import AlikeOffersCard from "../trade page/AlikeOffersCard";
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 
 const JobPage = () => {
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
   const nextAdRef = useRef();
+
+  // const MyMap = dynamic(
+  //   () => import("react-neshan-map-leaflet/dist/NeshanMap"),
+  //   {
+  //     ssr: false,
+  //   }
+  // );
 
   useEffect(() => {
     if (adsSwiper) {
@@ -275,6 +283,7 @@ const JobPage = () => {
                 width={700}
                 height={250}
               />
+              {/* <MyMap mapKey={"web.d8211fffbc5a4af68eed4a0f110edb0c"}></MyMap> */}
             </div>
           </div>
         </section>

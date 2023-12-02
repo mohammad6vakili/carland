@@ -105,9 +105,9 @@ const offers = () => {
   const [cSelected, setCSelected] = useState([]);
   const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [offers, setOffers] = useState("خرید و فروش");
+  const [offers, setOffers] = useState("کسب و کار");
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
-  const [filters, setFilters] = useState("جدید ترین");
+  const [filters, setFilters] = useState("جدیدترین");
   //control filters collapse
   const [categoryOpen, setCategoryOpen] = useState(true);
   const [brandsOpen, setBrandsOpen] = useState(true);
@@ -145,6 +145,20 @@ const offers = () => {
   };
 
   useEffect(() => console.log(offers), [offers]);
+
+  const handleFilterValidate = (value) => {
+    if (filters === value) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleFilterStyle = (value) => {
+    if (filters === value) {
+      return { borderBottom: "2px solid blue" };
+    } else return { border: "" };
+  };
 
   return (
     <div className={s.offers}>
@@ -264,9 +278,9 @@ const offers = () => {
             >
               <div className={s.range}>
                 <span className={s.from}>۲۰,۶۰۰,۰۰۰ تومان</span>
-                <div className={s.range_input}>
-                  <Input style={{ background: "none" }} type="range" />
-                </div>
+                {/* <div className={s.range_input}> */}
+                <Input style={{ background: "none" }} type="range" />
+                {/* </div> */}
                 <span className={s.to}>۲۰,۶۰۰,۰۰۰ تومان</span>
               </div>
             </Collapse>
@@ -300,8 +314,11 @@ const offers = () => {
               <Nav className={s.tabs_names}>
                 {offers === "کسب و کار" ? (
                   <>
-                    <NavItem>
-                      <NavLink disabled>
+                    <NavItem onClick={() => setFilters("پیش فرض")}>
+                      <NavLink
+                        disabled={!handleFilterValidate("پیش فرض")}
+                        style={handleFilterStyle("پیش فرض")}
+                      >
                         <Image
                           src={"/assets/offers/setting.svg"}
                           alt=""
@@ -311,30 +328,50 @@ const offers = () => {
                         پیش فرض
                       </NavLink>
                     </NavItem>
-                    <NavItem style={{ height: "100%" }}>
+
+                    <NavItem onClick={() => setFilters("جدیدترین")}>
                       <NavLink
-                        style={{
-                          borderBottom: "2px solid blue",
-                        }}
-                        active
+                        disabled={!handleFilterValidate("جدیدترین")}
+                        style={handleFilterStyle("جدیدترین")}
                       >
                         جدیدترین
                       </NavLink>
                     </NavItem>
-                    <NavItem>
-                      <NavLink disabled>پرفروش‌ترین</NavLink>
+
+                    <NavItem onClick={() => setFilters("پرفروش‌ترین")}>
+                      <NavLink
+                        style={handleFilterStyle("پرفروش‌ترین")}
+                        disabled={!handleFilterValidate("پرفروش‌ترین")}
+                      >
+                        پرفروش‌ترین
+                      </NavLink>
                     </NavItem>
-                    <NavItem>
-                      <NavLink disabled>نزدیک‌ترین</NavLink>
+
+                    <NavItem onClick={() => setFilters("نزدیک‌ترین")}>
+                      <NavLink
+                        disabled={!handleFilterValidate("نزدیک‌ترین")}
+                        style={handleFilterStyle("نزدیک‌ترین")}
+                      >
+                        نزدیک‌ترین
+                      </NavLink>
                     </NavItem>
-                    <NavItem>
-                      <NavLink disabled>بهترین</NavLink>
+
+                    <NavItem onClick={() => setFilters("بهترین")}>
+                      <NavLink
+                        disabled={!handleFilterValidate("بهترین")}
+                        style={handleFilterStyle("بهترین")}
+                      >
+                        بهترین
+                      </NavLink>
                     </NavItem>
                   </>
                 ) : (
                   <>
-                    <NavItem>
-                      <NavLink disabled>
+                    <NavItem onClick={() => setFilters("پیش فرض")}>
+                      <NavLink
+                        disabled={!handleFilterValidate("پیش فرض")}
+                        style={handleFilterStyle("پیش فرض")}
+                      >
                         <Image
                           src={"/assets/offers/setting.svg"}
                           alt=""
@@ -344,30 +381,47 @@ const offers = () => {
                         پیش فرض
                       </NavLink>
                     </NavItem>
-                    <NavItem style={{ height: "100%" }}>
+
+                    <NavItem onClick={() => setFilters("جدیدترین")}>
                       <NavLink
-                        style={{
-                          borderBottom: "2px solid blue",
-                        }}
-                        active
+                        disabled={!handleFilterValidate("جدیدترین")}
+                        style={handleFilterStyle("جدیدترین")}
                       >
                         جدیدترین
                       </NavLink>
                     </NavItem>
-                    <NavItem>
-                      <NavLink disabled>پرفروش‌ترین</NavLink>
+
+                    <NavItem onClick={() => setFilters("پرفروش‌ترین")}>
+                      <NavLink
+                        style={handleFilterStyle("پرفروش‌ترین")}
+                        disabled={!handleFilterValidate("پرفروش‌ترین")}
+                      >
+                        پرفروش‌ترین
+                      </NavLink>
                     </NavItem>
-                    <NavItem>
-                      <NavLink disabled>ارزان‌ترین</NavLink>
+
+                    <NavItem onClick={() => setFilters("ارزان ترین")}>
+                      <NavLink
+                        disabled={!handleFilterValidate("ارزان ترین")}
+                        style={handleFilterStyle("ارزان ترین")}
+                      >
+                        ارزان ترین
+                      </NavLink>
                     </NavItem>
-                    <NavItem>
-                      <NavLink disabled>گران‌ترین</NavLink>
+
+                    <NavItem onClick={() => setFilters("گران ترین")}>
+                      <NavLink
+                        disabled={!handleFilterValidate("گران ترین")}
+                        style={handleFilterStyle("گران ترین")}
+                      >
+                        گران ترین
+                      </NavLink>
                     </NavItem>
                   </>
                 )}
               </Nav>
             ) : (
-              <div className="d-flex p-3">
+              <div className="d-flex align-items=center">
                 <Dropdown
                   isOpen={filterDropdownOpen}
                   toggle={() => setFilterDropdownOpen(!filterDropdownOpen)}
@@ -395,7 +449,6 @@ const offers = () => {
                 </Dropdown>
               </div>
             )}
-
             <div className="d-flex p-3">
               <Dropdown
                 isOpen={dropdownOpen}

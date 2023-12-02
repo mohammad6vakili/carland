@@ -8,19 +8,20 @@ $theme-colors: (
 $primary: #4a80e8;
 
 $btn-border-radius: 10px;
+$btn-font-size: 1em;
 
 $btn-primary: (
   "backgroun-color": "#fff",
 );
 
-.btn {
-  background-color: #fff;
-  color: #fff;
+// .btn {
+//   background-color: #fff;
+//   color: #fff;
 
-  :focus {
-    color: #000 !important;
-    border: none;
-  }
-}
+//   :focus {
+//     color: #000 !important;
+//     border: none;
+//   }
+// }
 
 @import "~bootstrap/scss/bootstrap";

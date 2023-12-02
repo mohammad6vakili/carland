@@ -54,31 +54,39 @@ $carousel-borderRadius: 20px;
 
     .gallery {
       width: 100%;
+      height: 500px;
+
       .swiper {
         width: 100%;
-        height: 300px;
       }
 
       img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       .my_swiper {
+        width: 100%;
+        height: 75%;
         box-sizing: border-box;
         border-radius: 50px;
         margin-bottom: 2rem;
         .slide {
-          background-size: cover;
-          background-position: center;
+          @include flex(row, center, center);
+          width: 100%;
+          height: 100%;
+          position: relative;
           // border-radius: 50px;
         }
       }
 
       .my_swiper2 {
-        height: 100%;
         width: 100%;
+        height: 20%;
         .slide2 {
-          width: 250px;
+          min-width: 150px;
+          height: 100%;
           overflow: hidden;
           img {
             width: 100%;
@@ -111,7 +119,9 @@ $carousel-borderRadius: 20px;
       width: 100%;
 
       .boxes {
-        @include flex(row, space-between, center);
+        @include flex(row, flex-start, center);
+        gap: 10px;
+        flex-wrap: wrap;
         width: 100%;
 
         .line {

@@ -1,5 +1,5 @@
 @import "./offers.scss", "./trade.scss", "./jobs.scss", "./magazine.scss",
-  "./variables.scss";
+  "./variables.scss", "./banners.scss";
 
 @mixin flex($d, $j, $a) {
   display: flex;
@@ -33,18 +33,19 @@
   }
 
   .head_carousel {
-    @include flex(column, flex-start, flex-start);
+    @include flex(row, flex-start, flex-start);
     width: 100%;
-    padding: 0 2rem;
+    height: 380px;
+    padding: 0 3rem;
     border-radius: 25px;
+    margin: 2rem 0;
 
     .mySwiper {
-      @include flex(row, center, center);
       width: 100%;
       height: 100%;
 
       .content {
-        @include flex(row, space-around, center);
+        @include flex(row, space-between, center);
         color: #fff;
         width: 100%;
         height: 100%;
@@ -53,6 +54,7 @@
 
         .background {
           position: absolute;
+          object-fit: cover;
           top: 0;
           bottom: 0;
           height: 100%;
@@ -293,6 +295,7 @@
           button {
             @include flex(row, space-between, center);
             width: 100%;
+            height: 40px;
             color: #fff;
 
             span {
@@ -381,14 +384,15 @@
 
   .infos {
     @include flex(row, space-between, center);
+    gap: 2rem;
     width: 100%;
-    margin: 40px;
+    margin: 2rem 0;
+    padding: 0 2rem;
 
     .info,
     .info_black {
       @include flex(row, space-between, center);
       position: relative;
-      margin: 0 2%;
       background: #d80739;
       border-radius: 22px;
       padding: 1rem;
@@ -396,8 +400,9 @@
 
       .texts {
         @include flex(column, center, flex-start);
+        gap: 10px;
         color: #fff;
-        max-width: 50%;
+        width: 100%;
         font-size: 0.9em;
         z-index: 1;
 
@@ -423,8 +428,8 @@
           div {
             @include flex(row, center, center);
             background: #142d5d;
-            width: 25px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             padding: 2px 8px;
             border-radius: 10px;
           }
@@ -432,10 +437,13 @@
       }
 
       .image {
+        width: 100%;
         margin-top: auto;
         z-index: 1;
         img {
           width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
       }
 
@@ -446,6 +454,7 @@
         img {
           width: 100%;
           height: 100%;
+          object-fit: cover;
         }
       }
     }
@@ -455,7 +464,7 @@
     @include flex(column, flex-start, center);
     width: 100%;
     gap: 2rem;
-    padding: 2rem;
+    padding: 0 4rem;
 
     .title {
       @include flex(row, space-between, center);
@@ -858,12 +867,15 @@
         right: 0;
       }
 
+      .mySwiper {
+        padding: 0 50px;
+      }
+
       .box {
         @include flex(row, center, center);
         border-radius: 20px;
         background: #f5f5f5;
         width: 128px;
-        min-width: 128px;
         height: 128px;
       }
     }
@@ -973,9 +985,11 @@
           border: 1px solid hsl(0, 0%, 0%, 0.1);
           height: 63px;
           div {
+            @include flex(row, center, center);
+            width: 20px;
+            height: 30px;
             background: #fff;
             border-radius: 10px;
-            padding: 0 3px;
           }
         }
       }
@@ -1010,13 +1024,36 @@
   z-index: 3;
   a {
     text-decoration: none;
+    text-align: center;
   }
 
-  .link {
+  .link,
+  .selected_tab {
     @include flex(column, center, center);
     font-size: 0.9em;
     color: #fff;
+    transition: all ease 1s;
+    border-radius: 50%;
+
+    .icon {
+      width: 25px;
+      height: 25px;
+      color: #fff;
+    }
+
+    .home_icon {
+      width: 40px;
+      height: 40px;
+    }
   }
+
+  // .selected_tab {
+  //   .icon,
+  //   .home_icon {
+  //     width: 40px;
+  //     height: 40px;
+  //   }
+  // }
 }
 
 @media only screen and (max-width: 1200px) {
@@ -1029,9 +1066,9 @@
   .main {
     font-size: 11px;
     .head_carousel {
+      height: 280px;
       .mySwiper {
         .content {
-          @include flex(row, flex-start, center);
           .texts {
             max-width: 60%;
             max-height: 100%;
@@ -1042,16 +1079,21 @@
               padding: 2px 5px;
             }
           }
-          .car {
-            left: 2%;
-            height: 80%;
-          }
         }
       }
     }
 
     .service_category {
       height: auto;
+
+      .service_list {
+        .service {
+          img {
+            width: 50px;
+            height: 50px;
+          }
+        }
+      }
 
       .down_content {
         display: none !important;
@@ -1085,18 +1127,100 @@
 
     .install_app {
       @include flex(column, flex-start, center);
+
+      .texts {
+        padding: 1rem;
+        gap: 1rem;
+        .btns {
+          width: 100%;
+          flex-direction: column;
+          button {
+            width: 100%;
+            div {
+              width: 25px;
+              height: 25px;
+            }
+          }
+        }
+      }
     }
   }
 }
 
 @media only screen and (max-width: 700px) {
   .main {
+    .head_carousel {
+      height: 180px;
+      padding: 0 20px;
+      margin: 20px 0;
+      .mySwiper {
+        .content {
+          .texts {
+            padding: 0;
+            padding-right: 10px;
+            gap: 5px;
+            button {
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+
     .ads,
     .market_materials1,
     .market_materials2 {
       .swiper_prev,
       .swiper_next {
         display: none;
+      }
+    }
+
+    .ads {
+      .cards {
+        padding: 0;
+        .opacity {
+          display: none;
+        }
+      }
+    }
+
+    .market {
+      padding: 0 1rem;
+    }
+
+    .fan_club {
+      .club_list {
+        .box {
+          width: 80px;
+          height: 80px;
+        }
+      }
+    }
+
+    .infos {
+      .info,
+      .info_black {
+        height: auto;
+        .texts {
+          gap: 3px;
+          button {
+            padding: 3px 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .mobile_menu {
+    font-size: 12px;
+    height: 50px;
+    gap: 5%;
+
+    .link {
+      .icon {
+        width: 20px;
+        height: 20px;
       }
     }
   }

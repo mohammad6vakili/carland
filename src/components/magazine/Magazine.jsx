@@ -11,12 +11,14 @@ import AlikeOffersCard from "../offers/trade page/AlikeOffersCard";
 import { useState, useRef, useEffect } from "react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Button } from "reactstrap";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Magazine = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
   const nextAdRef = useRef();
+  const size = useWindowSize();
 
   useEffect(() => {
     if (adsSwiper) {
@@ -73,12 +75,11 @@ const Magazine = () => {
 
                 <Swiper
                   grabCursor
-                  direction="vertical"
+                  direction={"vertical"}
                   onSwiper={setThumbsSwiper}
-                  spaceBetween={50}
-                  slidesPerView={5}
+                  spaceBetween={15}
+                  slidesPerView={4}
                   freeMode={true}
-                  watchSlidesProgress={true}
                   modules={[FreeMode, Navigation, Thumbs]}
                   className={s.my_swiper2}
                 >
