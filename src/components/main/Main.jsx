@@ -506,7 +506,6 @@ const Main = () => {
                 prevEl: prevMarketRRef?.current,
                 nextEl: nextMarketRRef?.current,
               }}
-              slidesPerView={1.1}
               breakpoints={{
                 640: {
                   slidesPerView: 1.8,
@@ -832,7 +831,7 @@ const Main = () => {
               }}
               breakpoints={{
                 640: {
-                  slidesPerView: 3,
+                  slidesPerView: 4,
                   spaceBetween: 20,
                 },
                 768: {
