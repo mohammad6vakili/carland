@@ -502,14 +502,14 @@ const Main = () => {
 
           <div className={styles.market_materials1}>
             <Swiper
-              autoHeight
               navigation={{
                 prevEl: prevMarketRRef?.current,
                 nextEl: nextMarketRRef?.current,
               }}
+              slidesPerView={1.8}
               breakpoints={{
                 640: {
-                  slidesPerView: 1.5,
+                  slidesPerView: 1.8,
                   spaceBetween: 20,
                 },
                 768: {

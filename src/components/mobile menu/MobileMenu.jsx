@@ -1,7 +1,7 @@
 import { useWindowSize } from "@uidotdev/usehooks";
 import { FaInfoCircle, FaShoppingCart } from "react-icons/fa";
 import { FaShop, FaImages } from "react-icons/fa6";
-import { TbSmartHome } from "react-icons/tb";
+import { RiHomeSmile2Fill } from "react-icons/ri";
 import s from "../../../styles/main.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -35,7 +35,7 @@ const MobileMenu = () => {
             href={"/"}
             className={pathname && pathname === "/" ? s.selected_tab : s.link}
           >
-            <TbSmartHome className={s.home_icon} />
+            <RiHomeSmile2Fill className={s.home_icon} />
           </Link>
 
           <Link

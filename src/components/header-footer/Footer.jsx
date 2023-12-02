@@ -4,6 +4,7 @@ import { PhoneOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { InstagramOutlined } from "@ant-design/icons";
 import { useWindowSize } from "@uidotdev/usehooks";
+import LocationIcon from "@/src/assets/icons/location_icon";
 
 const Footer = () => {
   const size = useWindowSize();
@@ -70,12 +71,7 @@ const Footer = () => {
 
                 <div className={styles.address}>
                   <div className={styles.logo}>
-                    <Image
-                      src={"/assets/location.svg"}
-                      alt=""
-                      width={20}
-                      height={20}
-                    />
+                    <LocationIcon />
                   </div>
                   <div className={styles.texts}>
                     <p>تهران خیابان ولیعصر بین کاظمی</p>
@@ -89,10 +85,10 @@ const Footer = () => {
           <div className={styles.tags}>
             <div className={styles.texts}>
               <div>
-                <span className={styles.head}>
+                <div className={styles.head}>
                   <div className={styles.blue_box}></div>
                   خدمات مشتریان
-                </span>
+                </div>
                 <span>
                   <div className={styles.blue_box}></div>
                   درباره ما
@@ -115,10 +111,10 @@ const Footer = () => {
                 </span>
               </div>
               <div>
-                <span className={styles.head}>
+                <div className={styles.head}>
                   <div className={styles.blue_box}></div>
                   خدمات مشتریان
-                </span>
+                </div>
                 <span>
                   <div className={styles.blue_box}></div>
                   درباره ما
