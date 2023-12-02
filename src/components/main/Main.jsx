@@ -502,6 +502,7 @@ const Main = () => {
 
           <div className={styles.market_materials1}>
             <Swiper
+              autoHeight
               navigation={{
                 prevEl: prevMarketRRef?.current,
                 nextEl: nextMarketRRef?.current,
@@ -626,12 +627,28 @@ const Main = () => {
                 height={480}
               />
               <div className={styles.caption}>
-                <p>رونمایی از جدیدترین محصول BMW</p>
-                <span>
-                  میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای
-                  آن پیش آمده تمام قطعات رو اینجا پیدا کنید. همچنین برای
-                  دانلودسریع و ...
-                </span>
+                <div className={styles.title}>
+                  <Image
+                    src={"/assets/main/quotation.svg"}
+                    alt=""
+                    width={18}
+                    height={18}
+                  />{" "}
+                  <span>رونمایی از جدیدترین محصول BMW</span>
+                </div>
+                <div className={styles.description}>
+                  <span>
+                    میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی
+                    برای آن پیش آمده تمام قطعات رو اینجا پیدا کنید. همچنین برای
+                    دانلودسریع و ...
+                  </span>
+                  <Image
+                    src={"/assets/main/quotation.svg"}
+                    alt=""
+                    width={18}
+                    height={18}
+                  />
+                </div>
               </div>
             </div>
 
@@ -647,8 +664,10 @@ const Main = () => {
                 </div>
 
                 <div className={styles.texts}>
-                  <div>تاریخچه خودروهای قدیمی</div>
-                  <p>تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!</p>
+                  <div className={styles.title}>تاریخچه خودروهای قدیمی</div>
+                  <p className={styles.description}>
+                    تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
+                  </p>
                   <div className={styles.refrences}>
                     <span>۱۴۰۲/۰۸/۰۱</span>
                     <Button>
@@ -676,8 +695,10 @@ const Main = () => {
                 </div>
 
                 <div className={styles.texts}>
-                  <div>تاریخچه خودروهای قدیمی</div>
-                  <p>تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!</p>
+                  <div className={styles.title}>تاریخچه خودروهای قدیمی</div>
+                  <p className={styles.description}>
+                    تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
+                  </p>
                   <div className={styles.refrences}>
                     <span>۱۴۰۲/۰۸/۰۱</span>
                     <Button>
@@ -705,8 +726,10 @@ const Main = () => {
                 </div>
 
                 <div className={styles.texts}>
-                  <div>تاریخچه خودروهای قدیمی</div>
-                  <p>تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!</p>
+                  <div className={styles.title}>تاریخچه خودروهای قدیمی</div>
+                  <p className={styles.description}>
+                    تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
+                  </p>
                   <div className={styles.refrences}>
                     <span>۱۴۰۲/۰۸/۰۱</span>
                     <Button>
@@ -850,7 +873,7 @@ const Main = () => {
         </div>
 
         <div className={styles.club_link}>
-          <section className={styles.mag}>
+          <section className={styles.link}>
             <div className={styles.pic}>
               <Image
                 src={"/assets/main/mag-back.png"}
@@ -863,7 +886,7 @@ const Main = () => {
             <div className={styles.texts}>
               <h1>تاریخچه خودروهای قدیمی</h1>
               <div className={styles.refrences}>
-                <div>
+                <div className={styles.name_profile}>
                   <div className={styles.profile}></div>
                   <span>مهزیار رازه </span>
                 </div>
@@ -881,7 +904,7 @@ const Main = () => {
               </div>
             </div>
           </section>
-          <section className={styles.mag}>
+          <section className={styles.link}>
             <div className={styles.pic}>
               <Image
                 src={"/assets/main/mag-back.png"}
@@ -894,7 +917,7 @@ const Main = () => {
             <div className={styles.texts}>
               <h1>تاریخچه خودروهای قدیمی</h1>
               <div className={styles.refrences}>
-                <div>
+                <div className={styles.name_profile}>
                   <div className={styles.profile}></div>
                   <span>مهزیار رازه </span>
                 </div>
@@ -912,7 +935,7 @@ const Main = () => {
               </div>
             </div>
           </section>
-          <section className={styles.mag}>
+          <section className={styles.link}>
             <div className={styles.pic}>
               <Image
                 src={"/assets/main/mag-back.png"}
@@ -925,7 +948,7 @@ const Main = () => {
             <div className={styles.texts}>
               <h1>تاریخچه خودروهای قدیمی</h1>
               <div className={styles.refrences}>
-                <div>
+                <div className={styles.name_profile}>
                   <div className={styles.profile}></div>
                   <span>مهزیار رازه </span>
                 </div>
@@ -943,7 +966,7 @@ const Main = () => {
               </div>
             </div>
           </section>
-          <section className={styles.mag}>
+          <section className={styles.link}>
             <div className={styles.pic}>
               <Image
                 src={"/assets/main/mag-back.png"}
@@ -956,7 +979,7 @@ const Main = () => {
             <div className={styles.texts}>
               <h1>تاریخچه خودروهای قدیمی</h1>
               <div className={styles.refrences}>
-                <div>
+                <div className={styles.name_profile}>
                   <div className={styles.profile}></div>
                   <span>مهزیار رازه </span>
                 </div>
@@ -1044,16 +1067,51 @@ const Main = () => {
 
           <div className={styles.pics}>
             <Image
-              src={"/assets/main/install-app-1.png"}
+              src={"/assets/main/install-app/install-app-1.png"}
               alt=""
               width={300}
               height={600}
             />
             <Image
-              src={"/assets/main/install-app-2.png"}
+              src={"/assets/main/install-app/install-app-2.png"}
               alt=""
               width={300}
               height={600}
+            />
+            <Image
+              src={"/assets/main/install-app/arrow-down.svg"}
+              alt=""
+              width={20}
+              height={60}
+              className={styles.arrowDown}
+            />
+            <Image
+              src={"/assets/main/install-app/arrow-up.svg"}
+              alt=""
+              width={20}
+              height={60}
+              className={styles.arrowUp}
+            />
+            <Image
+              src={"/assets/main/install-app/maze.svg"}
+              alt=""
+              width={70}
+              height={70}
+              className={styles.maze}
+            />
+            <Image
+              src={"/assets/main/install-app/square-box.png"}
+              alt=""
+              width={60}
+              height={60}
+              className={styles.square1}
+            />
+            <Image
+              src={"/assets/main/install-app/square-box.png"}
+              alt=""
+              width={60}
+              height={60}
+              className={styles.square2}
             />
           </div>
         </div>

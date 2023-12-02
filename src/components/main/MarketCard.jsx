@@ -33,6 +33,7 @@ const MarketCard = ({ image, off, title, description, price, index }) => {
               <ShopFilled />
             </Button>
           </div>
+
           <div className={styles.view_all_btn}>
             <span>نمایش همه</span>
             <div>
