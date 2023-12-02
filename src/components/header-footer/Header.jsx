@@ -29,8 +29,8 @@ const Header = () => {
             <Image
               src={"/assets/main/shield.svg"}
               alt=""
-              width={15}
-              height={15}
+              width={24}
+              height={24}
             />{" "}
             رایگان شروع کنید{" "}
           </Button>
@@ -45,18 +45,13 @@ const Header = () => {
               height: "100%",
             }}
           >
-            <div
-              onClick={() => {
-                router.push("/");
-              }}
-              className={styles.symbol}
-            >
+            <div onClick={() => router.push("/")} className={styles.symbol}>
               <section className={styles.logo}>
                 <Image
                   src={"/assets/carland-logo.svg"}
                   alt="logo"
-                  width={50}
-                  height={50}
+                  width={56}
+                  height={56}
                 />
               </section>
               <section className={styles.name}>
@@ -146,7 +141,9 @@ const Header = () => {
                 width={30}
                 height={30}
               />
-              <div className={styles.badge}>۳</div>
+              <div className={styles.badge}>
+                <span>۳</span>
+              </div>
             </Button>
 
             <Button className={styles.login} color="#142D5D">

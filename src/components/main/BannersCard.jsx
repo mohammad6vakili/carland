@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import LocationIcon from "@/src/assets/icons/location_icon";
 import RateIcon from "@/src/assets/icons/rate_icon";
 
-const BannersCard = ({ image, title, details, location, time, rate }) => {
+const BannersCard = ({ image, name, details, location, time, rate }) => {
   const router = useRouter();
 
   return (
@@ -16,8 +16,8 @@ const BannersCard = ({ image, title, details, location, time, rate }) => {
           <Image src={image} alt="" width={240} height={50} />
         </div>
 
-        <div className={styles.title}>
-          <span>{title}</span>
+        <div className={styles.name}>
+          <span>{name}</span>
         </div>
 
         <div className={styles.details}>

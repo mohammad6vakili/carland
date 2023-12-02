@@ -405,7 +405,7 @@ const Main = () => {
                 >
                   <BannersCard
                     image={ad.image}
-                    title={ad.title}
+                    name={ad.title}
                     details={ad.details}
                     location={ad.location}
                     time={ad.time}
