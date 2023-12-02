@@ -1015,12 +1015,12 @@
       margin: 1rem;
 
       .pic {
-        max-width: 25%;
+        min-width: 110px;
+        height: 90px;
         overflow: hidden;
         img {
           width: 100%;
-          max-height: 90px;
-          max-height: 100%;
+          height: 100%;
           border-radius: 20px;
           object-fit: cover;
         }
@@ -1061,6 +1061,7 @@
             color: #000 !important;
             background: rgba(255, 255, 255, 0.1);
             div {
+              margin-bottom: -5px;
               width: 100%;
               img {
                 width: 120%;
@@ -1111,10 +1112,14 @@
           gap: 5px;
           border: 1px solid hsl(0, 0%, 0%, 0.1);
           height: 63px;
+          :hover {
+            border: 0 !important;
+            background: none !important;
+          }
           div {
             @include flex(row, center, center);
-            width: 20px;
-            height: 30px;
+            width: 25px;
+            height: 32px;
             background: #fff;
             border-radius: 10px;
           }

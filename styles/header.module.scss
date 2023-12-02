@@ -250,6 +250,7 @@
       .contatcs {
         @include flex(row, space-between, center);
         gap: 2%;
+        width: 100%;
 
         .phone,
         .address {
@@ -382,6 +383,18 @@
 
   .footer {
     font-size: 12px;
+    .footer_content {
+      .contact_details {
+        .logo_texts {
+          .texts {
+            div {
+              flex-direction: column;
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -425,6 +438,7 @@
         .contatcs {
           @include flex(row, space-between, center);
           gap: 2%;
+          width: 100%;
 
           .phone,
           .address {
