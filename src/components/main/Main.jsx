@@ -22,13 +22,40 @@ import { useEffect, useRef, useState } from "react";
 import { useWindowSize } from "@uidotdev/usehooks";
 
 const Main = () => {
+  const testArray = [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    ,
+    1,
+  ];
   const ads = [
     {
       image: "/assets/main/car-2.png",
       title: "ام وی ام، X55 PRO",
       details: {
-        kms: 17000,
-        createYear: "1392",
+        kms: "۱۷,۰۰۰",
+        createYear: "۱۳۹۲",
         color: "مشکی",
       },
       location: "کرج",
@@ -39,8 +66,8 @@ const Main = () => {
       image: "/assets/main/car-2.png",
       title: "ام وی ام، X55 PRO",
       details: {
-        kms: 17000,
-        createYear: "1392",
+        kms: "۱۷,۰۰۰",
+        createYear: "۱۳۹۲",
         color: "مشکی",
       },
       location: "کرج",
@@ -51,8 +78,8 @@ const Main = () => {
       image: "/assets/main/car-2.png",
       title: "ام وی ام، X55 PRO",
       details: {
-        kms: 17000,
-        createYear: "1392",
+        kms: "۱۷,۰۰۰",
+        createYear: "۱۳۹۲",
         color: "مشکی",
       },
       location: "کرج",
@@ -63,8 +90,8 @@ const Main = () => {
       image: "/assets/main/car-2.png",
       title: "ام وی ام، X55 PRO",
       details: {
-        kms: 17000,
-        createYear: "1392",
+        kms: "۱۷,۰۰۰",
+        createYear: "۱۳۹۲",
         color: "مشکی",
       },
       location: "کرج",
@@ -75,8 +102,8 @@ const Main = () => {
       image: "/assets/main/car-2.png",
       title: "ام وی ام، X55 PRO",
       details: {
-        kms: 17000,
-        createYear: "1392",
+        kms: "۱۷,۰۰۰",
+        createYear: "۱۳۹۲",
         color: "مشکی",
       },
       location: "کرج",
@@ -87,8 +114,8 @@ const Main = () => {
       image: "/assets/main/car-2.png",
       title: "ام وی ام، X55 PRO",
       details: {
-        kms: 17000,
-        createYear: "1392",
+        kms: "۱۷,۰۰۰",
+        createYear: "۱۳۹۲",
         color: "مشکی",
       },
       location: "کرج",
@@ -99,8 +126,8 @@ const Main = () => {
       image: "/assets/main/car-2.png",
       title: "ام وی ام، X55 PRO",
       details: {
-        kms: 17000,
-        createYear: "1392",
+        kms: "۱۷,۰۰۰",
+        createYear: "۱۳۹۲",
         color: "مشکی",
       },
       location: "کرج",
@@ -111,42 +138,42 @@ const Main = () => {
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
-      off: "30%",
+      off: "۳۰%",
       title: "روغن موتور ادینول",
       description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
       price: "۲,۵۰۰,۰۰۰",
     },
     {
       image: "/assets/main/market-1.png",
-      off: "30%",
+      off: "۳۰%",
       title: "روغن موتور ادینول",
       description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
       price: "۲,۵۰۰,۰۰۰",
     },
     {
       image: "/assets/main/market-1.png",
-      off: "30%",
+      off: "۳۰%",
       title: "روغن موتور ادینول",
       description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
       price: "۲,۵۰۰,۰۰۰",
     },
     {
       image: "/assets/main/market-1.png",
-      off: "30%",
+      off: "۳۰%",
       title: "روغن موتور ادینول",
       description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
       price: "۲,۵۰۰,۰۰۰",
     },
     {
       image: "/assets/main/market-1.png",
-      off: "30%",
+      off: "۳۰%",
       title: "روغن موتور ادینول",
       description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
       price: "۲,۵۰۰,۰۰۰",
     },
     {
       image: "/assets/main/market-1.png",
-      off: "30%",
+      off: "۳۰%",
       title: "روغن موتور ادینول",
       description: "تکمیل فرآیند خرید از محل سامانه, به صورت غیرحضوری و...",
       price: "۲,۵۰۰,۰۰۰",
@@ -227,7 +254,6 @@ const Main = () => {
             <span>دسته بندی خدمات</span>
             <div className={styles.pagination}></div>
           </section>
-
           {size.width > 1000 ? (
             <Swiper
               spaceBetween={30}
@@ -237,177 +263,17 @@ const Main = () => {
               <SwiperSlide>
                 <div className={styles.content}>
                   <section className={styles.service_list}>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
-                    <div className={styles.service}>
-                      <Image
-                        alt=""
-                        width={100}
-                        height={100}
-                        src={"/assets/main/service-1.png"}
-                      />
-                      <span>بیمه ماشین</span>
-                    </div>
+                    {testArray.map((item, index) => (
+                      <div key={index} className={styles.service}>
+                        <Image
+                          alt=""
+                          width={100}
+                          height={100}
+                          src={"/assets/main/service-1.png"}
+                        />
+                        <span>بیمه ماشین</span>
+                      </div>
+                    ))}
                   </section>
 
                   <section className={styles.down_content}>
@@ -642,11 +508,11 @@ const Main = () => {
               }}
               breakpoints={{
                 640: {
-                  slidesPerView: 1,
+                  slidesPerView: 1.5,
                   spaceBetween: 20,
                 },
                 768: {
-                  slidesPerView: 2,
+                  slidesPerView: 2.5,
                   spaceBetween: 40,
                 },
                 1024: {
@@ -654,7 +520,7 @@ const Main = () => {
                   spaceBetween: 50,
                 },
                 1360: {
-                  slidesPerView: 5,
+                  slidesPerView: 4.5,
                   spaceBetween: 50,
                 },
               }}
@@ -693,7 +559,7 @@ const Main = () => {
               }}
               breakpoints={{
                 640: {
-                  slidesPerView: 1,
+                  slidesPerView: 1.5,
                   spaceBetween: 20,
                 },
                 768: {
@@ -705,7 +571,7 @@ const Main = () => {
                   spaceBetween: 50,
                 },
                 1360: {
-                  slidesPerView: 5,
+                  slidesPerView: 4.5,
                   spaceBetween: 50,
                 },
               }}

@@ -17,7 +17,7 @@ const MobileMenu = () => {
         <div className={s.mobile_menu}>
           <Link
             href={"/club"}
-            className={pathname.includes("/club") ? s.selected_tab : s.link}
+            className={pathname?.includes("/club") ? s.selected_tab : s.link}
           >
             <FaShop className={s.icon} />
             <span>کلوپ</span>
@@ -25,7 +25,7 @@ const MobileMenu = () => {
 
           <Link
             href={"/offers"}
-            className={pathname.includes("/offers") ? s.selected_tab : s.link}
+            className={pathname?.includes("/offers") ? s.selected_tab : s.link}
           >
             <FaShoppingCart className={s.icon} />
             <span>خرید و فروش</span>
@@ -40,7 +40,9 @@ const MobileMenu = () => {
 
           <Link
             href={"/"}
-            className={pathname.includes("/about_us") ? s.selected_tab : s.link}
+            className={
+              pathname?.includes("/about_us") ? s.selected_tab : s.link
+            }
           >
             <FaInfoCircle className={s.icon} />
             <span>درباره ما</span>
@@ -48,7 +50,9 @@ const MobileMenu = () => {
 
           <Link
             href={"/magazine"}
-            className={pathname.includes("/magazine") ? s.selected_tab : s.link}
+            className={
+              pathname?.includes("/magazine") ? s.selected_tab : s.link
+            }
           >
             <FaImages className={s.icon} />
             <span>مجله</span>

@@ -18,15 +18,6 @@ const MarketCard = ({ image, off, title, description, price, index }) => {
 
           <div className={styles.image}>
             <Image src={image} alt="" width={200} height={150} />
-            <div className={styles.circle1}>
-              <Image
-                src={"/assets/main/circle.svg"}
-                alt=""
-                width={200}
-                height={200}
-              />
-            </div>
-            <div className={styles.circle2}></div>
           </div>
 
           <div className={styles.texts}>
@@ -37,11 +28,30 @@ const MarketCard = ({ image, off, title, description, price, index }) => {
             <span>{price}</span>
             <span>{price}</span>
           </div>
-
           <div className={styles.button}>
             <Button color="main-secondary">
               <ShopFilled />
             </Button>
+          </div>
+          <div className={styles.view_all_btn}>
+            <span>نمایش همه</span>
+            <div>
+              <svg
+                width="6"
+                height="10"
+                viewBox="0 0 6 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.44141 1.52832C4.44141 1.52832 0.955406 3.92036 0.955406 5.00036C0.955406 6.08036 4.44141 8.47036 4.44141 8.47036"
+                  stroke="black"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
           </div>
         </section>
       ) : (

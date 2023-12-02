@@ -35,6 +35,9 @@
     button {
       filter: drop-shadow(0px 4px 38px rgba(255, 222, 75, 0.64));
     }
+    :hover{
+      color: black !important
+    }
   }
 
   .header_content {
@@ -51,25 +54,31 @@
 
       .logo {
         width: 100%;
-        height: 100%;
 
         img {
           width: 100%;
-          height: 100%;
         }
       }
 
       .name {
         @include flex(column, space-between, flex-start);
-        font-size: 1.5em;
+        font-size: 1.1em;
+        font-weight: 900 !important;
         height: 100%;
         font-weight: bold;
+        margin-right: 8px;
 
         p,
         h1 {
           margin: 0;
         }
       }
+    }
+
+    .links_seperator{
+      width: 1px;
+      height: 15px;
+      background: #161a1d;
     }
 
     .routes {
@@ -81,7 +90,6 @@
         @include flex(row, space-between, center);
         gap: 5px;
         height: 50%;
-        border-left: 1px solid #161a1d;
       }
 
       a {
@@ -128,7 +136,9 @@
         background: #eaedf3;
         position: relative;
         height: 50px;
-
+        img{
+          object-fit: cover;
+        }
         .badge {
           @include flex(row, center, center);
           width: 25px;
@@ -150,10 +160,13 @@
         background: #142d5d;
         color: #fff;
         height: 50px;
+        font-size: 13px !important;
 
         .line {
-          width: 2px;
-          background: #fff;
+          width: 1px;
+          height: 15px;
+          margin: 0 4px;
+          background: #ffffff7d;
         }
       }
     }

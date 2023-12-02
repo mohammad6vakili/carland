@@ -80,6 +80,8 @@ const Header = () => {
                   دسته بندی
                 </span>
 
+                <div className={styles.links_seperator}></div>
+
                 <Link href={"/market"}>
                   <span
                     className={pathname === "/market" ? styles.selected : ""}

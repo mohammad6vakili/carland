@@ -74,21 +74,32 @@
           }
           p {
             opacity: 0.6;
+            margin-bottom: 8px;
+            font-size: 16px;
           }
 
           .btn {
             @include flex(row, center, center);
-            gap: 5px;
             background-color: #fff;
             color: #000;
+            height: 52px;
+            width: 140px;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             div {
               @include flex(row, center, center);
               background: #142d5d;
-              width: 20px;
-              height: 30px;
-              padding: 2px 8px;
+              width: 25px;
+              height: 32px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 12px !important;
               border-radius: 10px;
+              margin-right: 8px;
             }
           }
         }
@@ -201,6 +212,7 @@
   .ads {
     width: 100%;
     margin: 2em;
+    margin-top: 3.5rem;
     padding: 0 2rem;
     position: relative;
 
@@ -216,6 +228,9 @@
         background: #142d5d;
         border-radius: 5px;
         color: #fff;
+        width: 100px !important;
+        height: 42px !important;
+        font-size: 12px !important;
       }
     }
 
@@ -261,7 +276,8 @@
             div {
               @include flex(column, space-around, center);
               height: 100%;
-              font-size: 0.8em;
+              margin-top: 4px;
+              font-size: 0.7em;
               color: #4a80e8;
               span {
                 font-weight: bold;
@@ -297,6 +313,7 @@
             width: 100%;
             height: 40px;
             color: #fff;
+            padding: 0 !important;
 
             span {
               margin: 0 auto;
@@ -308,7 +325,11 @@
               height: 100%;
               background-image: url("../public/assets/main/link-back.svg");
               background-repeat: no-repeat;
-              background-size: 100% 100%;
+              background-size: 110% 110%;
+              margin-bottom: 5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
             }
           }
         }
@@ -409,7 +430,7 @@
         h1 {
           @include flex(row, center, center);
           gap: 10px;
-          font-size: 1.2em;
+          font-size: 1.5em;
           span {
             color: #d80739;
           }
@@ -417,20 +438,23 @@
         p {
           font-size: 0.9em;
           opacity: 0.6;
+          margin-bottom: 10px
         }
 
         button {
           @include flex(row, center, center);
-          gap: 10px;
+          height: 48px !important;
+          width: 140px;
           background: #fff;
           color: #3f3f3f;
 
           div {
             @include flex(row, center, center);
-            background: #142d5d;
-            width: 20px;
-            height: 20px;
-            padding: 2px 8px;
+            background: #D80739;
+            width: 24px;
+            height: 28px;
+            font-size: 12px;
+            margin-right: 8px;
             border-radius: 10px;
           }
         }
@@ -472,19 +496,21 @@
 
       div {
         @include flex(row, center, center);
-        gap: 20px;
 
         h1 {
-          font-size: 1.5em;
+          font-size: 1em;
+          opacity: .75;
+          margin: 0 !important;
         }
 
         .selected {
-          font-size: 2.5em;
+          font-size: 2em;
         }
 
         div {
           width: 2px;
-          height: 50px;
+          height: 15px;
+          margin: 0 16px;
           background: #e6e6e6;
         }
       }
@@ -493,6 +519,9 @@
         background: #142d5d;
         border-radius: 5px;
         color: #fff;
+        width: 100px !important;
+        height: 42px !important;
+        font-size: 12px !important;
       }
     }
 
@@ -506,20 +535,31 @@
       background: #fff;
       padding: 0 1.5rem;
       position: relative;
-
+      >div:nth-child(1){
+        height: 100% !important;
+        >div:nth-child(1){
+        >div{
+        display: flex;
+        align-items: center !important;
+        }
+        }
+      }
       .market_card {
         @include flex(column, flex-start, center);
         width: 260px;
         min-width: 260px;
-        height: 380px;
+        height: 365px;
+        max-height: 365px;
         border-radius: 15px;
         box-shadow: 11px -3px 30px 0px rgba(216, 7, 57, 0.12);
         position: relative;
 
         .badge {
-          @include flex(column, flex-start, center);
-          padding: 5px;
-          font-size: 0.8em;
+          @include flex(column, center, center);
+          width: 30px;
+          height: 45px;
+          display: flex;
+          font-size: 0.5em;
           position: absolute;
           top: 0;
           right: 10%;
@@ -530,7 +570,7 @@
         .image {
           @include flex(row, center, center);
           width: 100%;
-          height: 40%;
+          margin: 16px 0;
           img {
             width: 40%;
             height: 100%;
@@ -539,25 +579,27 @@
 
         .texts {
           @include flex(column, flex-start, center);
-          gap: 10px;
           padding: 0 1rem;
           h1 {
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: bold;
           }
           p {
             color: #3f3f3f;
             opacity: 0.6;
             margin: 0;
+            font-size: 12px;
+            text-align: center
           }
         }
 
         .price {
           @include flex(column, flex-start, center);
-          font-size: 1.3em;
-          padding: 0.5rem;
+          font-size: 1em;
+          margin: 8px 0;
           :nth-child(2) {
-            opacity: 0.6;
+            opacity: 0.4;
+            font-size: .75em !important;
             text-decoration: line-through;
           }
         }
@@ -565,20 +607,26 @@
         .button {
           @include flex(row, center, center);
           width: 100%;
-
+          margin-top: auto !important;
+          margin-bottom: 16px;
           button {
-            @include flex(row, space-between, center);
-            width: 75%;
-            height: 90%;
-            span {
-              margin: 0 auto;
+            @include flex(row, center, center);
+            width: 80%;
+            height: 40px;
+            position: relative;
+            padding: 0 !important;
+            >span{
+              padding-left: 16px;
             }
             div {
               @include flex(row, center, center);
-              width: 15%;
-              padding: 5px;
+              position: absolute;
+              left: 0 !important;
+              top: 0 !important;
+              width: 50px;
               background: #b1062e;
               border-radius: 10px;
+              height: 100%;
             }
           }
         }
@@ -589,6 +637,7 @@
         width: 260px;
         min-width: 260px;
         height: 365px;
+        max-height: 365px;
         background: #d80739;
         border-radius: 15px;
         box-shadow: 11px -3px 30px 0px rgba(216, 7, 57, 0.12);
@@ -604,43 +653,64 @@
 
         .image {
           @include flex(row, center, center);
-          width: 75%;
-          height: 55%;
-          background: #fff;
+          width: 160px;
+          height:160px;
+          padding: 10px;
+          border: .5px solid white;
           border-radius: 50%;
-          position: relative;
-          img {
-            width: 70%;
-            height: 90%;
-            border-radius: 22%;
-          }
-          .circle1 {
-            position: absolute;
-            width: 120%;
-            height: 120%;
             img {
-              width: 100%;
-              height: 100%;
-            }
+              width: 100% !important;
+              height: 100% !important;
+              border-radius: 50% !important;
+              object-fit: cover !important;
           }
         }
-
         .texts h1 {
-          font-size: 1.2em;
+          font-size: 1em;
         }
-
         .price {
           @include flex(row, space-around, center);
           width: 100%;
+          margin-bottom: 10px;
         }
 
         .button {
           position: absolute;
-          bottom: 10px;
-          transform: translate(0, 50%);
+          bottom: -24px;
+          width: 60px !important;
+          height: 60px !important;
+          border-radius: 50% !important;
+          background: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           button {
+            width: 48px !important;
+            height: 48px !important;
+            padding: 0 !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 50%;
-            border: 20px solid #fff;
+          }
+        }
+        .view_all_btn{
+          position: absolute;
+          bottom: -38px;
+          font-size: 12px;
+          color: black;
+          z-index: 9999 !important;
+          display: flex;
+          align-items: center;
+          div{
+            width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 6px !important;
+            margin-right: 8px;
+            border: 1.5px solid rgba(0, 0, 0, 0.241);
           }
         }
       }
@@ -651,6 +721,7 @@
       .market_card_special,
       .market_card_special .button button {
         background: #142d5d;
+        border: 1px solid #142d5d !important;
       }
     }
 
@@ -764,49 +835,63 @@
       }
 
       .mag_options {
-        @include flex(column, flex-start, center);
-        gap: 20px;
+        @include flex(column, center, center);
         width: 45%;
-        height: 100%;
+        height: 100% !important;
 
         .option {
           @include flex(row, space-around, center);
-          gap: 1rem;
           width: 100%;
+          padding: 12px;
           border-radius: 20px;
           background: #fff;
           box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
-          padding: 5px;
 
           .pic {
-            min-width: 20%;
-            height: 80%;
+            width: 110px !important;
+            min-width: 110px !important;
+            height: 110px !important;
+            margin-left: 12px;
             img {
-              width: 100%;
-              height: auto;
-              max-height: 100%;
+              width: 100% !important;
+              height: 100% !important;
               border-radius: 20px;
+              object-fit: cover !important
             }
           }
 
           .texts {
             @include flex(column, space-between, flex-start);
             width: 100%;
-
+            p{
+              margin-top: 8px;
+              font-size: 12px;
+              opacity: .6;
+            }
+            span{
+              font-size: 11px;
+              margin-top: auto;
+            }
             .refrences {
               @include flex(row, space-between, center);
               width: 100%;
               button {
                 @include flex(row, space-between, center);
+                width: 140px;
                 border-radius: 10px;
                 border: 1px solid #4a80e8;
                 background: rgba(255, 255, 255, 0.1);
+                padding: 0 !important;
+                padding-right: 16px !important;
+                height: 40px;
+                color: black !important;
                 div {
-                  height: 100%;
-                  width: 20%;
+                  width: 50px;
+                  height: 40px;
                   img {
-                    width: 100%;
-                    height: 100%;
+                    margin-top: -8px;
+                    width: 120%;
+                    height: 160%;
                   }
                 }
               }

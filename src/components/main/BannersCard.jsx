@@ -3,6 +3,8 @@ import styles from "../../../styles/main.module.scss";
 import { LeftOutlined, StarFilled, CaretLeftFilled } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";
+import LocationIcon from "@/src/assets/icons/location_icon";
+import RateIcon from "@/src/assets/icons/rate_icon";
 
 const BannersCard = ({ image, title, details, location, time, rate }) => {
   const router = useRouter();
@@ -62,20 +64,15 @@ const BannersCard = ({ image, title, details, location, time, rate }) => {
         <div className={styles.location_rate}>
           <div className={styles.location}>
             <span>
-              <Image
-                src={"/assets/location.svg"}
-                alt=""
-                width={15}
-                height={15}
-              />
-              {location}
+              <LocationIcon />
+              <span style={{ marginRight: 5 }}>{location}</span>
             </span>
             <span>{time}</span>
           </div>
 
           <div className={styles.rate}>
             {rate}
-            <StarFilled style={{ color: "#FFD029" }} />
+            <RateIcon />
           </div>
         </div>
 
