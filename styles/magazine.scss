@@ -1,8 +1,3 @@
-@font-face {
-  font-family: dana;
-  src: url("../public/fonts/Dana-Medium.ttf");
-}
-
 @mixin flex($d, $j, $a) {
   display: flex;
   flex-direction: $d;
@@ -14,7 +9,9 @@
   @include flex(column, flex-start, center);
   gap: 2rem;
   padding: 2rem;
-  p {
+  font-family: dana;
+  p,
+  h1 {
     margin: 0;
   }
 
@@ -55,14 +52,13 @@
           @include flex(row, center, flex-start);
           width: 100%;
           height: 100%;
-          height: 450px;
           position: relative;
           overflow: hidden;
         }
 
         .my_swiper {
           width: 100%;
-          height: 100%;
+          height: 450px;
           .slide {
             width: 100%;
             height: 100%;
@@ -79,18 +75,20 @@
         .my_swiper2 {
           position: absolute;
           left: 5%;
-          top: 10%;
+          top: 5%;
+          width: 10%;
           height: 100%;
 
           .slide2 {
-            width: 80px;
-            height: 80px;
-            overflow: hidden;
+            width: 100%;
+            max-height: 70px;
             border: 3px solid #fff;
-            border-radius: 20px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
             img {
               width: 100%;
-              border-radius: 20px;
+              height: 100%;
+              border-radius: 10px;
               object-fit: cover;
             }
           }
@@ -207,7 +205,7 @@
           .list_item {
             @include flex(column, flex-start, flex-start);
             border-right: 1px dashed #4a80e866;
-            padding-bottom: 2rem;
+            padding-bottom: 4rem;
             .description {
               padding-right: 25px;
               color: #757575;
@@ -250,9 +248,12 @@
             .image {
               @include flex(row, center, center);
               max-width: 25%;
+              height: 100%;
+
               img {
-                width: 80%;
-                height: 80%;
+                width: 90px;
+                height: 90px;
+                object-fit: cover;
               }
             }
 
@@ -263,18 +264,27 @@
               height: 100%;
               .title {
                 font-weight: bold;
+                font-size: 0.9em;
               }
               .detail {
-                @include flex(row, space-between, center);
+                @include flex(row, space-between, flex-end);
                 width: 100%;
+                font-size: 0.8em;
                 button {
-                  @include flex(row, space-between, center);
+                  @include flex(row, flex-end, center);
                   gap: 10px;
+                  width: 105px;
+                  height: 30px;
                   border: 1px solid #4a80e8;
+                  padding: 0 !important;
                   div {
+                    @include flex(row, center, center);
+                    width: 30px;
                     height: 100%;
+                    margin-top: 7px;
                     img {
-                      width: 100%;
+                      width: 160%;
+                      height: 160%;
                     }
                   }
                 }
@@ -353,16 +363,35 @@
             @include flex(row, space-between, center);
             border: 1px solid #4a80e8;
             color: #4a80e8;
+            width: 105px;
+            height: 28px;
             position: relative;
-            padding: 5px 10px;
+            padding: 0;
+            padding-right: 10px;
             div {
-              width: 30%;
+              @include flex(row, center, center);
+              width: 40px;
               height: 100%;
+              margin-top: 7px;
               img {
-                width: 100%;
-                height: 100%;
+                width: 135%;
+                height: 160%;
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .magazine_page {
+    .contents {
+      .main_content {
+        .gallery {
+          .my_swiper {
+            height: 400px;
           }
         }
       }
@@ -379,7 +408,12 @@
         width: 100%;
 
         .gallery .photos {
-          height: 350px;
+          .my_swiper {
+            height: 350px;
+          }
+          .my_swiper2 {
+            width: 15%;
+          }
         }
       }
 
@@ -401,7 +435,9 @@
         width: 100%;
 
         .gallery .photos {
-          @include flex(column, flex-start, flex-start);
+          .my_swiper {
+            height: 280px;
+          }
         }
 
         .share {
@@ -414,15 +450,48 @@
         width: 100%;
       }
     }
+
+    .other_contents {
+      .best_clubs {
+        img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 450px) {
   .magazine_page {
+    .main_title {
+      line-height: 200%;
+    }
+    .contents {
+      .main_content {
+        .gallery {
+          .photos {
+            .my_swiper {
+              height: 180px;
+              .slide {
+                border-radius: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+
     .suggested_clubs {
       .title {
         .next_prev_offers {
           display: none;
+        }
+      }
+
+      .cards {
+        .card {
+          margin: 0 auto;
         }
       }
     }

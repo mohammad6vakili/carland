@@ -74,10 +74,10 @@ const Magazine = () => {
                 </Swiper>
 
                 <Swiper
+                  autoHeight
                   grabCursor
                   direction={"vertical"}
                   onSwiper={setThumbsSwiper}
-                  spaceBetween={15}
                   slidesPerView={4}
                   freeMode={true}
                   modules={[FreeMode, Navigation, Thumbs]}
