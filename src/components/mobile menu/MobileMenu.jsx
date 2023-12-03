@@ -56,45 +56,70 @@ const MobileMenu = () => {
               </span>
 
               <div className={s.links_seperator}>
-                <span className={pathname === "/market" ? s.selected : s.link}>
-                  <Link href={"/market"}> بازارچه</Link>
-                  <div className={s.line1}></div>
-                  <div className={s.line2}></div>
-                </span>
+                <Link
+                  onClick={() => setIsMenuColl(true)}
+                  className={pathname === "/market" ? s.selected : s.link}
+                  href={"/market"}
+                >
+                  {" "}
+                  <span>
+                    بازارچه
+                    <div className={s.line1}></div>
+                    <div className={s.line2}></div>
+                  </span>
+                </Link>
 
-                <span
+                <Link
+                  onClick={() => setIsMenuColl(true)}
                   className={
                     pathname?.includes("/offers") ? s.selected : s.link
                   }
+                  href={"/offers"}
                 >
-                  <Link href={"/offers"}> خرید و فروش</Link>
-                  <div className={s.line1}></div>
-                  <div className={s.line2}></div>
-                </span>
+                  <span>
+                    خرید و فروش
+                    <div className={s.line1}></div>
+                    <div className={s.line2}></div>
+                  </span>
+                </Link>
 
-                <span className={pathname === "/club" ? s.selected : s.link}>
-                  {" "}
-                  <Link href={"/club"}>کلوپ</Link>
-                  <div className={s.line1}></div>
-                  <div className={s.line2}></div>
-                </span>
+                <Link
+                  onClick={() => setIsMenuColl(true)}
+                  className={pathname === "/club" ? s.selected : s.link}
+                  href={"/club"}
+                >
+                  <span>
+                    {" "}
+                    کلوپ
+                    <div className={s.line1}></div>
+                    <div className={s.line2}></div>
+                  </span>
+                </Link>
 
-                <span
+                <Link
+                  onClick={() => setIsMenuColl(true)}
                   className={pathname === "/magazine" ? s.selected : s.link}
+                  href={"/magazine"}
                 >
-                  <Link href={"/magazine"}> مجله</Link>
-                  <div className={s.line1}></div>
-                  <div className={s.line2}></div>
-                </span>
+                  <span>
+                    مجله
+                    <div className={s.line1}></div>
+                    <div className={s.line2}></div>
+                  </span>
+                </Link>
 
-                <span
+                <Link
+                  onClick={() => setIsMenuColl(true)}
                   className={pathname === "/about_us" ? s.selected : s.link}
+                  href={"/about_us"}
                 >
-                  {" "}
-                  <Link href={"/about_us"}> درباره ما</Link>
-                  <div className={s.line1}></div>
-                  <div className={s.line2}></div>
-                </span>
+                  <span>
+                    {" "}
+                    درباره ما
+                    <div className={s.line1}></div>
+                    <div className={s.line2}></div>
+                  </span>
+                </Link>
               </div>
             </div>
           </div>

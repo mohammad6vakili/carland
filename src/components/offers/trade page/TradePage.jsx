@@ -62,7 +62,6 @@ const TradePage = () => {
 
               <Swiper
                 onSwiper={setThumbsSwiper}
-                spaceBetween={50}
                 slidesPerView={4}
                 freeMode={true}
                 watchSlidesProgress={true}

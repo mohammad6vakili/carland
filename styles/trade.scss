@@ -17,7 +17,8 @@ $carousel-borderRadius: 20px;
   padding: 0 5%;
   font-size: 16px;
 
-  p {
+  p,
+  h1 {
     margin: 0;
   }
 
@@ -54,21 +55,15 @@ $carousel-borderRadius: 20px;
 
     .gallery {
       width: 100%;
-      height: 500px;
-
-      .swiper {
-        width: 100%;
-      }
+      height: max-content;
 
       img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        border-radius: $carousel-borderRadius;
       }
 
       .my_swiper {
         width: 100%;
-        height: 75%;
+        height: 350px;
         box-sizing: border-box;
         border-radius: 50px;
         margin-bottom: 2rem;
@@ -77,20 +72,25 @@ $carousel-borderRadius: 20px;
           width: 100%;
           height: 100%;
           position: relative;
-          // border-radius: 50px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
         }
       }
 
       .my_swiper2 {
         width: 100%;
-        height: 20%;
+        height: 120px;
         .slide2 {
-          min-width: 150px;
+          width: 120px;
           height: 100%;
-          overflow: hidden;
+          margin-left: 50px;
           img {
             width: 100%;
-            border-radius: $carousel-borderRadius;
+            height: 100%;
+            object-fit: cover;
           }
         }
       }
@@ -241,17 +241,21 @@ $carousel-borderRadius: 20px;
               @include flex(row, space-between, center);
               width: 100%;
               button {
-                @include flex(row, space-between, center);
+                @include flex(row, flex-end, center);
                 border: 1px solid #4a80e8;
+                width: 105px;
+                height: 28px;
                 color: #4a80e8;
                 position: relative;
-                padding: 5px 10px;
+                padding: 0 !important;
+                padding-right: 10px;
                 div {
-                  width: 30%;
+                  width: 40px;
                   height: 100%;
+                  margin-top: -8px;
                   img {
-                    width: 100%;
-                    height: 100%;
+                    width: 120%;
+                    height: 160%;
                   }
                 }
               }
@@ -326,17 +330,23 @@ $carousel-borderRadius: 20px;
           width: 100%;
 
           button {
-            @include flex(row, space-between, center);
+            @include flex(row, flex-end, center);
+            gap: 5px;
             border: 1px solid #4a80e8;
+            width: 105px;
+            height: 28px;
             color: #4a80e8;
             position: relative;
-            padding: 5px 10px;
+            padding: 0 !important;
+            padding-right: 10px;
             div {
-              width: 30%;
+              @include flex(row, center, center);
+              width: 30px;
               height: 100%;
+              margin-top: 7px;
               img {
-                width: 100%;
-                height: 100%;
+                width: 160%;
+                height: 180%;
               }
             }
           }
@@ -358,12 +368,109 @@ $carousel-borderRadius: 20px;
 
       .main_content {
         width: 100%;
+        .gallery {
+          .my_swiper {
+            height: 300px;
+          }
+          .my_swiper2 {
+            height: 100px;
+          }
+        }
+
+        .main_details {
+          .boxes {
+            .box {
+              margin: 0 auto;
+            }
+          }
+        }
       }
 
       .other_details {
         width: 100%;
         .banner {
           width: 50%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .trade_page {
+    .contents {
+      @include flex(column, flex-start, center);
+
+      .main_content {
+        width: 100%;
+        .gallery {
+          .my_swiper {
+            height: 250px;
+            margin-bottom: 1rem;
+          }
+          .my_swiper2 {
+            height: 80px;
+          }
+        }
+
+        .tech_details {
+          .table {
+            .table_row {
+              :nth-child(1) {
+                min-width: 40%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .trade_page {
+    .contents {
+      @include flex(column, flex-start, center);
+
+      .main_content {
+        width: 100%;
+        .gallery {
+          .my_swiper {
+            height: 200px;
+            margin-bottom: 1rem;
+          }
+          .my_swiper2 {
+            height: 60px;
+            .slide2 {
+              margin-left: 1rem;
+            }
+          }
+        }
+
+        .main_details {
+          .boxes {
+            .line {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .trade_page {
+    .alike_offers {
+      .title {
+        .next_prev_offers {
+          display: none;
+        }
+      }
+
+      .cards {
+        .card {
+          margin: auto;
         }
       }
     }

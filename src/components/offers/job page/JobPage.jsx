@@ -16,18 +16,18 @@ import SendComment from "./SendComment";
 import AlikeOffersCard from "../trade page/AlikeOffersCard";
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+// import MapComponent from "./MapCompontn";
+// import { Map } from "@neshan-maps-platform/ol";
+// import NeshanMap, {
+//   NeshanMapRef,
+// } from "@neshan-maps-platform/react-openlayers";
 
 const JobPage = () => {
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
   const nextAdRef = useRef();
 
-  // const MyMap = dynamic(
-  //   () => import("react-neshan-map-leaflet/dist/NeshanMap"),
-  //   {
-  //     ssr: false,
-  //   }
-  // );
+  // const Map = dynamic(() => import("react-leaflet"));
 
   useEffect(() => {
     if (adsSwiper) {
@@ -283,7 +283,8 @@ const JobPage = () => {
                 width={700}
                 height={250}
               />
-              {/* <MyMap mapKey={"web.d8211fffbc5a4af68eed4a0f110edb0c"}></MyMap> */}
+              {/* <Map mapKey="web.d8211fffbc5a4af68eed4a0f110edb0c"></Map> */}
+              {/* <MapComponent /> */}
             </div>
           </div>
         </section>
