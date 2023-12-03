@@ -1475,6 +1475,9 @@ $light-theme: #fff;
 
     .fan_club {
       .club_list {
+        .slide {
+          max-width: 90px;
+        }
         .box {
           width: 80px;
           height: 80px;

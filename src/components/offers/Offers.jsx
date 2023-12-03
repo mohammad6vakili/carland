@@ -171,8 +171,8 @@ const offers = () => {
               onClick={() => setCategoryOpen(!categoryOpen)}
               className={s.title}
             >
-              دسته بندی
               {categoryOpen ? <DownOutlined /> : <UpOutlined />}
+              دسته بندی
             </div>
             <Collapse
               style={{ width: "100%", overflow: "hidden" }}
@@ -181,11 +181,11 @@ const offers = () => {
               <div className={s.list}>
                 {categoryFillters.map((cat, index) => (
                   <section key={Math.random() * index} className={s.list_item}>
-                    {cat.name}
                     <Button
                       onClick={() => handleCatCBClick(index + 1)}
                       active={categorySelected.includes(index + 1)}
                     ></Button>{" "}
+                    {cat.name}
                   </section>
                 ))}
               </div>
@@ -194,8 +194,8 @@ const offers = () => {
 
           <section className={s.brands}>
             <div onClick={() => setBrandsOpen(!brandsOpen)} className={s.title}>
-              برندها
               {brandsOpen ? <DownOutlined /> : <UpOutlined />}
+              برندها
             </div>
             <Collapse
               style={{ width: "100%", overflow: "hidden" }}
@@ -204,11 +204,11 @@ const offers = () => {
               <div className={s.list}>
                 {brandsFillters.map((cat, index) => (
                   <section key={Math.random() * index} className={s.list_item}>
-                    {cat.name}
                     <Button
                       onClick={() => onCheckboxBtnClick(index + 1)}
                       active={cSelected.includes(index + 1)}
                     ></Button>{" "}
+                    {cat.name}
                   </section>
                 ))}
               </div>
@@ -217,8 +217,8 @@ const offers = () => {
 
           <section className={s.year}>
             <div onClick={() => setYearsOpen(!yearsOpen)} className={s.title}>
-              سال
               {yearsOpen ? <DownOutlined /> : <UpOutlined />}
+              سال
             </div>
             <Collapse
               isOpen={yearsOpen}
@@ -269,8 +269,8 @@ const offers = () => {
               onClick={() => setPriceRangeOpen(!priceRangeOpen)}
               className={s.title}
             >
-              محدوده قیمت
               {priceRangeOpen ? <DownOutlined /> : <UpOutlined />}
+              محدوده قیمت
             </div>
             <Collapse
               isOpen={priceRangeOpen}
@@ -291,8 +291,8 @@ const offers = () => {
               onClick={() => setColorSelectOpen(!colorSelectOpen)}
               className={s.title}
             >
-              انتخاب رنگ
               {colorSelectOpen ? <DownOutlined /> : <UpOutlined />}
+              انتخاب رنگ
             </div>
             <Collapse
               isOpen={colorSelectOpen}
@@ -478,45 +478,47 @@ const offers = () => {
             </div>
           </div>
 
-          {offers === "خرید و فروش"
-            ? marketItems.map((item, index) => (
-                <BuySaleCard
-                  key={Math.random() * index}
-                  createYear={"۱۳۹۲"}
-                  image={"/assets/offers/banner-buy-sale.png"}
-                  title={"ام وی ام"}
-                  description={"ام وی ام اتوماتیک ۹۲"}
-                  timePosted={"۲ هفته پیش"}
-                  location={"تهران"}
-                  price={"۹,۹۰۰,۰۰۰,۰۰۰"}
-                />
-              ))
-            : offers === "کسب و کار"
-            ? marketItems.map((item, index) => (
-                <JobsCard
-                  key={Math.random() * index}
-                  image={"/assets/offers/jobs-1.png"}
-                  rate={"۴.۵"}
-                  title={"لوازم یدکی میلاد"}
-                  description={
-                    "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و ..."
-                  }
-                  isOpen={true}
-                  location={"تهران"}
-                  workTime={"ساعت کاری: ۹ تا ۲۲"}
-                />
-              ))
-            : marketItems.map((item, index) => (
-                <MarketCard
-                  key={Math.random() * index}
-                  image={item.image}
-                  off={item.off}
-                  title={item.title}
-                  description={item.description}
-                  price={item.price}
-                  index={index + 1}
-                />
-              ))}
+          <div className={s.cards}>
+            {offers === "خرید و فروش"
+              ? marketItems.map((item, index) => (
+                  <BuySaleCard
+                    key={Math.random() * index}
+                    createYear={"۱۳۹۲"}
+                    image={"/assets/offers/banner-buy-sale.png"}
+                    title={"ام وی ام"}
+                    description={"ام وی ام اتوماتیک ۹۲"}
+                    timePosted={"۲ هفته پیش"}
+                    location={"تهران"}
+                    price={"۹,۹۰۰,۰۰۰,۰۰۰"}
+                  />
+                ))
+              : offers === "کسب و کار"
+              ? marketItems.map((item, index) => (
+                  <JobsCard
+                    key={Math.random() * index}
+                    image={"/assets/offers/jobs-1.png"}
+                    rate={"۴.۵"}
+                    title={"لوازم یدکی میلاد"}
+                    description={
+                      "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و ..."
+                    }
+                    isOpen={true}
+                    location={"تهران"}
+                    workTime={"ساعت کاری: ۹ تا ۲۲"}
+                  />
+                ))
+              : marketItems.map((item, index) => (
+                  <MarketCard
+                    key={Math.random() * index}
+                    image={item.image}
+                    off={item.off}
+                    title={item.title}
+                    description={item.description}
+                    price={item.price}
+                    index={index + 1}
+                  />
+                ))}
+          </div>
         </div>
       </section>
     </div>

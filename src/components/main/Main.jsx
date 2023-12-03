@@ -1,12 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "../../../styles/main.module.scss";
-import {
-  Autoplay,
-  Navigation,
-  Pagination,
-  A11y,
-  FreeMode,
-} from "swiper/modules";
+import { Autoplay, Navigation, Pagination, FreeMode } from "swiper/modules";
 import {
   LeftOutlined,
   RightOutlined,
@@ -819,8 +813,8 @@ const Main = () => {
 
           <section className={styles.club_list}>
             <Swiper
-              spaceBetween={20}
-              slidesPerView={2}
+              spaceBetween={12}
+              slidesPerView={"auto"}
               navigation={{
                 nextEl: nextFanClubRef?.current,
                 prevEl: prevFanClubRef?.current,
@@ -835,7 +829,7 @@ const Main = () => {
                   spaceBetween: 20,
                 },
                 768: {
-                  slidesPerView: 5,
+                  slidesPerView: 4,
                   spaceBetween: 40,
                 },
                 1024: {
@@ -853,7 +847,10 @@ const Main = () => {
               className={styles.mySwiper}
             >
               {clubs.map((club, index) => (
-                <SwiperSlide key={Math.random() * index}>
+                <SwiperSlide
+                  className={styles.slide}
+                  key={Math.random() * index}
+                >
                   <div className={styles.box}>
                     <Image src={club.src} alt="" width={50} height={50} />
                   </div>
