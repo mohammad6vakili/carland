@@ -449,7 +449,7 @@ const offers = () => {
                 </Dropdown>
               </div>
             )}
-            <div className="d-flex p-3">
+            <div className="d-flex">
               <Dropdown
                 isOpen={dropdownOpen}
                 toggle={toggle}
@@ -478,7 +478,7 @@ const offers = () => {
             </div>
           </div>
 
-          <div className={s.cards}>
+          <div className={s.market_cards}>
             {offers === "خرید و فروش"
               ? marketItems.map((item, index) => (
                   <BuySaleCard

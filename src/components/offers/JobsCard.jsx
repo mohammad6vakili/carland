@@ -49,7 +49,7 @@ const JobsCard = ({
         </div>
       </div>
 
-      <div className={s.btn}>
+      <div className={s.button}>
         <Button onClick={() => router.push("/offers/jobs/id")}>
           مشاهده{" "}
           <div>

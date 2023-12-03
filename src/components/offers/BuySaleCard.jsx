@@ -56,11 +56,10 @@ const BuySaleCard = ({
           <span>{timePosted}</span>
           <span>
             <Image
-              style={{ color: "#fff !important" }}
-              src={"/assets/location.svg"}
+              src={"/assets/offers/location-fff.png"}
               alt=""
-              width={15}
-              height={15}
+              width={12.5}
+              height={12.5}
             />
             {location}{" "}
           </span>
