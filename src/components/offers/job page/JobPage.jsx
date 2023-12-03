@@ -15,8 +15,7 @@ import CommentCard from "./CommentCard";
 import SendComment from "./SendComment";
 import AlikeOffersCard from "../trade page/AlikeOffersCard";
 import { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
-// import MapComponent from "./MapCompontn";
+import Map from "./map/Map";
 // import { Map } from "@neshan-maps-platform/ol";
 // import NeshanMap, {
 //   NeshanMapRef,
@@ -26,8 +25,6 @@ const JobPage = () => {
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
   const nextAdRef = useRef();
-
-  // const Map = dynamic(() => import("react-leaflet"));
 
   useEffect(() => {
     if (adsSwiper) {
@@ -277,14 +274,14 @@ const JobPage = () => {
             <div>تهران، میدان پیروزی، خیابان آزادی، روبروی سینما ازادی</div>
 
             <div className={s.map}>
-              <Image
+              {/* <Image
                 src={"/assets/jobs/map.png"}
                 alt="map"
                 width={700}
                 height={250}
-              />
+              /> */}
               {/* <Map mapKey="web.d8211fffbc5a4af68eed4a0f110edb0c"></Map> */}
-              {/* <MapComponent /> */}
+              <Map />
             </div>
           </div>
         </section>

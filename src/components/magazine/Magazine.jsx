@@ -162,13 +162,11 @@ const Magazine = () => {
                     width={300}
                     height={150}
                   />
-                  <span>
-                    کلاسیک <span></span>
-                  </span>
+                  <span>کلاسیک</span>
                   <div>
-                    <svg
+                    {/* <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="100%"
+                      width="362"
                       height="62"
                       viewBox="0 0 362 62"
                       fill="none"
@@ -188,9 +186,9 @@ const Magazine = () => {
                         <filter
                           id="filter0_b_1375_15567"
                           x="-34.5"
-                          y="-34.5791"
+                          y="-34.5801"
                           width="431"
-                          height="131.079"
+                          height="131.08"
                           filterUnits="userSpaceOnUse"
                           color-interpolation-filters="sRGB"
                         >
@@ -215,7 +213,7 @@ const Magazine = () => {
                           />
                         </filter>
                       </defs>
-                    </svg>
+                    </svg> */}
                   </div>
                 </div>
 

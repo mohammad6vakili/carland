@@ -6,14 +6,7 @@ const nextConfig = {
   //   unoptimized: true,
   // },
   reactStrictMode: false,
-  transpilePackages: [
-    "antd",
-    "@ant-design/colors",
-    "kitchen-flow-editor",
-    "@ant-design/pro-editor",
-    "zustand",
-    "leva",
-  ],
+  // transpilePackages: ["react-leaflet"],
 };
 
 module.exports = nextConfig;

@@ -452,10 +452,15 @@
     }
 
     .other_contents {
+      padding: 0 !important;
       .best_clubs {
-        img {
-          width: 35px;
-          height: 35px;
+        .list {
+          .list_item {
+            img {
+              width: 20%;
+              height: 35px;
+            }
+          }
         }
       }
     }

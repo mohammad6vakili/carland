@@ -292,13 +292,14 @@
           span {
             @include flex(row, flex-start, center);
             gap: 15px;
+            cursor: pointer;
             opacity: 40%;
             font-size: 0.8em;
             margin-top: 1rem;
             padding-right: 10%;
             .blue_box {
-              width: 8px;
-              height: 8px;
+              width: 7px;
+              height: 7px;
               background-color: #4a80e8;
               border-radius: 2px;
             }
