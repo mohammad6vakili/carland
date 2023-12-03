@@ -15,35 +15,34 @@
   }
 
   .head_carousel {
-    width: 90%;
-    margin: 2rem 0;
+    @include flex(row, flex-start, flex-start);
+    width: 100%;
     height: 380px;
+    padding: 0 3rem;
     border-radius: 25px;
+    margin: 2rem 0;
 
     .mySwiper {
       width: 100%;
       height: 100%;
 
-      .swiper_slide {
-        width: 100%;
-        height: 100%;
-        position: relative;
-      }
-
-      .background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-      }
-
       .content {
-        @include flex(row, space-around, center);
+        @include flex(row, space-between, center);
         color: #fff;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 25px;
+
+        .background {
+          position: absolute;
+          object-fit: cover;
+          top: 0;
+          bottom: 0;
+          height: 100%;
+          width: 100%;
+          z-index: -1;
+        }
 
         .texts {
           @include flex(column, flex-start, flex-start);
@@ -52,36 +51,48 @@
           padding: 0 1rem;
 
           h1 {
-            font-size: 2em;
+            font-size: 1.65em;
+            color: #fff;
           }
           p {
             opacity: 0.6;
+            margin-bottom: 8px;
+            font-size: 1em;
           }
 
           .btn {
             @include flex(row, center, center);
-            gap: 5px;
             background-color: #fff;
             color: #000;
+            height: 52px;
+            width: 140px;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             div {
               @include flex(row, center, center);
               background: #142d5d;
-              width: 20px;
-              height: 30px;
-              padding: 2px 8px;
+              width: 25px;
+              height: 32px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 12px !important;
               border-radius: 10px;
+              margin-right: 8px;
             }
           }
         }
-      }
 
-      .car {
-        max-width: 100%;
-        height: 100%;
-        img {
-          width: 100%;
-          max-height: 100%;
+        .car {
+          max-width: 386px;
+          height: 386px;
+          img {
+            width: 100%;
+            max-height: 100%;
+          }
         }
       }
     }
@@ -569,9 +580,9 @@
   .offers {
     font-size: 11px;
     .head_carousel {
+      height: 280px;
       .mySwiper {
         .content {
-          @include flex(row, flex-start, center);
           .texts {
             max-width: 60%;
             max-height: 100%;
@@ -581,11 +592,6 @@
             button {
               padding: 2px 5px;
             }
-          }
-          .car {
-            left: 2%;
-            max-width: 100%;
-            max-height: 80%;
           }
         }
       }
@@ -626,6 +632,34 @@
       }
       .market_filters {
         min-width: 40%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .offers {
+    .head_carousel {
+      height: 180px;
+      padding: 0 20px;
+      margin: 20px 0;
+      .mySwiper {
+        .content {
+          .texts {
+            padding: 0;
+            padding-right: 10px;
+            gap: 5px;
+            .btn {
+              width: 100px;
+              height: 30px;
+
+              div {
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+        }
       }
     }
   }
