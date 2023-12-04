@@ -4,9 +4,14 @@
   justify-content: $j;
   align-items: $a;
 }
+@mixin responsive {
+  max-width: 1600px;
+  margin: 0 auto;
+}
 
 .magazine_page {
   @include flex(column, flex-start, center);
+  @include responsive();
   gap: 2rem;
   padding: 2rem;
   font-family: dana;

@@ -7,7 +7,7 @@ import LocationIcon from "@/src/assets/icons/location_icon";
 import RateIcon from "@/src/assets/icons/rate_icon";
 import { url } from "@/src/axiosConfig/useHttp";
 
-const BannersCard = ({ image, name, details, location, time, rate }) => {
+const AdsCard = ({ image, name, details, location, time, rate }) => {
   const router = useRouter();
 
   if (image !== undefined) {
@@ -94,12 +94,7 @@ const BannersCard = ({ image, name, details, location, time, rate }) => {
       <>
         <div style={{ height: "400px" }} className={styles.ad_card}>
           <div className={styles.image}>
-            <Image
-              src={"/asset/main/car-2.png"}
-              alt=""
-              width={240}
-              height={200}
-            />
+            <Image src={undefined} alt="" width={240} height={200} />
           </div>
 
           <div className={styles.name}>
@@ -175,4 +170,4 @@ const BannersCard = ({ image, name, details, location, time, rate }) => {
   }
 };
 
-export default BannersCard;
+export default AdsCard;

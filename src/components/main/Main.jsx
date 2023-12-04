@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import Image from "next/image";
 import { Button } from "reactstrap";
-import BannersCard from "./BannersCard";
+import AdsCard from "./AdsCard";
 import MarketCard from "./MarketCard";
 import HCarousel from "./HCarousel";
 import { useEffect, useRef, useState } from "react";
@@ -183,7 +183,7 @@ const Main = () => {
             <Swiper
               spaceBetween={30}
               modules={[Navigation, Pagination]}
-              className={styles.mySwiper}
+              className={styles.my_swiper}
             >
               <SwiperSlide>
                 <div className={styles.content}>
@@ -192,8 +192,8 @@ const Main = () => {
                       <div key={index} className={styles.service}>
                         <Image
                           alt=""
-                          width={100}
-                          height={100}
+                          width={48}
+                          height={48}
                           src={"/assets/main/service-1.png"}
                         />
                         <span>بیمه ماشین</span>
@@ -252,34 +252,24 @@ const Main = () => {
           )}
           {size.width < 1000 ? (
             <Swiper
-              slidesPerView={5}
-              spaceBetween={30}
+              slidesPerView={"auto"}
+              spaceBetween={25}
               autoplay={{
                 delay: 1000,
                 disableOnInteraction: false,
               }}
               modules={[Navigation, Pagination, Autoplay]}
-              className={styles.mySwiper2}
+              className={styles.my_swiper2}
             >
               {clubs.map(() => (
-                <SwiperSlide>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "1rem 0",
-                    }}
-                  >
-                    <Image
-                      alt=""
-                      width={80}
-                      height={80}
-                      src={"/assets/main/service-1.png"}
-                    />
-                    <p style={{ color: "#fff", fontSize: "1.1em" }}>بیمه</p>
-                  </div>
+                <SwiperSlide className={styles.swiper_slide2}>
+                  <Image
+                    alt=""
+                    width={38}
+                    height={38}
+                    src={"/assets/main/service-1.png"}
+                  />
+                  <p style={{ color: "#fff", fontSize: "14px" }}>بیمه ماشین</p>
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -329,7 +319,7 @@ const Main = () => {
                     className={styles.slide}
                     key={Math.random() * index}
                   >
-                    <BannersCard
+                    <AdsCard
                       image={ad.mainImage}
                       name={ad.car_name}
                       details={{

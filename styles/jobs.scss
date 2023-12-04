@@ -9,12 +9,17 @@
   justify-content: $j;
   align-items: $a;
 }
+@mixin responsive {
+  max-width: 1600px;
+  margin: 0 auto;
+}
 
 .job_page {
   @include flex(column, flex-start, center);
   padding: 2rem 5%;
   font-size: 16px;
   font-family: dana;
+  @include responsive();
 
   .title {
     @include flex(row, flex-start, center);

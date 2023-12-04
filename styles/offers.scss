@@ -4,11 +4,16 @@
   justify-content: $j;
   align-items: $a;
 }
+@mixin responsive {
+  max-width: 1600px;
+  margin: 0 auto;
+}
 
 //offers styles
 .offers {
   @include flex(column, flex-start, center);
   width: 100%;
+  @include responsive();
 
   p {
     margin: 0;
