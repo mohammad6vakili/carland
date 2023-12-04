@@ -14,8 +14,11 @@ import MarketCard from "./MarketCard";
 import HCarousel from "./HCarousel";
 import { useEffect, useRef, useState } from "react";
 import { useWindowSize } from "@uidotdev/usehooks";
+import useHttp from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
 
 const Main = () => {
+  //datas
   const testArray = [
     1,
     1,
@@ -43,92 +46,7 @@ const Main = () => {
     ,
     1,
   ];
-  const ads = [
-    {
-      image: "/assets/main/car-2.png",
-      title: "ام وی ام، X55 PRO",
-      details: {
-        kms: "۱۷,۰۰۰",
-        createYear: "۱۳۹۲",
-        color: "مشکی",
-      },
-      location: "کرج",
-      time: "2 هفته پیش",
-      rate: "4.5",
-    },
-    {
-      image: "/assets/main/car-2.png",
-      title: "ام وی ام، X55 PRO",
-      details: {
-        kms: "۱۷,۰۰۰",
-        createYear: "۱۳۹۲",
-        color: "مشکی",
-      },
-      location: "کرج",
-      time: "2 هفته پیش",
-      rate: "4.5",
-    },
-    {
-      image: "/assets/main/car-2.png",
-      title: "ام وی ام، X55 PRO",
-      details: {
-        kms: "۱۷,۰۰۰",
-        createYear: "۱۳۹۲",
-        color: "مشکی",
-      },
-      location: "کرج",
-      time: "2 هفته پیش",
-      rate: "4.5",
-    },
-    {
-      image: "/assets/main/car-2.png",
-      title: "ام وی ام، X55 PRO",
-      details: {
-        kms: "۱۷,۰۰۰",
-        createYear: "۱۳۹۲",
-        color: "مشکی",
-      },
-      location: "کرج",
-      time: "2 هفته پیش",
-      rate: "4.5",
-    },
-    {
-      image: "/assets/main/car-2.png",
-      title: "ام وی ام، X55 PRO",
-      details: {
-        kms: "۱۷,۰۰۰",
-        createYear: "۱۳۹۲",
-        color: "مشکی",
-      },
-      location: "کرج",
-      time: "2 هفته پیش",
-      rate: "4.5",
-    },
-    {
-      image: "/assets/main/car-2.png",
-      title: "ام وی ام، X55 PRO",
-      details: {
-        kms: "۱۷,۰۰۰",
-        createYear: "۱۳۹۲",
-        color: "مشکی",
-      },
-      location: "کرج",
-      time: "2 هفته پیش",
-      rate: "4.5",
-    },
-    {
-      image: "/assets/main/car-2.png",
-      title: "ام وی ام، X55 PRO",
-      details: {
-        kms: "۱۷,۰۰۰",
-        createYear: "۱۳۹۲",
-        color: "مشکی",
-      },
-      location: "کرج",
-      time: "2 هفته پیش",
-      rate: "4.5",
-    },
-  ];
+  const [ads, setAds] = useState([]);
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -190,6 +108,7 @@ const Main = () => {
     { src: "/assets/main/club.svg" },
   ];
 
+  const { httpService } = useHttp();
   const size = useWindowSize();
   const [adsSwiper, setAdsSwiper] = useState();
   const [marketRSwiper, setMarketRSwiper] = useState();
@@ -237,6 +156,18 @@ const Main = () => {
       fanClubSwiper.navigation.update();
     }
   }, [fanClubSwiper]);
+
+  //requests
+  useEffect(() => {
+    httpService
+      .post("advertisements")
+      .then((res) => {
+        setAds(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -392,21 +323,31 @@ const Main = () => {
               onSwiper={setAdsSwiper}
               className="mySwiper"
             >
-              {ads.map((ad, index) => (
-                <SwiperSlide
-                  className={styles.slide}
-                  key={Math.random() * index}
-                >
-                  <BannersCard
-                    image={ad.image}
-                    name={ad.title}
-                    details={ad.details}
-                    location={ad.location}
-                    time={ad.time}
-                    rate={"۴.۵"}
-                  />
+              {ads.length !== 0 ? (
+                ads.map((ad, index) => (
+                  <SwiperSlide
+                    className={styles.slide}
+                    key={Math.random() * index}
+                  >
+                    <BannersCard
+                      image={ad.mainImage}
+                      name={ad.car_name}
+                      details={{
+                        kms: ad.kilometers,
+                        createYear: ad.production_year,
+                        color: ad.color,
+                      }}
+                      location={ad.location}
+                      time={ad.timeAgo}
+                      rate={"۴.۵"}
+                    />
+                  </SwiperSlide>
+                ))
+              ) : (
+                <SwiperSlide className={styles.slide}>
+                  <BannersCard image={undefined} />
                 </SwiperSlide>
-              ))}
+              )}
             </Swiper>
             <div className={styles.swiper_next} ref={nextAdRef}>
               <ArrowLeftOutlined style={{ color: "#fff" }} />
@@ -500,31 +441,19 @@ const Main = () => {
                 prevEl: prevMarketRRef?.current,
                 nextEl: nextMarketRRef?.current,
               }}
-              breakpoints={{
-                640: {
-                  slidesPerView: 1.8,
-                },
-                768: {
-                  slidesPerView: 2.5,
-                  spaceBetween: 40,
-                },
-                1024: {
-                  slidesPerView: 3.5,
-                  spaceBetween: 50,
-                },
-                1360: {
-                  slidesPerView: 4.5,
-                  spaceBetween: 50,
-                },
-              }}
               freeMode
+              slidesPerView={"auto"}
+              spaceBetween={15}
               grabCursor={true}
               modules={[Navigation, FreeMode]}
               onSwiper={setMarketRSwiper}
-              className="mySwiper"
+              className={styles.my_swiper}
             >
               {marketItems.map((item, index) => (
-                <SwiperSlide key={Math.random() * index}>
+                <SwiperSlide
+                  className={styles.swiper_slide}
+                  key={Math.random() * index}
+                >
                   <MarketCard
                     image={item.image}
                     off={item.off}
@@ -550,32 +479,19 @@ const Main = () => {
                 prevEl: prevMarketBRef?.current,
                 nextEl: nextMarketBRef?.current,
               }}
-              breakpoints={{
-                640: {
-                  slidesPerView: 1.5,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 2.5,
-                  spaceBetween: 40,
-                },
-                1024: {
-                  slidesPerView: 3.5,
-                  spaceBetween: 50,
-                },
-                1360: {
-                  slidesPerView: 4.5,
-                  spaceBetween: 50,
-                },
-              }}
               freeMode
+              slidesPerView={"auto"}
+              spaceBetween={15}
               grabCursor={true}
               modules={[Navigation, FreeMode]}
               onSwiper={setMarketBSwiper}
-              className="mySwiper"
+              className={styles.my_swiper2}
             >
               {marketItems.map((item, index) => (
-                <SwiperSlide key={Math.random() * index}>
+                <SwiperSlide
+                  className={styles.swiper_slide2}
+                  key={Math.random() * index}
+                >
                   <MarketCard
                     image={item.image}
                     off={item.off}
@@ -597,7 +513,7 @@ const Main = () => {
         </div>
 
         <div className={styles.magazine}>
-          <section className={styles.title}>
+          <section className={styles.main_title}>
             <h1>مجله</h1>
 
             <div className={styles.btns}>
@@ -823,28 +739,10 @@ const Main = () => {
                 delay: 1000,
                 disableOnInteraction: false,
               }}
-              breakpoints={{
-                640: {
-                  slidesPerView: 4,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 4,
-                  spaceBetween: 40,
-                },
-                1024: {
-                  slidesPerView: 6,
-                  spaceBetween: 50,
-                },
-                1360: {
-                  slidesPerView: 7.5,
-                  spaceBetween: 50,
-                },
-              }}
               grabCursor={true}
               modules={[Navigation, Autoplay]}
               onSwiper={setFanClubSwiper}
-              className={styles.mySwiper}
+              className={styles.my_swiper}
             >
               {clubs.map((club, index) => (
                 <SwiperSlide

@@ -10,6 +10,7 @@ import "swiper/css/thumbs";
 import "leaflet/dist/leaflet.css";
 import localFont from "next/font/local";
 import MobileMenu from "@/src/components/mobile menu/MobileMenu";
+import { Toaster } from "react-hot-toast";
 
 const dana = localFont({ src: "../public/fonts/Dana-Medium.ttf" });
 
@@ -19,6 +20,31 @@ const MyApp = ({ Component, pageProps }) => {
     <main className={dana.className}>
       <Component {...pageProps} />
       <MobileMenu />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 5000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
+        }}
+      />
     </main>
     // </ConfigProvider>
   );

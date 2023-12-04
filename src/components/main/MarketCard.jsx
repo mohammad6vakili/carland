@@ -47,9 +47,9 @@ const MarketCard = ({ image, off, title, description, price, index }) => {
                 <path
                   d="M4.44141 1.52832C4.44141 1.52832 0.955406 3.92036 0.955406 5.00036C0.955406 6.08036 4.44141 8.47036 4.44141 8.47036"
                   stroke="black"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </div>

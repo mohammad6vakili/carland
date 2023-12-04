@@ -5,7 +5,6 @@ import Image from "next/image";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
-import AlikeOffersCard from "./AlikeOffersCard";
 import SuggestCard from "../../suggest card";
 
 const TradePage = () => {
