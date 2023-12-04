@@ -7,11 +7,11 @@ import {
   ArrowRightOutlined,
 } from "@ant-design/icons";
 import { SwiperSlide, Swiper } from "swiper/react";
-import AlikeOffersCard from "../offers/trade page/AlikeOffersCard";
 import { useState, useRef, useEffect } from "react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Button } from "reactstrap";
 import { useWindowSize } from "@uidotdev/usehooks";
+import SuggestCard from "../suggest card";
 
 const Magazine = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -162,9 +162,9 @@ const Magazine = () => {
                     width={300}
                     height={150}
                   />
-                  <span>کلاسیک</span>
-                  <div>
-                    {/* <svg
+
+                  <div className={s.blur}>
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="362"
                       height="62"
@@ -213,8 +213,9 @@ const Magazine = () => {
                           />
                         </filter>
                       </defs>
-                    </svg> */}
+                    </svg>
                   </div>
+                  <div className={s.text}>کلاسیک</div>
                 </div>
 
                 {latestClubs.map((item, index) => (
@@ -346,7 +347,7 @@ const Magazine = () => {
             >
               {photos.map((offer, index) => (
                 <SwiperSlide key={Math.random() * index}>
-                  <AlikeOffersCard
+                  <SuggestCard
                     image={"/assets/main/car-2.png"}
                     title={"ام وی ام، X55 PRO"}
                     description={

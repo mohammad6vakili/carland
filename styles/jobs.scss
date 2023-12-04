@@ -484,59 +484,6 @@
 
     .cards {
       width: 100%;
-
-      .card {
-        @include flex(column, space-between, center);
-        gap: 1.5rem;
-        width: 300px;
-        padding: 1rem;
-        border-radius: 20px;
-        background: #fff;
-        box-shadow: 0px 4px 100px 0px rgba(187, 187, 187, 0.2);
-
-        .image {
-          width: 100%;
-          overflow: hidden;
-        }
-
-        .texts {
-          border-bottom: 1px solid #e6e6e6;
-          padding-bottom: 1.5rem;
-          .title {
-            font-size: 1.1em;
-            font-weight: bold;
-          }
-          p {
-            opacity: 40%;
-          }
-        }
-
-        .bottom_content {
-          @include flex(row, space-between, center);
-          width: 100%;
-
-          button {
-            @include flex(row, flex-end, center);
-            gap: 5px;
-            border: 1px solid #4a80e8;
-            width: 95px;
-            height: 30px;
-            color: #4a80e8;
-            position: relative;
-            padding: 0 !important;
-            div {
-              @include flex(row, center, center);
-              width: 30px;
-              height: 100%;
-              margin-top: 7px;
-              img {
-                width: 160%;
-                height: 180%;
-              }
-            }
-          }
-        }
-      }
     }
 
     .swiper {

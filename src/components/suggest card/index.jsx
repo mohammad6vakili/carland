@@ -1,8 +1,8 @@
+import s from "./suggest.module.scss";
 import Image from "next/image";
-import s from "../../../../styles/main.module.scss";
 import { Button } from "reactstrap";
 
-const AlikeOffersCard = ({ image, title, description, time }) => {
+const SuggestCard = ({ image, title, description, time }) => {
   return (
     <>
       <div className={s.card}>
@@ -34,4 +34,4 @@ const AlikeOffersCard = ({ image, title, description, time }) => {
   );
 };
 
-export default AlikeOffersCard;
+export default SuggestCard;

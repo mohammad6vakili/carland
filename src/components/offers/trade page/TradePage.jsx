@@ -6,6 +6,7 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
 import AlikeOffersCard from "./AlikeOffersCard";
+import SuggestCard from "../../suggest card";
 
 const TradePage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -63,6 +64,7 @@ const TradePage = () => {
               <Swiper
                 onSwiper={setThumbsSwiper}
                 slidesPerView={4}
+                spaceBetween={30}
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
@@ -316,7 +318,7 @@ const TradePage = () => {
             >
               {photos.map((offer, index) => (
                 <SwiperSlide key={Math.random() * index}>
-                  <AlikeOffersCard
+                  <SuggestCard
                     image={"/assets/main/car-2.png"}
                     title={"ام وی ام، X55 PRO"}
                     description={

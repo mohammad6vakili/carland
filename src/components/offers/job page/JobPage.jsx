@@ -13,13 +13,9 @@ import { FreeMode, Navigation } from "swiper/modules";
 import ReactStars from "react-rating-stars-component";
 import CommentCard from "./CommentCard";
 import SendComment from "./SendComment";
-import AlikeOffersCard from "../trade page/AlikeOffersCard";
 import { useEffect, useRef, useState } from "react";
 import Map from "./map/Map";
-// import { Map } from "@neshan-maps-platform/ol";
-// import NeshanMap, {
-//   NeshanMapRef,
-// } from "@neshan-maps-platform/react-openlayers";
+import SuggestCard from "../../suggest card";
 
 const JobPage = () => {
   const [adsSwiper, setAdsSwiper] = useState();
@@ -274,13 +270,6 @@ const JobPage = () => {
             <div>تهران، میدان پیروزی، خیابان آزادی، روبروی سینما ازادی</div>
 
             <div className={s.map}>
-              {/* <Image
-                src={"/assets/jobs/map.png"}
-                alt="map"
-                width={700}
-                height={250}
-              /> */}
-              {/* <Map mapKey="web.d8211fffbc5a4af68eed4a0f110edb0c"></Map> */}
               <Map />
             </div>
           </div>
@@ -415,7 +404,7 @@ const JobPage = () => {
             >
               {photos.map((offer, index) => (
                 <SwiperSlide key={Math.random() * index}>
-                  <AlikeOffersCard
+                  <SuggestCard
                     image={"/assets/main/car-2.png"}
                     title={"ام وی ام، X55 PRO"}
                     description={

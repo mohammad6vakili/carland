@@ -173,32 +173,32 @@
 
           .image {
             width: 100%;
+            height: 30%;
             margin-bottom: 1.5rem;
             position: relative;
             color: #fff;
+            border-radius: 20px;
+            overflow: hidden;
             img {
               width: 100%;
-              border-radius: 20px;
             }
-            span {
-              position: absolute;
-              bottom: 3.5%;
-              z-index: 3;
-              left: 50%;
-              transform: translate(-50%);
-            }
-            div {
-              @include flex(row, center, center);
-              width: 100%;
+
+            .blur {
               position: absolute;
               bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 23%;
+              svg {
+                width: 100%;
+                height: 120%;
+              }
+            }
+            .text {
+              position: absolute;
+              bottom: 10px;
               left: 50%;
               transform: translate(-50%);
-              z-index: 2;
-              svg {
-                backdrop-filter: blur(17.5px);
-                border-radius: 0 0 20px 20px;
-              }
             }
           }
 
@@ -213,6 +213,7 @@
           }
           .list_item:last-child {
             border: none;
+            padding-bottom: 10px;
           }
         }
       }
@@ -274,14 +275,14 @@
                   @include flex(row, flex-end, center);
                   gap: 10px;
                   width: 105px;
-                  height: 30px;
+                  height: 28px;
                   border: 1px solid #4a80e8;
                   padding: 0 !important;
                   div {
                     @include flex(row, center, center);
                     width: 30px;
                     height: 100%;
-                    margin-top: 7px;
+                    margin-top: 8px;
                     img {
                       width: 160%;
                       height: 160%;
@@ -370,11 +371,11 @@
             padding-right: 10px;
             div {
               @include flex(row, center, center);
-              width: 40px;
+              width: 30px;
               height: 100%;
-              margin-top: 7px;
+              margin-top: 8px;
               img {
-                width: 135%;
+                width: 160%;
                 height: 160%;
               }
             }
