@@ -290,28 +290,12 @@ const Main = () => {
                 prevEl: prevAdRef?.current,
                 nextEl: nextAdRef?.current,
               }}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 2.8,
-                  spaceBetween: 40,
-                },
-                1024: {
-                  slidesPerView: 3.8,
-                  spaceBetween: 50,
-                },
-                1360: {
-                  slidesPerView: 5,
-                  spaceBetween: 50,
-                },
-              }}
+              spaceBetween={15}
+              slidesPerView={"auto"}
               grabCursor={true}
               modules={[Navigation]}
               onSwiper={setAdsSwiper}
-              className="mySwiper"
+              className={styles.my_swiper}
             >
               {ads.length !== 0 ? (
                 ads.map((ad, index) => (
@@ -335,7 +319,7 @@ const Main = () => {
                 ))
               ) : (
                 <SwiperSlide className={styles.slide}>
-                  <BannersCard image={undefined} />
+                  <AdsCard image={undefined} />
                 </SwiperSlide>
               )}
             </Swiper>
@@ -345,7 +329,7 @@ const Main = () => {
             <div className={styles.swiper_prev} ref={prevAdRef}>
               <ArrowRightOutlined style={{ color: "#fff" }} />
             </div>
-            <div className={styles.opacity}></div>
+            {/* <div className={styles.opacity}></div> */}
           </section>
         </div>
 

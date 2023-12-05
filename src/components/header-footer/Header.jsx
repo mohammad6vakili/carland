@@ -5,6 +5,7 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import Link from "next/link";
 import { useWindowSize } from "@uidotdev/usehooks";
+import SelectedPageLine from "@/src/assets/icons/selected_page_line";
 
 const Header = () => {
   const router = useRouter();
@@ -63,7 +64,7 @@ const Header = () => {
             {size.width > 1000 ? (
               <div className={styles.routes}>
                 <span
-                  style={{ color: "#000", cursor: "auto" }}
+                  style={{ color: "#000", cursor: "auto", fontWeight: "600" }}
                   className={styles.category}
                 >
                   <Image
@@ -81,50 +82,70 @@ const Header = () => {
                   <span
                     className={pathname === "/market" ? styles.selected : ""}
                   >
-                    {" "}
                     بازارچه
-                    <div className={styles.line1}></div>
-                    <div className={styles.line2}></div>
+                    <div className={styles.line1}>
+                      <SelectedPageLine />
+                    </div>
+                    <div className={styles.line2}>
+                      <SelectedPageLine />
+                    </div>
                   </span>
                 </Link>
+
                 <Link href={"/offers"}>
                   <span
                     className={
                       pathname?.includes("/offers") ? styles.selected : ""
                     }
                   >
-                    {" "}
                     خرید و فروش
-                    <div className={styles.line1}></div>
-                    <div className={styles.line2}></div>
+                    <div className={styles.line1}>
+                      <SelectedPageLine />
+                    </div>
+                    <div className={styles.line2}>
+                      <SelectedPageLine />
+                    </div>
                   </span>
                 </Link>
+
                 <Link href={"/club"}>
                   <span className={pathname === "/club" ? styles.selected : ""}>
                     {" "}
                     کلوپ
-                    <div className={styles.line1}></div>
-                    <div className={styles.line2}></div>
+                    <div className={styles.line1}>
+                      <SelectedPageLine />
+                    </div>
+                    <div className={styles.line2}>
+                      <SelectedPageLine />
+                    </div>
                   </span>
                 </Link>
+
                 <Link href={"/magazine"}>
                   <span
                     className={pathname === "/magazine" ? styles.selected : ""}
                   >
-                    {" "}
                     مجله
-                    <div className={styles.line1}></div>
-                    <div className={styles.line2}></div>
+                    <div className={styles.line1}>
+                      <SelectedPageLine />
+                    </div>
+                    <div className={styles.line2}>
+                      <SelectedPageLine />
+                    </div>
                   </span>
                 </Link>
+
                 <Link href={"/about_us"}>
                   <span
                     className={pathname === "/about_us" ? styles.selected : ""}
                   >
-                    {" "}
                     درباره ما
-                    <div className={styles.line1}></div>
-                    <div className={styles.line2}></div>
+                    <div className={styles.line1}>
+                      <SelectedPageLine />
+                    </div>
+                    <div className={styles.line2}>
+                      <SelectedPageLine />
+                    </div>
                   </span>
                 </Link>
               </div>
