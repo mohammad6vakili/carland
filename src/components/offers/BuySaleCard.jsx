@@ -17,7 +17,7 @@ const BuySaleCard = ({
   return (
     <>
       <div
-        onClick={() => router.push("/offers/trades/id")}
+        onClick={() => router.push("/trades/id")}
         className={s.buy_sale_card}
       >
         <section className={s.image}>

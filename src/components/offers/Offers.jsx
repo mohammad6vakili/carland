@@ -22,8 +22,9 @@ import BuySaleCard from "./BuySaleCard";
 import JobsCard from "./JobsCard";
 import { useWindowSize } from "@uidotdev/usehooks";
 import HCarousel from "../main/HCarousel";
+import useHttp from "@/src/axiosConfig/useHttp";
 
-const offers = () => {
+const offers = ({ adGroup }) => {
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -100,14 +101,21 @@ const offers = () => {
     { name: "خودرو", selected: "0" },
     { name: "خودرو", selected: "0" },
   ];
+
+  const { httpService } = useHttp();
   const size = useWindowSize();
+
+  //cards
+  const [jobs, setJobs] = useState([]);
+  const [sale, setSale] = useState([]);
+  const [trades, setTrades] = useState([]);
 
   const [cSelected, setCSelected] = useState([]);
   const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [offers, setOffers] = useState("کسب و کار");
-  const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const [filters, setFilters] = useState("جدیدترین");
+  const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   //control filters collapse
   const [categoryOpen, setCategoryOpen] = useState(true);
   const [brandsOpen, setBrandsOpen] = useState(true);
@@ -144,7 +152,15 @@ const offers = () => {
     setcategorySelected([...categorySelected]);
   };
 
-  useEffect(() => console.log(offers), [offers]);
+  //handle requests
+  useEffect(() => {
+    httpService.post("services/search", {}).then((res) => {
+      res.status === 200 ? setJobs(res.data.data) : null;
+      setOffers("کسب و کار");
+    });
+
+    httpService.post("advertisements", {}).then((res) => {});
+  }, []);
 
   const handleFilterValidate = (value) => {
     if (filters === value) {
@@ -492,22 +508,10 @@ const offers = () => {
                     price={"۹,۹۰۰,۰۰۰,۰۰۰"}
                   />
                 ))
-              : offers === "کسب و کار"
+              : null}
+
+            {offers === "فروش" || offers === "خدمات"
               ? marketItems.map((item, index) => (
-                  <JobsCard
-                    key={Math.random() * index}
-                    image={"/assets/offers/jobs-1.png"}
-                    rate={"۴.۵"}
-                    title={"لوازم یدکی میلاد"}
-                    description={
-                      "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و ..."
-                    }
-                    isOpen={true}
-                    location={"تهران"}
-                    workTime={"ساعت کاری: ۹ تا ۲۲"}
-                  />
-                ))
-              : marketItems.map((item, index) => (
                   <MarketCard
                     key={Math.random() * index}
                     image={item.image}
@@ -517,7 +521,25 @@ const offers = () => {
                     price={item.price}
                     index={index + 1}
                   />
-                ))}
+                ))
+              : null}
+
+            {offers === "کسب و کار" && jobs.length !== 0
+              ? jobs.map((item, index) => (
+                  <JobsCard
+                    key={Math.random() * index}
+                    image={item.NationalCardImage}
+                    rate={item.average_rating}
+                    title={item.title}
+                    description={item.descriptions}
+                    isOpen={item.status}
+                    location={item.district}
+                    timeFrom={item.timeFrom}
+                    timeTo={item.timeTo}
+                    id={item.id}
+                  />
+                ))
+              : null}
           </div>
         </div>
       </section>

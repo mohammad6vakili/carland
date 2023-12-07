@@ -3,6 +3,8 @@ import s from "../../../styles/main.module.scss";
 import { StarFilled, LeftOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";
+import { url } from "@/src/axiosConfig/useHttp";
+import { convertTime, enToFaNum } from "@/src/hooks/functions";
 
 const JobsCard = ({
   image,
@@ -11,14 +13,16 @@ const JobsCard = ({
   description,
   isOpen,
   location,
-  workTime,
+  timeFrom,
+  timeTo,
+  id,
 }) => {
   const router = useRouter();
 
   return (
     <section className={s.job_card}>
       <div className={s.image}>
-        <Image src={image} alt="" width={250} height={200} />{" "}
+        <Image src={`${url + image}`} alt="" width={250} height={200} />{" "}
         <div className={s.rate_box}>
           <StarFilled style={{ color: "#FFD029" }} /> {rate}
         </div>
@@ -30,13 +34,22 @@ const JobsCard = ({
       </div>
 
       <div className={s.status}>
-        <div className={s.is_open}>
-          <div className={s.circle}></div>
-          باز است
-        </div>
+        {isOpen === 1 ? (
+          <div className={s.is_open}>
+            <div className={s.circle}></div>
+            باز است
+          </div>
+        ) : (
+          <div className={s.not_open}>
+            <div className={s.circle}></div>
+            بسته است
+          </div>
+        )}
 
         <div className={s.time_location}>
-          <p className={s.work_time}>{workTime}</p>
+          <p className={s.work_time}>
+            ساعت کاری: {convertTime(timeFrom)} تا {convertTime(timeTo)}
+          </p>
           <p className={s.location}>
             <Image
               src={"/assets/offers/location.png"}
@@ -50,7 +63,7 @@ const JobsCard = ({
       </div>
 
       <div className={s.button}>
-        <Button onClick={() => router.push("/offers/jobs/id")}>
+        <Button onClick={() => router.push(`/jobs/${id}`)}>
           مشاهده{" "}
           <div>
             <LeftOutlined />

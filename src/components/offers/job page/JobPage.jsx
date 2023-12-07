@@ -16,12 +16,30 @@ import SendComment from "./SendComment";
 import { useEffect, useRef, useState } from "react";
 import Map from "./map/Map";
 import SuggestCard from "../../suggest card";
+import { useRouter } from "next/router";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
+import { convertTime } from "@/src/hooks/functions";
 
 const JobPage = () => {
+  const { httpService } = useHttp();
+  const [jobData, setJobData] = useState([]);
+  const [photos, setPhotos] = useState([]);
+  const router = useRouter();
+
+  const tableTime = [
+    { day: "شنبه", start: "", end: "", isOpen: true },
+    { day: "یکشنبه", start: "", end: "", isOpen: true },
+    { day: "دوشنبه", start: "", end: "", isOpen: true },
+    { day: "سه شنبه", start: "", end: "", isOpen: true },
+    { day: "چهارشنبه", start: "", end: "", isOpen: true },
+    { day: "پنجشنبه", start: "", end: "", isOpen: true },
+    { day: "جمعه", start: "", end: "", isOpen: false },
+  ];
+
+  //swiper
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
   const nextAdRef = useRef();
-
   useEffect(() => {
     if (adsSwiper) {
       console.log("Swiper instance:", adsSwiper);
@@ -32,77 +50,86 @@ const JobPage = () => {
     }
   }, [adsSwiper]);
 
-  const photos = [
-    { src: "/assets/trades/trade-1.png" },
-    { src: "/assets/trades/trade-2.png" },
-    { src: "/assets/trades/trade-1.png" },
-    { src: "/assets/trades/trade-2.png" },
-    { src: "/assets/trades/trade-1.png" },
-    { src: "/assets/trades/trade-1.png" },
-    { src: "/assets/trades/trade-1.png" },
-  ];
+  //handle photos
+  useEffect(() => {
+    jobData.length !== 0 ? setPhotos(jobData.images.split(",")) : null;
+    console.log(photos);
+  }, [jobData]);
+
+  //handle job id
+  useEffect(() => {
+    const id = router.query.job;
+    if (id) {
+      httpService.get(`service/${id}`).then((res) => {
+        res.status === 200 ? setJobData(res.data.data) : null;
+      });
+    }
+  }, [router]);
 
   return (
     <>
       <div className={s.job_page}>
         <div className={s.gallery}>
           <Swiper spaceBetween={50}>
-            {photos.map((ph, index) => (
-              <SwiperSlide className={s.slide} key={Math.random()}>
-                <Image
-                  src={"/assets/trades/trade-1.png"}
-                  alt=""
-                  width={1000}
-                  height={700}
-                  className={s.my_swiper}
-                />
-                <div className={s.details}>
-                  <div className={s.title}>لوازم یدکی میلاد</div>
-
-                  <div className="d-flex">
-                    <div className={s.rate}>
-                      <StarFilled style={{ color: "#FFD029" }} /> ۴.۵
-                    </div>
-                    <div className={s.badge}>
-                      <Image
-                        src={"/assets/jobs/badge.png"}
-                        alt=""
-                        width={30}
-                        height={30}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className={s.contatcs}>
-                  <div className={s.call}>
+            {photos
+              ? photos.map((ph, index) => (
+                  <SwiperSlide className={s.slide} key={Math.random() * index}>
                     <Image
-                      src={"/assets/jobs/call.svg"}
+                      src={url + ph}
                       alt=""
-                      width={30}
-                      height={30}
+                      width={1000}
+                      height={700}
+                      className={s.my_swiper}
                     />
-                  </div>
-                  <div className={s.sms}>
-                    <Image
-                      src={"/assets/jobs/sms.svg"}
-                      alt=""
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                  <div className={s.location}>
-                    <Image
-                      src={"/assets/offers/location.png"}
-                      alt=""
-                      width={15}
-                      height={15}
-                    />{" "}
-                    تهران
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                    <div className={s.details}>
+                      <div className={s.title}>{jobData.title}</div>
+
+                      <div className="d-flex">
+                        <div className={s.rate}>
+                          <StarFilled style={{ color: "#FFD029" }} />{" "}
+                          {jobData.rate}
+                        </div>
+                        <div className={s.badge}>
+                          <Image
+                            src={"/assets/jobs/badge.png"}
+                            alt=""
+                            width={30}
+                            height={30}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={s.contatcs}>
+                      <div className={s.call}>
+                        <Image
+                          src={"/assets/jobs/call.svg"}
+                          alt=""
+                          width={30}
+                          height={30}
+                        />
+                      </div>
+                      <div className={s.sms}>
+                        <Image
+                          src={"/assets/jobs/sms.svg"}
+                          alt=""
+                          width={30}
+                          height={30}
+                        />
+                      </div>
+                      <div className={s.location}>
+                        <Image
+                          src={"/assets/offers/location.png"}
+                          alt=""
+                          width={15}
+                          height={15}
+                        />{" "}
+                        {jobData.city}
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))
+              : null}
           </Swiper>
         </div>
 
@@ -120,22 +147,7 @@ const JobPage = () => {
           </div>
 
           <div className={s.texts}>
-            <p>
-              به نام خدا، بنده مهزیار رازه ۳ سال و نیم تجربه در زمینه طراحی رابط
-              کاربری، طراحی سایت و مباحث مرتبط با آن را دارم و تسلط کافی به نرم
-              افزارهای گرافیکی مانند فیگما، فتوشاپ و ادوبی اکس دی دارا می‌باشم.
-              همچنین علاقه زیادی به یادگیری، مطالعه و پیشرفت روزانه دارم. از
-              کارهای گروهی لذت می‌برم و همکاری با شرکت‌های دارای ایده و هدف‌دار
-              را دوست دارم.
-            </p>
-            <p>
-              به نام خدا، بنده مهزیار رازه ۳ سال و نیم تجربه در زمینه طراحی رابط
-              کاربری، طراحی سایت و مباحث مرتبط با آن را دارم و تسلط کافی به نرم
-              افزارهای گرافیکی مانند فیگما، فتوشاپ و ادوبی اکس دی دارا می‌باشم.
-              همچنین علاقه زیادی به یادگیری، مطالعه و پیشرفت روزانه دارم. از
-              کارهای گروهی لذت می‌برم و همکاری با شرکت‌های دارای ایده و هدف‌دار
-              را دوست دارم.
-            </p>
+            <p>{jobData.descriptions}</p>
           </div>
         </div>
 
@@ -174,78 +186,30 @@ const JobPage = () => {
             </div>
 
             <div className={s.table}>
-              <div className={s.table_row}>
-                <span>شنبه</span>
-                <span>
-                  شروع کار
-                  <span style={{ color: "#1BC217" }}>۹:۰۰</span>
-                </span>
-                <span>
-                  اتمام کار
-                  <span style={{ color: "#FF1033" }}>۹:۰۰</span>
-                </span>
-              </div>
-              <div className={s.table_row}>
-                <span>یکشنبه</span>
-                <span>
-                  شروع کار
-                  <span style={{ color: "#1BC217" }}>۹:۰۰</span>
-                </span>
-                <span>
-                  اتمام کار
-                  <span style={{ color: "#FF1033" }}>۹:۰۰</span>
-                </span>
-              </div>
-              <div className={s.table_row}>
-                <span>دوشنبه</span>
-                <span>
-                  شروع کار
-                  <span style={{ color: "#1BC217" }}>۹:۰۰</span>
-                </span>
-                <span>
-                  اتمام کار
-                  <span style={{ color: "#FF1033" }}>۹:۰۰</span>
-                </span>
-              </div>
-              <div className={s.table_row}>
-                <span>سه شنبه</span>
-                <span>
-                  شروع کار
-                  <span style={{ color: "#1BC217" }}>۹:۰۰</span>
-                </span>
-                <span>
-                  اتمام کار
-                  <span style={{ color: "#FF1033" }}>۹:۰۰</span>
-                </span>
-              </div>
-              <div className={s.table_row}>
-                <span>چهارشنبه</span>
-                <span>
-                  شروع کار
-                  <span style={{ color: "#1BC217" }}>۹:۰۰</span>
-                </span>
-                <span>
-                  اتمام کار
-                  <span style={{ color: "#FF1033" }}>۹:۰۰</span>
-                </span>
-              </div>
-              <div className={s.table_row}>
-                <span>پنجشنبه</span>
-                <span>
-                  شروع کار
-                  <span style={{ color: "#1BC217" }}>۹:۰۰</span>
-                </span>
-                <span>
-                  اتمام کار
-                  <span style={{ color: "#FF1033" }}>۹:۰۰</span>
-                </span>
-              </div>
-              <div className={s.table_row}>
-                <span>جمعه</span>
-                <span>
-                  <span style={{ color: "#FF1033" }}>بسته</span>
-                </span>
-              </div>
+              {tableTime.map((day, index) => (
+                <div className={s.table_row}>
+                  <span>{day.day}</span>
+
+                  {!day.isOpen ? (
+                    <span style={{ color: "#FF1033" }}>{"بسته"}</span>
+                  ) : (
+                    <>
+                      <span>
+                        شروع کار
+                        <span style={{ color: "#1BC217" }}>
+                          {convertTime(jobData.timeFrom)}
+                        </span>
+                      </span>
+                      <span>
+                        اتمام کار
+                        <span style={{ color: "#FF1033" }}>
+                          {convertTime(jobData.timeTo)}
+                        </span>
+                      </span>
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
 
             <div className={s.links}>
@@ -267,11 +231,13 @@ const JobPage = () => {
               </div>
               <p>آدرس</p>
             </div>
-            <div>تهران، میدان پیروزی، خیابان آزادی، روبروی سینما ازادی</div>
+            <div>{jobData.address}</div>
 
-            <div className={s.map}>
-              <Map />
-            </div>
+            {jobData.longitude && jobData.longitude ? (
+              <div className={s.map}>
+                <Map />
+              </div>
+            ) : null}
           </div>
         </section>
 

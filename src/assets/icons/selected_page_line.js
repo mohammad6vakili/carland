@@ -20,8 +20,8 @@ const SelectedPageLine = () => {
           y2="0"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#142D5D" />
-          <stop offset="1" stop-color="#142D5D" stop-opacity="0" />
+          <stop stopColor="#142D5D" />
+          <stop offset="1" stopColor="#142D5D" stopOpacity="0" />
         </linearGradient>
       </defs>
     </svg>
