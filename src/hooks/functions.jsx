@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 export function enToFaNum(n) {
   const farsiNum = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹", "."];
 
@@ -30,3 +32,10 @@ export function convertTime(timeStr) {
     return `${hours}.${minutes}`;
   }
 }
+
+export const handleCopy = (value) => {
+  navigator.clipboard
+    .writeText(value)
+    .then(() => toast.success("متن با موفقیت کپی شد"))
+    .catch((error) => toast.success("مشکلی در کپی متن بوجود امد"));
+};

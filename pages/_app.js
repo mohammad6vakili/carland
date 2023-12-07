@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }) => {
       <Component {...pageProps} />
       <MobileMenu />
       <Toaster
-        position="top-center"
+        position="bottom-center"
         reverseOrder={false}
         gutter={8}
         containerClassName=""

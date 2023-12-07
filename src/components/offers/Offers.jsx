@@ -23,6 +23,7 @@ import JobsCard from "./JobsCard";
 import { useWindowSize } from "@uidotdev/usehooks";
 import HCarousel from "../main/HCarousel";
 import useHttp from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
 
 const offers = ({ adGroup }) => {
   const marketItems = [
@@ -113,7 +114,7 @@ const offers = ({ adGroup }) => {
   const [cSelected, setCSelected] = useState([]);
   const [categorySelected, setcategorySelected] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [offers, setOffers] = useState("کسب و کار");
+  const [offers, setOffers] = useState("خرید و فروش");
   const [filters, setFilters] = useState("جدیدترین");
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   //control filters collapse
@@ -154,13 +155,20 @@ const offers = ({ adGroup }) => {
 
   //handle requests
   useEffect(() => {
-    httpService.post("services/search", {}).then((res) => {
-      res.status === 200 ? setJobs(res.data.data) : null;
-      setOffers("کسب و کار");
-    });
-
-    httpService.post("advertisements", {}).then((res) => {});
-  }, []);
+    if (offers === "کسب و کار") {
+      httpService.post("services/search", {}).then((res) => {
+        res.status === 200 ? setJobs(res.data.data) : null;
+        setOffers("کسب و کار");
+      });
+    } else if (offers === "خرید و فروش") {
+      httpService
+        .post("advertisements", {})
+        .then((res) => {
+          res.status === 200 ? setTrades(res.data.data) : null;
+        })
+        .catch((err) => toast.error(err.message));
+    }
+  }, [offers]);
 
   const handleFilterValidate = (value) => {
     if (filters === value) {
@@ -496,30 +504,17 @@ const offers = ({ adGroup }) => {
 
           <div className={s.market_cards}>
             {offers === "خرید و فروش"
-              ? marketItems.map((item, index) => (
+              ? trades.map((item, index) => (
                   <BuySaleCard
                     key={Math.random() * index}
                     createYear={"۱۳۹۲"}
-                    image={"/assets/offers/banner-buy-sale.png"}
-                    title={"ام وی ام"}
-                    description={"ام وی ام اتوماتیک ۹۲"}
-                    timePosted={"۲ هفته پیش"}
-                    location={"تهران"}
-                    price={"۹,۹۰۰,۰۰۰,۰۰۰"}
-                  />
-                ))
-              : null}
-
-            {offers === "فروش" || offers === "خدمات"
-              ? marketItems.map((item, index) => (
-                  <MarketCard
-                    key={Math.random() * index}
-                    image={item.image}
-                    off={item.off}
+                    image={item.mainImage}
                     title={item.title}
                     description={item.description}
+                    timePosted={item.timeAgo}
+                    location={item.location}
                     price={item.price}
-                    index={index + 1}
+                    id={item.id}
                   />
                 ))
               : null}
@@ -537,6 +532,20 @@ const offers = ({ adGroup }) => {
                     timeFrom={item.timeFrom}
                     timeTo={item.timeTo}
                     id={item.id}
+                  />
+                ))
+              : null}
+
+            {offers === "فروش" || offers === "خدمات"
+              ? marketItems.map((item, index) => (
+                  <MarketCard
+                    key={Math.random() * index}
+                    image={item.image}
+                    off={item.off}
+                    title={item.title}
+                    description={item.description}
+                    price={item.price}
+                    index={index + 1}
                   />
                 ))
               : null}

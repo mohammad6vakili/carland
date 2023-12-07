@@ -6,12 +6,39 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
 import SuggestCard from "../../suggest card";
+import { useRouter } from "next/router";
+import useHttp from "@/src/axiosConfig/useHttp";
 
 const TradePage = () => {
+  const router = useRouter();
+  const [tradeData, setTradeData] = useState([]);
+  const { httpService } = useHttp();
+
+  //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
   const nextAdRef = useRef();
+  useEffect(() => {
+    if (adsSwiper) {
+      console.log("Swiper instance:", adsSwiper);
+      adsSwiper.params.navigation.prevEl = prevAdRef.current;
+      adsSwiper.params.navigation.nextEl = nextAdRef.current;
+      adsSwiper.navigation.init();
+      adsSwiper.navigation.update();
+    }
+  }, [adsSwiper]);
+
+  //handle trade id
+  useEffect(() => {
+    const id = router.query.trade;
+    console.log(id);
+    if (id) {
+      httpService.get(`Showads/${id}`).then((res) => {
+        res.status === 200 ? setTradeData(res.data.data) : null;
+      });
+    }
+  }, [router]);
 
   const photos = [
     { src: "/assets/trades/trade-1.png" },
@@ -23,21 +50,11 @@ const TradePage = () => {
     { src: "/assets/trades/trade-1.png" },
   ];
 
-  useEffect(() => {
-    if (adsSwiper) {
-      console.log("Swiper instance:", adsSwiper);
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
-
   return (
     <>
       <div className={s.trade_page}>
         <div className={s.main_title}>
-          <h1>بی ام دبلیو ۵۱۰</h1>
+          <h1>{trade.title}</h1>
         </div>
 
         <div className={s.contents}>
@@ -98,7 +115,7 @@ const TradePage = () => {
                     width={24}
                     height={24}
                   />
-                  <p>۱۷,۰۰۰</p>
+                  <p>{tradeData.kilometers}</p>
                   <p>کیلومتر</p>
                 </div>
                 <div className={s.line}></div>
@@ -109,7 +126,7 @@ const TradePage = () => {
                     width={24}
                     height={24}
                   />
-                  <p>۱۳۹۲</p>
+                  <p>{tradeData.production_year}</p>
                   <p>تولید</p>
                 </div>
                 <div className={s.line}></div>
@@ -120,7 +137,7 @@ const TradePage = () => {
                     width={24}
                     height={24}
                   />
-                  <p>مشکی</p>
+                  <p>{tradeData.color}</p>
                   <p>رنگ</p>
                 </div>
                 <div className={s.line}></div>
@@ -131,7 +148,7 @@ const TradePage = () => {
                     width={24}
                     height={24}
                   />
-                  <p>چوری</p>
+                  <p>{tradeData.gearbox_type}</p>
                   <p>گیربکس</p>
                 </div>
                 <div className={s.line}></div>
@@ -142,7 +159,7 @@ const TradePage = () => {
                     width={24}
                     height={24}
                   />
-                  <p>اتوماتیک</p>
+                  <p>{tradeData.gearbox_type}</p>
                   <p>دنده</p>
                 </div>
                 <div className={s.line}></div>
