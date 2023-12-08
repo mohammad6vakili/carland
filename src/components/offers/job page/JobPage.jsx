@@ -18,7 +18,11 @@ import Map from "./map/Map";
 import SuggestCard from "../../suggest card";
 import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
-import { convertTime, handleCopy } from "@/src/hooks/functions";
+import {
+  convertTime,
+  handleCopy,
+  toPersianString,
+} from "@/src/hooks/functions";
 
 const JobPage = () => {
   const { httpService } = useHttp();
@@ -42,7 +46,6 @@ const JobPage = () => {
   const nextAdRef = useRef();
   useEffect(() => {
     if (adsSwiper) {
-      console.log("Swiper instance:", adsSwiper);
       adsSwiper.params.navigation.prevEl = prevAdRef.current;
       adsSwiper.params.navigation.nextEl = nextAdRef.current;
       adsSwiper.navigation.init();
@@ -208,13 +211,13 @@ const JobPage = () => {
                         <span>
                           شروع کار
                           <span style={{ color: "#1BC217" }}>
-                            {convertTime(jobData.timeFrom)}
+                            {toPersianString(convertTime(jobData.timeFrom))}
                           </span>
                         </span>
                         <span>
                           اتمام کار
                           <span style={{ color: "#FF1033" }}>
-                            {convertTime(jobData.timeTo)}
+                            {toPersianString(convertTime(jobData.timeTo))}
                           </span>
                         </span>
                       </>

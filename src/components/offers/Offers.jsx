@@ -156,10 +156,13 @@ const offers = ({ adGroup }) => {
   //handle requests
   useEffect(() => {
     if (offers === "کسب و کار") {
-      httpService.post("services/search", {}).then((res) => {
-        res.status === 200 ? setJobs(res.data.data) : null;
-        setOffers("کسب و کار");
-      });
+      httpService
+        .post("services/search", {})
+        .then((res) => {
+          res.status === 200 ? setJobs(res.data.data) : null;
+          setOffers("کسب و کار");
+        })
+        .catch((err) => toast.error(err.message));
     } else if (offers === "خرید و فروش") {
       httpService
         .post("advertisements", {})

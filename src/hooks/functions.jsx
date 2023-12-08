@@ -1,23 +1,42 @@
 import toast from "react-hot-toast";
 
-export function enToFaNum(n) {
-  const farsiNum = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹", "."];
-
-  if (n !== "" && n.includes(".")) {
-    return n
-      ?.toString()
-      .split("")
-      .map((x) => farsiNum[x])
-      .join("")
-      .replace(".", ".");
+export const toPersianString = (str) => {
+  if (typeof str === "string") {
+    return str
+      .replace(/1/g, "۱")
+      .replace(/2/g, "۲")
+      .replace(/3/g, "۳")
+      .replace(/4/g, "۴")
+      .replace(/5/g, "۵")
+      .replace(/6/g, "۶")
+      .replace(/7/g, "۷")
+      .replace(/8/g, "۸")
+      .replace(/9/g, "۹")
+      .replace(/0/g, "۰");
   } else {
-    return n
+    return str
       ?.toString()
-      .split("")
-      .map((x) => farsiNum[x])
-      .join("");
+      .replace(/1/g, "۱")
+      .toString()
+      .replace(/2/g, "۲")
+      .toString()
+      .replace(/3/g, "۳")
+      .toString()
+      .replace(/4/g, "۴")
+      .toString()
+      .replace(/5/g, "۵")
+      .toString()
+      .replace(/6/g, "۶")
+      .toString()
+      .replace(/7/g, "۷")
+      .toString()
+      .replace(/8/g, "۸")
+      .toString()
+      .replace(/9/g, "۹")
+      .toString()
+      .replace(/0/g, "۰");
   }
-}
+};
 
 export function convertTime(timeStr) {
   // Split the time string into hours, minutes, and seconds

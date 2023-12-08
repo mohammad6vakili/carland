@@ -4,7 +4,7 @@ import { StarFilled, LeftOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";
 import { url } from "@/src/axiosConfig/useHttp";
-import { convertTime, enToFaNum } from "@/src/hooks/functions";
+import { convertTime, enToFaNum, toPersianString } from "@/src/hooks/functions";
 
 const JobsCard = ({
   image,
@@ -24,7 +24,7 @@ const JobsCard = ({
       <div className={s.image}>
         <Image src={`${url + image}`} alt="" width={250} height={200} />{" "}
         <div className={s.rate_box}>
-          <StarFilled style={{ color: "#FFD029" }} /> {rate}
+          <StarFilled style={{ color: "#FFD029" }} /> {toPersianString(rate)}
         </div>
       </div>
 
@@ -48,7 +48,8 @@ const JobsCard = ({
 
         <div className={s.time_location}>
           <p className={s.work_time}>
-            ساعت کاری: {convertTime(timeFrom)} تا {convertTime(timeTo)}
+            ساعت کاری: {toPersianString(convertTime(timeFrom))} تا{" "}
+            {toPersianString(convertTime(timeTo))}
           </p>
           <p className={s.location}>
             <Image
