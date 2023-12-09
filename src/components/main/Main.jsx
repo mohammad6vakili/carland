@@ -14,8 +14,9 @@ import MarketCard from "./MarketCard";
 import HCarousel from "./HCarousel";
 import { useEffect, useRef, useState } from "react";
 import { useWindowSize } from "@uidotdev/usehooks";
-import useHttp from "@/src/axiosConfig/useHttp";
-import toast from "react-hot-toast";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
+import toast, { ToastBar } from "react-hot-toast";
+import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
 
 const Main = () => {
   //datas
@@ -47,6 +48,7 @@ const Main = () => {
     1,
   ];
   const [ads, setAds] = useState([]);
+  const [serviceCat, setServiceCat] = useState([]);
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -110,6 +112,32 @@ const Main = () => {
 
   const { httpService } = useHttp();
   const size = useWindowSize();
+
+  //requests
+  useEffect(() => {
+    httpService
+      .post("advertisements")
+      .then((res) => {
+        res.status === 200 ? setAds(res.data.data) : null;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    getLocal("serviceCat") === "null"
+      ? httpService
+          .get("categories")
+          .then((res) => {
+            res.status === 200 ? setServiceCat(res.data.data) : null;
+            setLocal("serviceCat", JSON.stringify(res.data.data));
+          })
+          .catch((err) => ToastBar.error("خطا در ارتباط"))
+      : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
+  }, []);
+
+  useEffect(() => console.log(serviceCat), [serviceCat]);
+
+  //swipers
   const [adsSwiper, setAdsSwiper] = useState();
   const [marketRSwiper, setMarketRSwiper] = useState();
   const [marketBSwiper, setMarketBSwiper] = useState();
@@ -122,10 +150,8 @@ const Main = () => {
   const nextMarketBRef = useRef();
   const nextFanClubRef = useRef();
   const prevFanClubRef = useRef();
-
   useEffect(() => {
     if (adsSwiper) {
-      console.log("Swiper instance:", adsSwiper);
       adsSwiper.params.navigation.prevEl = prevAdRef.current;
       adsSwiper.params.navigation.nextEl = nextAdRef.current;
       adsSwiper.navigation.init();
@@ -157,18 +183,6 @@ const Main = () => {
     }
   }, [fanClubSwiper]);
 
-  //requests
-  useEffect(() => {
-    httpService
-      .post("advertisements")
-      .then((res) => {
-        setAds(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   return (
     <>
       <section className={styles.main}>
@@ -179,7 +193,7 @@ const Main = () => {
             <span>دسته بندی خدمات</span>
             <div className={styles.pagination}></div>
           </section>
-          {size.width > 1000 ? (
+          {size.width > 1000 && serviceCat.length !== 0 ? (
             <Swiper
               spaceBetween={30}
               modules={[Navigation, Pagination]}
@@ -188,15 +202,15 @@ const Main = () => {
               <SwiperSlide>
                 <div className={styles.content}>
                   <section className={styles.service_list}>
-                    {testArray.map((item, index) => (
+                    {serviceCat.map((item, index) => (
                       <div key={index} className={styles.service}>
                         <Image
                           alt=""
                           width={48}
                           height={48}
-                          src={"/assets/main/service-1.png"}
+                          src={url + item.serviceIcon}
                         />
-                        <span>بیمه ماشین</span>
+                        <span>{item.title}</span>
                       </div>
                     ))}
                   </section>
@@ -250,6 +264,7 @@ const Main = () => {
           ) : (
             <></>
           )}
+
           {size.width < 1000 ? (
             <Swiper
               slidesPerView={"auto"}
@@ -261,15 +276,20 @@ const Main = () => {
               modules={[Navigation, Pagination, Autoplay]}
               className={styles.my_swiper2}
             >
-              {clubs.map(() => (
-                <SwiperSlide className={styles.swiper_slide2}>
+              {serviceCat.map((item, index) => (
+                <SwiperSlide
+                  key={Math.random() * index}
+                  className={styles.swiper_slide2}
+                >
                   <Image
                     alt=""
                     width={38}
                     height={38}
-                    src={"/assets/main/service-1.png"}
+                    src={url + item.serviceIcon}
                   />
-                  <p style={{ color: "#fff", fontSize: "14px" }}>بیمه ماشین</p>
+                  <p style={{ color: "#fff", fontSize: "14px" }}>
+                    {item.title}
+                  </p>
                 </SwiperSlide>
               ))}
             </Swiper>

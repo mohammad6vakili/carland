@@ -214,30 +214,7 @@ const TradePage = () => {
                 </div>
 
                 <div className={s.table}>
-                  <section className={s.table_row}>
-                    <div className={s.key}>جنس بدنه</div>
-                    <div className={s.value}>آلومینیوم</div>
-                  </section>
-                  <section className={s.table_row}>
-                    <div className={s.key}>جنس بدنه</div>
-                    <div className={s.value}>آلومینیوم</div>
-                  </section>
-                  <section className={s.table_row}>
-                    <div className={s.key}>جنس بدنه</div>
-                    <div className={s.value}>آلومینیوم</div>
-                  </section>
-                  <section className={s.table_row}>
-                    <div className={s.key}>جنس بدنه</div>
-                    <div className={s.value}>آلومینیوم</div>
-                  </section>
-                  <section className={s.table_row}>
-                    <div className={s.key}>جنس بدنه</div>
-                    <div className={s.value}>آلومینیوم</div>
-                  </section>
-                  <section className={s.table_row}>
-                    <div className={s.key}>جنس بدنه</div>
-                    <div className={s.value}>آلومینیوم</div>
-                  </section>
+                  <p>{tradeData.description}</p>
                 </div>
               </div>
             </div>

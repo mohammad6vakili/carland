@@ -1,5 +1,5 @@
 import Image from "next/image";
-import s from "../../../styles/main.module.scss";
+import s from "../../../../styles/main.module.scss";
 import { StarFilled, LeftOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";

@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/thumbs";
 import "leaflet/dist/leaflet.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import localFont from "next/font/local";
 import MobileMenu from "@/src/components/mobile menu/MobileMenu";
 import { Toaster } from "react-hot-toast";

@@ -153,7 +153,7 @@
         direction: ltr;
 
         button:checked {
-          color: #142d5d !important;
+          color: #000 !important;
         }
 
         .title {
@@ -465,6 +465,7 @@
             background: rgba(22, 41, 211, 0.5);
             backdrop-filter: blur(45px);
             z-index: 2;
+            font-size: 0.8em;
             cursor: pointer;
 
             img {
@@ -472,7 +473,7 @@
             }
 
             .title {
-              font-size: 1.2em;
+              font-size: 1.1em;
               font-weight: bold;
             }
 
