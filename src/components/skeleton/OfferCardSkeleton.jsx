@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 
 const OfferCardSkeleton = ({ width, height, borderRadius }) => {
   return (
-    <>
+    <div style={{ width: "100%" }}>
       <Skeleton
         borderRadius={borderRadius ? borderRadius : "10px"}
         style={{ margin: "10px" }}
@@ -10,7 +10,7 @@ const OfferCardSkeleton = ({ width, height, borderRadius }) => {
         width={width}
         height={height}
       />
-    </>
+    </div>
   );
 };
 

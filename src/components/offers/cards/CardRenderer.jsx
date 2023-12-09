@@ -90,9 +90,7 @@ const CardRenderer = ({ offers, adsfilterSelected }) => {
   }, [offers]);
 
   useEffect(() => {
-    setLoading(true);
     handleGetAds();
-    setLoading(false);
   }, [adsfilterSelected]);
 
   const handleGetAds = () => {

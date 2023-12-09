@@ -17,6 +17,7 @@ import { useWindowSize } from "@uidotdev/usehooks";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast, { ToastBar } from "react-hot-toast";
 import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
+import MainPageMagazine from "./magazines/MainPageMagazine";
 
 const Main = () => {
   //datas
@@ -48,6 +49,7 @@ const Main = () => {
     1,
   ];
   const [ads, setAds] = useState([]);
+  const [magazines, setMagazines] = useState([]);
   const [serviceCat, setServiceCat] = useState([]);
   const marketItems = [
     {
@@ -121,7 +123,16 @@ const Main = () => {
         res.status === 200 ? setAds(res.data.data) : null;
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("خطا در ارتباط با سرور");
+      });
+
+    httpService
+      .get("magazines")
+      .then((res) => {
+        res.status === 200 ? setMagazines(res.data.data) : null;
+      })
+      .catch((err) => {
+        toast.error("خطا در ارتباط با سرور");
       });
 
     getLocal("serviceCat") === "null"
@@ -134,8 +145,6 @@ const Main = () => {
           .catch((err) => ToastBar.error("خطا در ارتباط"))
       : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
   }, []);
-
-  useEffect(() => console.log(serviceCat), [serviceCat]);
 
   //swipers
   const [adsSwiper, setAdsSwiper] = useState();
@@ -506,151 +515,7 @@ const Main = () => {
           </div>
         </div>
 
-        <div className={styles.magazine}>
-          <section className={styles.main_title}>
-            <h1>مجله</h1>
-
-            <div className={styles.btns}>
-              <Button type="primary">
-                <RightOutlined style={{ color: "#fff" }} />
-              </Button>
-              <Button>
-                <LeftOutlined style={{ color: "#fff" }} />
-              </Button>
-            </div>
-          </section>
-
-          <div className={styles.content}>
-            <div className={styles.solid_pic}>
-              <Image
-                src={"/assets/main/mag-back.png"}
-                alt=""
-                width={500}
-                height={480}
-              />
-              <div className={styles.caption}>
-                <div className={styles.title}>
-                  <Image
-                    src={"/assets/main/quotation.svg"}
-                    alt=""
-                    width={18}
-                    height={18}
-                  />{" "}
-                  <span>رونمایی از جدیدترین محصول BMW</span>
-                </div>
-                <div className={styles.description}>
-                  <span>
-                    میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی
-                    برای آن پیش آمده تمام قطعات رو اینجا پیدا کنید. همچنین برای
-                    دانلودسریع و ...
-                  </span>
-                  <Image
-                    src={"/assets/main/quotation.svg"}
-                    alt=""
-                    width={18}
-                    height={18}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.mag_options}>
-              <section className={styles.option}>
-                <div className={styles.pic}>
-                  <Image
-                    src={"/assets/main/mag-back.png"}
-                    alt=""
-                    width={50}
-                    height={50}
-                  />
-                </div>
-
-                <div className={styles.texts}>
-                  <div className={styles.title}>تاریخچه خودروهای قدیمی</div>
-                  <p className={styles.description}>
-                    تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                  </p>
-                  <div className={styles.refrences}>
-                    <span>۱۴۰۲/۰۸/۰۱</span>
-                    <Button>
-                      مشاهده{" "}
-                      <div>
-                        <Image
-                          src={"/assets/main/see-more.svg"}
-                          alt=""
-                          width={15}
-                          height={15}
-                        />
-                      </div>
-                    </Button>
-                  </div>
-                </div>
-              </section>
-              <section className={styles.option}>
-                <div className={styles.pic}>
-                  <Image
-                    src={"/assets/main/mag-back.png"}
-                    alt=""
-                    width={50}
-                    height={50}
-                  />
-                </div>
-
-                <div className={styles.texts}>
-                  <div className={styles.title}>تاریخچه خودروهای قدیمی</div>
-                  <p className={styles.description}>
-                    تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                  </p>
-                  <div className={styles.refrences}>
-                    <span>۱۴۰۲/۰۸/۰۱</span>
-                    <Button>
-                      مشاهده{" "}
-                      <div>
-                        <Image
-                          src={"/assets/main/see-more.svg"}
-                          alt=""
-                          width={15}
-                          height={15}
-                        />
-                      </div>
-                    </Button>
-                  </div>
-                </div>
-              </section>
-              <section className={styles.option}>
-                <div className={styles.pic}>
-                  <Image
-                    src={"/assets/main/mag-back.png"}
-                    alt=""
-                    width={50}
-                    height={50}
-                  />
-                </div>
-
-                <div className={styles.texts}>
-                  <div className={styles.title}>تاریخچه خودروهای قدیمی</div>
-                  <p className={styles.description}>
-                    تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                  </p>
-                  <div className={styles.refrences}>
-                    <span>۱۴۰۲/۰۸/۰۱</span>
-                    <Button>
-                      مشاهده{" "}
-                      <div>
-                        <Image
-                          src={"/assets/main/see-more.svg"}
-                          alt=""
-                          width={15}
-                          height={15}
-                        />
-                      </div>
-                    </Button>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-        </div>
+        <MainPageMagazine magazines={magazines} />
 
         <div className={styles.infos}>
           <div className={styles.info}>
