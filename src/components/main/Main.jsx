@@ -18,39 +18,14 @@ import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast, { ToastBar } from "react-hot-toast";
 import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
 import MainPageMagazine from "./magazines/MainPageMagazine";
+import Loading from "../loader/Loading";
 
 const Main = () => {
   //datas
-  const testArray = [
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    ,
-    1,
-  ];
   const [ads, setAds] = useState([]);
   const [magazines, setMagazines] = useState([]);
   const [serviceCat, setServiceCat] = useState([]);
+  const [loading, setLoading] = useState(true);
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -121,6 +96,7 @@ const Main = () => {
       .post("advertisements")
       .then((res) => {
         res.status === 200 ? setAds(res.data.data) : null;
+        setLoading(false);
       })
       .catch((err) => {
         toast.error("خطا در ارتباط با سرور");
@@ -130,6 +106,7 @@ const Main = () => {
       .get("magazines")
       .then((res) => {
         res.status === 200 ? setMagazines(res.data.data) : null;
+        setLoading(false);
       })
       .catch((err) => {
         toast.error("خطا در ارتباط با سرور");
@@ -145,6 +122,8 @@ const Main = () => {
           .catch((err) => ToastBar.error("خطا در ارتباط"))
       : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
   }, []);
+
+  useEffect(() => console.log(loading), [loading]);
 
   //swipers
   const [adsSwiper, setAdsSwiper] = useState();
@@ -195,6 +174,7 @@ const Main = () => {
   return (
     <>
       <section className={styles.main}>
+        {loading ? <Loading /> : null}
         <HCarousel />
 
         <div className={styles.service_category}>
