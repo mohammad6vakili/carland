@@ -75,6 +75,7 @@ const CardRenderer = ({ offers, adsfilterSelected }) => {
 
   //handle requests
   useEffect(() => {
+    setLoading(true);
     if (offers === "کسب و کار") {
       httpService
         .post("services/search", {})
@@ -89,10 +90,13 @@ const CardRenderer = ({ offers, adsfilterSelected }) => {
   }, [offers]);
 
   useEffect(() => {
+    setLoading(true);
     handleGetAds();
+    setLoading(false);
   }, [adsfilterSelected]);
 
   const handleGetAds = () => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("fuel", adsfilterSelected.fuel);
     formData.append("color", adsfilterSelected.color);
