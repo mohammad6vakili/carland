@@ -175,6 +175,7 @@ const Main = () => {
     <>
       <section className={styles.main}>
         {loading ? <Loading /> : null}
+
         <HCarousel />
 
         <div className={styles.service_category}>
