@@ -17,7 +17,7 @@ const ClubsCategory = () => {
 
   return (
     <>
-      <div className={s.club_page}>
+      <div className={s.clubs}>
         <section className={s.main_title}>
           <h1>منتخب کلوپ‌ها</h1>
         </section>

@@ -3,8 +3,8 @@ const nextConfig = {
   // images: {
   //   unoptimized: true,
   // },
+  output: "export",
   images: {
-    // domains: ["www.dextools.io"],
     remotePatterns: [
       {
         protocol: "https",

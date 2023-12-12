@@ -95,7 +95,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     setLoading(true);
     const formData = new FormData();
     formData.append("categoryId", jobsFilter.categoryId);
-    formData.append("filter", jobsFilter.filter);
+    formData.append("filters", jobsFilter.filter);
     httpService
       .post("services/search", formData)
       .then((res) => {
