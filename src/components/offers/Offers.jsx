@@ -21,11 +21,18 @@ import { useWindowSize } from "@uidotdev/usehooks";
 import HCarousel from "../main/HCarousel";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
-import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
+import {
+  formatStringJSON,
+  getLocal,
+  removeLocal,
+  setLocal,
+} from "@/src/hooks/functions";
 import OfferCardSkeleton from "../skeleton/OfferCardSkeleton";
 import CardRenderer from "./cards/CardRenderer";
+import { useRouter } from "next/router";
 
 const offers = () => {
+  const router = useRouter();
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(true);
   const size = useWindowSize();
@@ -36,6 +43,12 @@ const offers = () => {
     color: "",
     bodyCondition: "",
     gearBoxType: "",
+  });
+  const [jobsCategory, setJobsCategory] = useState([]);
+  const [jobFiltersSlected, setJobFiltersSlected] = useState({
+    categoryId: "",
+    filter: "",
+    title: "",
   });
   const [offers, setOffers] = useState("خرید و فروش");
   const [filters, setFilters] = useState("جدیدترین");
@@ -49,6 +62,7 @@ const offers = () => {
   const [gearBoxOpen, setGearBoxOpen] = useState(true);
   const [priceRangeOpen, setPriceRangeOpen] = useState(true);
   const [colorSelectOpen, setColorSelectOpen] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(true);
   //range input control
   const [minPriceValue, setMinPriceValue] = useState(10);
   const [maxPriceValue, setMaxPiceValue] = useState(100);
@@ -57,20 +71,71 @@ const offers = () => {
     setMaxPiceValue(e.maxValue);
   };
 
+  useEffect(
+    () => console.log(jobFiltersSlected, jobsCategory),
+    [jobFiltersSlected]
+  );
+
   //handle requests
   useEffect(() => {
-    httpService
-      .get("getCarFiltersData")
-      .then((res) => {
-        res.status === 200 ? setAdsFilter(res.data) : null;
-        setLoading(false);
-        setLocal("adsFilter", JSON.stringify(res.data));
-      })
-      .catch((err) => toast.error(err.message));
+    if (offers === "خرید و فروش") {
+      httpService
+        .get("getCarFiltersData")
+        .then((res) => {
+          res.status === 200 ? setAdsFilter(res.data) : null;
+          setJobsCategory(null);
+          setLoading(false);
+          setLocal("adsFilter", JSON.stringify(res.data));
+        })
+        .catch((err) => toast.error(err.message));
+    }
+
+    if (offers === "کسب و کار") {
+      httpService.get("categories").then((res) => {
+        let data = [];
+        res.status === 200
+          ? res.data.data.map((cat) => {
+              data = [
+                ...data,
+                {
+                  id: cat.id,
+                  title: cat.title,
+                  filters: cat.filters.split(","),
+                },
+              ];
+            })
+          : null;
+        setJobsCategory(data);
+        setAdsFilter(null);
+      });
+      getLocal("jobCategory") !== "null"
+        ? (setJobFiltersSlected({ categoryId: getLocal("jobCategory") }),
+          removeLocal("jobCategory"))
+        : null;
+    }
   }, [offers]);
+
+  useEffect(() => {
+    const offersGroup = router.query.adGroup;
+    if (offersGroup === "trades") {
+      setOffers("خرید و فروش");
+    } else if (offersGroup === "jobs") {
+      setOffers("کسب و کار");
+    } else if (offersGroup === "market") {
+      setOffers("بازارچه");
+    }
+  }, [router]);
+
+  useEffect(() => console.log(jobFiltersSlected), [jobFiltersSlected]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
+  //jobs filters
+  const handleJobsFilters = (cat, filter, title) => {
+    setJobFiltersSlected({ categoryId: cat, filter: filter });
+  };
+
+  //ads filters
   const handleAdsFilterClick = (selected, category) => {
     switch (category) {
       case "color":
@@ -87,7 +152,6 @@ const offers = () => {
         break;
     }
   };
-
   const handleFilterValidate = (value) => {
     if (filters === value) {
       return true;
@@ -95,7 +159,6 @@ const offers = () => {
       return false;
     }
   };
-
   const handleFilterStyle = (value) => {
     if (filters === value) {
       return { borderBottom: "2px solid #142D5D", color: "#142D5D" };
@@ -108,7 +171,7 @@ const offers = () => {
 
       <section className={s.market}>
         <div className={s.market_filters}>
-          {adsFilter && !loading ? (
+          {offers === "خرید و فروش" && adsFilter && !loading ? (
             <>
               <section className={s.categories}>
                 <div
@@ -328,6 +391,75 @@ const offers = () => {
                 </Collapse>
               </section>
             </>
+          ) : offers === "کسب و کار" && jobsCategory && !loading ? (
+            <>
+              <section className={s.categories}>
+                <div
+                  onClick={() => setCategoryOpen(!categoryOpen)}
+                  className={s.title}
+                >
+                  {categoryOpen ? <DownOutlined /> : <UpOutlined />}
+                  دسته بندی
+                </div>
+                <Collapse
+                  style={{ width: "100%", overflow: "hidden" }}
+                  isOpen={categoryOpen}
+                >
+                  <div className={s.list}>
+                    {jobsCategory.map((cat, index) => (
+                      <section
+                        key={Math.random() * index}
+                        className={s.list_item}
+                      >
+                        <Button
+                          onClick={() => handleJobsFilters(cat.id, "")}
+                          active={jobFiltersSlected.categoryId == cat.id}
+                        ></Button>{" "}
+                        {cat.title}
+                      </section>
+                    ))}
+                  </div>
+                </Collapse>
+              </section>
+
+              {jobFiltersSlected.categoryId ? (
+                <section className={s.categories}>
+                  <div
+                    onClick={() => setCategoryOpen(!categoryOpen)}
+                    className={s.title}
+                  >
+                    {categoryOpen ? <DownOutlined /> : <UpOutlined />}
+                    فیلتر ها
+                  </div>
+                  <Collapse
+                    style={{ width: "100%", overflow: "hidden" }}
+                    isOpen={filterOpen}
+                  >
+                    <div className={s.list}>
+                      {jobsCategory[
+                        `${jobFiltersSlected.categoryId}`
+                      ].filters.map((filter, index) => (
+                        <section
+                          key={Math.random() * index}
+                          className={s.list_item}
+                        >
+                          <Button
+                            onClick={() =>
+                              handleJobsFilters(
+                                jobFiltersSlected.categoryId,
+                                filter
+                              )
+                            }
+                            active={jobFiltersSlected.filter === filter}
+                          ></Button>{" "}
+                          {filter}
+                        </section>
+                      ))}
+                    </div>
+                  </Collapse>
+                </section>
+              ) : null}
+            </>
           ) : (
             <>
               <OfferCardSkeleton width={"250px"} height={"250px"} />
@@ -510,7 +642,8 @@ const offers = () => {
           <div className={s.market_cards}>
             <CardRenderer
               offers={offers}
-              adsfilterSelected={adsfilterSelected}
+              adsFilter={adsfilterSelected}
+              jobsFilter={jobFiltersSlected}
             />
           </div>
         </div>

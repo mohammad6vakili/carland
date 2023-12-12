@@ -19,6 +19,7 @@ import toast, { ToastBar } from "react-hot-toast";
 import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
 import MainPageMagazine from "./magazines/MainPageMagazine";
 import Loading from "../loader/Loading";
+import Link from "next/link";
 
 const Main = () => {
   //datas
@@ -193,7 +194,12 @@ const Main = () => {
                 <div className={styles.content}>
                   <section className={styles.service_list}>
                     {serviceCat.map((item, index) => (
-                      <div key={index} className={styles.service}>
+                      <Link
+                        href={"/offers/jobs"}
+                        onClick={() => setLocal("jobCategory", item.id)}
+                        key={index}
+                        className={styles.service}
+                      >
                         <Image
                           alt=""
                           width={48}
@@ -201,7 +207,7 @@ const Main = () => {
                           src={url + item.serviceIcon}
                         />
                         <span>{item.title}</span>
-                      </div>
+                      </Link>
                     ))}
                   </section>
 

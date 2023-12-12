@@ -162,6 +162,9 @@ $light-theme: #fff;
             @include flex(column, flex-start, center);
             padding: 0 25px;
             margin-bottom: 40px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
           }
         }
 

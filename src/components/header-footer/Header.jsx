@@ -92,7 +92,7 @@ const Header = () => {
                   </span>
                 </Link>
 
-                <Link href={"/offers"}>
+                <Link href={"/offers/all"}>
                   <span
                     className={
                       pathname?.includes("/offers") ? styles.selected : ""
@@ -109,7 +109,11 @@ const Header = () => {
                 </Link>
 
                 <Link href={"/clubs"}>
-                  <span className={pathname === "/club" ? styles.selected : ""}>
+                  <span
+                    className={
+                      pathname?.includes("/club") ? styles.selected : ""
+                    }
+                  >
                     {" "}
                     کلوپ
                     <div className={styles.line1}>

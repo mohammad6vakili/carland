@@ -5,8 +5,10 @@ import BuySaleCard from "./BuySaleCard";
 import JobsCard from "./JobsCard";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
+import MySkeleton from "../../skeleton/Skeleton";
+import Skeleton from "react-loading-skeleton";
 
-const CardRenderer = ({ offers, adsfilterSelected }) => {
+const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
   const { httpService } = useHttp();
 
   //cards
@@ -77,29 +79,39 @@ const CardRenderer = ({ offers, adsfilterSelected }) => {
   useEffect(() => {
     setLoading(true);
     if (offers === "کسب و کار") {
-      httpService
-        .post("services/search", {})
-        .then((res) => {
-          res.status === 200 ? setJobs(res.data.data) : null;
-          setLoading(false);
-        })
-        .catch((err) => toast.error(err.message));
+      handleGetJobs();
     } else if (offers === "خرید و فروش") {
       handleGetAds();
     }
   }, [offers]);
-
+  useEffect(() => {
+    handleGetJobs();
+  }, [jobsFilter]);
   useEffect(() => {
     handleGetAds();
-  }, [adsfilterSelected]);
+  }, [adsFilter]);
+
+  const handleGetJobs = () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("categoryId", jobsFilter.categoryId);
+    formData.append("filter", jobsFilter.filter);
+    httpService
+      .post("services/search", formData)
+      .then((res) => {
+        res.status === 200 ? setJobs(res.data.data) : null;
+        setLoading(false);
+      })
+      .catch((err) => toast.error(err.message));
+  };
 
   const handleGetAds = () => {
     setLoading(true);
     const formData = new FormData();
-    formData.append("fuel", adsfilterSelected.fuel);
-    formData.append("color", adsfilterSelected.color);
-    formData.append("body_condition", adsfilterSelected.bodyCondition);
-    formData.append("gear_box", adsfilterSelected.gearBoxType);
+    formData.append("fuel", adsFilter.fuel);
+    formData.append("color", adsFilter.color);
+    formData.append("body_condition", adsFilter.bodyCondition);
+    formData.append("gear_box", adsFilter.gearBoxType);
     httpService
       .post("advertisements", formData)
       .then((res) => {
@@ -110,7 +122,7 @@ const CardRenderer = ({ offers, adsfilterSelected }) => {
   };
 
   if (loading === false) {
-    if (offers === "خرید و فروش" && trades.length !== 0) {
+    if (offers === "خرید و فروش" && trades && trades.length !== 0) {
       return (
         <>
           {trades.map((item, index) => (
@@ -128,13 +140,13 @@ const CardRenderer = ({ offers, adsfilterSelected }) => {
           ))}
         </>
       );
-    } else if (offers === "کسب و کار" && jobs.length !== 0) {
+    } else if (offers === "کسب و کار" && jobs && jobs.length !== 0) {
       return (
         <>
           {jobs.map((item, index) => (
             <JobsCard
               key={Math.random() * index}
-              image={item.NationalCardImage}
+              image={item.images.split(","[0])}
               rate={item.average_rating}
               title={item.title}
               description={item.descriptions}
@@ -163,14 +175,26 @@ const CardRenderer = ({ offers, adsfilterSelected }) => {
           ))}
         </>
       );
+    } else {
+      <>
+        <div style={{ margin: "0 auto", fontWeight: "bold" }}>
+          موردی یافت نشد!
+        </div>
+      </>;
     }
   } else
     return (
       <>
-        <OfferCardSkeleton width={"225px"} height={"300px"} />
-        <OfferCardSkeleton width={"225px"} height={"300px"} />
-        <OfferCardSkeleton width={"225px"} height={"300px"} />
-        <OfferCardSkeleton width={"225px"} height={"300px"} />
+        {marketItems.map((item, index) => (
+          <Skeleton
+            key={Math.random()}
+            borderRadius={"10px"}
+            className="flex-1"
+            width={"220px"}
+            height={"300px"}
+            style={{ margin: "1rem" }}
+          />
+        ))}
       </>
     );
 };

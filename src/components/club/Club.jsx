@@ -28,10 +28,10 @@ const Club = () => {
 
   //handleRequests
   useEffect(() => {
-    const id = router.query.magId;
+    const id = router.query.clubId;
     if (id) {
       httpService
-        .get(`magazine/${id}`)
+        .get(`club/${id}`)
         .then((res) => {
           res.status === 200 ? setMagData(res.data.data) : null;
           handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);

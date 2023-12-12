@@ -74,7 +74,7 @@ const MobileMenu = () => {
                   className={
                     pathname?.includes("/offers") ? s.selected : s.link
                   }
-                  href={"/offers"}
+                  href={"/offers/all"}
                 >
                   <span>
                     خرید و فروش
@@ -85,8 +85,8 @@ const MobileMenu = () => {
 
                 <Link
                   onClick={() => setIsMenuColl(true)}
-                  className={pathname === "/club" ? s.selected : s.link}
-                  href={"/club"}
+                  className={pathname?.includes("/club") ? s.selected : s.link}
+                  href={"/clubs"}
                 >
                   <span>
                     {" "}
@@ -98,8 +98,10 @@ const MobileMenu = () => {
 
                 <Link
                   onClick={() => setIsMenuColl(true)}
-                  className={pathname === "/magazine" ? s.selected : s.link}
-                  href={"/magazine"}
+                  className={
+                    pathname?.includes("/magazine") ? s.selected : s.link
+                  }
+                  href={"/magazines"}
                 >
                   <span>
                     مجله
