@@ -4,11 +4,21 @@
   justify-content: $j;
   align-items: $a;
 }
+@mixin responsive {
+  max-width: 1600px;
+  margin: 0 auto;
+}
 
 .clubs {
   @include flex(column, flex-start, center);
+  @include responsive();
   width: 100%;
   padding: 2rem;
+
+  p,
+  h1 {
+    margin: 0;
+  }
 
   .main_title {
     @include flex(row, flex-start, center);
@@ -21,23 +31,36 @@
     }
   }
 
+  .title {
+    @include flex(row, space-between, center);
+    width: 100%;
+    .text {
+      @include flex(row, center, center);
+      gap: 10px;
+      h1 {
+        font-weight: 600;
+        font-size: 2em;
+      }
+    }
+  }
+
   .gallery {
     width: 100%;
 
     .mySwiper {
       width: 100%;
-      max-height: 750px;
       position: relative;
       margin-bottom: 2rem;
       overflow: visible;
 
       .slide {
-        width: max-content;
-        height: 100%;
+        width: 100%;
+        height: max-content;
         border-radius: 20px;
         img {
           width: 100%;
-          object-fit: cover;
+          height: 100%;
+          object-fit: contain;
           border-radius: 20px;
         }
       }
@@ -104,6 +127,144 @@
           height: 44px;
         }
       }
+    }
+
+    .navigation_nexprev {
+      @include flex(row, space-around, center);
+      width: 100%;
+      padding-top: 80px;
+
+      .navigation {
+        @include flex(row-reverse, center, center);
+        gap: 15px;
+        .next,
+        .prev {
+          border: 1px solid #000;
+          border-radius: 50%;
+          padding: 10px 15px;
+          cursor: pointer;
+        }
+      }
+
+      .pagination {
+        width: 100px;
+      }
+    }
+  }
+
+  .best_clubs {
+    width: 100%;
+    padding-top: 2rem;
+  }
+
+  .clubs_category {
+    @include flex(column, flex-start, center);
+    gap: 30px;
+    width: 100%;
+    padding-top: 4rem;
+
+    .categories {
+      @include flex(row, flex-start, flex-start);
+      gap: 3px;
+      flex-wrap: wrap;
+      width: 100%;
+
+      .category {
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
+        max-width: 250px;
+
+        .list {
+          @include flex(column, flex-start, flex-start);
+          width: 100%;
+          border-radius: 20px;
+          background: #fff;
+          box-shadow: 0px 4px 100px 0px rgba(187, 187, 187, 0.2);
+          padding: 1rem;
+
+          .image {
+            width: 100%;
+            height: 30%;
+            margin-bottom: 1.5rem;
+            position: relative;
+            color: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            img {
+              width: 100%;
+              object-fit: cover;
+            }
+
+            .blur {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 23%;
+              svg {
+                width: 100%;
+                height: 120%;
+              }
+            }
+            .text {
+              position: absolute;
+              bottom: 10px;
+              left: 50%;
+              transform: translate(-50%);
+            }
+          }
+
+          .list_item {
+            @include flex(column, flex-start, flex-start);
+            border-right: 1px dashed #4a80e866;
+            padding-bottom: 4rem;
+            .title {
+              @include flex(row, flex-start, center);
+              gap: 5px;
+              margin: 0;
+            }
+            .description {
+              padding-right: 25px;
+              color: #757575;
+            }
+          }
+          .list_item:last-child {
+            border: none;
+            padding-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .suggested_clubs {
+    @include flex(column, flex-start, center);
+    gap: 20px;
+    padding: 70px 0;
+    width: 100%;
+
+    .title {
+      .navigation {
+        @include flex(row, center, center);
+        gap: 10px;
+        .next,
+        .prev {
+          @include flex(row, center, center);
+          width: 50px;
+          height: 50px;
+          border: 1px solid #000;
+          border-radius: 50%;
+          padding: 10px;
+        }
+      }
+    }
+
+    .slide {
+      width: max-content;
+    }
+
+    .suggested_cards {
+      width: 100%;
     }
   }
 }

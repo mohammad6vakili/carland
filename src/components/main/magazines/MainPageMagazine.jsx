@@ -1,33 +1,35 @@
 import { Button } from "reactstrap";
-import styles from "../../../../styles/main.module.scss";
+import styles from "./mainMagazine.module.scss";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { url } from "@/src/axiosConfig/useHttp";
 import { useRouter } from "next/navigation";
 import OfferCardSkeleton from "../../skeleton/OfferCardSkeleton";
 
-const MainPageMagazine = ({ magazines }) => {
+const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
   const navigate = useRouter();
 
   return (
     <div className={styles.magazine}>
-      <section className={styles.main_title}>
-        <h1>مجله</h1>
+      {header ? (
+        <section className={styles.main_title}>
+          <h1>مجله</h1>
 
-        <div className={styles.btns}>
-          <Button type="primary">
-            <RightOutlined style={{ color: "#fff" }} />
-          </Button>
-          <Button>
-            <LeftOutlined style={{ color: "#fff" }} />
-          </Button>
-        </div>
-      </section>
+          <div className={styles.btns}>
+            <Button type="primary">
+              <RightOutlined style={{ color: "#fff" }} />
+            </Button>
+            <Button>
+              <LeftOutlined style={{ color: "#fff" }} />
+            </Button>
+          </div>
+        </section>
+      ) : null}
 
       <div className={styles.content}>
         {magazines.length !== 0 ? (
           <div
-            onClick={() => navigate.push(`/magazine/${magazines[0].id}`)}
+            onClick={() => navigate.push(`/${method}/${magazines[0].id}`)}
             className={styles.solid_pic}
           >
             <Image
@@ -36,26 +38,28 @@ const MainPageMagazine = ({ magazines }) => {
               width={500}
               height={480}
             />
-            <div className={styles.caption}>
-              <div className={styles.title}>
-                <Image
-                  src={"/assets/main/quotation.svg"}
-                  alt=""
-                  width={18}
-                  height={18}
-                />{" "}
-                <span>{magazines[0].title}</span>
+            {overflowedDes ? (
+              <div className={styles.caption}>
+                <div className={styles.title}>
+                  <Image
+                    src={"/assets/main/quotation.svg"}
+                    alt=""
+                    width={18}
+                    height={18}
+                  />{" "}
+                  <span>{magazines[0].title}</span>
+                </div>
+                <div className={styles.description}>
+                  <span>{magazines[0].description}</span>
+                  <Image
+                    src={"/assets/main/quotation.svg"}
+                    alt=""
+                    width={18}
+                    height={18}
+                  />
+                </div>
               </div>
-              <div className={styles.description}>
-                <span>{magazines[0].description}</span>
-                <Image
-                  src={"/assets/main/quotation.svg"}
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              </div>
-            </div>
+            ) : null}
           </div>
         ) : (
           <OfferCardSkeleton width={"100%"} height={500} />
@@ -78,11 +82,17 @@ const MainPageMagazine = ({ magazines }) => {
 
                       <div className={styles.texts}>
                         <div className={styles.title}>{mag.title}</div>
-                        <p className={styles.description}>{mag.description}</p>
+                        <p className={styles.description}>
+                          {mag.description.length > 60
+                            ? mag.description.substring(1, 60) + "..."
+                            : mag.description}
+                        </p>
                         <div className={styles.refrences}>
                           <span>۱۴۰۲/۰۸/۰۱</span>
                           <Button
-                            onClick={() => navigate.push(`/magazine/${mag.id}`)}
+                            onClick={() =>
+                              navigate.push(`/${method}/${mag.id}`)
+                            }
                           >
                             مشاهده{" "}
                             <div>

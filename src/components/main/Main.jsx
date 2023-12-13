@@ -502,7 +502,14 @@ const Main = () => {
           </div>
         </div>
 
-        <MainPageMagazine magazines={magazines} />
+        <div className={styles.magazine_container}>
+          <MainPageMagazine
+            magazines={magazines}
+            method={"magazine"}
+            overflowedDes={true}
+            header={true}
+          />
+        </div>
 
         <div className={styles.infos}>
           <div className={styles.info}>
