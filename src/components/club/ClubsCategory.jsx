@@ -22,7 +22,7 @@ const ClubsCategory = () => {
   ];
   const categories = [{}, {}, {}];
   const [clubs, setClubs] = useState([]);
-  const [loadeing, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { httpService } = useHttp();
 
   //handle requests
@@ -534,7 +534,7 @@ const ClubsCategory = () => {
                 width={20}
                 height={20}
               />
-              <h1>دسته بندی کلوپ‌ها</h1>
+              <h1>کلوپ های پیشنهادی</h1>
             </div>
 
             <div className={s.navigation}>
@@ -553,6 +553,7 @@ const ClubsCategory = () => {
                 prevEl: prevCategoryRef?.current,
                 nextEl: nextCategoryRef?.current,
               }}
+              modules={[Navigation]}
               slidesPerView={"auto"}
               className={s.swiper}
               spaceBetween={15}

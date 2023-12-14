@@ -5,6 +5,7 @@ import Image from "next/image";
 import { url } from "@/src/axiosConfig/useHttp";
 import { useRouter } from "next/navigation";
 import OfferCardSkeleton from "../../skeleton/OfferCardSkeleton";
+import MySkeleton from "../../skeleton/Skeleton";
 
 const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
   const navigate = useRouter();
@@ -62,7 +63,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
             ) : null}
           </div>
         ) : (
-          <OfferCardSkeleton width={"100%"} height={500} />
+          <OfferCardSkeleton width={"150%"} height={500} />
         )}
 
         <div className={styles.options}>

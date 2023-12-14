@@ -809,7 +809,6 @@ $light-theme: #fff;
   .magazine_container {
     @include flex(row, center, center);
     width: 100%;
-    padding: 0 4rem;
   }
 
   .fan_club {
