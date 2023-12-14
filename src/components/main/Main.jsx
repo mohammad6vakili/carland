@@ -20,11 +20,13 @@ import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
 import MainPageMagazine from "./magazines/MainPageMagazine";
 import Loading from "../loader/Loading";
 import Link from "next/link";
+import ClubCard from "./ClubCard";
 
 const Main = () => {
   //datas
   const [ads, setAds] = useState([]);
   const [magazines, setMagazines] = useState([]);
+  const [clubs, setClubs] = useState([]);
   const [serviceCat, setServiceCat] = useState([]);
   const [loading, setLoading] = useState(true);
   const marketItems = [
@@ -71,7 +73,7 @@ const Main = () => {
       price: "۲,۵۰۰,۰۰۰",
     },
   ];
-  const clubs = [
+  const clubsCategory = [
     { src: "/assets/main/club.svg" },
     { src: "/assets/main/club.svg" },
     { src: "/assets/main/club.svg" },
@@ -107,6 +109,16 @@ const Main = () => {
       .get("magazines")
       .then((res) => {
         res.status === 200 ? setMagazines(res.data.data) : null;
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error("خطا در ارتباط با سرور");
+      });
+
+    httpService
+      .get("clubs")
+      .then((res) => {
+        res.status === 200 ? setClubs(res.data.data) : null;
         setLoading(false);
       })
       .catch((err) => {
@@ -297,7 +309,9 @@ const Main = () => {
         <div className={styles.ads}>
           <section className={styles.title}>
             <h1>ثبت آگهی</h1>
-            <Button>مشاهده همه</Button>
+            <Link href={"/offers/trade"}>
+              <Button>مشاهده همه</Button>
+            </Link>
           </section>
 
           <section className={styles.cards}>
@@ -330,13 +344,25 @@ const Main = () => {
                       location={ad.location}
                       time={ad.timeAgo}
                       rate={"۴.۵"}
+                      id={ad.id}
                     />
                   </SwiperSlide>
                 ))
               ) : (
-                <SwiperSlide className={styles.slide}>
-                  <AdsCard image={undefined} />
-                </SwiperSlide>
+                <>
+                  <SwiperSlide className={styles.slide}>
+                    <AdsCard image={undefined} />
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <AdsCard image={undefined} />
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <AdsCard image={undefined} />
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <AdsCard image={undefined} />
+                  </SwiperSlide>
+                </>
               )}
             </Swiper>
             <div className={styles.swiper_next} ref={nextAdRef}>
@@ -597,7 +623,7 @@ const Main = () => {
               onSwiper={setFanClubSwiper}
               className={styles.my_swiper}
             >
-              {clubs.map((club, index) => (
+              {clubsCategory.map((club, index) => (
                 <SwiperSlide
                   className={styles.slide}
                   key={Math.random() * index}
@@ -619,130 +645,19 @@ const Main = () => {
         </div>
 
         <div className={styles.club_link}>
-          <section className={styles.link}>
-            <div className={styles.pic}>
-              <Image
-                src={"/assets/main/mag-back.png"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-
-            <div className={styles.texts}>
-              <h1>تاریخچه خودروهای قدیمی</h1>
-              <div className={styles.refrences}>
-                <div className={styles.name_profile}>
-                  <div className={styles.profile}></div>
-                  <span>مهزیار رازه </span>
-                </div>
-                <Button>
-                  مشاهده{" "}
-                  <div>
-                    <Image
-                      src={"/assets/main/see-more.svg"}
-                      alt=""
-                      width={15}
-                      height={15}
-                    />
-                  </div>
-                </Button>
-              </div>
-            </div>
-          </section>
-          <section className={styles.link}>
-            <div className={styles.pic}>
-              <Image
-                src={"/assets/main/mag-back.png"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-
-            <div className={styles.texts}>
-              <h1>تاریخچه خودروهای قدیمی</h1>
-              <div className={styles.refrences}>
-                <div className={styles.name_profile}>
-                  <div className={styles.profile}></div>
-                  <span>مهزیار رازه </span>
-                </div>
-                <Button>
-                  مشاهده{" "}
-                  <div>
-                    <Image
-                      src={"/assets/main/see-more.svg"}
-                      alt=""
-                      width={15}
-                      height={15}
-                    />
-                  </div>
-                </Button>
-              </div>
-            </div>
-          </section>
-          <section className={styles.link}>
-            <div className={styles.pic}>
-              <Image
-                src={"/assets/main/mag-back.png"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-
-            <div className={styles.texts}>
-              <h1>تاریخچه خودروهای قدیمی</h1>
-              <div className={styles.refrences}>
-                <div className={styles.name_profile}>
-                  <div className={styles.profile}></div>
-                  <span>مهزیار رازه </span>
-                </div>
-                <Button>
-                  مشاهده{" "}
-                  <div>
-                    <Image
-                      src={"/assets/main/see-more.svg"}
-                      alt=""
-                      width={15}
-                      height={15}
-                    />
-                  </div>
-                </Button>
-              </div>
-            </div>
-          </section>
-          <section className={styles.link}>
-            <div className={styles.pic}>
-              <Image
-                src={"/assets/main/mag-back.png"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div>
-
-            <div className={styles.texts}>
-              <h1>تاریخچه خودروهای قدیمی</h1>
-              <div className={styles.refrences}>
-                <div className={styles.name_profile}>
-                  <div className={styles.profile}></div>
-                  <span>مهزیار رازه </span>
-                </div>
-                <Button>
-                  مشاهده{" "}
-                  <div>
-                    <Image
-                      src={"/assets/main/see-more.svg"}
-                      alt=""
-                      width={15}
-                      height={15}
-                    />
-                  </div>
-                </Button>
-              </div>
-            </div>
-          </section>
+          {clubs.length !== 0
+            ? clubs.map((club, index) => (
+                <>
+                  <ClubCard
+                    key={Math.random() * index}
+                    image={club.image_url}
+                    description={club.description}
+                    id={club.id}
+                    title={club.title}
+                  />
+                </>
+              ))
+            : null}
         </div>
 
         <div className={styles.install_app}>

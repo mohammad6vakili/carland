@@ -41,10 +41,20 @@ const Magazine = () => {
   }, [router]);
 
   const handlePhotos = (banner, images) => {
-    setPhotos([...photos, banner]);
+    const data = [];
 
-    images ? setPhotos([...photos, images.split(",")]) : null;
+    images
+      ? images.split(",").map((ph) => {
+          let converted = ph.replace("https://api.carland.ir/", "");
+          data.push(converted.replace(" ", ""));
+        })
+      : null;
+    data.push(banner);
+
+    setPhotos(data);
   };
+
+  useEffect(() => console.log(photos), [photos]);
 
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -164,7 +174,7 @@ const Magazine = () => {
                       height={15}
                     />
                   </span>{" "}
-                  <p>آخرین کلوپ‌ها</p>
+                  <p>آخرین مجلات</p>
                 </div>
 
                 <div className={s.list}>
@@ -319,7 +329,7 @@ const Magazine = () => {
                   height={15}
                 />
               </span>{" "}
-              <p>کلوپ‌های پیشنهادی</p>
+              <p>مجلات پیشنهادی</p>
               <div className={s.next_prev_offers}>
                 <div className={s.prev} ref={prevAdRef}>
                   <ArrowRightOutlined />

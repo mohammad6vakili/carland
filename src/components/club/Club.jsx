@@ -23,7 +23,7 @@ const Club = () => {
   const { httpService } = useHttp();
 
   const latestClubs = [{}, {}, {}];
-  const [magData, setMagData] = useState([]);
+  const [clubData, setClubData] = useState([]);
   const [photos, setPhotos] = useState([]);
 
   //handleRequests
@@ -33,7 +33,7 @@ const Club = () => {
       httpService
         .get(`club/${id}`)
         .then((res) => {
-          res.status === 200 ? setMagData(res.data.data) : null;
+          res.status === 200 ? setClubData(res.data.data) : null;
           handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
         })
         .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
@@ -41,9 +41,17 @@ const Club = () => {
   }, [router]);
 
   const handlePhotos = (banner, images) => {
-    setPhotos([...photos, banner]);
+    const data = [];
 
-    images ? setPhotos([...photos, images.split(",")]) : null;
+    images
+      ? images.split(",").map((ph) => {
+          let converted = ph.replace("https://api.carland.ir/", "");
+          data.push(converted.replace(" ", ""));
+        })
+      : null;
+    data.push(banner);
+
+    setPhotos(data);
   };
 
   //swiper
@@ -60,12 +68,12 @@ const Club = () => {
     }
   }, [adsSwiper]);
 
-  if (magData.length !== 0) {
+  if (clubData.length !== 0) {
     return (
       <>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
-            <h1>{magData.title}</h1>
+            <h1>{clubData.title}</h1>
           </div>
 
           <div className={s.contents}>
@@ -94,7 +102,7 @@ const Club = () => {
                     ))}
                   </Swiper>
 
-                  {magData.imageAddresses ? (
+                  {clubData.imageAddresses ? (
                     <Swiper
                       autoHeight
                       grabCursor
@@ -132,8 +140,8 @@ const Club = () => {
               </div>
 
               <div className={s.texts}>
-                <div className={s.title}>{magData.title}</div>
-                <p className={s.descriptions}>{magData.description}</p>
+                <div className={s.title}>{clubData.title}</div>
+                <p className={s.descriptions}>{clubData.description}</p>
               </div>
 
               <div className={s.share}>

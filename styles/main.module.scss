@@ -21,6 +21,10 @@ $light-theme: #fff;
   font-size: 16px;
   @include responsive();
 
+  a {
+    text-decoration: none;
+    color: none;
+  }
   p {
     margin: 0;
   }
@@ -366,15 +370,17 @@ $light-theme: #fff;
             }
 
             div {
+              @include flex(row, center, center);
               width: 20%;
               height: 100%;
               background-image: url("../public/assets/main/link-back.svg");
               background-repeat: no-repeat;
               background-size: 110% 110%;
               margin-bottom: 5px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
+
+              svg {
+                color: #000;
+              }
             }
           }
         }
@@ -895,12 +901,12 @@ $light-theme: #fff;
     .link {
       @include flex(row, space-around, center);
       gap: 15px;
-      min-width: 30%;
+      width: 400px;
       border-radius: 20px;
       background: #fff;
       box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
       padding: 15px;
-      margin: 10px 0;
+      margin: 10px auto;
 
       .pic {
         min-width: 110px;

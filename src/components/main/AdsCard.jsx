@@ -1,13 +1,13 @@
 import Image from "next/image";
 import styles from "../../../styles/main.module.scss";
-import { LeftOutlined, StarFilled, CaretLeftFilled } from "@ant-design/icons";
+import { LeftOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";
 import LocationIcon from "@/src/assets/icons/location_icon";
 import RateIcon from "@/src/assets/icons/rate_icon";
 import { url } from "@/src/axiosConfig/useHttp";
 
-const AdsCard = ({ image, name, details, location, time, rate }) => {
+const AdsCard = ({ image, name, details, location, time, rate, id }) => {
   const router = useRouter();
 
   if (image !== undefined) {
@@ -79,10 +79,13 @@ const AdsCard = ({ image, name, details, location, time, rate }) => {
           </div>
 
           <div className={styles.link}>
-            <Button onClick={() => router.push("/offers")} color="main-primary">
+            <Button
+              onClick={() => router.push(`/trades/${id}`)}
+              color="main-primary"
+            >
               <span>مشاهده</span>
               <div>
-                <LeftOutlined style={{ color: "#000" }} />
+                <ArrowLeftOutlined />
               </div>
             </Button>
           </div>
