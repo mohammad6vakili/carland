@@ -1,5 +1,7 @@
 @import "./offers.scss", "./trade.scss", "./jobs.scss", "./magazine.scss",
   "./variables.scss", "./club.scss";
+@import "./userDashboard-styles/navigation.scss",
+  "./userDashboard-styles/dashboard.scss";
 
 $dark-theme: #040516;
 $light-theme: #fff;
@@ -1169,6 +1171,28 @@ $light-theme: #fff;
   }
 }
 
+.userDashboard_container {
+  @include flex(row, center, flex-start);
+  @include responsive();
+  width: 100%;
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+}
+
+//loading styles
 .loading {
   @include flex(row, center, center);
   width: 100%;

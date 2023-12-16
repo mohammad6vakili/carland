@@ -325,7 +325,7 @@
 
       .comment_card {
         @include flex(column, flex-start, flex-start);
-        max-width: 70%;
+        width: 700px;
         padding: 2rem;
         border-radius: 12px;
         background: #fff;
@@ -334,6 +334,7 @@
         .content {
           @include flex(row, space-between, flex-start);
           gap: 1rem;
+          width: 100%;
 
           .image {
             img {

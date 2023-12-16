@@ -21,6 +21,8 @@ import MainPageMagazine from "./magazines/MainPageMagazine";
 import Loading from "../loader/Loading";
 import Link from "next/link";
 import ClubCard from "./ClubCard";
+import { useReportWebVitals } from "next/web-vitals";
+import MySkeleton from "../skeleton/Skeleton";
 
 const Main = () => {
   //datas
@@ -183,6 +185,10 @@ const Main = () => {
       fanClubSwiper.navigation.update();
     }
   }, [fanClubSwiper]);
+
+  useReportWebVitals((metric) => {
+    console.log(metric);
+  });
 
   return (
     <>
@@ -351,16 +357,22 @@ const Main = () => {
               ) : (
                 <>
                   <SwiperSlide className={styles.slide}>
-                    <AdsCard image={undefined} />
+                    <MySkeleton width={"260px"} height={"300px"} />
                   </SwiperSlide>
                   <SwiperSlide className={styles.slide}>
-                    <AdsCard image={undefined} />
+                    <MySkeleton width={"260px"} height={"300px"} />
                   </SwiperSlide>
                   <SwiperSlide className={styles.slide}>
-                    <AdsCard image={undefined} />
+                    <MySkeleton width={"260px"} height={"300px"} />
                   </SwiperSlide>
                   <SwiperSlide className={styles.slide}>
-                    <AdsCard image={undefined} />
+                    <MySkeleton width={"260px"} height={"300px"} />
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <MySkeleton width={"260px"} height={"300px"} />
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <MySkeleton width={"260px"} height={"300px"} />
                   </SwiperSlide>
                 </>
               )}

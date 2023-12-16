@@ -30,6 +30,7 @@ import {
 import OfferCardSkeleton from "../skeleton/OfferCardSkeleton";
 import CardRenderer from "./cards/CardRenderer";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const offers = () => {
   const router = useRouter();
@@ -166,291 +167,39 @@ const offers = () => {
   };
 
   return (
-    <div className={s.offers}>
-      <HCarousel />
+    <>
+      <Head>
+        <title>آگهی ها</title>
+        <meta property="og:title" content="اگهی خرید و فروش" key="آگهی" />
+      </Head>
+      <div className={s.offers}>
+        <HCarousel />
 
-      <section className={s.market}>
-        <div className={s.market_filters}>
-          {offers === "خرید و فروش" && adsFilter && !loading ? (
-            <>
-              <section className={s.categories}>
-                <div
-                  onClick={() => setCategoryOpen(!categoryOpen)}
-                  className={s.title}
-                >
-                  {categoryOpen ? <DownOutlined /> : <UpOutlined />}
-                  سوخت
-                </div>
-                <Collapse
-                  style={{ width: "100%", overflow: "hidden" }}
-                  isOpen={categoryOpen}
-                >
-                  <div className={s.list}>
-                    {adsFilter["fuels"].map((filter, index) => (
-                      <section
-                        key={Math.random() * index}
-                        className={s.list_item}
-                      >
-                        <Button
-                          onClick={() => handleAdsFilterClick(filter, "fuel")}
-                          active={adsfilterSelected.fuel === filter}
-                        ></Button>{" "}
-                        {filter}
-                      </section>
-                    ))}
-                  </div>
-                </Collapse>
-              </section>
-
-              <section className={s.categories}>
-                <div
-                  onClick={() => setColorsFilterOpen(!colorsFilterOpen)}
-                  className={s.title}
-                >
-                  {colorsFilterOpen ? <DownOutlined /> : <UpOutlined />}
-                  رنگ ها
-                </div>
-
-                <Collapse
-                  style={{ width: "100%", overflow: "hidden" }}
-                  isOpen={colorsFilterOpen}
-                >
-                  <div className={s.list}>
-                    {adsFilter["colors"].map((filter, index) => (
-                      <section
-                        key={Math.random() * index}
-                        className={s.list_item}
-                      >
-                        <Button
-                          onClick={() => handleAdsFilterClick(filter, "color")}
-                          active={adsfilterSelected.color === filter}
-                        ></Button>{" "}
-                        {filter}
-                      </section>
-                    ))}
-                  </div>
-                </Collapse>
-              </section>
-
-              <section className={s.categories}>
-                <div
-                  onClick={() => setDesFilterOpen(!desFilterOpen)}
-                  className={s.title}
-                >
-                  {desFilterOpen ? <DownOutlined /> : <UpOutlined />}
-                  وضعیت بدنه
-                </div>
-
-                <Collapse
-                  style={{ width: "100%", overflow: "hidden" }}
-                  isOpen={desFilterOpen}
-                >
-                  <div className={s.list}>
-                    {adsFilter["body_conditions"].map((filter, index) => (
-                      <section
-                        key={Math.random() * index}
-                        className={s.list_item}
-                      >
-                        <Button
-                          onClick={() =>
-                            handleAdsFilterClick(filter, "bodyCondition")
-                          }
-                          active={adsfilterSelected.bodyCondition === filter}
-                        ></Button>{" "}
-                        {filter}
-                      </section>
-                    ))}
-                  </div>
-                </Collapse>
-              </section>
-
-              <section className={s.categories}>
-                <div
-                  onClick={() => setGearBoxOpen(!gearBoxOpen)}
-                  className={s.title}
-                >
-                  {gearBoxOpen ? <DownOutlined /> : <UpOutlined />}
-                  جعبه دنده
-                </div>
-
-                <Collapse
-                  style={{ width: "100%", overflow: "hidden" }}
-                  isOpen={gearBoxOpen}
-                >
-                  <div className={s.list}>
-                    {adsFilter["gearbox"].map((filter, index) => (
-                      <section
-                        key={Math.random() * index}
-                        className={s.list_item}
-                      >
-                        <Button
-                          onClick={() =>
-                            handleAdsFilterClick(filter, "gearBoxType")
-                          }
-                          active={adsfilterSelected.gearBoxType === filter}
-                        ></Button>{" "}
-                        {filter}
-                      </section>
-                    ))}
-                  </div>
-                </Collapse>
-              </section>
-
-              <section className={s.year}>
-                <div
-                  onClick={() => setYearsOpen(!yearsOpen)}
-                  className={s.title}
-                >
-                  {yearsOpen ? <DownOutlined /> : <UpOutlined />}
-                  سال
-                </div>
-                <Collapse
-                  isOpen={yearsOpen}
-                  style={{ width: "100%", overflow: "hidden" }}
-                >
-                  <div className={s.list}>
-                    <div className={s.list_item}>
-                      <Button
-                      // onClick={() => onCheckboxBtnClick(1)}
-                      // active={cSelected.includes(1)}
-                      ></Button>{" "}
-                      1402
-                    </div>
-                    <div className={s.list_item}>
-                      <Button
-                      // onClick={() => onCheckboxBtnClick(2)}
-                      // active={cSelected.includes(2)}
-                      ></Button>{" "}
-                      1402
-                    </div>
-                    <div className={s.list_item}>
-                      <Button
-                      // onClick={() => onCheckboxBtnClick(3)}
-                      // active={cSelected.includes(3)}
-                      ></Button>{" "}
-                      1402
-                    </div>
-                    <div className={s.list_item}>
-                      <Button
-                      // onClick={() => onCheckboxBtnClick(4)}
-                      // active={cSelected.includes(4)}
-                      ></Button>{" "}
-                      1402
-                    </div>
-                    <div className={s.list_item}>
-                      <Button
-                      // onClick={() => onCheckboxBtnClick(5)}
-                      // active={cSelected.includes(5)}
-                      ></Button>{" "}
-                      1402
-                    </div>
-                  </div>
-                </Collapse>
-              </section>
-
-              <section className={s.price_range}>
-                <div
-                  onClick={() => setPriceRangeOpen(!priceRangeOpen)}
-                  className={s.title}
-                >
-                  {priceRangeOpen ? <DownOutlined /> : <UpOutlined />}
-                  محدوده قیمت
-                </div>
-                <Collapse
-                  isOpen={priceRangeOpen}
-                  style={{ width: "100%", overflow: "hidden" }}
-                >
-                  <div className={s.range}>
-                    <span className={s.from}>۲۰,۶۰۰,۰۰۰ تومان</span>
-                    {/* <div className={s.range_input}> */}
-                    <Input style={{ background: "none" }} type="range" />
-                    {/* </div> */}
-                    <span className={s.to}>۲۰,۶۰۰,۰۰۰ تومان</span>
-                  </div>
-                </Collapse>
-              </section>
-
-              <section className={s.color_select}>
-                <div
-                  onClick={() => setColorSelectOpen(!colorSelectOpen)}
-                  className={s.title}
-                >
-                  {colorSelectOpen ? <DownOutlined /> : <UpOutlined />}
-                  انتخاب رنگ
-                </div>
-                <Collapse
-                  isOpen={colorSelectOpen}
-                  style={{ width: "100%", overflow: "hidden" }}
-                >
-                  <div className={s.color_list}>
-                    <div className={s.color_box}></div>
-                    <div className={s.color_box}></div>
-                    <div className={s.color_box}></div>
-                    <div className={s.color_box}></div>
-                  </div>
-                </Collapse>
-              </section>
-            </>
-          ) : offers === "کسب و کار" && jobsCategory && !loading ? (
-            <>
-              <section className={s.categories}>
-                <div
-                  onClick={() => setCategoryOpen(!categoryOpen)}
-                  className={s.title}
-                >
-                  {categoryOpen ? <DownOutlined /> : <UpOutlined />}
-                  دسته بندی
-                </div>
-                <Collapse
-                  style={{ width: "100%", overflow: "hidden" }}
-                  isOpen={categoryOpen}
-                >
-                  <div className={s.list}>
-                    {jobsCategory.map((cat, index) => (
-                      <section
-                        key={Math.random() * index}
-                        className={s.list_item}
-                      >
-                        <Button
-                          onClick={() => handleJobsFilters(cat.id, "")}
-                          active={jobFiltersSlected.categoryId == cat.id}
-                        ></Button>{" "}
-                        {cat.title}
-                      </section>
-                    ))}
-                  </div>
-                </Collapse>
-              </section>
-
-              {jobFiltersSlected.categoryId ? (
+        <section className={s.market}>
+          <div className={s.market_filters}>
+            {offers === "خرید و فروش" && adsFilter && !loading ? (
+              <>
                 <section className={s.categories}>
                   <div
                     onClick={() => setCategoryOpen(!categoryOpen)}
                     className={s.title}
                   >
                     {categoryOpen ? <DownOutlined /> : <UpOutlined />}
-                    فیلتر ها
+                    سوخت
                   </div>
                   <Collapse
                     style={{ width: "100%", overflow: "hidden" }}
-                    isOpen={filterOpen}
+                    isOpen={categoryOpen}
                   >
                     <div className={s.list}>
-                      {jobsCategory[
-                        `${jobFiltersSlected.categoryId}`
-                      ].filters.map((filter, index) => (
+                      {adsFilter["fuels"].map((filter, index) => (
                         <section
                           key={Math.random() * index}
                           className={s.list_item}
                         >
                           <Button
-                            onClick={() =>
-                              handleJobsFilters(
-                                jobFiltersSlected.categoryId,
-                                filter
-                              )
-                            }
-                            active={jobFiltersSlected.filter === filter}
+                            onClick={() => handleAdsFilterClick(filter, "fuel")}
+                            active={adsfilterSelected.fuel === filter}
                           ></Button>{" "}
                           {filter}
                         </section>
@@ -458,197 +207,457 @@ const offers = () => {
                     </div>
                   </Collapse>
                 </section>
-              ) : null}
-            </>
-          ) : (
-            <>
-              <OfferCardSkeleton width={"250px"} height={"250px"} />
-              <OfferCardSkeleton width={"250px"} height={"250px"} />
-              <OfferCardSkeleton width={"250px"} height={"250px"} />
-            </>
-          )}
-        </div>
 
-        <div className={s.market_items}>
-          <div className={s.tabs}>
-            {size.width > 1000 ? (
-              <Nav className={s.tabs_names}>
-                {offers === "کسب و کار" ? (
-                  <>
-                    <NavItem onClick={() => setFilters("پیش فرض")}>
-                      <NavLink
-                        disabled={!handleFilterValidate("پیش فرض")}
-                        style={handleFilterStyle("پیش فرض")}
-                      >
-                        <Image
-                          src={"/assets/offers/setting.svg"}
-                          alt=""
-                          width={15}
-                          height={18}
-                        />
-                        پیش فرض
-                      </NavLink>
-                    </NavItem>
+                <section className={s.categories}>
+                  <div
+                    onClick={() => setColorsFilterOpen(!colorsFilterOpen)}
+                    className={s.title}
+                  >
+                    {colorsFilterOpen ? <DownOutlined /> : <UpOutlined />}
+                    رنگ ها
+                  </div>
 
-                    <NavItem onClick={() => setFilters("جدیدترین")}>
-                      <NavLink
-                        disabled={!handleFilterValidate("جدیدترین")}
-                        style={handleFilterStyle("جدیدترین")}
-                      >
-                        جدیدترین
-                      </NavLink>
-                    </NavItem>
+                  <Collapse
+                    style={{ width: "100%", overflow: "hidden" }}
+                    isOpen={colorsFilterOpen}
+                  >
+                    <div className={s.list}>
+                      {adsFilter["colors"].map((filter, index) => (
+                        <section
+                          key={Math.random() * index}
+                          className={s.list_item}
+                        >
+                          <Button
+                            onClick={() =>
+                              handleAdsFilterClick(filter, "color")
+                            }
+                            active={adsfilterSelected.color === filter}
+                          ></Button>{" "}
+                          {filter}
+                        </section>
+                      ))}
+                    </div>
+                  </Collapse>
+                </section>
 
-                    <NavItem onClick={() => setFilters("پرفروش‌ترین")}>
-                      <NavLink
-                        style={handleFilterStyle("پرفروش‌ترین")}
-                        disabled={!handleFilterValidate("پرفروش‌ترین")}
-                      >
-                        پرفروش‌ترین
-                      </NavLink>
-                    </NavItem>
+                <section className={s.categories}>
+                  <div
+                    onClick={() => setDesFilterOpen(!desFilterOpen)}
+                    className={s.title}
+                  >
+                    {desFilterOpen ? <DownOutlined /> : <UpOutlined />}
+                    وضعیت بدنه
+                  </div>
 
-                    <NavItem onClick={() => setFilters("نزدیک‌ترین")}>
-                      <NavLink
-                        disabled={!handleFilterValidate("نزدیک‌ترین")}
-                        style={handleFilterStyle("نزدیک‌ترین")}
-                      >
-                        نزدیک‌ترین
-                      </NavLink>
-                    </NavItem>
+                  <Collapse
+                    style={{ width: "100%", overflow: "hidden" }}
+                    isOpen={desFilterOpen}
+                  >
+                    <div className={s.list}>
+                      {adsFilter["body_conditions"].map((filter, index) => (
+                        <section
+                          key={Math.random() * index}
+                          className={s.list_item}
+                        >
+                          <Button
+                            onClick={() =>
+                              handleAdsFilterClick(filter, "bodyCondition")
+                            }
+                            active={adsfilterSelected.bodyCondition === filter}
+                          ></Button>{" "}
+                          {filter}
+                        </section>
+                      ))}
+                    </div>
+                  </Collapse>
+                </section>
 
-                    <NavItem onClick={() => setFilters("بهترین")}>
-                      <NavLink
-                        disabled={!handleFilterValidate("بهترین")}
-                        style={handleFilterStyle("بهترین")}
-                      >
-                        بهترین
-                      </NavLink>
-                    </NavItem>
-                  </>
-                ) : (
-                  <>
-                    <NavItem onClick={() => setFilters("پیش فرض")}>
-                      <NavLink
-                        disabled={!handleFilterValidate("پیش فرض")}
-                        style={handleFilterStyle("پیش فرض")}
-                      >
-                        <Image
-                          src={"/assets/offers/setting.svg"}
-                          alt=""
-                          width={15}
-                          height={18}
-                        />
-                        پیش فرض
-                      </NavLink>
-                    </NavItem>
+                <section className={s.categories}>
+                  <div
+                    onClick={() => setGearBoxOpen(!gearBoxOpen)}
+                    className={s.title}
+                  >
+                    {gearBoxOpen ? <DownOutlined /> : <UpOutlined />}
+                    جعبه دنده
+                  </div>
 
-                    <NavItem onClick={() => setFilters("جدیدترین")}>
-                      <NavLink
-                        disabled={!handleFilterValidate("جدیدترین")}
-                        style={handleFilterStyle("جدیدترین")}
-                      >
-                        جدیدترین
-                      </NavLink>
-                    </NavItem>
+                  <Collapse
+                    style={{ width: "100%", overflow: "hidden" }}
+                    isOpen={gearBoxOpen}
+                  >
+                    <div className={s.list}>
+                      {adsFilter["gearbox"].map((filter, index) => (
+                        <section
+                          key={Math.random() * index}
+                          className={s.list_item}
+                        >
+                          <Button
+                            onClick={() =>
+                              handleAdsFilterClick(filter, "gearBoxType")
+                            }
+                            active={adsfilterSelected.gearBoxType === filter}
+                          ></Button>{" "}
+                          {filter}
+                        </section>
+                      ))}
+                    </div>
+                  </Collapse>
+                </section>
 
-                    <NavItem onClick={() => setFilters("پرفروش‌ترین")}>
-                      <NavLink
-                        style={handleFilterStyle("پرفروش‌ترین")}
-                        disabled={!handleFilterValidate("پرفروش‌ترین")}
-                      >
-                        پرفروش‌ترین
-                      </NavLink>
-                    </NavItem>
+                <section className={s.year}>
+                  <div
+                    onClick={() => setYearsOpen(!yearsOpen)}
+                    className={s.title}
+                  >
+                    {yearsOpen ? <DownOutlined /> : <UpOutlined />}
+                    سال
+                  </div>
+                  <Collapse
+                    isOpen={yearsOpen}
+                    style={{ width: "100%", overflow: "hidden" }}
+                  >
+                    <div className={s.list}>
+                      <div className={s.list_item}>
+                        <Button
+                        // onClick={() => onCheckboxBtnClick(1)}
+                        // active={cSelected.includes(1)}
+                        ></Button>{" "}
+                        1402
+                      </div>
+                      <div className={s.list_item}>
+                        <Button
+                        // onClick={() => onCheckboxBtnClick(2)}
+                        // active={cSelected.includes(2)}
+                        ></Button>{" "}
+                        1402
+                      </div>
+                      <div className={s.list_item}>
+                        <Button
+                        // onClick={() => onCheckboxBtnClick(3)}
+                        // active={cSelected.includes(3)}
+                        ></Button>{" "}
+                        1402
+                      </div>
+                      <div className={s.list_item}>
+                        <Button
+                        // onClick={() => onCheckboxBtnClick(4)}
+                        // active={cSelected.includes(4)}
+                        ></Button>{" "}
+                        1402
+                      </div>
+                      <div className={s.list_item}>
+                        <Button
+                        // onClick={() => onCheckboxBtnClick(5)}
+                        // active={cSelected.includes(5)}
+                        ></Button>{" "}
+                        1402
+                      </div>
+                    </div>
+                  </Collapse>
+                </section>
 
-                    <NavItem onClick={() => setFilters("ارزان ترین")}>
-                      <NavLink
-                        disabled={!handleFilterValidate("ارزان ترین")}
-                        style={handleFilterStyle("ارزان ترین")}
-                      >
-                        ارزان ترین
-                      </NavLink>
-                    </NavItem>
+                <section className={s.price_range}>
+                  <div
+                    onClick={() => setPriceRangeOpen(!priceRangeOpen)}
+                    className={s.title}
+                  >
+                    {priceRangeOpen ? <DownOutlined /> : <UpOutlined />}
+                    محدوده قیمت
+                  </div>
+                  <Collapse
+                    isOpen={priceRangeOpen}
+                    style={{ width: "100%", overflow: "hidden" }}
+                  >
+                    <div className={s.range}>
+                      <span className={s.from}>۲۰,۶۰۰,۰۰۰ تومان</span>
+                      {/* <div className={s.range_input}> */}
+                      <Input style={{ background: "none" }} type="range" />
+                      {/* </div> */}
+                      <span className={s.to}>۲۰,۶۰۰,۰۰۰ تومان</span>
+                    </div>
+                  </Collapse>
+                </section>
 
-                    <NavItem onClick={() => setFilters("گران ترین")}>
-                      <NavLink
-                        disabled={!handleFilterValidate("گران ترین")}
-                        style={handleFilterStyle("گران ترین")}
-                      >
-                        گران ترین
-                      </NavLink>
-                    </NavItem>
-                  </>
-                )}
-              </Nav>
+                <section className={s.color_select}>
+                  <div
+                    onClick={() => setColorSelectOpen(!colorSelectOpen)}
+                    className={s.title}
+                  >
+                    {colorSelectOpen ? <DownOutlined /> : <UpOutlined />}
+                    انتخاب رنگ
+                  </div>
+                  <Collapse
+                    isOpen={colorSelectOpen}
+                    style={{ width: "100%", overflow: "hidden" }}
+                  >
+                    <div className={s.color_list}>
+                      <div className={s.color_box}></div>
+                      <div className={s.color_box}></div>
+                      <div className={s.color_box}></div>
+                      <div className={s.color_box}></div>
+                    </div>
+                  </Collapse>
+                </section>
+              </>
+            ) : offers === "کسب و کار" && jobsCategory && !loading ? (
+              <>
+                <section className={s.categories}>
+                  <div
+                    onClick={() => setCategoryOpen(!categoryOpen)}
+                    className={s.title}
+                  >
+                    {categoryOpen ? <DownOutlined /> : <UpOutlined />}
+                    دسته بندی
+                  </div>
+                  <Collapse
+                    style={{ width: "100%", overflow: "hidden" }}
+                    isOpen={categoryOpen}
+                  >
+                    <div className={s.list}>
+                      {jobsCategory.map((cat, index) => (
+                        <section
+                          key={Math.random() * index}
+                          className={s.list_item}
+                        >
+                          <Button
+                            onClick={() => handleJobsFilters(cat.id, "")}
+                            active={jobFiltersSlected.categoryId == cat.id}
+                          ></Button>{" "}
+                          {cat.title}
+                        </section>
+                      ))}
+                    </div>
+                  </Collapse>
+                </section>
+
+                {jobFiltersSlected.categoryId ? (
+                  <section className={s.categories}>
+                    <div
+                      onClick={() => setCategoryOpen(!categoryOpen)}
+                      className={s.title}
+                    >
+                      {categoryOpen ? <DownOutlined /> : <UpOutlined />}
+                      فیلتر ها
+                    </div>
+                    <Collapse
+                      style={{ width: "100%", overflow: "hidden" }}
+                      isOpen={filterOpen}
+                    >
+                      <div className={s.list}>
+                        {jobsCategory[
+                          `${jobFiltersSlected.categoryId}`
+                        ].filters.map((filter, index) => (
+                          <section
+                            key={Math.random() * index}
+                            className={s.list_item}
+                          >
+                            <Button
+                              onClick={() =>
+                                handleJobsFilters(
+                                  jobFiltersSlected.categoryId,
+                                  filter
+                                )
+                              }
+                              active={jobFiltersSlected.filter === filter}
+                            ></Button>{" "}
+                            {filter}
+                          </section>
+                        ))}
+                      </div>
+                    </Collapse>
+                  </section>
+                ) : null}
+              </>
             ) : (
-              <div className="d-flex align-items=center">
+              <>
+                <OfferCardSkeleton width={"250px"} height={"250px"} />
+                <OfferCardSkeleton width={"250px"} height={"250px"} />
+                <OfferCardSkeleton width={"250px"} height={"250px"} />
+              </>
+            )}
+          </div>
+
+          <div className={s.market_items}>
+            <div className={s.tabs}>
+              {size.width > 1000 ? (
+                <Nav className={s.tabs_names}>
+                  {offers === "کسب و کار" ? (
+                    <>
+                      <NavItem onClick={() => setFilters("پیش فرض")}>
+                        <NavLink
+                          disabled={!handleFilterValidate("پیش فرض")}
+                          style={handleFilterStyle("پیش فرض")}
+                        >
+                          <Image
+                            src={"/assets/offers/setting.svg"}
+                            alt=""
+                            width={15}
+                            height={18}
+                          />
+                          پیش فرض
+                        </NavLink>
+                      </NavItem>
+
+                      <NavItem onClick={() => setFilters("جدیدترین")}>
+                        <NavLink
+                          disabled={!handleFilterValidate("جدیدترین")}
+                          style={handleFilterStyle("جدیدترین")}
+                        >
+                          جدیدترین
+                        </NavLink>
+                      </NavItem>
+
+                      <NavItem onClick={() => setFilters("پرفروش‌ترین")}>
+                        <NavLink
+                          style={handleFilterStyle("پرفروش‌ترین")}
+                          disabled={!handleFilterValidate("پرفروش‌ترین")}
+                        >
+                          پرفروش‌ترین
+                        </NavLink>
+                      </NavItem>
+
+                      <NavItem onClick={() => setFilters("نزدیک‌ترین")}>
+                        <NavLink
+                          disabled={!handleFilterValidate("نزدیک‌ترین")}
+                          style={handleFilterStyle("نزدیک‌ترین")}
+                        >
+                          نزدیک‌ترین
+                        </NavLink>
+                      </NavItem>
+
+                      <NavItem onClick={() => setFilters("بهترین")}>
+                        <NavLink
+                          disabled={!handleFilterValidate("بهترین")}
+                          style={handleFilterStyle("بهترین")}
+                        >
+                          بهترین
+                        </NavLink>
+                      </NavItem>
+                    </>
+                  ) : (
+                    <>
+                      <NavItem onClick={() => setFilters("پیش فرض")}>
+                        <NavLink
+                          disabled={!handleFilterValidate("پیش فرض")}
+                          style={handleFilterStyle("پیش فرض")}
+                        >
+                          <Image
+                            src={"/assets/offers/setting.svg"}
+                            alt=""
+                            width={15}
+                            height={18}
+                          />
+                          پیش فرض
+                        </NavLink>
+                      </NavItem>
+
+                      <NavItem onClick={() => setFilters("جدیدترین")}>
+                        <NavLink
+                          disabled={!handleFilterValidate("جدیدترین")}
+                          style={handleFilterStyle("جدیدترین")}
+                        >
+                          جدیدترین
+                        </NavLink>
+                      </NavItem>
+
+                      <NavItem onClick={() => setFilters("پرفروش‌ترین")}>
+                        <NavLink
+                          style={handleFilterStyle("پرفروش‌ترین")}
+                          disabled={!handleFilterValidate("پرفروش‌ترین")}
+                        >
+                          پرفروش‌ترین
+                        </NavLink>
+                      </NavItem>
+
+                      <NavItem onClick={() => setFilters("ارزان ترین")}>
+                        <NavLink
+                          disabled={!handleFilterValidate("ارزان ترین")}
+                          style={handleFilterStyle("ارزان ترین")}
+                        >
+                          ارزان ترین
+                        </NavLink>
+                      </NavItem>
+
+                      <NavItem onClick={() => setFilters("گران ترین")}>
+                        <NavLink
+                          disabled={!handleFilterValidate("گران ترین")}
+                          style={handleFilterStyle("گران ترین")}
+                        >
+                          گران ترین
+                        </NavLink>
+                      </NavItem>
+                    </>
+                  )}
+                </Nav>
+              ) : (
+                <div className="d-flex align-items=center">
+                  <Dropdown
+                    isOpen={filterDropdownOpen}
+                    toggle={() => setFilterDropdownOpen(!filterDropdownOpen)}
+                    direction={"down"}
+                  >
+                    <DropdownToggle caret>{filters}</DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem onClick={() => setFilters("پیش فرض")}>
+                        {" "}
+                        پیش فرض
+                      </DropdownItem>
+                      <DropdownItem onClick={() => setFilters("پرفروش‌ترین")}>
+                        {" "}
+                        پرفروش‌ترین
+                      </DropdownItem>
+                      <DropdownItem onClick={() => setFilters("ارزان‌ترین")}>
+                        {" "}
+                        ارزان‌ترین
+                      </DropdownItem>
+                      <DropdownItem onClick={() => setFilters("گران‌ترین")}>
+                        {" "}
+                        گران‌ترین
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </div>
+              )}
+              <div className="d-flex">
                 <Dropdown
-                  isOpen={filterDropdownOpen}
-                  toggle={() => setFilterDropdownOpen(!filterDropdownOpen)}
+                  isOpen={dropdownOpen}
+                  toggle={toggle}
                   direction={"down"}
                 >
-                  <DropdownToggle caret>{filters}</DropdownToggle>
+                  <DropdownToggle caret>{offers}</DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem onClick={() => setFilters("پیش فرض")}>
+                    <DropdownItem onClick={() => setOffers("فروش")}>
                       {" "}
-                      پیش فرض
+                      فروش
                     </DropdownItem>
-                    <DropdownItem onClick={() => setFilters("پرفروش‌ترین")}>
+                    <DropdownItem onClick={() => setOffers("خرید و فروش")}>
                       {" "}
-                      پرفروش‌ترین
+                      خرید و فروش
                     </DropdownItem>
-                    <DropdownItem onClick={() => setFilters("ارزان‌ترین")}>
+                    <DropdownItem onClick={() => setOffers("خدمات")}>
                       {" "}
-                      ارزان‌ترین
+                      خدمات
                     </DropdownItem>
-                    <DropdownItem onClick={() => setFilters("گران‌ترین")}>
+                    <DropdownItem onClick={() => setOffers("کسب و کار")}>
                       {" "}
-                      گران‌ترین
+                      کسب و کار
                     </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </div>
-            )}
-            <div className="d-flex">
-              <Dropdown
-                isOpen={dropdownOpen}
-                toggle={toggle}
-                direction={"down"}
-              >
-                <DropdownToggle caret>{offers}</DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem onClick={() => setOffers("فروش")}>
-                    {" "}
-                    فروش
-                  </DropdownItem>
-                  <DropdownItem onClick={() => setOffers("خرید و فروش")}>
-                    {" "}
-                    خرید و فروش
-                  </DropdownItem>
-                  <DropdownItem onClick={() => setOffers("خدمات")}>
-                    {" "}
-                    خدمات
-                  </DropdownItem>
-                  <DropdownItem onClick={() => setOffers("کسب و کار")}>
-                    {" "}
-                    کسب و کار
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+            </div>
+
+            <div className={s.market_cards}>
+              <CardRenderer
+                offers={offers}
+                adsFilter={adsfilterSelected}
+                jobsFilter={jobFiltersSlected}
+              />
             </div>
           </div>
-
-          <div className={s.market_cards}>
-            <CardRenderer
-              offers={offers}
-              adsFilter={adsfilterSelected}
-              jobsFilter={jobFiltersSlected}
-            />
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 

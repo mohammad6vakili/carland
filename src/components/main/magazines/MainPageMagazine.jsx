@@ -6,6 +6,7 @@ import { url } from "@/src/axiosConfig/useHttp";
 import { useRouter } from "next/navigation";
 import OfferCardSkeleton from "../../skeleton/OfferCardSkeleton";
 import MySkeleton from "../../skeleton/Skeleton";
+import React from "react";
 
 const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
   const navigate = useRouter();
@@ -69,7 +70,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
         <div className={styles.options}>
           {magazines.length !== 0 && magazines
             ? magazines.map((mag, index) => (
-                <>
+                <React.Fragment key={Math.random() * index}>
                   {index !== 0 ? (
                     <section className={styles.option}>
                       <div className={styles.pic}>
@@ -109,7 +110,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                       </div>
                     </section>
                   ) : null}
-                </>
+                </React.Fragment>
               ))
             : null}
         </div>

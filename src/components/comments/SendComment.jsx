@@ -1,4 +1,4 @@
-import s from "../../../../styles/main.module.scss";
+import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import { Button, Input } from "reactstrap";
 

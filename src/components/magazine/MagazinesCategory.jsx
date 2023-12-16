@@ -97,8 +97,8 @@ const MagazineCategory = () => {
             className={s.mySwiper}
             onSwiper={setAdsSwiper}
           >
-            {photos.map(() => (
-              <SwiperSlide className={s.slide}>
+            {photos.map((item, index) => (
+              <SwiperSlide key={Math.random() * index} className={s.slide}>
                 <Image
                   src={"/assets/trades/trade-1.png"}
                   alt=""
@@ -318,7 +318,7 @@ const MagazineCategory = () => {
               onSwiper={setCategorySwiper}
             >
               {photos.map((item, index) => (
-                <SwiperSlide className={s.slide}>
+                <SwiperSlide key={Math.random() * index} className={s.slide}>
                   <SuggestCard
                     description={
                       "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و فوری از طریق مجموعه شعب نمایندگی 777 انجام می شود"

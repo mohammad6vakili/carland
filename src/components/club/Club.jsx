@@ -6,6 +6,7 @@ import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
 } from "@ant-design/icons";
+import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { useState, useRef, useEffect } from "react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
@@ -16,10 +17,16 @@ import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
+import { usePathname } from "next/navigation";
+import { handleCopy, toPersianString } from "@/src/hooks/functions";
+import CommentCards from "../comments/CommentCards";
+import SendComment from "../comments/SendComment";
+import CommentCard from "../comments/CommentCard";
 
 const Club = () => {
   const size = useWindowSize();
   const router = useRouter();
+  const pathname = usePathname();
   const { httpService } = useHttp();
 
   const latestClubs = [{}, {}, {}];
@@ -33,12 +40,14 @@ const Club = () => {
       httpService
         .get(`club/${id}`)
         .then((res) => {
-          res.status === 200 ? setClubData(res.data.data) : null;
+          res.status === 200 ? setClubData(res.data) : null;
           handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
         })
         .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
     }
   }, [router]);
+
+  useEffect(() => console.log(clubData), [clubData]);
 
   const handlePhotos = (banner, images) => {
     const data = [];
@@ -71,9 +80,9 @@ const Club = () => {
   if (clubData.length !== 0) {
     return (
       <>
-        <div className={s.magazine_page}>
+        <div className={s.club_page}>
           <div className={s.main_title}>
-            <h1>{clubData.title}</h1>
+            <h1>{clubData.data.title}</h1>
           </div>
 
           <div className={s.contents}>
@@ -102,7 +111,7 @@ const Club = () => {
                     ))}
                   </Swiper>
 
-                  {clubData.imageAddresses ? (
+                  {clubData.data.imageAddresses ? (
                     <Swiper
                       autoHeight
                       grabCursor
@@ -140,25 +149,87 @@ const Club = () => {
               </div>
 
               <div className={s.texts}>
-                <div className={s.title}>{clubData.title}</div>
-                <p className={s.descriptions}>{clubData.description}</p>
+                <div className={s.title}>{clubData.data.title}</div>
+                <p className={s.descriptions}>{clubData.data.description}</p>
               </div>
 
               <div className={s.share}>
                 <div className={s.links}>
                   <p>اشتراک گذاری:</p>
-                  <div>
-                    <InstagramFilled />
-                  </div>
-                  <div>
+                  <a href={`whatsapp://send?text=https://carlan.ir${pathname}`}>
+                    <Button>
+                      <InstagramFilled />
+                    </Button>
+                  </a>
+                  <a href={`telegram://send?text=https://carlan.ir${pathname}`}>
+                    <Button>
+                      <FaTelegramPlane />
+                    </Button>
+                  </a>
+                  <Button>
+                    <FaWhatsapp />
+                  </Button>
+                  <Button
+                    onClick={() => handleCopy(`https://carlan.ir${pathname}`)}
+                  >
                     <LinkOutlined />
-                  </div>
+                  </Button>
                 </div>
 
                 <div className={s.text}>
                   این مجله را با دوستان خود به اشتراک بگذارید
                 </div>
               </div>
+
+              <div className={s.comments}>
+                <div className={s.not_logged_in}>
+                  <div className={s.circle}></div>
+                  <p>
+                    برای ارسال دیدگاه لازم است ابتدا وارد شده یا ثبت نام کنید!
+                  </p>
+
+                  <Button className={s.btn}>
+                    ورود/ثبت نام{" "}
+                    <div>
+                      <ArrowLeftOutlined
+                        style={{ color: "#4A80E8", zIndex: "2" }}
+                      />
+                      <Image
+                        src={"/assets/jobs/rectangle.svg"}
+                        alt=""
+                        width={20}
+                        height={30}
+                        className={s.back}
+                      />
+                    </div>
+                  </Button>
+                </div>
+
+                <section className={s.comments}>
+                  <div className={s.comments}>
+                    {clubData.comments
+                      ? clubData.comments.map((comment, index) => (
+                          <CommentCard
+                            content={comment.content}
+                            name={comment.user.name}
+                            profile={comment.user.image_profile}
+                            rate={"۴.۶"}
+                            date={toPersianString(
+                              comment.created_at.split("T", 1)
+                            ).replaceAll("-", "/")}
+                            reactions={{
+                              likes: comment.likes,
+                              dislikes: comment.dislikes,
+                            }}
+                            reply={null}
+                          />
+                        ))
+                      : null}
+                  </div>
+                </section>
+              </div>
+
+              <SendComment />
             </div>
 
             <div className={s.other_contents}>
@@ -387,7 +458,7 @@ const Club = () => {
   } else {
     return (
       <>
-        <div className={s.magazine_page}>
+        <div className={s.club_page}>
           <div className={s.main_title}>
             <h1>
               <MySkeleton width={"300px"} height={"40px"} />
@@ -453,12 +524,6 @@ const Club = () => {
               <div className={s.share}>
                 <div className={s.links}>
                   <p>اشتراک گذاری:</p>
-                  <div>
-                    <InstagramFilled />
-                  </div>
-                  <div>
-                    <LinkOutlined />
-                  </div>
                 </div>
 
                 <div className={s.text}>

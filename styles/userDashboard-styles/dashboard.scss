@@ -1,0 +1,12 @@
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+
+.user_dashboard {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f5f5;
+}

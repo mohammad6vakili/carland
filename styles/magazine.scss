@@ -269,7 +269,8 @@
   }
 }
 
-.magazine_page {
+.magazine_page,
+.club_page {
   @include flex(column, flex-start, center);
   @include responsive();
   gap: 2rem;
@@ -414,6 +415,199 @@
 
         .text {
           color: #4a80e8;
+        }
+      }
+
+      .comments {
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
+        padding: 2rem 0;
+
+        .not_logged_in {
+          @include flex(row, space-between, center);
+          position: relative;
+          width: 100%;
+          border-radius: 12px;
+          border: 1px solid #4a80e8;
+          background: #fff;
+          box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+          overflow: hidden;
+          padding: 1rem;
+
+          .circle {
+            position: absolute;
+            right: 0;
+            transform: translate(50%);
+            width: 20px;
+            height: 20px;
+            background: #4a80e8;
+            border-radius: 50%;
+          }
+
+          .btn {
+            @include flex(row, flex-end, center);
+            gap: 15px;
+            width: 160px;
+            padding: 0 !important;
+            height: 45px;
+            background: #4a80e8;
+            color: #fff;
+            div {
+              @include flex(row, center, center);
+              width: 60px;
+              margin-left: -3px;
+              height: 100%;
+              position: relative;
+              .back {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+              }
+            }
+          }
+        }
+
+        .comments {
+          @include flex(column, flex-start, flex-start);
+          gap: 1rem;
+          width: 100%;
+
+          .comment_card {
+            @include flex(column, flex-start, flex-start);
+            width: 700px;
+            padding: 2rem;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+
+            .content {
+              @include flex(row, space-between, flex-start);
+              gap: 1rem;
+              width: 100%;
+
+              .image {
+                img {
+                  border-radius: 10px;
+                  width: 70px;
+                  height: 70px;
+                }
+              }
+
+              .texts {
+                @include flex(column, flex-start, space-between);
+                gap: 20px;
+                width: 100%;
+                line-height: 170%;
+
+                .title {
+                  @include flex(row, space-between, center);
+                  width: 100%;
+                  h1 {
+                    font-size: 1.2em;
+                    font-weight: bold;
+                  }
+                }
+
+                p {
+                  opacity: 60%;
+                }
+
+                .rate_react {
+                  @include flex(row, space-between, center);
+                  width: 100%;
+                  padding: 20px 10px;
+                  border-top: 1px solid #e6e6e6;
+
+                  .rate,
+                  .reacts {
+                    @include flex(row, center, center);
+                    gap: 15px;
+                  }
+
+                  .reacts {
+                    .likes,
+                    .dislikes {
+                      @include flex(row, center, center);
+                      gap: 5px;
+                      cursor: pointer;
+                    }
+
+                    .icon {
+                      @include flex(row, center, center);
+                      border-radius: 50%;
+                      width: 25px;
+                      height: 25px;
+                      background: #1bd2a3;
+                    }
+
+                    .dislikes .icon {
+                      background: #f93423;
+                    }
+                  }
+                }
+              }
+            }
+
+            .reply {
+              @include flex(column, flex-start, flex-start);
+              width: 100%;
+              padding: 1rem 0;
+
+              .title {
+                font-size: 1.1em;
+                color: #1bc217;
+              }
+
+              .box {
+                @include flex(column, flex-start, flex-start);
+                gap: 1rem;
+                border-radius: 15px;
+                border: 1px solid #4a80e8;
+                background: rgba(74, 128, 232, 0.07);
+                padding: 1rem;
+                margin: 1rem 0;
+
+                .name {
+                  font-size: 1.4em;
+                  color: #4a80e8;
+                }
+
+                .content {
+                  color: #3a3a3a;
+                }
+              }
+            }
+          }
+        }
+      }
+      .send_comment {
+        @include flex(column, flex-start, center);
+        gap: 1rem;
+        padding: 2rem;
+        width: 100%;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+        margin-left: auto;
+
+        .name_email {
+          @include flex(row, space-between, center);
+          gap: 10%;
+          width: 100%;
+        }
+
+        .content {
+          width: 100%;
+        }
+
+        .btn {
+          @include flex(row-reverse, space-between, center);
+          width: 100%;
+          button {
+            color: #fff;
+          }
         }
       }
     }

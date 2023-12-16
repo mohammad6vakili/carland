@@ -1,7 +1,9 @@
-import s from "../../../../styles/main.module.scss";
+import { toPersianString } from "@/src/hooks/functions";
+import s from "../../../styles/main.module.scss";
 import { DislikeFilled, LikeFilled } from "@ant-design/icons";
 import Image from "next/image";
 import ReactStars from "react-rating-stars-component";
+import { url } from "@/src/axiosConfig/useHttp";
 
 const CommentCard = ({
   profile,
@@ -17,7 +19,7 @@ const CommentCard = ({
       <div className={s.comment_card}>
         <div className={s.content}>
           <div className={s.image}>
-            <Image src={profile} alt="" width={50} height={50} />
+            <Image src={url + profile} alt="" width={50} height={50} />
           </div>
 
           <div className={s.texts}>
@@ -33,6 +35,7 @@ const CommentCard = ({
             >
               <div className={s.rate}>
                 <ReactStars
+                  value={rate}
                   count={5}
                   size={24}
                   emptyIcon={<i className="far fa-star"></i>}
@@ -40,24 +43,26 @@ const CommentCard = ({
                   fullIcon={<i className="fa fa-star"></i>}
                   activeColor="#ffd700"
                 />
-                {rate} (امتیاز)
+                {toPersianString(rate)} (امتیاز)
               </div>
 
-              <div className={s.reacts}>
-                <div className={s.dislikes}>
-                  {reactions.dislikes}
-                  <div className={s.icon}>
-                    <DislikeFilled style={{ color: "#fff" }} />
+              {reactions ? (
+                <div className={s.reacts}>
+                  <div className={s.dislikes}>
+                    {toPersianString(reactions.dislikes)}
+                    <div className={s.icon}>
+                      <DislikeFilled style={{ color: "#fff" }} />
+                    </div>
                   </div>
-                </div>
 
-                <div className={s.likes}>
-                  {reactions.likes}
-                  <div className={s.icon}>
-                    <LikeFilled style={{ color: "#fff" }} />
+                  <div className={s.likes}>
+                    {toPersianString(reactions.likes)}
+                    <div className={s.icon}>
+                      <LikeFilled style={{ color: "#fff" }} />
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
             </div>
           </div>
         </div>

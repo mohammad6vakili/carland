@@ -12,41 +12,45 @@ import "react-loading-skeleton/dist/skeleton.css";
 import localFont from "next/font/local";
 import MobileMenu from "@/src/components/mobile menu/MobileMenu";
 import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
+import { store } from "@/src/app/store";
 
 const dana = localFont({ src: "../public/fonts/Dana-Medium.ttf" });
 
 const MyApp = ({ Component, pageProps }) => {
   return (
     // <ConfigProvider theme={theme}>
-    <main className={dana.className}>
-      <Component {...pageProps} />
-      <MobileMenu />
-      <Toaster
-        position="bottom-center"
-        reverseOrder={false}
-        gutter={8}
-        containerClassName=""
-        containerStyle={{}}
-        toastOptions={{
-          // Define default options
-          className: "",
-          duration: 5000,
-          style: {
-            background: "#363636",
-            color: "#fff",
-          },
-
-          // Default options for specific types
-          success: {
-            duration: 3000,
-            theme: {
-              primary: "green",
-              secondary: "black",
+    <Provider store={store}>
+      <main className={dana.className}>
+        <Component {...pageProps} />
+        <MobileMenu />
+        <Toaster
+          position="bottom-center"
+          reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            // Define default options
+            className: "",
+            duration: 5000,
+            style: {
+              background: "#363636",
+              color: "#fff",
             },
-          },
-        }}
-      />
-    </main>
+
+            // Default options for specific types
+            success: {
+              duration: 3000,
+              theme: {
+                primary: "green",
+                secondary: "black",
+              },
+            },
+          }}
+        />
+      </main>
+    </Provider>
     // </ConfigProvider>
   );
 };

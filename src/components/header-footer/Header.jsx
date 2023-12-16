@@ -6,11 +6,21 @@ import { Button } from "reactstrap";
 import Link from "next/link";
 import { useWindowSize } from "@uidotdev/usehooks";
 import SelectedPageLine from "@/src/assets/icons/selected_page_line";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setIsAuth } from "@/src/app/slices/isAuthSlice";
 
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const size = useWindowSize();
+  const isAuth = useSelector((state) => state.isAuth.isAuth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(isAuth);
+    dispatch(setIsAuth(true));
+  }, [isAuth]);
 
   return (
     <>
@@ -173,15 +183,28 @@ const Header = () => {
               </div>
             </Button>
 
-            <Button className={styles.login} color="#142D5D">
-              ثبت نام / ورود <div className={styles.line}></div>{" "}
-              <Image
-                src={"/assets/user-icon.svg"}
-                alt="user"
-                width={24}
-                height={24}
-              />
-            </Button>
+            {isAuth ? (
+              <Link href={"/userDashboard"}>
+                <Button className={styles.login} color="#142D5D">
+                  <Image
+                    src={"/assets/user-icon.svg"}
+                    alt="user"
+                    width={24}
+                    height={24}
+                  />
+                </Button>
+              </Link>
+            ) : (
+              <Button className={styles.login} color="#142D5D">
+                ثبت نام / ورود <div className={styles.line}></div>{" "}
+                <Image
+                  src={"/assets/user-icon.svg"}
+                  alt="user"
+                  width={24}
+                  height={24}
+                />
+              </Button>
+            )}
           </div>
         </section>
       </div>

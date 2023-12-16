@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: "export",
+  // useFileSystemPublicRoutes: false,
   images: {
     // unoptimized: true,
     remotePatterns: [

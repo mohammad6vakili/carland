@@ -11,8 +11,8 @@ import { Button } from "reactstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import ReactStars from "react-rating-stars-component";
-import CommentCard from "./CommentCard";
-import SendComment from "./SendComment";
+import CommentCard from "../../comments/CommentCard";
+import SendComment from "../../comments/SendComment";
 import { useEffect, useRef, useState } from "react";
 import Map from "./map/Map";
 import SuggestCard from "../../suggest card";
@@ -23,6 +23,7 @@ import {
   handleCopy,
   toPersianString,
 } from "@/src/hooks/functions";
+import CommentCards from "../../comments/CommentCards";
 
 const JobPage = () => {
   const { httpService } = useHttp();
@@ -56,7 +57,6 @@ const JobPage = () => {
   //handle photos
   useEffect(() => {
     jobData.length !== 0 ? setPhotos(jobData.images.split(",")) : null;
-    console.log(photos);
   }, [jobData]);
 
   //handle job id
@@ -303,32 +303,7 @@ const JobPage = () => {
             </div>
 
             <section className={s.comments}>
-              <CommentCard
-                profile={"/assets/jobs/profile.png"}
-                name={"مهزیار رازه"}
-                content={
-                  "میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن پیش آمده تمام قطعات رو اینجا پیدا کنید. البته  برای دانلودسریع و بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده درموبایل خود انجام دهید."
-                }
-                date={"۸ مرداد ۱۴۰۲"}
-                rate={"۴.۶"}
-                reactions={{ likes: "۲۱", dislikes: "۷" }}
-              />
-
-              <CommentCard
-                profile={"/assets/jobs/profile.png"}
-                name={"مهزیار رازه"}
-                content={
-                  "میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن پیش آمده تمام قطعات رو اینجا پیدا کنید. البته  برای دانلودسریع و بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده درموبایل خود انجام دهید."
-                }
-                date={"۸ مرداد ۱۴۰۲"}
-                rate={"۴.۶"}
-                reactions={{ likes: "۲۱", dislikes: "۷" }}
-                reply={{
-                  name: "ادمین کارلند",
-                  content:
-                    "میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن پیش آمده تمام قطعات رو اینجا پیدا کنید. البته  برای دانلودسریع و بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده درموبایل خود انجام دهید.",
-                }}
-              />
+              <CommentCards comments={jobData.user_ratings} />
             </section>
           </div>
 
