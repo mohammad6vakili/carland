@@ -152,6 +152,7 @@ const UDNavigation = () => {
           <Link
             href={"/userDashboard/myOrders"}
             className={handleSelectedRoute("myOrders") ? s.selected : s.route}
+            style={{ borderBottom: "1px solid #E6E6E6" }}
           >
             <div className={s.background}>
               <Image src={selectedBackground} alt="" />
