@@ -1,14 +1,18 @@
 import {
   Button,
+  Col,
   Form,
   FormFeedback,
   FormGroup,
   Input,
+  InputGroup,
   Label,
+  Row,
 } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import profilePlaceholder from "../../../public/assets/userDashboard/profile-placeholder.png";
+import { LiaEditSolid } from "react-icons/lia";
 
 const UserData = () => {
   return (
@@ -16,66 +20,123 @@ const UserData = () => {
       <div className={s.user_data}>
         <div className={s.user_form}>
           <Form onSubmit={(e) => e.preventDefault()} className={s.form}>
-            <FormGroup className={s.formGroup}>
-              <Label for="name">نام</Label>
-              <Input invalid name="name" />
-              <FormFeedback for="name" tooltip>
-                لطفا پر کنید
-              </FormFeedback>
-            </FormGroup>
+            <Row>
+              <Col md={12}>
+                <FormGroup className={s.formGroup}>
+                  <Label for="name">نام</Label>
+                  <InputGroup className={s.input}>
+                    <Input name="name" />
+                    <Button style={{ borderRight: "0" }}>
+                      <LiaEditSolid />
+                    </Button>
+                  </InputGroup>
+                  <FormFeedback for="name" tooltip>
+                    لطفا پر کنید
+                  </FormFeedback>
+                </FormGroup>
+              </Col>
 
-            <FormGroup className={s.formGroup}>
-              <Label for="family">نام خانوادگی</Label>
-              <Input invalid name="family" />
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-            </FormGroup>
+              <Col md={12}>
+                <FormGroup className={s.formGroup}>
+                  <Label for="family">نام خانوادگی</Label>
+                  <InputGroup className={s.input}>
+                    <Input name="family" />
+                    <Button style={{ borderRight: "0" }}>
+                      <LiaEditSolid />
+                    </Button>
+                  </InputGroup>
+                  <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+                </FormGroup>
+              </Col>
+            </Row>
 
-            <FormGroup className={s.formGroup}>
-              <Label for="id-card">کد ملی</Label>
-              <Input invalid name="id-card" />
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-            </FormGroup>
+            <Row>
+              <Col md={6}>
+                <FormGroup className={s.formGroup}>
+                  <Label for="id-card">کد ملی</Label>
+                  <InputGroup className={s.input}>
+                    <Input name="id-card" />
+                    <Button style={{ borderRight: "0" }}>
+                      <LiaEditSolid />
+                    </Button>
+                  </InputGroup>
+                  <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+                </FormGroup>
+              </Col>
 
-            <FormGroup className={s.formGroup}>
-              <Label for="email">ایمیل</Label>
-              <Input invalid name="email" />
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-            </FormGroup>
+              <Col md={6}>
+                <FormGroup className={s.formGroup}>
+                  <Label for="email">ایمیل</Label>
+                  <InputGroup className={s.input}>
+                    <Input name="email" />
+                    <Button style={{ borderRight: "0" }}>
+                      <LiaEditSolid />
+                    </Button>
+                  </InputGroup>
+                  <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+                </FormGroup>
+              </Col>
+            </Row>
 
-            <FormGroup className={s.formGroup}>
-              <Label for="address">آدرس</Label>
-              <Input invalid name="address" />
-              <FormFeedback tooltip>لطفا ادرس خود را وارد کنید</FormFeedback>
-            </FormGroup>
+            <Row>
+              <Col md={12}>
+                <FormGroup className={s.formGroup}>
+                  <Label for="address">آدرس</Label>
+                  <InputGroup className={s.input}>
+                    <Input className={s.address} name="address" />
+                    <Button style={{ borderRight: "0" }}>
+                      <LiaEditSolid />
+                    </Button>
+                  </InputGroup>
+                  <FormFeedback tooltip>
+                    لطفا ادرس خود را وارد کنید
+                  </FormFeedback>
+                </FormGroup>
+              </Col>
+            </Row>
 
             <FormGroup className={s.formGroup}>
               <Label for="date">تاریخ تولد</Label>
-              <Input invalid name="date" />
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+              <InputGroup className={s.input}>
+                <Input name="date" type="date" />
+                <Button style={{ borderRight: "0" }}>
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback>لطفا پر کنید</FormFeedback>
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
               <Label for="password">رمز عبور</Label>
-              <Input invalid name="password" />
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-            </FormGroup>
-
-            <FormGroup className={s.formGroup}>
-              <Label for="password">رمز عبور</Label>
-              <Input invalid name="password" />
+              <InputGroup className={s.input}>
+                <Input name="name" type="password" />
+                <Button style={{ borderRight: "0" }}>
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
               <FormFeedback>لطفا پر کنید</FormFeedback>
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
               <Label for="phone">شماره همراه</Label>
-              <Input invalid name="phone" />
+              <InputGroup className={s.input}>
+                <Input name="name" />
+                <Button>
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
               <FormFeedback>لطفا پر کنید</FormFeedback>
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
               <Label for="telephone">تلفن</Label>
-              <Input invalid name="telephone" />
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+              <InputGroup className={s.input}>
+                <Input name="telephone" />
+                <Button style={{ borderRight: "0" }}>
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback>لطفا پر کنید</FormFeedback>
             </FormGroup>
 
             <div className={s.profile}>

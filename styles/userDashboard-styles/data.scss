@@ -18,7 +18,7 @@
   }
 
   .form {
-    @include flex(row, center, flex-start);
+    @include flex(row, flex-start, flex-start);
     flex-wrap: wrap;
     gap: 20px;
     width: 100%;
@@ -30,17 +30,31 @@
 
     .formGroup {
       @include flex(column, flex-start, flex-start);
-      margin: 0 auto;
-    }
 
-    input {
-      height: 45px;
-      border-radius: 4px;
-    }
-    label {
-      color: #757575;
-      font-size: 0.9em;
-      font-weight: 400;
+      .input {
+        height: 45px;
+        border-radius: 4px;
+
+        input {
+          border-radius: 4px;
+          border: 1px solid #e6e6e6;
+          border-left: none !important;
+        }
+        button {
+          border-radius: 4px;
+          border: 1px solid #e6e6e6;
+          border-right: none !important;
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+      label {
+        color: #757575;
+        font-size: 0.9em;
+        font-weight: 400;
+      }
     }
 
     .profile {
@@ -53,6 +67,8 @@
 
       .text {
         @include flex(row, flex-start, center);
+        gap: 25px;
+        width: 50%;
 
         div {
           @include flex(column, flex-start, flex-start);
@@ -60,14 +76,20 @@
       }
 
       .button {
-        @include flex(row, center, center);
+        @include flex(row, flex-end, center);
         width: 50%;
 
         input {
           width: 150px;
+          height: 45px;
           border-radius: 7px;
           border: 1px solid #4a80e8;
+          color: #4a80e8;
           background: rgba(74, 128, 232, 0.15);
+
+          label {
+            display: none;
+          }
         }
       }
     }
