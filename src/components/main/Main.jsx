@@ -295,15 +295,22 @@ const Main = () => {
                   key={Math.random() * index}
                   className={styles.swiper_slide2}
                 >
-                  <Image
-                    alt=""
-                    width={38}
-                    height={38}
-                    src={url + item.serviceIcon}
-                  />
-                  <p style={{ color: "#fff", fontSize: "14px" }}>
-                    {item.title}
-                  </p>
+                  <Link
+                    href={"/offers/jobs"}
+                    onClick={() => setLocal("jobCategory", item.id)}
+                    key={index}
+                    className={styles.service}
+                  >
+                    <Image
+                      alt=""
+                      width={38}
+                      height={38}
+                      src={url + item.serviceIcon}
+                    />
+                    <p style={{ color: "#fff", fontSize: "14px" }}>
+                      {item.title}
+                    </p>
+                  </Link>
                 </SwiperSlide>
               ))}
             </Swiper>

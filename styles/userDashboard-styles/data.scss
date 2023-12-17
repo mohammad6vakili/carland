@@ -30,8 +30,10 @@
 
     .formGroup {
       @include flex(column, flex-start, flex-start);
+      width: 100%;
 
       .input {
+        width: 50%;
         height: 45px;
         border-radius: 4px;
 

@@ -20,35 +20,27 @@ const UserData = () => {
       <div className={s.user_data}>
         <div className={s.user_form}>
           <Form onSubmit={(e) => e.preventDefault()} className={s.form}>
-            <Row>
-              <Col md={12}>
-                <FormGroup className={s.formGroup}>
-                  <Label for="name">نام</Label>
-                  <InputGroup className={s.input}>
-                    <Input name="name" />
-                    <Button style={{ borderRight: "0" }}>
-                      <LiaEditSolid />
-                    </Button>
-                  </InputGroup>
-                  <FormFeedback for="name" tooltip>
-                    لطفا پر کنید
-                  </FormFeedback>
-                </FormGroup>
-              </Col>
+            <FormGroup className={s.formGroup}>
+              <Label for="name">نام</Label>
+              <InputGroup className={s.input}>
+                <Input name="name" />
+                <Button style={{ borderRight: "0" }}>
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+            </FormGroup>
 
-              <Col md={12}>
-                <FormGroup className={s.formGroup}>
-                  <Label for="family">نام خانوادگی</Label>
-                  <InputGroup className={s.input}>
-                    <Input name="family" />
-                    <Button style={{ borderRight: "0" }}>
-                      <LiaEditSolid />
-                    </Button>
-                  </InputGroup>
-                  <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-                </FormGroup>
-              </Col>
-            </Row>
+            <FormGroup className={s.formGroup}>
+              <Label for="family">نام خانوادگی</Label>
+              <InputGroup className={s.input}>
+                <Input name="family" />
+                <Button style={{ borderRight: "0" }}>
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+            </FormGroup>
 
             <Row>
               <Col md={6}>
@@ -77,6 +69,7 @@ const UserData = () => {
                 </FormGroup>
               </Col>
             </Row>
+            <br />
 
             <Row>
               <Col md={12}>

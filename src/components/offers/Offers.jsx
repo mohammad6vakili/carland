@@ -433,10 +433,10 @@ const offers = () => {
                 {jobFiltersSlected.categoryId ? (
                   <section className={s.categories}>
                     <div
-                      onClick={() => setCategoryOpen(!categoryOpen)}
+                      onClick={() => setFilterOpen(!filterOpen)}
                       className={s.title}
                     >
-                      {categoryOpen ? <DownOutlined /> : <UpOutlined />}
+                      {filterOpen ? <DownOutlined /> : <UpOutlined />}
                       فیلتر ها
                     </div>
                     <Collapse
