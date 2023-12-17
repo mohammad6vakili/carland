@@ -470,9 +470,9 @@ const offers = () => {
               </>
             ) : (
               <>
-                <OfferCardSkeleton width={"250px"} height={"250px"} />
-                <OfferCardSkeleton width={"250px"} height={"250px"} />
-                <OfferCardSkeleton width={"250px"} height={"250px"} />
+                <OfferCardSkeleton width={"90%"} height={"250px"} />
+                <OfferCardSkeleton width={"90%"} height={"250px"} />
+                <OfferCardSkeleton width={"90%"} height={"250px"} />
               </>
             )}
           </div>

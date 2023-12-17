@@ -186,9 +186,9 @@ const Main = () => {
     }
   }, [fanClubSwiper]);
 
-  useReportWebVitals((metric) => {
-    console.log(metric);
-  });
+  // useReportWebVitals((metric) => {
+  //   console.log(metric);
+  // });
 
   return (
     <>

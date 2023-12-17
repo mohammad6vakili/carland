@@ -108,29 +108,40 @@ const JobPage = () => {
                       </div>
 
                       <div className={s.contatcs}>
-                        <div
-                          onClick={() => handleCopy(jobData.phone)}
-                          className={s.call}
-                        >
-                          <a href={`tel:${jobData.phone}`}>
+                        <a href={`tel:${jobData.phone}`}>
+                          <div
+                            onClick={() => handleCopy(jobData.phone)}
+                            className={s.call}
+                          >
                             <Image
                               src={"/assets/jobs/call.svg"}
                               alt=""
                               width={30}
                               height={30}
                             />
-                          </a>
-                        </div>
-                        <div className={s.sms}>
-                          <a href={`sms:/*${jobData.phone}*/?body=/* سلام */`}>
+                          </div>
+                        </a>
+
+                        <a
+                          href={`sms:/*${jobData.phone}*/?body=/*${url}/${jobData.id}*/`}
+                        >
+                          <div
+                            onClick={() =>
+                              handleCopy(
+                                jobData?.phone,
+                                "شماره با موفقیت کپی شد"
+                              )
+                            }
+                            className={s.sms}
+                          >
                             <Image
                               src={"/assets/jobs/sms.svg"}
                               alt=""
                               width={30}
                               height={30}
                             />
-                          </a>
-                        </div>
+                          </div>
+                        </a>
                         <div className={s.location}>
                           <Image
                             src={"/assets/offers/location.png"}

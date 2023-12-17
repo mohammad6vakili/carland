@@ -175,9 +175,9 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           ))}
         </>
       );
-    } else {
+    } else if (!jobs || trades) {
       <>
-        <div style={{ margin: "0 auto", fontWeight: "bold" }}>
+        <div style={{ margin: "0 auto", fontWeight: "bold", width: "100%" }}>
           موردی یافت نشد!
         </div>
       </>;

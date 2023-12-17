@@ -52,10 +52,12 @@ export function convertTime(timeStr) {
   }
 }
 
-export const handleCopy = (value) => {
+export const handleCopy = (value, { toastText }) => {
   navigator.clipboard
     .writeText(value)
-    .then(() => toast.success("متن با موفقیت کپی شد"))
+    .then(() => {
+      toastText ? toast.success(toast) : toast.success("متن با موفقیت کپی شد");
+    })
     .catch((error) => toast.success("مشکلی در کپی متن بوجود امد"));
 };
 
