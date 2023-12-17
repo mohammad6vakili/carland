@@ -21,7 +21,7 @@ const SelectedPageLine = () => {
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#142D5D" />
-          <stop offset="1" stopColor="#142D5D" stopOpacity="0" />
+          <stop offset="1" stopColor="#142D5D" stop-opacity="0" />
         </linearGradient>
       </defs>
     </svg>
@@ -29,3 +29,34 @@ const SelectedPageLine = () => {
 };
 
 export default SelectedPageLine;
+
+export const LineIco = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1"
+      height="55"
+      viewBox="0 0 1 55"
+      fill="none"
+    >
+      <path
+        d="M0.5 1L0.500002 54"
+        stroke="url(#paint0_linear_1645_9467)"
+        stroke-linecap="round"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_1645_9467"
+          x1="0.5"
+          y1="54"
+          x2="0.5"
+          y2="1"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="white" />
+          <stop offset="1" stop-color="white" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};

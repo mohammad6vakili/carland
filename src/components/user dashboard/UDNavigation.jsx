@@ -179,7 +179,7 @@ const UDNavigation = () => {
           </Link>
 
           <Link
-            href={"//userDashboard/myTickets"}
+            href={"/userDashboard/myTickets"}
             className={handleSelectedRoute("myTickets") ? s.selected : s.route}
           >
             <div className={s.background}>
