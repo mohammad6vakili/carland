@@ -15,6 +15,7 @@ import { PiWalletFill } from "react-icons/pi";
 import { IoMdMegaphone } from "react-icons/io";
 import { TbBriefcaseFilled } from "react-icons/tb";
 import { HiChatAlt } from "react-icons/hi";
+import { ImExit } from "react-icons/im";
 import shoppingBag from "../../../public/assets/userDashboard/shopping-bag.svg";
 import transaction from "../../../public/assets/userDashboard/transaction.svg";
 import ticket from "../../../public/assets/userDashboard/ticket.svg";
@@ -203,6 +204,15 @@ const UDNavigation = () => {
             </div>
             <span>پشتیبانی</span>
           </Link>
+
+          <div className={s.signout}>
+            <Button className={s.btn}>
+              <div className={s.icon}>
+                <ImExit />
+              </div>
+              <span>خروج</span>
+            </Button>
+          </div>
         </div>
       </div>
     </>

@@ -8,10 +8,11 @@
 .userDashboard_navigation {
   @include flex(column, flex-start, center);
   width: 30%;
-  height: 100vh;
+  max-height: 1125px;
   overflow-y: scroll;
   position: relative;
   padding-top: 100px;
+  padding-bottom: 50px;
   a {
     text-decoration: none;
   }
@@ -120,6 +121,22 @@
         width: 100%;
         height: 100%;
         z-index: -1;
+      }
+    }
+
+    .signout {
+      @include flex(row, flex-start, center);
+      padding-right: 20px;
+      margin-top: 4rem;
+      :hover {
+        background: #f93423;
+        color: #fff !important;
+      }
+      .btn {
+        @include flex(row, flex-start, center);
+        gap: 20px;
+        width: 100%;
+        color: #f93423;
       }
     }
   }
