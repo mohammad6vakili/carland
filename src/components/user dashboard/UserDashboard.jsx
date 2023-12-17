@@ -15,9 +15,10 @@ import { useEffect, useRef, useState } from "react";
 import { Navigation } from "swiper/modules";
 import { Button } from "reactstrap";
 
-const UserDashboard = () => {
+const UserDashboard = ({ myAdds }) => {
   const { httpService } = useHttp();
   const ads = [{}, {}, {}, {}, {}];
+  console.log(myAdds);
 
   const nextAdRef = useRef();
   const prevAdRef = useRef();
@@ -31,16 +32,16 @@ const UserDashboard = () => {
     }
   }, [adsSwiper]);
 
-  useEffect(() => {
-    httpService
-      .get("myads")
-      .then((res) => {
-        res.status === 200 ? console.log(res.data) : null;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   httpService
+  //     .get("myads")
+  //     .then((res) => {
+  //       res.status === 200 ? console.log(res.data) : null;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <>
