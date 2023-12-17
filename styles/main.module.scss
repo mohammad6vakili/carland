@@ -1,7 +1,12 @@
 @import "./offers.scss", "./trade.scss", "./jobs.scss", "./magazine.scss",
   "./variables.scss", "./club.scss";
 @import "./userDashboard-styles/navigation.scss",
-  "./userDashboard-styles/dashboard.scss";
+  "./userDashboard-styles/dashboard.scss", "./userDashboard-styles/data.scss",
+  "./userDashboard-styles/myAdds.scss", "./userDashboard-styles/myComments.scss",
+  "./userDashboard-styles/myJobs.scss", "./userDashboard-styles/myTickets.scss",
+  "./userDashboard-styles/orders.scss", "./userDashboard-styles/support.scss",
+  "./userDashboard-styles/transaction.scss",
+  "./userDashboard-styles/wallet.scss";
 
 $dark-theme: #040516;
 $light-theme: #fff;
