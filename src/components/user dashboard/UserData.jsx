@@ -14,8 +14,11 @@ import Image from "next/image";
 import profilePlaceholder from "../../../public/assets/userDashboard/profile-placeholder.png";
 import { LiaEditSolid } from "react-icons/lia";
 import { MdOutlineEditLocationAlt } from "react-icons/md";
+import { useFormik } from "formik";
 
 const UserData = () => {
+  const formik = useFormik();
+
   return (
     <>
       <div className={s.user_data}>
