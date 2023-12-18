@@ -13,6 +13,7 @@ import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import profilePlaceholder from "../../../public/assets/userDashboard/profile-placeholder.png";
 import { LiaEditSolid } from "react-icons/lia";
+import { MdOutlineEditLocationAlt } from "react-icons/md";
 
 const UserData = () => {
   return (
@@ -42,51 +43,38 @@ const UserData = () => {
               <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
             </FormGroup>
 
-            <Row>
-              <Col md={6}>
-                <FormGroup className={s.formGroup}>
-                  <Label for="id-card">کد ملی</Label>
-                  <InputGroup className={s.input}>
-                    <Input name="id-card" />
-                    <Button style={{ borderRight: "0" }}>
-                      <LiaEditSolid />
-                    </Button>
-                  </InputGroup>
-                  <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-                </FormGroup>
-              </Col>
+            <FormGroup className={s.formGroup}>
+              <Label for="id-card">کد ملی</Label>
+              <InputGroup className={s.input}>
+                <Input name="id-card" />
+                <Button style={{ borderRight: "0" }}>
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+            </FormGroup>
 
-              <Col md={6}>
-                <FormGroup className={s.formGroup}>
-                  <Label for="email">ایمیل</Label>
-                  <InputGroup className={s.input}>
-                    <Input name="email" />
-                    <Button style={{ borderRight: "0" }}>
-                      <LiaEditSolid />
-                    </Button>
-                  </InputGroup>
-                  <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-                </FormGroup>
-              </Col>
-            </Row>
-            <br />
+            <FormGroup className={s.formGroup}>
+              <Label for="email">ایمیل</Label>
+              <InputGroup className={s.input}>
+                <Input name="email" />
+                <Button style={{ borderRight: "0" }}>
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+            </FormGroup>
 
-            <Row>
-              <Col md={12}>
-                <FormGroup className={s.formGroup}>
-                  <Label for="address">آدرس</Label>
-                  <InputGroup className={s.input}>
-                    <Input className={s.address} name="address" />
-                    <Button style={{ borderRight: "0" }}>
-                      <LiaEditSolid />
-                    </Button>
-                  </InputGroup>
-                  <FormFeedback tooltip>
-                    لطفا ادرس خود را وارد کنید
-                  </FormFeedback>
-                </FormGroup>
-              </Col>
-            </Row>
+            <FormGroup className={s.formGroupAddress}>
+              <Label for="address">آدرس</Label>
+              <InputGroup className={s.input}>
+                <Input className={s.address} name="address" />
+                <Button style={{ borderRight: "0" }}>
+                  <MdOutlineEditLocationAlt />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا ادرس خود را وارد کنید</FormFeedback>
+            </FormGroup>
 
             <FormGroup className={s.formGroup}>
               <Label for="date">تاریخ تولد</Label>
@@ -142,11 +130,16 @@ const UserData = () => {
                 </div>
               </div>
 
-              <div className={s.button}>
-                <Input
-                  onChange={(e) => console.log(e.target.files[0])}
-                  type="file"
-                />
+              <div className={s.input_place}>
+                <div className={s.input}>
+                  <label
+                    onChange={(e) => console.log(e.target.files[0])}
+                    htmlFor="file"
+                  >
+                    <Input type="file" id="file" hidden />
+                    <span>افزودن عکس</span>
+                  </label>
+                </div>
               </div>
             </div>
 
