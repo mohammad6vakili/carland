@@ -12,7 +12,6 @@ const nextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
   },
-  reactStrictMode: false,
   // transpilePackages: ["react-leaflet"],
 };
 

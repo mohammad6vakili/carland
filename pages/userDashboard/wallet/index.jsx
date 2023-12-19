@@ -2,7 +2,7 @@ import Footer from "@/src/components/header-footer/Footer";
 import Header from "@/src/components/header-footer/Header";
 import UDNavigation from "@/src/components/user dashboard/UDNavigation";
 import styles from "../../../styles/main.module.scss";
-import UserDashboard from "@/src/components/user dashboard/UserDashboard";
+import Wallet from "@/src/components/user dashboard/Wallet";
 
 const page = () => {
   return (
@@ -10,7 +10,7 @@ const page = () => {
       <Header />
       <div className={styles.userDashboard_container}>
         <UDNavigation />
-        <UserDashboard />
+        <Wallet />
       </div>
       <Footer />
     </>

@@ -5,18 +5,19 @@ import styles from "../../../styles/main.module.scss";
 import UserDashboard from "@/src/components/user dashboard/UserDashboard";
 import UserData from "@/src/components/user dashboard/UserData";
 import Head from "next/head";
+import React from "react";
 
 const page = () => {
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>داشبورد</title>
-      </Head>
+      </Head> */}
       <Header />
-      <div className={styles.userDashboard_container}>
+      <section className={styles.userDashboard_container}>
         <UDNavigation />
         <UserData />
-      </div>
+      </section>
       <Footer />
     </>
   );

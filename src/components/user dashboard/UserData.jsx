@@ -15,20 +15,62 @@ import profilePlaceholder from "../../../public/assets/userDashboard/profile-pla
 import { LiaEditSolid } from "react-icons/lia";
 import { MdOutlineEditLocationAlt } from "react-icons/md";
 import { useFormik } from "formik";
+import * as yup from "yup";
+import { useEffect, useState } from "react";
 
 const UserData = () => {
-  const formik = useFormik();
+  const validationSchema = yup.object({
+    name: "",
+    family: "",
+    idCard: "",
+    email: "",
+    address: "",
+    birthDate: "",
+    password: "",
+    phoneNumber: "",
+    telephone: "",
+    profile: "",
+  });
 
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      family: "",
+      idCard: "",
+      email: "",
+      address: "",
+      birthDate: "",
+      password: "",
+      phoneNumber: "",
+      telephone: "",
+      profile: "",
+    },
+
+    validationSchema,
+
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+  // const [isClient, setIsClient] = useState(false);
+
+  // useEffect(() => {
+  //   setIsClient(true);
+  // }, []);
   return (
     <>
       <div className={s.user_data}>
         <div className={s.user_form}>
-          <Form onSubmit={(e) => e.preventDefault()} className={s.form}>
+          <Form onSubmit={formik.handleSubmit} className={s.form}>
             <FormGroup className={s.formGroup}>
               <Label for="name">نام</Label>
               <InputGroup className={s.input}>
-                <Input name="name" />
-                <Button style={{ borderRight: "0" }}>
+                <Input
+                  name="name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
@@ -38,8 +80,12 @@ const UserData = () => {
             <FormGroup className={s.formGroup}>
               <Label for="family">نام خانوادگی</Label>
               <InputGroup className={s.input}>
-                <Input name="family" />
-                <Button style={{ borderRight: "0" }}>
+                <Input
+                  name="family"
+                  value={formik.values.family}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
@@ -49,19 +95,27 @@ const UserData = () => {
             <FormGroup className={s.formGroup}>
               <Label for="id-card">کد ملی</Label>
               <InputGroup className={s.input}>
-                <Input name="id-card" />
-                <Button style={{ borderRight: "0" }}>
+                <Input
+                  name="idCard"
+                  value={formik.values.idCard}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+              <FormFeedback>لطفا پر کنید</FormFeedback>
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
               <Label for="email">ایمیل</Label>
               <InputGroup className={s.input}>
-                <Input name="email" />
-                <Button style={{ borderRight: "0" }}>
+                <Input
+                  name="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
@@ -71,8 +125,13 @@ const UserData = () => {
             <FormGroup className={s.formGroupAddress}>
               <Label for="address">آدرس</Label>
               <InputGroup className={s.input}>
-                <Input className={s.address} name="address" />
-                <Button style={{ borderRight: "0" }}>
+                <Input
+                  className={s.address}
+                  name="address"
+                  value={formik.values.address}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <MdOutlineEditLocationAlt />
                 </Button>
               </InputGroup>
@@ -82,8 +141,13 @@ const UserData = () => {
             <FormGroup className={s.formGroup}>
               <Label for="date">تاریخ تولد</Label>
               <InputGroup className={s.input}>
-                <Input name="date" type="date" />
-                <Button style={{ borderRight: "0" }}>
+                <Input
+                  name="birthDate"
+                  type="date"
+                  value={formik.values.birthDate}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
@@ -93,8 +157,13 @@ const UserData = () => {
             <FormGroup className={s.formGroup}>
               <Label for="password">رمز عبور</Label>
               <InputGroup className={s.input}>
-                <Input name="name" type="password" />
-                <Button style={{ borderRight: "0" }}>
+                <Input
+                  name="password"
+                  type="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
@@ -102,10 +171,14 @@ const UserData = () => {
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
-              <Label for="phone">شماره همراه</Label>
+              <Label for="phoneNumber">شماره همراه</Label>
               <InputGroup className={s.input}>
-                <Input name="name" />
-                <Button>
+                <Input
+                  name="phoneNumber"
+                  value={formik.values.phoneNumber}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
@@ -115,8 +188,12 @@ const UserData = () => {
             <FormGroup className={s.formGroup}>
               <Label for="telephone">تلفن</Label>
               <InputGroup className={s.input}>
-                <Input name="telephone" />
-                <Button style={{ borderRight: "0" }}>
+                <Input
+                  name="telephone"
+                  value={formik.values.telephone}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
@@ -139,7 +216,13 @@ const UserData = () => {
                     onChange={(e) => console.log(e.target.files[0])}
                     htmlFor="file"
                   >
-                    <Input type="file" id="file" hidden />
+                    <Input
+                      type="file"
+                      id="file"
+                      value={formik.values.profile}
+                      onChange={formik.handleChange}
+                      hidden
+                    />
                     <span>افزودن عکس</span>
                   </label>
                 </div>
