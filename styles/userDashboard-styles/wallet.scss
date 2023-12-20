@@ -4,3 +4,16 @@
   justify-content: $j;
   align-items: $a;
 }
+
+.wallet_page {
+  @include flex(column, flex-start, center);
+  gap: 25px;
+  width: 100%;
+  padding: 100px 45px;
+  min-height: 100vh;
+  background: #f5f5f5;
+  overflow-y: scroll;
+  p {
+    margin: 0;
+  }
+}
