@@ -2,6 +2,7 @@ import { PiWalletFill } from "react-icons/pi";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import logo from "../../../public/assets/carland-logo.svg";
+import { Button, Input } from "reactstrap";
 
 const Wallet = () => {
   return (
@@ -42,6 +43,35 @@ const Wallet = () => {
                 <span>کارلند</span>
               </div>
             </section>
+          </div>
+
+          <div className={s.input}>
+            <section className={s.label}>مبلغ شارژ حساب</section>
+            <section className={s.input}>
+              <Input />
+            </section>
+          </div>
+
+          <div className={s.current_wallet}>
+            <p className={s.label}>وضعیت حساب شما</p>
+
+            <section className={s.box}>
+              <span className={s.title}>موجودی کیف پول</span>
+
+              <div className={s.value}>
+                <span>۱۰۰,۰۰۰</span>
+                <span>تومان</span>
+              </div>
+            </section>
+          </div>
+
+          <div className={s.choose_payway}>
+            <section className={s.box}>درگاه زرین پال</section>
+            <section className={s.box_selected}>درگاه زرین پال</section>
+          </div>
+
+          <div className={s.submit}>
+            <Button>شارژ کیف پول</Button>
           </div>
         </section>
       </div>
