@@ -7,7 +7,16 @@ import LocationIcon from "@/src/assets/icons/location_icon";
 import RateIcon from "@/src/assets/icons/rate_icon";
 import { url } from "@/src/axiosConfig/useHttp";
 
-const AdsCard = ({ image, name, details, location, time, rate, id }) => {
+const AdsCard = ({
+  image,
+  name,
+  details,
+  location,
+  time,
+  rate,
+  id,
+  myAdds,
+}) => {
   const router = useRouter();
 
   if (image !== undefined) {
@@ -78,17 +87,25 @@ const AdsCard = ({ image, name, details, location, time, rate, id }) => {
             </div>
           </div>
 
-          <div className={styles.link}>
-            <Button
-              onClick={() => router.push(`/trades/${id}`)}
-              color="main-primary"
-            >
-              <span>مشاهده</span>
-              <div>
-                <ArrowLeftOutlined />
-              </div>
-            </Button>
-          </div>
+          {myAdds ? (
+            <div className={styles.update_delete}>
+              <Button color="main-primary">ویرایش</Button>
+
+              <Button>حذف</Button>
+            </div>
+          ) : (
+            <div className={styles.link}>
+              <Button
+                onClick={() => router.push(`/trades/${id}`)}
+                color="main-primary"
+              >
+                <span>مشاهده</span>
+                <div>
+                  <ArrowLeftOutlined />
+                </div>
+              </Button>
+            </div>
+          )}
         </div>
       </>
     );

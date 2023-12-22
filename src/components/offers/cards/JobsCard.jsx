@@ -16,6 +16,7 @@ const JobsCard = ({
   timeFrom,
   timeTo,
   id,
+  myJobs,
 }) => {
   const router = useRouter();
 
@@ -63,14 +64,22 @@ const JobsCard = ({
         </div>
       </div>
 
-      <div className={s.button}>
-        <Button onClick={() => router.push(`/jobs/${id}`)}>
-          مشاهده{" "}
-          <div>
-            <LeftOutlined />
-          </div>
-        </Button>
-      </div>
+      {myJobs ? (
+        <div className={s.button}>
+          <Button>ویرایش</Button>
+
+          <Button>حذف</Button>
+        </div>
+      ) : (
+        <div className={s.button}>
+          <Button onClick={() => router.push(`/jobs/${id}`)}>
+            مشاهده{" "}
+            <div>
+              <LeftOutlined />
+            </div>
+          </Button>
+        </div>
+      )}
     </section>
   );
 };
