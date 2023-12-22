@@ -3,8 +3,17 @@ import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import logo from "../../../public/assets/carland-logo.svg";
 import { Button, Input } from "reactstrap";
+import { useState } from "react";
 
 const Wallet = () => {
+  const [selectedPayWay, setSelectedPayWay] = useState();
+
+  const payways = [
+    { name: "زرین پال" },
+    { name: "بانک ملت" },
+    { name: "بانک سامان" },
+  ];
+
   return (
     <>
       <div className={s.wallet_page}>
@@ -48,7 +57,7 @@ const Wallet = () => {
           <div className={s.input}>
             <section className={s.label}>مبلغ شارژ حساب</section>
             <section className={s.input}>
-              <Input />
+              <Input placeholder="مبلغ شارژ ( تومان )" />
             </section>
           </div>
 
@@ -66,8 +75,21 @@ const Wallet = () => {
           </div>
 
           <div className={s.choose_payway}>
-            <section className={s.box}>درگاه زرین پال</section>
-            <section className={s.box_selected}>درگاه زرین پال</section>
+            <section className={s.title}>انتخاب درگاه پرداخت</section>
+
+            <section className={s.options}>
+              {payways.map((payway, index) => (
+                <div
+                  onClick={() => setSelectedPayWay(payway.name)}
+                  className={
+                    selectedPayWay === payway.name ? s.selected_box : s.box
+                  }
+                  key={payway.name}
+                >
+                  {payway.name}
+                </div>
+              ))}
+            </section>
           </div>
 
           <div className={s.submit}>
