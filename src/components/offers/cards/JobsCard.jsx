@@ -65,10 +65,10 @@ const JobsCard = ({
       </div>
 
       {myJobs ? (
-        <div className={s.button}>
-          <Button>ویرایش</Button>
+        <div className={s.update_delete}>
+          <Button className={s.update}>ویرایش</Button>
 
-          <Button>حذف</Button>
+          <Button className={s.delete}>حذف</Button>
         </div>
       ) : (
         <div className={s.button}>

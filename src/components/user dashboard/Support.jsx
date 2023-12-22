@@ -1,6 +1,6 @@
 import s from "../../../styles/main.module.scss";
 
-const UserData = () => {
+const Support = () => {
   return (
     <>
       <div className={s.support}></div>
@@ -8,4 +8,4 @@ const UserData = () => {
   );
 };
 
-export default UserData;
+export default Support;
