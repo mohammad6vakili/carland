@@ -113,7 +113,7 @@ const UDNavigation = () => {
 
           <Link
             href={"/userDashboard/myAdds"}
-            className={handleSelectedRoute("myAds") ? s.selected : s.route}
+            className={handleSelectedRoute("myAdds") ? s.selected : s.route}
           >
             <div className={s.background}>
               <Image src={selectedBackground} alt="" />

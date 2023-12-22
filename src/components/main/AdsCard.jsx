@@ -89,9 +89,9 @@ const AdsCard = ({
 
           {myAdds ? (
             <div className={styles.update_delete}>
-              <Button color="main-primary">ویرایش</Button>
+              <Button className={styles.update}>ویرایش</Button>
 
-              <Button>حذف</Button>
+              <Button className={styles.delete}>حذف</Button>
             </div>
           ) : (
             <div className={styles.link}>
