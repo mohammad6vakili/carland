@@ -10,9 +10,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import JobsCard from "../offers/cards/JobsCard";
 import { Button } from "reactstrap";
+import { useEffect, useRef, useState } from "react";
 
 const Jobs = () => {
   const MyJobs = [{}, {}, {}, {}, {}, {}];
+
+  const [adsSwiper, setAdsSwiper] = useState();
+  const prevAdRef = useRef();
+  const nextAdRef = useRef();
+  useEffect(() => {
+    if (adsSwiper) {
+      adsSwiper.params.navigation.prevEl = prevAdRef.current;
+      adsSwiper.params.navigation.nextEl = nextAdRef.current;
+      adsSwiper.navigation.init();
+      adsSwiper.navigation.update();
+    }
+  }, [adsSwiper]);
 
   return (
     <>
@@ -22,10 +35,10 @@ const Jobs = () => {
             <span>مشاغل من</span>
 
             <section className={s.navigation}>
-              <div className={s.prev}>
+              <div ref={prevAdRef} className={s.prev}>
                 <RightOutlined />
               </div>
-              <div className={s.next}>
+              <div ref={nextAdRef} className={s.next}>
                 <LeftOutlined />
               </div>
             </section>
@@ -36,6 +49,11 @@ const Jobs = () => {
               spaceBetween={35}
               slidesPerView={"auto"}
               freeMode
+              navigation={{
+                prevEl: prevAdRef?.current,
+                nextEl: nextAdRef?.current,
+              }}
+              onSwiper={setAdsSwiper}
               modules={[Navigation, FreeMode]}
             >
               {MyJobs.map((card, index) => (

@@ -10,9 +10,22 @@ import { FreeMode, Navigation } from "swiper/modules";
 import { Button } from "reactstrap";
 import Image from "next/image";
 import addsBanner from "../../../public/assets/userDashboard/add-banner.png";
+import { useEffect, useRef, useState } from "react";
 
 const UserData = () => {
   const myAdds = [{}, {}, {}, {}, {}, {}];
+
+  const [adsSwiper, setAdsSwiper] = useState();
+  const prevAdRef = useRef();
+  const nextAdRef = useRef();
+  useEffect(() => {
+    if (adsSwiper) {
+      adsSwiper.params.navigation.prevEl = prevAdRef.current;
+      adsSwiper.params.navigation.nextEl = nextAdRef.current;
+      adsSwiper.navigation.init();
+      adsSwiper.navigation.update();
+    }
+  }, [adsSwiper]);
 
   return (
     <>
@@ -22,10 +35,10 @@ const UserData = () => {
             <span>آگهی‌های من</span>
 
             <section className={s.navigation}>
-              <div className={s.prev}>
+              <div ref={prevAdRef} className={s.prev}>
                 <RightOutlined />
               </div>
-              <div className={s.next}>
+              <div ref={nextAdRef} className={s.next}>
                 <LeftOutlined />
               </div>
             </section>
@@ -36,6 +49,11 @@ const UserData = () => {
               spaceBetween={35}
               slidesPerView={"auto"}
               freeMode
+              navigation={{
+                prevEl: prevAdRef?.current,
+                nextEl: nextAdRef?.current,
+              }}
+              onSwiper={setAdsSwiper}
               modules={[Navigation, FreeMode]}
             >
               {myAdds.map((card, index) => (
