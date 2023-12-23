@@ -1,0 +1,12 @@
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+
+.login_email {
+  @include flex(column, center, center);
+  width: 100%;
+  height: 100vh;
+}
