@@ -1,4 +1,4 @@
-const { default: Email } = require("@/src/components/login/Email");
+import Email from "@/src/components/login/Email";
 
 const page = () => {
   return (
