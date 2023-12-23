@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import useHttp from "@/src/axiosConfig/useHttp";
 import { useEffect, useState } from "react";
-import { getLocal, setLocal } from "@/src/hooks/functions";
+import { getLocal, removeLocal, setLocal } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -17,11 +17,16 @@ const Email = ({ verify }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    getLocal("number") === "null" ? router.push("/login") : null;
+  }, []);
+
   const schema = Yup.object().shape({
     number: Yup.number("لطفا شماره درون فیلد وارد کنید").required(
       "لطفا شماره خود را وارد کنید"
     ),
   });
+
   const handleSendCode = (values) => {
     setLoading(true);
     const formData = new FormData();
@@ -52,13 +57,20 @@ const Email = ({ verify }) => {
       .post("verify", formData)
       .then((res) => {
         setLoading(false);
-        res.status === 200 && res.data.success
-          ? (router.push("/login/verify"), toast.success("خوش آمدید!"))
+        res.status === 200
+          ? (toast.success("خوش آمدید!"),
+            removeLocal("number"),
+            setLocal("token", res.data.token),
+            router.push("/"))
           : toast.error("کد مطابقت ندارد");
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("کد مطابقت ندارد");
       });
+  };
+
+  const handleBackBtn = () => {
+    router.back();
   };
 
   const { httpService } = useHttp();
@@ -173,7 +185,7 @@ const Email = ({ verify }) => {
         </Form>
 
         <div className={styles.back}>
-          <Button>
+          <Button onClick={() => handleBackBtn()}>
             <span>بازگشت</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
