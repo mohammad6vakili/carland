@@ -24,8 +24,34 @@
     font-weight: 700;
   }
 
-  .table {
+  .tickets_table {
     width: 100%;
+    .table {
+      width: 100% !important;
+
+      > :not(caption) > * > * {
+        text-align: center !important;
+      }
+      thead {
+        height: 80px;
+        tr {
+          border-radius: 11px 11px 0 0 !important;
+          th {
+            background: #4a80e8;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          height: 90px;
+          margin-top: auto;
+        }
+      }
+    }
   }
 
   .send_ticket {

@@ -44,8 +44,8 @@ const UserComments = () => {
             <span className={s.see_all}>لیست نظرات</span>
           </div>
 
-          <div className={s.table}>
-            <Table>
+          <div className={s.comments_table}>
+            <Table className={s.table}>
               <thead>
                 <tr>
                   <th>تصویر</th>

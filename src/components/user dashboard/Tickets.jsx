@@ -10,10 +10,12 @@ const UserTickets = () => {
         </section>
 
         <section className={s.tickets_table}>
-          <Table>
-            <thead>
+          <Table className={s.table}>
+            <thead className={s.table_head}>
               <tr>
-                <th>نوع مشکل</th>
+                <th>
+                  <span>نوع مشکل</span>
+                </th>
                 <th>تاریخ ثبت</th>
                 <th>وضعیت</th>
                 <th>جزئیات</th>

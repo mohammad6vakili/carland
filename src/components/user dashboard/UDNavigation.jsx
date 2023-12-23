@@ -1,6 +1,6 @@
 import Image from "next/image";
 import s from "../../../styles/main.module.scss";
-import { Button } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { usePathname } from "next/navigation";
 //images
 import circle1 from "../../../public/assets/userDashboard/circle-1.png";
@@ -21,9 +21,11 @@ import transaction from "../../../public/assets/userDashboard/transaction.svg";
 import ticket from "../../../public/assets/userDashboard/ticket.svg";
 import support from "../../../public/assets/userDashboard/support.svg";
 import Link from "next/link";
+import { useState } from "react";
 
 const UDNavigation = () => {
   const pathname = usePathname();
+  const [signoutModal, setSignoutModal] = useState(false);
 
   const handleSelectedRoute = (route) => {
     const currentPage = pathname.replace("/userDashboard", "").replace("/", "");
@@ -34,6 +36,8 @@ const UDNavigation = () => {
       return false;
     }
   };
+
+  const toggle = () => setSignoutModal(!signoutModal);
 
   return (
     <>
@@ -206,7 +210,10 @@ const UDNavigation = () => {
           </Link>
 
           <div className={s.signout}>
-            <Button className={s.btn}>
+            <Button
+              onClick={() => setSignoutModal(!signoutModal)}
+              className={s.btn}
+            >
               <div className={s.icon}>
                 <ImExit />
               </div>
@@ -215,6 +222,14 @@ const UDNavigation = () => {
           </div>
         </div>
       </div>
+
+      <Modal centered toggle={toggle} isOpen={signoutModal}>
+        <ModalBody>آیا می خواهید خارج شوید؟</ModalBody>
+        <ModalFooter>
+          <Button color="#4A80E812">بله</Button>
+          <Button onClick={() => setSignoutModal(false)}>خیر</Button>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };
