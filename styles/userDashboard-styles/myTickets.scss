@@ -4,3 +4,71 @@
   justify-content: $j;
   align-items: $a;
 }
+
+.user_tickets {
+  @include flex(column, flex-start, center);
+  gap: 25px;
+  width: 100%;
+  padding: 100px 45px;
+  min-height: 1225px;
+  background: #f5f5f5;
+  overflow-y: scroll;
+  p {
+    margin: 0;
+  }
+
+  .title {
+    @include flex(row, flex-start, center);
+    width: 100%;
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+
+  .table {
+    width: 100%;
+  }
+
+  .send_ticket {
+    @include flex(column, flex-start, center);
+    gap: 40px;
+    width: 100%;
+    padding: 30px;
+    padding-bottom: 65px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+    position: relative;
+
+    input {
+      border-radius: 10px;
+      border: 1px solid #4a80e8;
+      background: rgba(74, 128, 232, 0.07);
+      padding: 20px;
+    }
+
+    .title {
+      @include flex(row, flex-start, center);
+      gap: 10px;
+      font-size: 1.1em;
+    }
+
+    .data_input {
+      @include flex(row, space-between, center);
+      gap: 25px;
+      width: 100%;
+    }
+    .title_input,
+    .details_input {
+      width: 100%;
+    }
+
+    .submit {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      border-radius: 10px;
+      background: #4a80e8;
+    }
+  }
+}
