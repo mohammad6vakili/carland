@@ -4,9 +4,8 @@ import Footer from "@/src/components/header-footer/Footer";
 import Main from "@/src/components/main/Main";
 import { baseUrl } from "@/src/axiosConfig/useHttp";
 import { getLocal } from "@/src/hooks/functions";
-import toast from "react-hot-toast";
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps() {
   return fetch(`${baseUrl}/user`, {
     headers: {
       Authorization: getLocal("token"),
@@ -30,6 +29,9 @@ export async function getServerSideProps(ctx) {
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>کارلند</title>
+      </Head>
       <Header />
       <Main />
       <Footer />

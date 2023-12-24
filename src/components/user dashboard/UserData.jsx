@@ -27,7 +27,7 @@ const UserData = () => {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("لطفا نام خود را وارد کنید"),
-    family: "",
+    gender: "",
     idCard: "",
     email: "",
     address: "",
@@ -41,9 +41,10 @@ const UserData = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      family: "",
-      idCard: "",
+      gender: "",
+      age: "",
       email: "",
+      idCard: "",
       address: "",
       birthDate: "",
       password: "",
@@ -58,9 +59,9 @@ const UserData = () => {
       setLoading(true);
       const formData = new FormData();
       formData.append("name", values.name);
-      formData.append("gender", values.family);
-      formData.append("age", values.name);
-      formData.append("city", values.name);
+      formData.append("Gender", values.gender);
+      formData.append("age", values.age);
+      formData.append("city", values.address);
 
       httpService
         .post("user", formData)
@@ -98,11 +99,11 @@ const UserData = () => {
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
-              <Label for="family">نام خانوادگی</Label>
+              <Label for="gender">جنسیت</Label>
               <InputGroup className={s.input}>
                 <Input
-                  name="family"
-                  value={formik.values.family}
+                  name="gender"
+                  value={formik.values.gender}
                   onChange={formik.handleChange}
                 />
                 <Button type="button">
@@ -111,6 +112,37 @@ const UserData = () => {
               </InputGroup>
               <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
             </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="email">سن</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="age"
+                  type="number"
+                  value={formik.values.age}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+            </FormGroup>
+
+            {/* <FormGroup className={s.formGroup}>
+              <Label for="email">سن</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+            </FormGroup> */}
 
             <FormGroup className={s.formGroup}>
               <Label for="id-card">کد ملی</Label>
@@ -125,21 +157,6 @@ const UserData = () => {
                 </Button>
               </InputGroup>
               <FormFeedback>لطفا پر کنید</FormFeedback>
-            </FormGroup>
-
-            <FormGroup className={s.formGroup}>
-              <Label for="email">ایمیل</Label>
-              <InputGroup className={s.input}>
-                <Input
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                />
-                <Button type="button">
-                  <LiaEditSolid />
-                </Button>
-              </InputGroup>
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
             </FormGroup>
 
             <FormGroup className={s.formGroupAddress}>
