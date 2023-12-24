@@ -24,9 +24,7 @@ export async function getServerSideProps(ctx) {
         };
       }
     })
-    .catch((err) => {
-      return toast.error("error");
-    });
+    .catch((err) => {});
 }
 
 export default function Home() {
