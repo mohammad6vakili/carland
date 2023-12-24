@@ -12,7 +12,8 @@ export const toPersianString = (str) => {
       .replace(/7/g, "۷")
       .replace(/8/g, "۸")
       .replace(/9/g, "۹")
-      .replace(/0/g, "۰");
+      .replace(/0/g, "۰")
+      .replace(/:/g, ":");
   } else {
     return str
       ?.toString()

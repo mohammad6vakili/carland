@@ -1,12 +1,11 @@
 import Email from "./Email";
 import styles from "./login.module.scss";
+import { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
 
 const VerifyCode = () => {
   return (
     <>
-      <section className={styles.login_page}>
-        <Email verify={true} />
-      </section>
+      <Email verify={true} />
     </>
   );
 };

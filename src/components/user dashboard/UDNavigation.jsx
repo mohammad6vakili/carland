@@ -1,7 +1,7 @@
 import Image from "next/image";
 import s from "../../../styles/main.module.scss";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 //images
 import circle1 from "../../../public/assets/userDashboard/circle-1.png";
 import circle2 from "../../../public/assets/userDashboard/circle-2.png";
@@ -22,9 +22,12 @@ import ticket from "../../../public/assets/userDashboard/ticket.svg";
 import support from "../../../public/assets/userDashboard/support.svg";
 import Link from "next/link";
 import { useState } from "react";
+import { getLocal, removeLocal } from "@/src/hooks/functions";
+import toast from "react-hot-toast";
 
 const UDNavigation = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [signoutModal, setSignoutModal] = useState(false);
 
   const handleSelectedRoute = (route) => {
@@ -38,6 +41,12 @@ const UDNavigation = () => {
   };
 
   const toggle = () => setSignoutModal(!signoutModal);
+
+  const handleLogout = () => {
+    removeLocal("token");
+    router.push("/login");
+    toast.success("با موفقیت از خارج شدید");
+  };
 
   return (
     <>
@@ -226,7 +235,9 @@ const UDNavigation = () => {
       <Modal centered toggle={toggle} isOpen={signoutModal}>
         <ModalBody>آیا می خواهید خارج شوید؟</ModalBody>
         <ModalFooter>
-          <Button color="#4A80E812">بله</Button>
+          <Button onClick={() => handleLogout()} color="#4A80E812">
+            بله
+          </Button>
           <Button onClick={() => setSignoutModal(false)}>خیر</Button>
         </ModalFooter>
       </Modal>

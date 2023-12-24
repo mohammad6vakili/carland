@@ -9,12 +9,19 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import useHttp from "@/src/axiosConfig/useHttp";
 import { useEffect, useState } from "react";
-import { getLocal, removeLocal, setLocal } from "@/src/hooks/functions";
+import {
+  getLocal,
+  removeLocal,
+  setLocal,
+  toPersianString,
+} from "@/src/hooks/functions";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const Email = ({ verify }) => {
   const [loading, setLoading] = useState(false);
+  const [resendCode, setResendCode] = useState(false);
+  const [time, setTime] = useState(60);
   const router = useRouter();
 
   useEffect(() => {
@@ -23,7 +30,7 @@ const Email = ({ verify }) => {
 
   const schema = Yup.object().shape({
     number: Yup.number("لطفا شماره درون فیلد وارد کنید").required(
-      "لطفا شماره خود را وارد کنید"
+      "لطفا این فیلد را پر کنید"
     ),
   });
 
@@ -36,6 +43,27 @@ const Email = ({ verify }) => {
       .post("login", formData)
       .then((res) => {
         setLoading(false);
+        res.status === 200 && res.data.success
+          ? (router.push("/login/verify"),
+            toast.success("کد به شماره شما ارسال شد"))
+          : toast.error("مشکلی در ارسال کد پیش امد");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleResendCode = () => {
+    const number = getLocal("number");
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("phone", number);
+    setLocal("number", number);
+    httpService
+      .post("login", formData)
+      .then((res) => {
+        setLoading(false);
+        setTime(60);
         res.status === 200 && res.data.success
           ? (router.push("/login/verify"),
             toast.success("کد به شماره شما ارسال شد"))
@@ -61,7 +89,7 @@ const Email = ({ verify }) => {
           ? (toast.success("خوش آمدید!"),
             removeLocal("number"),
             setLocal("token", res.data.token),
-            router.push("/"))
+            router.push("/userDashboard/userData"))
           : toast.error("کد مطابقت ندارد");
       })
       .catch((err) => {
@@ -86,6 +114,28 @@ const Email = ({ verify }) => {
       verify ? handleVerify(values) : handleSendCode(values);
     },
   });
+
+  // counts to zero for resend code
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (time > 0) {
+        setTime((prevTime) => prevTime - 1);
+      } else {
+        setResendCode(true);
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [time]);
+
+  const formatTime = (remainingSeconds) => {
+    const minutes = Math.floor(remainingSeconds / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = (remainingSeconds % 60).toString().padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
 
   return (
     <>
@@ -125,10 +175,17 @@ const Email = ({ verify }) => {
 
                 <section className={styles.resend_code}>
                   <div className={styles.timer}>
-                    ۰۰:۳۰ <FaClock />
+                    {toPersianString(formatTime(time))}
+                    <FaClock />
                   </div>
 
-                  <div className={styles.resend}>ارسال مجدد</div>
+                  <div
+                    style={!resendCode ? { opacity: "0.5" } : { opacity: "1" }}
+                    onClick={() => (resendCode ? handleResendCode() : null)}
+                    className={styles.resend}
+                  >
+                    ارسال مجدد
+                  </div>
                 </section>
               </div>
             ) : (
