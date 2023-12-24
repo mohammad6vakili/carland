@@ -207,15 +207,17 @@ const Header = () => {
                 </Button>
               </Link>
             ) : (
-              <Button className={styles.login} color="#142D5D">
-                ثبت نام / ورود <div className={styles.line}></div>{" "}
-                <Image
-                  src={"/assets/user-icon.svg"}
-                  alt="user"
-                  width={24}
-                  height={24}
-                />
-              </Button>
+              <Link href={"/login"}>
+                <Button className={styles.login} color="#142D5D">
+                  ثبت نام / ورود <div className={styles.line}></div>{" "}
+                  <Image
+                    src={"/assets/user-icon.svg"}
+                    alt="user"
+                    width={24}
+                    height={24}
+                  />
+                </Button>
+              </Link>
             )}
           </div>
         </section>
