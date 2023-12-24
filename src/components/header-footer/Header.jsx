@@ -9,6 +9,8 @@ import SelectedPageLine from "@/src/assets/icons/selected_page_line";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setIsAuth } from "@/src/app/slices/isAuthSlice";
+import useHttp from "@/src/axiosConfig/useHttp";
+import { getLocal } from "@/src/hooks/functions";
 
 const Header = () => {
   const router = useRouter();
@@ -16,10 +18,20 @@ const Header = () => {
   const size = useWindowSize();
   const isAuth = useSelector((state) => state.isAuth.isAuth);
   const dispatch = useDispatch();
+  const { httpService } = useHttp();
 
   useEffect(() => {
-    console.log(isAuth);
-    dispatch(setIsAuth(true));
+    const token = getLocal("token");
+    token !== "null"
+      ? httpService
+          .get("user", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((res) => {
+            res.status === 200 ? dispatch(setIsAuth(true)) : null;
+          })
+          .catch((err) => {})
+      : null;
   }, [isAuth]);
 
   return (

@@ -8,6 +8,7 @@ import {
   InputGroup,
   Label,
   Row,
+  Spinner,
 } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
@@ -15,12 +16,17 @@ import profilePlaceholder from "../../../public/assets/userDashboard/profile-pla
 import { LiaEditSolid } from "react-icons/lia";
 import { MdOutlineEditLocationAlt } from "react-icons/md";
 import { useFormik } from "formik";
-import * as yup from "yup";
+import * as Yup from "yup";
 import { useEffect, useState } from "react";
+import useHttp from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
 
 const UserData = () => {
-  const validationSchema = yup.object({
-    name: "",
+  const { httpService } = useHttp();
+  const [loading, setLoading] = useState(false);
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("لطفا نام خود را وارد کنید"),
     family: "",
     idCard: "",
     email: "",
@@ -49,14 +55,28 @@ const UserData = () => {
     validationSchema,
 
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("gender", values.family);
+      formData.append("age", values.name);
+      formData.append("city", values.name);
+
+      httpService
+        .post("user", formData)
+        .then((res) => {
+          setLoading(false);
+          res.status === 200
+            ? toast.success("تغییرات با موفقیت اعمال شد")
+            : null;
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error("مشکلی در ثبت کردن اطلاعات شما بوجود امد");
+        });
     },
   });
-  // const [isClient, setIsClient] = useState(false);
 
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
   return (
     <>
       <div className={s.user_data}>
@@ -230,7 +250,12 @@ const UserData = () => {
             </div>
 
             <div className={s.submit}>
-              <Button type="submit">ثبت اطلاعات</Button>
+              <Button disabled={loading} type="submit">
+                {loading ? (
+                  <Spinner style={{ width: "20px", height: "20px" }}></Spinner>
+                ) : null}
+                ثبت اطلاعات
+              </Button>
             </div>
           </Form>
         </div>

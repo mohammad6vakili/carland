@@ -4,6 +4,7 @@ import Footer from "@/src/components/header-footer/Footer";
 import Main from "@/src/components/main/Main";
 import { baseUrl } from "@/src/axiosConfig/useHttp";
 import { getLocal } from "@/src/hooks/functions";
+import toast from "react-hot-toast";
 
 export async function getServerSideProps(ctx) {
   return fetch(`${baseUrl}/user`, {
@@ -24,7 +25,7 @@ export async function getServerSideProps(ctx) {
       }
     })
     .catch((err) => {
-      alert("error");
+      return toast.error("error");
     });
 }
 
