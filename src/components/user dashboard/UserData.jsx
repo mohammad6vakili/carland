@@ -29,12 +29,13 @@ const UserData = () => {
     name: Yup.string().required("لطفا نام خود را وارد کنید"),
     gender: "",
     idCard: "",
-    email: "",
+    carType: "",
     address: "",
-    birthDate: "",
+    technicalDiagnosis: "",
+    expirationInsurance: "",
     password: "",
-    phoneNumber: "",
-    telephone: "",
+    expirationCertificate: "",
+    dateofCarInstallments: "",
     profile: "",
   });
 
@@ -43,13 +44,14 @@ const UserData = () => {
       name: "",
       gender: "",
       age: "",
-      email: "",
+      carType: "",
       idCard: "",
       address: "",
-      birthDate: "",
+      technicalDiagnosis: "",
+      expirationInsurance: "",
       password: "",
-      phoneNumber: "",
-      telephone: "",
+      expirationCertificate: "",
+      dateofCarInstallments: "",
       profile: "",
     },
 
@@ -84,7 +86,7 @@ const UserData = () => {
         <div className={s.user_form}>
           <Form onSubmit={formik.handleSubmit} className={s.form}>
             <FormGroup className={s.formGroup}>
-              <Label for="name">نام</Label>
+              <Label for="name">نام کاربری</Label>
               <InputGroup className={s.input}>
                 <Input
                   name="name"
@@ -114,7 +116,7 @@ const UserData = () => {
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
-              <Label for="email">سن</Label>
+              <Label for="carType">سن</Label>
               <InputGroup className={s.input}>
                 <Input
                   name="age"
@@ -128,21 +130,6 @@ const UserData = () => {
               </InputGroup>
               <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
             </FormGroup>
-
-            {/* <FormGroup className={s.formGroup}>
-              <Label for="email">سن</Label>
-              <InputGroup className={s.input}>
-                <Input
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                />
-                <Button type="button">
-                  <LiaEditSolid />
-                </Button>
-              </InputGroup>
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-            </FormGroup> */}
 
             <FormGroup className={s.formGroup}>
               <Label for="id-card">کد ملی</Label>
@@ -159,7 +146,7 @@ const UserData = () => {
               <FormFeedback>لطفا پر کنید</FormFeedback>
             </FormGroup>
 
-            <FormGroup className={s.formGroupAddress}>
+            <FormGroup className={s.formGroup}>
               <Label for="address">آدرس</Label>
               <InputGroup className={s.input}>
                 <Input
@@ -176,12 +163,28 @@ const UserData = () => {
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
-              <Label for="date">تاریخ تولد</Label>
+              <Label for="address">معاینه فنی</Label>
               <InputGroup className={s.input}>
                 <Input
-                  name="birthDate"
+                  className={s.address}
+                  name="technicalDiagnosis"
+                  value={formik.values.technicalDiagnosis}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا ادرس خود را وارد کنید</FormFeedback>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="date">انقضای بیمه</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="expirationInsurance"
                   type="date"
-                  value={formik.values.birthDate}
+                  value={formik.values.expirationInsurance}
                   onChange={formik.handleChange}
                 />
                 <Button type="button">
@@ -192,12 +195,26 @@ const UserData = () => {
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
-              <Label for="password">رمز عبور</Label>
+              <Label for="carType">نوع ماشین</Label>
               <InputGroup className={s.input}>
                 <Input
-                  name="password"
-                  type="password"
-                  value={formik.values.password}
+                  name="carType"
+                  value={formik.values.carType}
+                  onChange={formik.handleChange}
+                />
+                <Button type="button">
+                  <LiaEditSolid />
+                </Button>
+              </InputGroup>
+              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="expirationCertificate">انقضای گواهینامه</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="expirationCertificate"
+                  value={formik.values.expirationCertificate}
                   onChange={formik.handleChange}
                 />
                 <Button type="button">
@@ -208,26 +225,11 @@ const UserData = () => {
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
-              <Label for="phoneNumber">شماره همراه</Label>
+              <Label for="dateofCarInstallments">تاریخ اقساط خودرو</Label>
               <InputGroup className={s.input}>
                 <Input
-                  name="phoneNumber"
-                  value={formik.values.phoneNumber}
-                  onChange={formik.handleChange}
-                />
-                <Button type="button">
-                  <LiaEditSolid />
-                </Button>
-              </InputGroup>
-              <FormFeedback>لطفا پر کنید</FormFeedback>
-            </FormGroup>
-
-            <FormGroup className={s.formGroup}>
-              <Label for="telephone">تلفن</Label>
-              <InputGroup className={s.input}>
-                <Input
-                  name="telephone"
-                  value={formik.values.telephone}
+                  name="dateofCarInstallments"
+                  value={formik.values.dateofCarInstallments}
                   onChange={formik.handleChange}
                 />
                 <Button type="button">

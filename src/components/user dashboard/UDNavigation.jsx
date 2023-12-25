@@ -21,18 +21,23 @@ import transaction from "../../../public/assets/userDashboard/transaction.svg";
 import ticket from "../../../public/assets/userDashboard/ticket.svg";
 import support from "../../../public/assets/userDashboard/support.svg";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getLocal, removeLocal } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { LeftOutlined } from "@ant-design/icons";
+import useHttp from "@/src/axiosConfig/useHttp";
 
 const UDNavigation = () => {
   const pathname = usePathname();
   const size = useWindowSize();
   const router = useRouter();
+  const { httpService } = useHttp(true);
   const [signoutModal, setSignoutModal] = useState(false);
   const [navColl, setNavColl] = useState(true);
+
+  //handle requests
+  useEffect(() => {}, []);
 
   const handleSelectedRoute = (route) => {
     const currentPage = pathname.replace("/userDashboard", "").replace("/", "");
