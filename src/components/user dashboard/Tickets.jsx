@@ -1,7 +1,23 @@
-import { Button, Input, Table } from "reactstrap";
+import { Button, Input, Spinner, Table } from "reactstrap";
 import s from "../../../styles/main.module.scss";
+import useHttp from "@/src/axiosConfig/useHttp";
+import React, { useEffect, useState } from "react";
 
 const UserTickets = () => {
+  const { httpService } = useHttp(true);
+  const [tickets, setTickets] = useState(null);
+
+  useEffect(() => {
+    httpService
+      .get("ticket")
+      .then((res) => {
+        res.status === 200 ? setTickets(res.data.tickets) : null;
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }, []);
+
   return (
     <>
       <div className={s.user_tickets}>
@@ -24,17 +40,27 @@ const UserTickets = () => {
             </thead>
 
             <tbody>
-              <tr>
-                <th scope="row">مشکل شارژ کیف پول در هنگام شارژ</th>
-                <td>۲ روز پیش</td>
-                <td>پاسخ داده شده</td>
-                <td>
-                  <Button className={s.see_ticket}>مشاهده</Button>
-                </td>
-                <td>
-                  <Button className={s.see_ticket}>بستن تیکت</Button>
-                </td>
-              </tr>
+              {tickets !== null ? (
+                tickets.length !== 0 ? (
+                  tickets.map((ticket, index) => {
+                    <tr>
+                      <th scope="row">مشکل شارژ کیف پول در هنگام شارژ</th>
+                      <td>۲ روز پیش</td>
+                      <td>پاسخ داده شده</td>
+                      <td>
+                        <Button className={s.see_ticket}>مشاهده</Button>
+                      </td>
+                      <td>
+                        <Button className={s.see_ticket}>بستن تیکت</Button>
+                      </td>
+                    </tr>;
+                  })
+                ) : (
+                  <tr className={s.noTicket}>تیکتی وجود ندارد</tr>
+                )
+              ) : (
+                <Spinner style={{ margin: "0 auto" }}></Spinner>
+              )}
             </tbody>
           </Table>
         </section>
@@ -68,7 +94,7 @@ const UserTickets = () => {
           </div>
 
           <div className={s.details_input}>
-            <Input placeholder="توضیحات" />
+            <Input type="textarea" placeholder="توضیحات" />
           </div>
 
           <div className={s.submit}>

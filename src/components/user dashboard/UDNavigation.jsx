@@ -1,6 +1,6 @@
 import Image from "next/image";
 import s from "../../../styles/main.module.scss";
-import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter, Offcanvas } from "reactstrap";
 import { usePathname, useRouter } from "next/navigation";
 //images
 import circle1 from "../../../public/assets/userDashboard/circle-1.png";
@@ -24,11 +24,15 @@ import Link from "next/link";
 import { useState } from "react";
 import { getLocal, removeLocal } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
+import { useWindowSize } from "@uidotdev/usehooks";
+import { LeftOutlined } from "@ant-design/icons";
 
 const UDNavigation = () => {
   const pathname = usePathname();
+  const size = useWindowSize();
   const router = useRouter();
   const [signoutModal, setSignoutModal] = useState(false);
+  const [navColl, setNavColl] = useState(true);
 
   const handleSelectedRoute = (route) => {
     const currentPage = pathname.replace("/userDashboard", "").replace("/", "");
@@ -48,189 +52,206 @@ const UDNavigation = () => {
     toast.success("با موفقیت از خارج شدید");
   };
 
+  const handleNavColl = () => {
+    setNavColl(!navColl);
+  };
+
   return (
     <>
-      <div className={s.userDashboard_navigation}>
-        <Image className={s.circle1} src={circle1} alt="" />
-        <Image className={s.circle2} src={circle2} alt="" />
+      {size.width > 1000 ? (
+        <div className={s.userDashboard_navigation}>
+          <Image className={s.circle1} src={circle1} alt="" />
+          <Image className={s.circle2} src={circle2} alt="" />
 
-        <div className={s.name_profile}>
-          <div className={s.profile}>
-            <Image
-              src={"/assets/userDashboard/profile.png"}
-              alt="profile"
-              width={60}
-              height={60}
-            />
-          </div>
-          <div className={s.name}>
-            <span>پروفایل</span>
-            <p> مهزیار رازه </p>
-          </div>
-        </div>
-
-        <div className={s.wallet}>
-          <Image src={wallet} alt="" />
-
-          <div className={s.budget}>
-            <span>موجودی کیف پول</span>
-            <div>
-              <span>۱۰۰۰۰۰۰</span> تومان
+          <div className={s.name_profile}>
+            <div className={s.profile}>
+              <Image
+                src={"/assets/userDashboard/profile.png"}
+                alt="profile"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className={s.name}>
+              <span>پروفایل</span>
+              <p> مهزیار رازه </p>
             </div>
           </div>
 
-          <Button>
-            <GoPlus style={{ color: "#fff" }} />
-          </Button>
-        </div>
+          <div className={s.wallet}>
+            <Image src={wallet} alt="" />
 
-        <div className={s.routes}>
-          <Link
-            href={"/userDashboard/"}
-            className={handleSelectedRoute("") ? s.selected : s.route}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <MdDashboard style={{ borderRadius: "10px" }} />
-            </div>
-            <span>داشبورد</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/userData"}
-            className={handleSelectedRoute("userData") ? s.selected : s.route}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <BsPersonFill style={{ borderRadius: "10px" }} />
-            </div>
-            <span>اطلاعات حساب کاربری</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/wallet"}
-            className={handleSelectedRoute("wallet") ? s.selected : s.route}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <PiWalletFill style={{ borderRadius: "10px" }} />
-            </div>
-            <span>کیف پول</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/myAdds"}
-            className={handleSelectedRoute("myAdds") ? s.selected : s.route}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <IoMdMegaphone style={{ borderRadius: "10px" }} />
-            </div>
-            <span>آگهی‌های من</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/myJobs"}
-            className={handleSelectedRoute("myJobs") ? s.selected : s.route}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <TbBriefcaseFilled style={{ borderRadius: "10px" }} />
-            </div>
-            <span>مشاغل من</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/myComments"}
-            className={handleSelectedRoute("myComments") ? s.selected : s.route}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <HiChatAlt style={{ borderRadius: "10px" }} />
-            </div>
-            <span>نظرات من</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/myOrders"}
-            className={handleSelectedRoute("myOrders") ? s.selected : s.route}
-            style={{ borderBottom: "1px solid #E6E6E6" }}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <Image src={shoppingBag} alt="" />
-            </div>
-            <span>سفارش‌ها</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/transaction"}
-            className={
-              handleSelectedRoute("transaction") ? s.selected : s.route
-            }
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <Image src={transaction} alt="" />
-            </div>
-            <span>تراکنش‌ها</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/myTickets"}
-            className={handleSelectedRoute("myTickets") ? s.selected : s.route}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <Image src={ticket} alt="" />
-            </div>
-            <span>تیکت‌های من</span>
-          </Link>
-
-          <Link
-            href={"/userDashboard/supports"}
-            className={handleSelectedRoute("supports") ? s.selected : s.route}
-          >
-            <div className={s.background}>
-              <Image src={selectedBackground} alt="" />
-            </div>
-            <div className={s.icon}>
-              <Image src={support} alt="" style={{ borderRadius: "10px" }} />
-            </div>
-            <span>پشتیبانی</span>
-          </Link>
-
-          <div className={s.signout}>
-            <Button
-              onClick={() => setSignoutModal(!signoutModal)}
-              className={s.btn}
-            >
-              <div className={s.icon}>
-                <ImExit />
+            <div className={s.budget}>
+              <span>موجودی کیف پول</span>
+              <div>
+                <span>۱۰۰۰۰۰۰</span> تومان
               </div>
-              <span>خروج</span>
+            </div>
+
+            <Button>
+              <GoPlus style={{ color: "#fff" }} />
             </Button>
           </div>
+
+          <div className={s.routes}>
+            <Link
+              href={"/userDashboard/"}
+              className={handleSelectedRoute("") ? s.selected : s.route}
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <MdDashboard style={{ borderRadius: "10px" }} />
+              </div>
+              <span>داشبورد</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/userData"}
+              className={handleSelectedRoute("userData") ? s.selected : s.route}
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <BsPersonFill style={{ borderRadius: "10px" }} />
+              </div>
+              <span>اطلاعات حساب کاربری</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/wallet"}
+              className={handleSelectedRoute("wallet") ? s.selected : s.route}
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <PiWalletFill style={{ borderRadius: "10px" }} />
+              </div>
+              <span>کیف پول</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/myAdds"}
+              className={handleSelectedRoute("myAdds") ? s.selected : s.route}
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <IoMdMegaphone style={{ borderRadius: "10px" }} />
+              </div>
+              <span>آگهی‌های من</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/myJobs"}
+              className={handleSelectedRoute("myJobs") ? s.selected : s.route}
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <TbBriefcaseFilled style={{ borderRadius: "10px" }} />
+              </div>
+              <span>مشاغل من</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/myComments"}
+              className={
+                handleSelectedRoute("myComments") ? s.selected : s.route
+              }
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <HiChatAlt style={{ borderRadius: "10px" }} />
+              </div>
+              <span>نظرات من</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/myOrders"}
+              className={handleSelectedRoute("myOrders") ? s.selected : s.route}
+              style={{ borderBottom: "1px solid #E6E6E6" }}
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <Image src={shoppingBag} alt="" />
+              </div>
+              <span>سفارش‌ها</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/transaction"}
+              className={
+                handleSelectedRoute("transaction") ? s.selected : s.route
+              }
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <Image src={transaction} alt="" />
+              </div>
+              <span>تراکنش‌ها</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/myTickets"}
+              className={
+                handleSelectedRoute("myTickets") ? s.selected : s.route
+              }
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <Image src={ticket} alt="" />
+              </div>
+              <span>تیکت‌های من</span>
+            </Link>
+
+            <Link
+              href={"/userDashboard/supports"}
+              className={handleSelectedRoute("supports") ? s.selected : s.route}
+            >
+              <div className={s.background}>
+                <Image src={selectedBackground} alt="" />
+              </div>
+              <div className={s.icon}>
+                <Image src={support} alt="" style={{ borderRadius: "10px" }} />
+              </div>
+              <span>پشتیبانی</span>
+            </Link>
+
+            <div className={s.signout}>
+              <Button
+                onClick={() => setSignoutModal(!signoutModal)}
+                className={s.btn}
+              >
+                <div className={s.icon}>
+                  <ImExit />
+                </div>
+                <span>خروج</span>
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <Button onClick={() => handleNavColl()}>
+            <LeftOutlined />
+          </Button>
+          <Offcanvas direction="end" scrollable toggle={navColl}></Offcanvas>
+        </>
+      )}
 
       <Modal centered toggle={toggle} isOpen={signoutModal}>
         <ModalBody>آیا می خواهید خارج شوید؟</ModalBody>
