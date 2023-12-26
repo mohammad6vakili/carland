@@ -35,9 +35,17 @@ const UDNavigation = () => {
   const { httpService } = useHttp(true);
   const [signoutModal, setSignoutModal] = useState(false);
   const [navColl, setNavColl] = useState(true);
+  const [userData, setUserData] = useState(null);
 
   //handle requests
-  useEffect(() => {}, []);
+  useEffect(() => {
+    httpService
+      .get("user")
+      .then((res) => {
+        res.status === 200 ? setUserData(res.data) : null;
+      })
+      .catch((err) => {});
+  }, []);
 
   const handleSelectedRoute = (route) => {
     const currentPage = pathname.replace("/userDashboard", "").replace("/", "");
