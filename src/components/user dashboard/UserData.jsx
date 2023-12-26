@@ -4,6 +4,7 @@ import {
   Form,
   FormFeedback,
   FormGroup,
+  FormText,
   Input,
   InputGroup,
   Label,
@@ -20,16 +21,17 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const UserData = () => {
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(false);
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("لطفا نام خود را وارد کنید"),
+  const [initialValues, setInitialValues] = useState({
+    name: "",
     gender: "",
-    idCard: "",
+    age: "",
     carType: "",
+    idCard: "",
     address: "",
     technicalDiagnosis: "",
     expirationInsurance: "",
@@ -38,22 +40,45 @@ const UserData = () => {
     dateofCarInstallments: "",
     profile: "",
   });
+  const userData = useSelector((state) => state.userInfo.userInfo);
+
+  //handle requests
+  const handleGetUSerData = () => {
+    setInitialValues({
+      name: userData.name,
+      gender: userData.Gender,
+      age: userData.age,
+      carType: userData.CarType,
+      idCard: userData.NationalCode,
+      address: userData.city,
+      technicalDiagnosis: userData.TechnicalDiagnosis,
+      expirationInsurance: userData.ExpirationInsurance,
+      expirationCertificate: userData.ExpirationCertificate,
+      dateofCarInstallments: userData.DateofCarInstallments,
+      profile: userData.image_profile,
+    });
+  };
+
+  useEffect(() => {
+    userData ? handleGetUSerData() : null;
+  }, [userData]);
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("لطفا نام خود را وارد کنید"),
+    gender: Yup.string().required("لطفا این فیلد را پر کنید"),
+    age: Yup.string().required("لطفا سن خود را وارد کنید"),
+    idCard: "",
+    carType: "",
+    address: "",
+    technicalDiagnosis: "",
+    expirationInsurance: "",
+    expirationCertificate: "",
+    dateofCarInstallments: "",
+    profile: "",
+  });
 
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      gender: "",
-      age: "",
-      carType: "",
-      idCard: "",
-      address: "",
-      technicalDiagnosis: "",
-      expirationInsurance: "",
-      password: "",
-      expirationCertificate: "",
-      dateofCarInstallments: "",
-      profile: "",
-    },
+    initialValues,
 
     validationSchema,
 
@@ -97,7 +122,11 @@ const UserData = () => {
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+              <FormText className={s.error}>
+                {formik.errors.name &&
+                  formik.touched.name &&
+                  formik.errors.name}
+              </FormText>
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
@@ -105,18 +134,27 @@ const UserData = () => {
               <InputGroup className={s.input}>
                 <Input
                   name="gender"
+                  type="select"
                   value={formik.values.gender}
-                  onChange={formik.handleChange}
-                />
+                  // onChange={formik.handleChange}
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option>مرد</option>
+                  <option>زن</option>
+                </Input>
                 <Button type="button">
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+              <FormText className={s.error}>
+                {formik.errors.gender &&
+                  formik.touched.gender &&
+                  formik.errors.gender}
+              </FormText>
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
-              <Label for="carType">سن</Label>
+              <Label for="">سن</Label>
               <InputGroup className={s.input}>
                 <Input
                   name="age"
@@ -128,7 +166,9 @@ const UserData = () => {
                   <LiaEditSolid />
                 </Button>
               </InputGroup>
-              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+              <FormText className={s.error}>
+                {formik.errors.age && formik.touched.age && formik.errors.age}
+              </FormText>{" "}
             </FormGroup>
 
             <FormGroup className={s.formGroup}>
@@ -159,7 +199,11 @@ const UserData = () => {
                   <MdOutlineEditLocationAlt />
                 </Button>
               </InputGroup>
-              <FormFeedback tooltip>لطفا ادرس خود را وارد کنید</FormFeedback>
+              <FormText className={s.error}>
+                {formik.errors.address &&
+                  formik.touched.address &&
+                  formik.errors.address}
+              </FormText>
             </FormGroup>
 
             <FormGroup className={s.formGroup}>

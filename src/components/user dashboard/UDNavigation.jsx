@@ -22,11 +22,14 @@ import ticket from "../../../public/assets/userDashboard/ticket.svg";
 import support from "../../../public/assets/userDashboard/support.svg";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getLocal, removeLocal } from "@/src/hooks/functions";
+import { getLocal, removeLocal, toPersianString } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { LeftOutlined } from "@ant-design/icons";
-import useHttp from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserInfo } from "@/src/app/slices/userInfoSlice";
+import MySkeleton from "../skeleton/Skeleton";
 
 const UDNavigation = () => {
   const pathname = usePathname();
@@ -35,14 +38,15 @@ const UDNavigation = () => {
   const { httpService } = useHttp(true);
   const [signoutModal, setSignoutModal] = useState(false);
   const [navColl, setNavColl] = useState(true);
-  const [userData, setUserData] = useState(null);
+  const userData = useSelector((state) => state.userInfo.userInfo);
+  const dispatch = useDispatch();
 
   //handle requests
   useEffect(() => {
     httpService
       .get("user")
       .then((res) => {
-        res.status === 200 ? setUserData(res.data) : null;
+        res.status === 200 ? dispatch(setUserInfo(res.data)) : null;
       })
       .catch((err) => {});
   }, []);
@@ -76,35 +80,74 @@ const UDNavigation = () => {
           <Image className={s.circle1} src={circle1} alt="" />
           <Image className={s.circle2} src={circle2} alt="" />
 
-          <div className={s.name_profile}>
-            <div className={s.profile}>
-              <Image
-                src={"/assets/userDashboard/profile.png"}
-                alt="profile"
-                width={60}
-                height={60}
-              />
-            </div>
-            <div className={s.name}>
-              <span>پروفایل</span>
-              <p> مهزیار رازه </p>
-            </div>
-          </div>
-
-          <div className={s.wallet}>
-            <Image src={wallet} alt="" />
-
-            <div className={s.budget}>
-              <span>موجودی کیف پول</span>
-              <div>
-                <span>۱۰۰۰۰۰۰</span> تومان
+          {userData ? (
+            <>
+              <div className={s.name_profile}>
+                <div className={s.profile}>
+                  <Image
+                    src={url + userData.image_profile}
+                    alt="profile"
+                    width={60}
+                    height={60}
+                  />
+                </div>
+                <div className={s.name}>
+                  <span>پروفایل</span>
+                  <p>{userData.name}</p>
+                </div>
               </div>
-            </div>
 
-            <Button>
-              <GoPlus style={{ color: "#fff" }} />
-            </Button>
-          </div>
+              <div className={s.wallet}>
+                <Image src={wallet} alt="" />
+
+                <div className={s.budget}>
+                  <span>موجودی کیف پول</span>
+                  <div>
+                    <span>{toPersianString(userData.cash)}</span> تومان
+                  </div>
+                </div>
+
+                <Button>
+                  <GoPlus style={{ color: "#fff" }} />
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={s.name_profile}>
+                <div className={s.profile}>
+                  <MySkeleton
+                    width={"60px"}
+                    height={"60px"}
+                    borderRadius={"50%"}
+                  />
+                </div>
+                <div className={s.name}>
+                  <span>
+                    <MySkeleton width={"50%"} height={"20px"} />
+                  </span>
+                  <p>
+                    <MySkeleton width={"50%"} height={"20px"} />
+                  </p>
+                </div>
+              </div>
+
+              <div className={s.wallet}>
+                <Image src={wallet} alt="" />
+
+                <div className={s.budget}>
+                  <span>موجودی کیف پول</span>
+                  <div>
+                    <span></span> تومان
+                  </div>
+                </div>
+
+                <Button>
+                  <GoPlus style={{ color: "#fff" }} />
+                </Button>
+              </div>
+            </>
+          )}
 
           <div className={s.routes}>
             <Link
@@ -265,6 +308,7 @@ const UDNavigation = () => {
               <LeftOutlined />
             </div>
           </Button>
+
           <Offcanvas
             direction="end"
             scrollable
@@ -275,35 +319,74 @@ const UDNavigation = () => {
               <Image className={s.circle1} src={circle1} alt="" />
               <Image className={s.circle2} src={circle2} alt="" />
 
-              <div className={s.name_profile}>
-                <div className={s.profile}>
-                  <Image
-                    src={"/assets/userDashboard/profile.png"}
-                    alt="profile"
-                    width={60}
-                    height={60}
-                  />
-                </div>
-                <div className={s.name}>
-                  <span>پروفایل</span>
-                  <p> مهزیار رازه </p>
-                </div>
-              </div>
-
-              <div className={s.wallet}>
-                <Image src={wallet} alt="" />
-
-                <div className={s.budget}>
-                  <span>موجودی کیف پول</span>
-                  <div>
-                    <span>۱۰۰۰۰۰۰</span> تومان
+              {userData ? (
+                <>
+                  <div className={s.name_profile}>
+                    <div className={s.profile}>
+                      <Image
+                        src={url + userData.image_profile}
+                        alt="profile"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                    <div className={s.name}>
+                      <span>پروفایل</span>
+                      <p>{userData.name}</p>
+                    </div>
                   </div>
-                </div>
 
-                <Button>
-                  <GoPlus style={{ color: "#fff" }} />
-                </Button>
-              </div>
+                  <div className={s.wallet}>
+                    <Image src={wallet} alt="" />
+
+                    <div className={s.budget}>
+                      <span>موجودی کیف پول</span>
+                      <div>
+                        <span>{toPersianString(userData.cash)}</span> تومان
+                      </div>
+                    </div>
+
+                    <Button>
+                      <GoPlus style={{ color: "#fff" }} />
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className={s.name_profile}>
+                    <div className={s.profile}>
+                      <MySkeleton
+                        width={"60px"}
+                        height={"60px"}
+                        borderRadius={"50%"}
+                      />
+                    </div>
+                    <div className={s.name}>
+                      <span>
+                        <MySkeleton width={"50%"} height={"20px"} />
+                      </span>
+                      <p>
+                        <MySkeleton width={"50%"} height={"20px"} />
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className={s.wallet}>
+                    <Image src={wallet} alt="" />
+
+                    <div className={s.budget}>
+                      <span>موجودی کیف پول</span>
+                      <div>
+                        <span></span> تومان
+                      </div>
+                    </div>
+
+                    <Button>
+                      <GoPlus style={{ color: "#fff" }} />
+                    </Button>
+                  </div>
+                </>
+              )}
 
               <div className={s.routes}>
                 <Link
