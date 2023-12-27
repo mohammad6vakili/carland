@@ -24,12 +24,18 @@ import {
   toPersianString,
 } from "@/src/hooks/functions";
 import CommentCards from "../../comments/CommentCards";
+import { useSelector } from "react-redux";
+import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const JobPage = () => {
+  const pathname = usePathname();
   const { httpService } = useHttp();
   const [jobData, setJobData] = useState([]);
   const [photos, setPhotos] = useState([]);
   const router = useRouter();
+  const isAuth = useSelector((state) => state.isAuth.isAuth);
 
   const tableTime = [
     { day: "شنبه", start: "", end: "", isOpen: true },
@@ -269,10 +275,16 @@ const JobPage = () => {
           <div className={s.share}>
             <div className={s.links}>
               <p>اشتراک گذاری:</p>
-              <div>
-                <InstagramFilled />
-              </div>
-              <div>
+              <a href={`whatsapp://send?text=https://carland.ir${pathname}`}>
+                <div>
+                  <FaWhatsapp />
+                </div>
+              </a>
+              <div
+                onClick={() =>
+                  handleCopy(`carland.ir/jobs${pathname}`, "با موفقیت کپی شد")
+                }
+              >
                 <LinkOutlined />
               </div>
             </div>
@@ -292,30 +304,36 @@ const JobPage = () => {
           </div>
 
           <div className={s.comments}>
-            <div className={s.not_logged_in}>
-              <div className={s.circle}></div>
-              <p>برای ارسال دیدگاه لازم است ابتدا وارد شده یا ثبت نام کنید!</p>
+            {isAuth ? (
+              <section className={s.comments}>
+                <CommentCards comments={jobData.user_ratings} />
+              </section>
+            ) : (
+              <div className={s.not_logged_in}>
+                <div className={s.circle}></div>
+                <p>
+                  برای ارسال دیدگاه لازم است ابتدا وارد شده یا ثبت نام کنید!
+                </p>
 
-              <Button className={s.btn}>
-                ورود/ثبت نام{" "}
-                <div>
-                  <ArrowLeftOutlined
-                    style={{ color: "#4A80E8", zIndex: "2" }}
-                  />
-                  <Image
-                    src={"/assets/jobs/rectangle.svg"}
-                    alt=""
-                    width={20}
-                    height={30}
-                    className={s.back}
-                  />
-                </div>
-              </Button>
-            </div>
-
-            <section className={s.comments}>
-              <CommentCards comments={jobData.user_ratings} />
-            </section>
+                <Link href={"/login"}>
+                  <Button className={s.btn}>
+                    ورود/ثبت نام
+                    <div>
+                      <ArrowLeftOutlined
+                        style={{ color: "#4A80E8", zIndex: "2" }}
+                      />
+                      <Image
+                        src={"/assets/jobs/rectangle.svg"}
+                        alt=""
+                        width={20}
+                        height={30}
+                        className={s.back}
+                      />
+                    </div>
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
 
           <SendComment />
