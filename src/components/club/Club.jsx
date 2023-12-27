@@ -243,7 +243,7 @@ const Club = () => {
                 )}
               </div>
 
-              <SendComment />
+              <SendComment page={"club"} />
             </div>
 
             <div className={s.other_contents}>
