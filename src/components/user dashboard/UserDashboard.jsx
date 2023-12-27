@@ -16,8 +16,8 @@ import { Navigation } from "swiper/modules";
 import { Button } from "reactstrap";
 import MySkeleton from "../skeleton/Skeleton";
 
-const UserDashboard = ({ myAdds }) => {
-  const { httpService } = useHttp();
+const UserDashboard = () => {
+  const { httpService } = useHttp(false);
   const [ads, setAds] = useState([]);
 
   const nextAdRef = useRef();
@@ -38,6 +38,7 @@ const UserDashboard = ({ myAdds }) => {
       .get("myads")
       .then((res) => {
         res.status === 200 ? setAds(res.data.data) : null;
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -152,17 +153,17 @@ const UserDashboard = ({ myAdds }) => {
                       className={s.swiper_slide}
                     >
                       <AdsCard
-                        image={""}
-                        name={"ام وی ام، X55 PRO"}
+                        image={item.main_image}
+                        name={item.title}
                         details={{
-                          kms: "",
-                          createYear: "",
-                          color: "",
+                          kms: item.kilometers,
+                          createYear: item.production_year,
+                          color: item.color,
                         }}
-                        location={"۴.۵"}
-                        time={""}
+                        location={item.location}
+                        time={item.created_at}
                         rate={"۴.۵"}
-                        id={"۴.۵"}
+                        id={item.id}
                       />
                     </SwiperSlide>
                   ))

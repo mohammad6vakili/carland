@@ -11,10 +11,27 @@ import { Button } from "reactstrap";
 import Image from "next/image";
 import addsBanner from "../../../public/assets/userDashboard/add-banner.png";
 import { useEffect, useRef, useState } from "react";
+import MySkeleton from "../skeleton/Skeleton";
+import useHttp from "@/src/axiosConfig/useHttp";
 
 const UserData = () => {
-  const myAdds = [{}, {}, {}, {}, {}, {}];
+  const [myAds, setMyAds] = useState(null);
+  const { httpService } = useHttp();
 
+  //request
+  useEffect(() => {
+    httpService
+      .get("myads")
+      .then((res) => {
+        res.status === 200 ? setMyAds(res.data.data) : null;
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  //swiper
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
   const nextAdRef = useRef();
@@ -56,24 +73,48 @@ const UserData = () => {
               onSwiper={setAdsSwiper}
               modules={[Navigation, FreeMode]}
             >
-              {myAdds.map((card, index) => (
-                <SwiperSlide key={Math.random() * index} className={s.slide}>
-                  <AdsCard
-                    image={""}
-                    name={"ام وی ام، X55 PRO"}
-                    details={{
-                      kms: "۱۷,۰۰۰",
-                      createYear: "۱۳۹۲",
-                      color: "مشکی",
+              {myAds ? (
+                myAds.length !== 0 ? (
+                  myAds.map((item, index) => (
+                    <SwiperSlide
+                      key={Math.random() * index}
+                      className={s.swiper_slide}
+                    >
+                      <AdsCard
+                        image={item.main_image}
+                        name={item.title}
+                        details={{
+                          kms: item.kilometers,
+                          createYear: item.production_year,
+                          color: item.color,
+                        }}
+                        location={item.location}
+                        time={item.created_at}
+                        rate={"۴.۵"}
+                        id={item.id}
+                      />
+                    </SwiperSlide>
+                  ))
+                ) : (
+                  <SwiperSlide
+                    style={{
+                      margin: "2rem auto",
+                      width: "100%",
+                      height: "200px",
+                      display: "flex",
+                      justifyContent: "center",
                     }}
-                    location={"کرج"}
-                    time={"۲ هفته پیش"}
-                    rate={"۴.۵"}
-                    myAdds={true}
-                    id={"1"}
-                  />
-                </SwiperSlide>
-              ))}
+                  >
+                    <span>هیچ اگهی وجود ندارد!</span>
+                  </SwiperSlide>
+                )
+              ) : (
+                <>
+                  <SwiperSlide key={Math.random()} className={s.swiper_slide}>
+                    <MySkeleton width={"260px"} height={"300px"} />
+                  </SwiperSlide>
+                </>
+              )}
             </Swiper>
           </div>
         </section>
