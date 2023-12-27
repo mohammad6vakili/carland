@@ -22,11 +22,14 @@ import { handleCopy, toPersianString } from "@/src/hooks/functions";
 import CommentCards from "../comments/CommentCards";
 import SendComment from "../comments/SendComment";
 import CommentCard from "../comments/CommentCard";
+import { useSelector } from "react-redux";
+import Link from "next/link";
 
 const Club = () => {
   const size = useWindowSize();
   const router = useRouter();
   const pathname = usePathname();
+  const isAuth = useSelector((state) => state.isAuth.isAuth);
   const { httpService } = useHttp();
 
   const latestClubs = [{}, {}, {}];
@@ -156,19 +159,26 @@ const Club = () => {
               <div className={s.share}>
                 <div className={s.links}>
                   <p>اشتراک گذاری:</p>
-                  <a href={`whatsapp://send?text=https://carlan.ir${pathname}`}>
+                  <a>
                     <Button>
                       <InstagramFilled />
                     </Button>
                   </a>
-                  <a href={`telegram://send?text=https://carlan.ir${pathname}`}>
+                  <a
+                    href={`https://telegram.me/share/url?url=https://t.me&text=carland.ir/club${pathname}`}
+                  >
                     <Button>
                       <FaTelegramPlane />
                     </Button>
                   </a>
-                  <Button>
-                    <FaWhatsapp />
-                  </Button>
+                  <a
+                    target="blank"
+                    href={`whatsapp://send?text=https://carland.ir${pathname}`}
+                  >
+                    <Button>
+                      <FaWhatsapp />
+                    </Button>
+                  </a>
                   <Button
                     onClick={() => handleCopy(`https://carlan.ir${pathname}`)}
                   >
@@ -182,51 +192,55 @@ const Club = () => {
               </div>
 
               <div className={s.comments}>
-                <div className={s.not_logged_in}>
-                  <div className={s.circle}></div>
-                  <p>
-                    برای ارسال دیدگاه لازم است ابتدا وارد شده یا ثبت نام کنید!
-                  </p>
-
-                  <Button className={s.btn}>
-                    ورود/ثبت نام{" "}
-                    <div>
-                      <ArrowLeftOutlined
-                        style={{ color: "#4A80E8", zIndex: "2" }}
-                      />
-                      <Image
-                        src={"/assets/jobs/rectangle.svg"}
-                        alt=""
-                        width={20}
-                        height={30}
-                        className={s.back}
-                      />
+                {isAuth ? (
+                  <section className={s.comments}>
+                    <div className={s.comments}>
+                      {clubData.comments
+                        ? clubData.comments.map((comment, index) => (
+                            <CommentCard
+                              content={comment.content}
+                              name={comment.user.name}
+                              profile={comment.user.image_profile}
+                              rate={"۴.۶"}
+                              date={toPersianString(
+                                comment.created_at.split("T", 1)
+                              ).replaceAll("-", "/")}
+                              reactions={{
+                                likes: comment.likes,
+                                dislikes: comment.dislikes,
+                              }}
+                              reply={null}
+                            />
+                          ))
+                        : null}
                     </div>
-                  </Button>
-                </div>
+                  </section>
+                ) : (
+                  <div className={s.not_logged_in}>
+                    <div className={s.circle}></div>
+                    <p>
+                      برای ارسال دیدگاه لازم است ابتدا وارد شده یا ثبت نام کنید!
+                    </p>
 
-                <section className={s.comments}>
-                  <div className={s.comments}>
-                    {clubData.comments
-                      ? clubData.comments.map((comment, index) => (
-                          <CommentCard
-                            content={comment.content}
-                            name={comment.user.name}
-                            profile={comment.user.image_profile}
-                            rate={"۴.۶"}
-                            date={toPersianString(
-                              comment.created_at.split("T", 1)
-                            ).replaceAll("-", "/")}
-                            reactions={{
-                              likes: comment.likes,
-                              dislikes: comment.dislikes,
-                            }}
-                            reply={null}
+                    <Link href={"/login"}>
+                      <Button className={s.btn}>
+                        ورود/ثبت نام{" "}
+                        <div>
+                          <ArrowLeftOutlined
+                            style={{ color: "#4A80E8", zIndex: "2" }}
                           />
-                        ))
-                      : null}
+                          <Image
+                            src={"/assets/jobs/rectangle.svg"}
+                            alt=""
+                            width={20}
+                            height={30}
+                            className={s.back}
+                          />
+                        </div>
+                      </Button>
+                    </Link>
                   </div>
-                </section>
+                )}
               </div>
 
               <SendComment />
