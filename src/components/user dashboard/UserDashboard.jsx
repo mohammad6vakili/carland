@@ -14,15 +14,15 @@ import useHttp from "@/src/axiosConfig/useHttp";
 import { useEffect, useRef, useState } from "react";
 import { Navigation } from "swiper/modules";
 import { Button } from "reactstrap";
+import MySkeleton from "../skeleton/Skeleton";
 
 const UserDashboard = ({ myAdds }) => {
   const { httpService } = useHttp();
-  const ads = [{}, {}, {}, {}, {}];
-  console.log(myAdds);
+  const [ads, setAds] = useState([]);
 
   const nextAdRef = useRef();
   const prevAdRef = useRef();
-  const [adsSwiper, setAdsSwiper] = useState();
+  const [adsSwiper, setAdsSwiper] = useState(null);
   useEffect(() => {
     if (adsSwiper) {
       adsSwiper.params.navigation.prevEl = prevAdRef.current;
@@ -32,16 +32,17 @@ const UserDashboard = ({ myAdds }) => {
     }
   }, [adsSwiper]);
 
-  // useEffect(() => {
-  //   httpService
-  //     .get("myads")
-  //     .then((res) => {
-  //       res.status === 200 ? console.log(res.data) : null;
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  //request
+  useEffect(() => {
+    httpService
+      .get("myads")
+      .then((res) => {
+        res.status === 200 ? setAds(res.data.data) : null;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -143,26 +144,49 @@ const UserDashboard = ({ myAdds }) => {
               modules={[Navigation]}
               className={s.swiper}
             >
-              {ads.map((item, index) => (
+              {ads ? (
+                ads.length !== 0 ? (
+                  ads.map((item, index) => (
+                    <SwiperSlide
+                      key={Math.random() * index}
+                      className={s.swiper_slide}
+                    >
+                      <AdsCard
+                        image={""}
+                        name={"ام وی ام، X55 PRO"}
+                        details={{
+                          kms: "",
+                          createYear: "",
+                          color: "",
+                        }}
+                        location={"۴.۵"}
+                        time={""}
+                        rate={"۴.۵"}
+                        id={"۴.۵"}
+                      />
+                    </SwiperSlide>
+                  ))
+                ) : (
+                  <SwiperSlide
+                    style={{
+                      margin: "2rem auto",
+                      width: "100%",
+                      height: "200px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <span>هیچ اگهی وجود ندارد!</span>
+                  </SwiperSlide>
+                )
+              ) : (
                 <SwiperSlide
                   key={Math.random() * index}
                   className={s.swiper_slide}
                 >
-                  <AdsCard
-                    image={""}
-                    name={"ام وی ام، X55 PRO"}
-                    details={{
-                      kms: "",
-                      createYear: "",
-                      color: "",
-                    }}
-                    location={"۴.۵"}
-                    time={""}
-                    rate={"۴.۵"}
-                    id={"۴.۵"}
-                  />
+                  <MySkeleton width={"260px"} height={"300px"} />
                 </SwiperSlide>
-              ))}
+              )}
             </Swiper>
           </div>
         </div>
