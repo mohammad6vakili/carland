@@ -2,36 +2,44 @@ import Image from "next/image";
 import styles from "../../../styles/header.module.scss";
 import { usePathname, useRouter } from "next/navigation";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Button } from "reactstrap";
+import {
+  Button,
+  ButtonGroup,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledDropdown,
+} from "reactstrap";
 import Link from "next/link";
 import { useWindowSize } from "@uidotdev/usehooks";
 import SelectedPageLine from "@/src/assets/icons/selected_page_line";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setIsAuth } from "@/src/app/slices/isAuthSlice";
 import useHttp from "@/src/axiosConfig/useHttp";
 import { getLocal } from "@/src/hooks/functions";
+import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 
 const Header = () => {
+  const [menuOpen, setMenuOpne] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const size = useWindowSize();
   const isAuth = useSelector((state) => state.isAuth.isAuth);
+  const userData = useSelector((state) => state.userInfo.userInfo);
   const dispatch = useDispatch();
-  const { httpService } = useHttp();
+  const { httpService } = useHttp(true);
 
   useEffect(() => {
-    const token = getLocal("token");
-    token !== "null"
-      ? httpService
-          .get("user", {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((res) => {
-            res.status === 200 ? dispatch(setIsAuth(true)) : null;
-          })
-          .catch((err) => {})
-      : null;
+    httpService
+      .get("user")
+      .then((res) => {
+        res.status === 200
+          ? (dispatch(setIsAuth(true)), dispatch(setUserInfo(res.data)))
+          : null;
+      })
+      .catch((err) => {});
   }, [isAuth]);
 
   return (
@@ -196,16 +204,31 @@ const Header = () => {
             </Button>
 
             {isAuth ? (
-              <Link href={"/userDashboard"}>
-                <Button className={styles.login} color="#142D5D">
-                  <Image
-                    src={"/assets/user-icon.svg"}
-                    alt="user"
-                    width={24}
-                    height={24}
-                  />
-                </Button>
-              </Link>
+              <ButtonGroup>
+                <Dropdown
+                  isOpen={menuOpen}
+                  toggle={() => setMenuOpne(!menuOpen)}
+                  color="#142D5D"
+                >
+                  <DropdownToggle caret className={styles.login}>
+                    <Image
+                      src={"/assets/user-icon.svg"}
+                      alt="user"
+                      width={24}
+                      height={24}
+                    />
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem>{userData?.name}</DropdownItem>
+                    <Link
+                      style={{ textDecoration: "none", color: "transparent" }}
+                      href={"/userDashboard"}
+                    >
+                      <DropdownItem>تنظیمات حساب کاربری</DropdownItem>
+                    </Link>
+                  </DropdownMenu>
+                </Dropdown>
+              </ButtonGroup>
             ) : (
               <Link href={"/login"}>
                 <Button className={styles.login} color="#142D5D">

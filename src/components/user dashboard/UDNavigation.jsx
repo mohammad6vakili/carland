@@ -41,16 +41,6 @@ const UDNavigation = () => {
   const userData = useSelector((state) => state.userInfo.userInfo);
   const dispatch = useDispatch();
 
-  //handle requests
-  useEffect(() => {
-    httpService
-      .get("user")
-      .then((res) => {
-        res.status === 200 ? dispatch(setUserInfo(res.data)) : null;
-      })
-      .catch((err) => {});
-  }, []);
-
   const handleSelectedRoute = (route) => {
     const currentPage = pathname.replace("/userDashboard", "").replace("/", "");
 
