@@ -1,11 +1,51 @@
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
-import { Button, Input } from "reactstrap";
+import { Button, Form, Input } from "reactstrap";
+import useHttp from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const SendComment = () => {
+  const { httpService } = useHttp(true);
+  const pathname = usePathname();
+  const [loading, setLoading] = useState(false);
+
+  const validationSchema = Yup.object().shape({
+    comment: Yup.string().required("لطفا ابتدا فیلد بالا را پر کنید"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      comment: "",
+    },
+
+    validationSchema,
+
+    onSubmit: (values) => {
+      const formData = new FormData();
+      formData.append("club_id", pathname?.substring(6, pathname.length));
+      formData.append("content", values.comment);
+
+      httpService
+        .post("club/CreateComment", formData)
+        .then((res) => {
+          res.status === 200
+            ? (toast.success("کامنت شما با موفقیت برای بررسی ارسال شد"),
+              values.comment === "")
+            : null;
+        })
+        .catch((err) => {
+          toast.error("مشکلی در ارسال کامنت بوجود امد");
+        });
+    },
+  });
+
   return (
     <>
-      <div className={s.send_comment}>
+      <Form onSubmit={formik.handleSubmit} className={s.send_comment}>
         <div className={s.title}>
           <span>
             <Image
@@ -18,7 +58,7 @@ const SendComment = () => {
           <p>ارسال دیدگاه</p>
         </div>
 
-        <div className={s.name_email}>
+        {/* <div className={s.name_email}>
           <Input
             style={{
               border: "1px solid #4A80E8",
@@ -35,7 +75,7 @@ const SendComment = () => {
             }}
             placeholder="ایمیل"
           />
-        </div>
+        </div> */}
 
         <div className={s.content}>
           <Input
@@ -46,15 +86,18 @@ const SendComment = () => {
             }}
             type="textarea"
             placeholder="توضیحات"
+            name="comment"
+            value={formik.values.comment}
+            onChange={formik.handleChange}
           />
         </div>
 
         <div className={s.btn}>
-          <Button style={{ width: "108px" }} color="main-primary">
+          <Button type="submit" style={{ width: "108px" }} color="main-primary">
             ارسال
           </Button>
         </div>
-      </div>
+      </Form>
     </>
   );
 };
