@@ -301,6 +301,7 @@ const UDNavigation = () => {
 
           <Offcanvas
             direction="end"
+            style={{ fontFamily: "dana" }}
             scrollable
             isOpen={!navColl}
             toggle={() => handleNavColl()}

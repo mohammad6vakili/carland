@@ -59,7 +59,7 @@ const Jobs = () => {
               {MyJobs.map((card, index) => (
                 <SwiperSlide key={Math.random() * index} className={s.slide}>
                   <JobsCard
-                    image={""}
+                    image={"/assets/main/car-2.png"}
                     rate={""}
                     title={"لوازم یدکی میلاد"}
                     description={
@@ -67,9 +67,8 @@ const Jobs = () => {
                     }
                     isOpen={false}
                     location={"تهران"}
-                    timeFrom={""}
-                    timeTo={""}
-                    id={"1"}
+                    timeFrom={"2:00"}
+                    timeTo={"2:00"}
                     myJobs={true}
                   />
                 </SwiperSlide>
