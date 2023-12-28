@@ -459,7 +459,7 @@ const Main = () => {
           </div>
         </div>
 
-        <div className={styles.market}>
+        {/* <div className={styles.market}>
           <div className={styles.title}>
             <div>
               <h1 className={styles.selected}>بازارچه </h1>
@@ -545,7 +545,7 @@ const Main = () => {
               <ArrowRightOutlined style={{ color: "#fff" }} />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.magazine_container}>
           <MainPageMagazine
