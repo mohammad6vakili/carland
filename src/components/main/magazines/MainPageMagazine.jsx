@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import OfferCardSkeleton from "../../skeleton/OfferCardSkeleton";
 import MySkeleton from "../../skeleton/Skeleton";
 import React from "react";
+import { handleTextCut } from "@/src/hooks/functions";
 
 const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
   const navigate = useRouter();
@@ -52,7 +53,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                   <span>{magazines[0].title}</span>
                 </div>
                 <div className={styles.description}>
-                  <span>{magazines[0].description}</span>
+                  <span>{handleTextCut(magazines[0].description, 300)}</span>
                   <Image
                     src={"/assets/main/quotation.svg"}
                     alt=""

@@ -39,6 +39,14 @@ export const toPersianString = (str) => {
   }
 };
 
+export const handleTextCut = (text, number) => {
+  if (text.length > number) {
+    return `${text.substring(0, number)}.....`;
+  } else {
+    return `${text}`;
+  }
+};
+
 export function convertTime(timeStr) {
   // Split the time string into hours, minutes, and seconds
   const [hours, minutes, seconds] = timeStr.split(":");
