@@ -1,7 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { getLocal } from "../hooks/functions";
+import { getLocal, removeLocal, setLocal } from "../hooks/functions";
 
 export const url = "https://api.carland.ir";
 export const baseUrl = "https://api.carland.ir/api";
@@ -29,9 +29,10 @@ const useHttp = (checkAuth) => {
       console.log("HttpService error", error);
       console.log("HttpService response", JSON.stringify(response, null, 2));
       if (response?.status === 401 && checkAuth) {
-        toast.error("اطلاعات ثبت نام شما یافت نشد");
-        localStorage.removeItem("token");
-        navigate.push("/");
+        // toast.error("اطلاعات ثبت نام شما یافت نشد");
+        removeLocal("token");
+        setLocal("token", "unAuth");
+        // navigate.push("/");
       } else if (response?.status === 422) {
         if (response?.data?.errors) {
           toast.error(response?.data?.errors[0].detail);

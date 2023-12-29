@@ -65,55 +65,55 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
             ) : null}
           </div>
         ) : (
-          <OfferCardSkeleton width={"150%"} height={500} />
+          <OfferCardSkeleton width={"100%"} height={500} />
         )}
 
         <div className={styles.options}>
-          {magazines.length !== 0 && magazines
-            ? magazines.map((mag, index) => (
-                <React.Fragment key={Math.random() * index}>
-                  {index !== 0 ? (
-                    <section className={styles.option}>
-                      <div className={styles.pic}>
-                        <Image
-                          src={url + "/" + mag.image_url}
-                          alt=""
-                          width={50}
-                          height={50}
-                        />
-                      </div>
+          {magazines.length !== 0 && magazines ? (
+            magazines.map((mag, index) => (
+              <React.Fragment key={Math.random() * index}>
+                {index !== 0 ? (
+                  <section className={styles.option}>
+                    <div className={styles.pic}>
+                      <Image
+                        src={url + "/" + mag.image_url}
+                        alt=""
+                        width={50}
+                        height={50}
+                      />
+                    </div>
 
-                      <div className={styles.texts}>
-                        <div className={styles.title}>{mag.title}</div>
-                        <p className={styles.description}>
-                          {mag.description.length > 60
-                            ? mag.description.substring(1, 60) + "..."
-                            : mag.description}
-                        </p>
-                        <div className={styles.refrences}>
-                          <span>۱۴۰۲/۰۸/۰۱</span>
-                          <Button
-                            onClick={() =>
-                              navigate.push(`/${method}/${mag.id}`)
-                            }
-                          >
-                            مشاهده{" "}
-                            <div>
-                              <Image
-                                src={"/assets/main/see-more.svg"}
-                                alt=""
-                                width={15}
-                                height={15}
-                              />
-                            </div>
-                          </Button>
-                        </div>
+                    <div className={styles.texts}>
+                      <div className={styles.title}>{mag.title}</div>
+                      <p className={styles.description}>
+                        {mag.description.length > 60
+                          ? mag.description.substring(1, 60) + "..."
+                          : mag.description}
+                      </p>
+                      <div className={styles.refrences}>
+                        <span>۱۴۰۲/۰۸/۰۱</span>
+                        <Button
+                          onClick={() => navigate.push(`/${method}/${mag.id}`)}
+                        >
+                          مشاهده{" "}
+                          <div>
+                            <Image
+                              src={"/assets/main/see-more.svg"}
+                              alt=""
+                              width={15}
+                              height={15}
+                            />
+                          </div>
+                        </Button>
                       </div>
-                    </section>
-                  ) : null}
-                </React.Fragment>
-              ))
-            : null}
+                    </div>
+                  </section>
+                ) : null}
+              </React.Fragment>
+            ))
+          ) : (
+            <MySkeleton width={"100%"} height={"100px"} />
+          )}
         </div>
       </div>
     </div>

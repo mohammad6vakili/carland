@@ -29,17 +29,19 @@ const Header = () => {
   const isAuth = useSelector((state) => state.isAuth.isAuth);
   const userData = useSelector((state) => state.userInfo.userInfo);
   const dispatch = useDispatch();
-  const { httpService } = useHttp(true);
+  const { httpService } = useHttp(!getLocal("token") === "unAuth");
 
   useEffect(() => {
-    httpService
-      .get("user")
-      .then((res) => {
-        res.status === 200
-          ? (dispatch(setIsAuth(true)), dispatch(setUserInfo(res.data)))
-          : null;
-      })
-      .catch((err) => {});
+    getLocal("token") !== "unAuth"
+      ? httpService
+          .get("user")
+          .then((res) => {
+            res.status === 200
+              ? (dispatch(setIsAuth(true)), dispatch(setUserInfo(res.data)))
+              : null;
+          })
+          .catch((err) => {})
+      : null;
   }, [isAuth]);
 
   return (
