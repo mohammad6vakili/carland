@@ -169,14 +169,14 @@ const Main = () => {
       marketRSwiper.navigation.update();
     }
   }, [marketRSwiper]);
-  useEffect(() => {
-    if (marketBSwiper) {
-      marketBSwiper.params.navigation.prevEl = prevMarketBRef.current;
-      marketBSwiper.params.navigation.nextEl = nextMarketBRef.current;
-      marketBSwiper.navigation.init();
-      marketBSwiper.navigation.update();
-    }
-  }, [marketBSwiper]);
+  // useEffect(() => {
+  //   if (marketBSwiper) {
+  //     marketBSwiper.params.navigation.prevEl = prevMarketBRef.current;
+  //     marketBSwiper.params.navigation.nextEl = nextMarketBRef.current;
+  //     marketBSwiper.navigation.init();
+  //     marketBSwiper.navigation.update();
+  //   }
+  // }, [marketBSwiper]);
   useEffect(() => {
     if (fanClubSwiper) {
       fanClubSwiper.params.navigation.prevEl = prevFanClubRef.current;

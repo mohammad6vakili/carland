@@ -1,4 +1,4 @@
-import { Button, Input, Spinner, Table } from "reactstrap";
+import { Button, Dropdown, Input, Spinner, Table } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import useHttp from "@/src/axiosConfig/useHttp";
 import React, { useEffect, useState } from "react";
@@ -86,7 +86,11 @@ const UserTickets = () => {
 
           <div className={s.data_input}>
             <Input placeholder="نام و نام خانوادگی" />
-            <Input placeholder="نوع مشکل" />
+            <Dropdown placeholder="نوع مشکل">
+              <option value="امور مالی">امور مالی</option>
+              <option value="مشکل فنی">مشکل فنی</option>
+              <option value="سایر">سایر</option>
+            </Dropdown>
           </div>
 
           <div className={s.title_input}>
