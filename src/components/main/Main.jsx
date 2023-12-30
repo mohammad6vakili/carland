@@ -671,6 +671,7 @@ const Main = () => {
                     key={Math.random() * index}
                     image={club.image_url}
                     description={club.description}
+                    authorName={club.AuthorName}
                     id={club.id}
                     title={club.title}
                   />

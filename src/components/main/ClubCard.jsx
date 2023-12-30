@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "reactstrap";
 
-const ClubCard = ({ image, title, description, id }) => {
+const ClubCard = ({ image, title, description, id, authorName }) => {
   return (
     <section className={styles.link}>
       <div className={styles.pic}>
@@ -16,7 +16,7 @@ const ClubCard = ({ image, title, description, id }) => {
         <div className={styles.refrences}>
           <div className={styles.name_profile}>
             <div className={styles.profile}></div>
-            <span>مهزیار رازه </span>
+            <span>{authorName}</span>
           </div>
           <Link href={`/club/${id}`}>
             <Button>
