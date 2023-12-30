@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const UserTickets = () => {
   const { httpService } = useHttp(true);
@@ -39,7 +40,7 @@ const UserTickets = () => {
         .post("tickets", formData)
         .then((res) => {
           res.status > 200 && res.status < 300
-            ? toast.success("تیکت شما با موفق ارسال شد")
+            ? (handleGetTickets(), toast.success("تیکت شما با موفق ارسال شد"))
             : null;
           setLoading(false);
         })
@@ -50,28 +51,78 @@ const UserTickets = () => {
     },
   });
 
-  useEffect(() => {
+  //request
+  const handleGetTickets = () => {
     httpService
       .get("ticket")
       .then((res) => {
         res.status === 200 ? setTickets(res.data.tickets) : null;
-        console.log(res.data.tickets);
       })
       .catch((err) => {
         console.log("error");
       });
+  };
+
+  useEffect(() => {
+    handleGetTickets();
   }, []);
 
   const handleTicketType = (cat) => {
     if (cat === 0) {
       return "سایر";
     } else if (cat === 1) {
-      return "مشکل فنی";
-    } else if (cat === 2) {
       return "امور مالی";
+    } else if (cat === 2) {
+      return "مشکل فنی";
     } else {
       return "نوع مشکل";
     }
+  };
+  const handleTicketStatus = (status) => {
+    if (status === 0) {
+      return { text: "خوانده نشده", style: "s.status_0" };
+    } else if (status === 1) {
+      return { text: "پاسخ پشتیبان", style: "s.status_1" };
+    } else if (status === 2) {
+      return { text: "پاسخ کاربر", style: "s.status_2" };
+    } else if (status === 3) {
+      return { text: "خوانده شده", style: `s.status_3` };
+    } else if (status === 4) {
+      return { text: "بسته شده", style: "s.status_4" };
+    } else {
+      return { text: "نامشخص", style: "s.status" };
+    }
+  };
+  const handleTicketTime = (time) => {
+    const givenTimeString = time;
+    const referenceTimeString = "2023-12-28T10:00:00.000000Z"; // Replace this with the reference time
+
+    const givenTime = new Date(givenTimeString);
+    const referenceTime = new Date(referenceTimeString);
+
+    const differenceInMilliseconds = givenTime - referenceTime;
+    const differenceInMinutes = Math.floor(
+      differenceInMilliseconds / (1000 * 60)
+    );
+
+    let elapsedTimeString;
+
+    if (differenceInMinutes < 60) {
+      elapsedTimeString = `${differenceInMinutes} دقیقه گذشته.`;
+    } else {
+      const differenceInHours = Math.floor(differenceInMinutes / 60);
+      const differenceInDays = Math.floor(differenceInHours / 24);
+
+      if (differenceInDays > 0) {
+        elapsedTimeString = `${differenceInDays} روز و  ${
+          differenceInHours % 24
+        } ساعت گذشته.`;
+      } else {
+        elapsedTimeString = `${differenceInHours} ساعت گذشته.`;
+      }
+    }
+
+    return `${elapsedTimeString}`;
   };
 
   return (
@@ -101,13 +152,17 @@ const UserTickets = () => {
                   tickets.map((ticket, index) => (
                     <tr key={ticket.id}>
                       <td>{handleTicketType(ticket.category)}</td>
-                      <td>۲ روز پیش</td>
-                      <td>پاسخ داده شده</td>
-                      <td>
-                        <Button className={s.see_ticket}>مشاهده</Button>
+                      <td>{handleTicketTime(ticket.created_at)}</td>
+                      <td className={handleTicketStatus(ticket.status).style}>
+                        {handleTicketStatus(ticket.status).text}
                       </td>
                       <td>
-                        <Button className={s.see_ticket}>بستن تیکت</Button>
+                        <Link href={`/userDashboard/tickets/${ticket.id}`}>
+                          <Button className={s.see_ticket}>مشاهده</Button>
+                        </Link>
+                      </td>
+                      <td>
+                        <Button className={s.end_ticket}>بستن تیکت</Button>
                       </td>
                     </tr>
                   ))
@@ -204,7 +259,10 @@ const UserTickets = () => {
 
           <div className={s.submit}>
             <Button disabled={loading} type="submit">
-              {loading ? <Spinner></Spinner> : null} ارسال تیکت
+              {loading ? (
+                <Spinner style={{ width: "15px", height: "15px" }}></Spinner>
+              ) : null}{" "}
+              ارسال تیکت
             </Button>
           </div>
         </form>
