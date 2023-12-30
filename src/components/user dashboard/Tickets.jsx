@@ -1,32 +1,78 @@
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Input,
-  Spinner,
-  Table,
-  UncontrolledButtonDropdown,
-} from "reactstrap";
+import { Button, Input, InputGroup, Label, Spinner, Table } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import useHttp from "@/src/axiosConfig/useHttp";
 import React, { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import toast from "react-hot-toast";
 
 const UserTickets = () => {
   const { httpService } = useHttp(true);
   const [tickets, setTickets] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const validationSchema = Yup.object().shape({
+    category: Yup.string().required(
+      "لطفا برای ثبت تیکت نوع مشکل خود را وارد کنید"
+    ),
+    subject: Yup.string().required("موضوع تیکت خود را بنویسید"),
+    content: Yup.string().required("متن تیکت خود را بنویسید"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      category: "",
+      subject: "",
+      content: "",
+    },
+
+    validationSchema,
+
+    onSubmit: (values) => {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("category", values.category);
+      formData.append("subject", values.subject);
+      formData.append("content", values.content);
+
+      httpService
+        .post("tickets", formData)
+        .then((res) => {
+          res.status > 200 && res.status < 300
+            ? toast.success("تیکت شما با موفق ارسال شد")
+            : null;
+          setLoading(false);
+        })
+        .catch((err) => {
+          toast.error("مشکلی در ارسال تیکت شما بوجود امد");
+          setLoading(false);
+        });
+    },
+  });
 
   useEffect(() => {
     httpService
       .get("ticket")
       .then((res) => {
         res.status === 200 ? setTickets(res.data.tickets) : null;
+        console.log(res.data.tickets);
       })
       .catch((err) => {
         console.log("error");
       });
   }, []);
+
+  const handleTicketType = (cat) => {
+    if (cat === 0) {
+      return "سایر";
+    } else if (cat === 1) {
+      return "مشکل فنی";
+    } else if (cat === 2) {
+      return "امور مالی";
+    } else {
+      return "نوع مشکل";
+    }
+  };
 
   return (
     <>
@@ -50,11 +96,11 @@ const UserTickets = () => {
             </thead>
 
             <tbody>
-              {tickets !== null ? (
+              {tickets ? (
                 tickets.length !== 0 ? (
                   tickets.map((ticket, index) => {
                     <tr>
-                      <th scope="row">مشکل شارژ کیف پول در هنگام شارژ</th>
+                      <th scope="row">{handleTicketType(ticket.category)}</th>
                       <td>۲ روز پیش</td>
                       <td>پاسخ داده شده</td>
                       <td>
@@ -66,7 +112,7 @@ const UserTickets = () => {
                     </tr>;
                   })
                 ) : (
-                  <div className={s.noTicket}>تیکتی وجود ندارد</div>
+                  <tr className={s.noTicket}>تیکتی وجود ندارد</tr>
                 )
               ) : (
                 <tr>
@@ -91,7 +137,7 @@ const UserTickets = () => {
           </Table>
         </section>
 
-        <section className={s.send_ticket}>
+        <form onSubmit={formik.handleSubmit} className={s.send_ticket}>
           <div className={s.title}>
             <span>
               <svg
@@ -111,29 +157,57 @@ const UserTickets = () => {
           </div>
 
           <div className={s.data_input}>
+            <Input
+              type="select"
+              placeholder="نوع مشکل"
+              name="category"
+              value={formik.values.category}
+              onChange={formik.handleChange}
+            >
+              <option disabled value="" selected>
+                نوع مشکل
+              </option>
+              <option value="1">امور مالی</option>
+              <option value="2">مشکل فنی</option>
+              <option value="0">سایر</option>
+            </Input>
+            {formik.errors.category && formik.touched.category && (
+              <span className={s.error}>{formik.errors.category}</span>
+            )}
             {/* <Input placeholder="نام و نام خانوادگی" /> */}
-            <Dropdown placeholder="نوع مشکل">
-              <DropdownToggle>نوع مشکل</DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem value="امور مالی">امور مالی</DropdownItem>
-                <DropdownItem value="مشکل فنی">مشکل فنی</DropdownItem>
-                <DropdownItem value="سایر">سایر</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
           </div>
 
           <div className={s.title_input}>
-            <Input placeholder="موضوع" />
+            <Input
+              placeholder="موضوع"
+              name="subject"
+              value={formik.values.subject}
+              onChange={formik.handleChange}
+            />
+            {formik.errors.subject && formik.touched.subject && (
+              <span className={s.error}>{formik.errors.subject}</span>
+            )}
           </div>
 
           <div className={s.details_input}>
-            <Input type="textarea" placeholder="توضیحات" />
+            <Input
+              type="textarea"
+              placeholder="توضیحات"
+              name="content"
+              value={formik.values.content}
+              onChange={formik.handleChange}
+            />
+            {formik.errors.content && formik.touched.content && (
+              <span className={s.error}>{formik.errors.content}</span>
+            )}
           </div>
 
           <div className={s.submit}>
-            <Button>ارسال تیکت</Button>
+            <Button disabled={loading} type="submit">
+              {loading ? <Spinner></Spinner> : null} ارسال تیکت
+            </Button>
           </div>
-        </section>
+        </form>
       </div>
     </>
   );

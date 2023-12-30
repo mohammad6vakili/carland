@@ -72,6 +72,7 @@
     position: relative;
 
     input,
+    select,
     textarea {
       border-radius: 10px;
       border: 1px solid #4a80e8;
@@ -85,14 +86,16 @@
       font-size: 1.1em;
     }
 
-    .data_input {
-      @include flex(row, space-between, center);
-      gap: 25px;
-      width: 100%;
-    }
+    .data_input,
     .title_input,
     .details_input {
+      @include flex(column, space-between, center);
+      gap: 10px;
       width: 100%;
+
+      .error {
+        color: #f93423;
+      }
     }
 
     .submit {
