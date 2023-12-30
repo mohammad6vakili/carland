@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
+import { toPersianString } from "@/src/hooks/functions";
 
 const Magazine = () => {
   const size = useWindowSize();
@@ -133,10 +134,11 @@ const Magazine = () => {
                 </div>
 
                 <div className={s.magazine_details}>
-                  <p className={s.name}>مهزیار رازه</p>
+                  <p className={s.name}>{magData.AuthorName}</p>
                   <p>۸ مرداد ۱۴۰۲</p>
                   <p>
-                    زمان مطالعه: <span>۸ دقیقه</span>
+                    زمان مطالعه:{" "}
+                    <span>{toPersianString(magData.StudyTime)} دقیقه</span>
                   </p>
                 </div>
               </div>

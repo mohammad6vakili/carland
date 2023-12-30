@@ -143,10 +143,13 @@ const Club = () => {
                 </div>
 
                 <div className={s.magazine_details}>
-                  <p className={s.name}>{clubData}</p>
+                  <p className={s.name}>{clubData.data.AuthorName}</p>
                   <p>۸ مرداد ۱۴۰۲</p>
                   <p>
-                    زمان مطالعه: <span>۸ دقیقه</span>
+                    زمان مطالعه:{" "}
+                    <span>
+                      {toPersianString(clubData.data.StudyTime)} دقیقه
+                    </span>
                   </p>
                 </div>
               </div>
