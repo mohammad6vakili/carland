@@ -22,12 +22,21 @@ const TicketPage = () => {
   };
 
   useEffect(() => {
-    handleGetTicketById(router.query.ticketId);
+    const id = router.query.ticketId;
+
+    id ? handleGetTicketById(id) : null;
   }, [router]);
 
   return (
     <>
-      <div className={s.ticket_page}></div>
+      <div className={s.ticket_page}>
+        {ticketInfo ? (
+          <>
+            <section className={s.title}>{ticketInfo.chats[0].content}</section>
+            <section className={s.messages}>{}</section>
+          </>
+        ) : null}
+      </div>
     </>
   );
 };
