@@ -1,4 +1,14 @@
-import { Button, Dropdown, Input, Spinner, Table } from "reactstrap";
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Input,
+  Spinner,
+  Table,
+  UncontrolledButtonDropdown,
+} from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import useHttp from "@/src/axiosConfig/useHttp";
 import React, { useEffect, useState } from "react";
@@ -56,10 +66,26 @@ const UserTickets = () => {
                     </tr>;
                   })
                 ) : (
-                  <tr className={s.noTicket}>تیکتی وجود ندارد</tr>
+                  <div className={s.noTicket}>تیکتی وجود ندارد</div>
                 )
               ) : (
-                <Spinner style={{ margin: "0 auto" }}></Spinner>
+                <tr>
+                  <td>
+                    <Spinner></Spinner>
+                  </td>
+                  <td>
+                    <Spinner></Spinner>
+                  </td>
+                  <td>
+                    <Spinner></Spinner>
+                  </td>
+                  <td>
+                    <Spinner></Spinner>
+                  </td>
+                  <td>
+                    <Spinner></Spinner>
+                  </td>
+                </tr>
               )}
             </tbody>
           </Table>
@@ -85,11 +111,14 @@ const UserTickets = () => {
           </div>
 
           <div className={s.data_input}>
-            <Input placeholder="نام و نام خانوادگی" />
+            {/* <Input placeholder="نام و نام خانوادگی" /> */}
             <Dropdown placeholder="نوع مشکل">
-              <option value="امور مالی">امور مالی</option>
-              <option value="مشکل فنی">مشکل فنی</option>
-              <option value="سایر">سایر</option>
+              <DropdownToggle>نوع مشکل</DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem value="امور مالی">امور مالی</DropdownItem>
+                <DropdownItem value="مشکل فنی">مشکل فنی</DropdownItem>
+                <DropdownItem value="سایر">سایر</DropdownItem>
+              </DropdownMenu>
             </Dropdown>
           </div>
 
