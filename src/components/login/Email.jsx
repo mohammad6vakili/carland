@@ -13,6 +13,7 @@ import {
   getLocal,
   removeLocal,
   setLocal,
+  toEnglishString,
   toPersianString,
 } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
@@ -29,16 +30,16 @@ const Email = ({ verify }) => {
   }, []);
 
   const schema = Yup.object().shape({
-    number: Yup.string()
-      .required("لطفا این فیلد را پر کنید")
-      .min(11, "لطفا یک شماره ۱۱ رقمی وارد کنید"),
+    number: Yup.string().required("لطفا این فیلد را پر کنید"),
+    // .min(11, "لطفا یک شماره ۱۱ رقمی وارد کنید"),
   });
 
   const handleSendCode = (values) => {
     setLoading(true);
+    const userNumber = toEnglishString(values.number);
     const formData = new FormData();
-    formData.append("phone", values.number);
-    setLocal("number", values.number);
+    formData.append("phone", userNumber);
+    setLocal("number", userNumber);
     httpService
       .post("login", formData)
       .then((res) => {

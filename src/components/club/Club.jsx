@@ -143,7 +143,7 @@ const Club = () => {
                 </div>
 
                 <div className={s.magazine_details}>
-                  <p className={s.name}>مهزیار رازه</p>
+                  <p className={s.name}>{clubData}</p>
                   <p>۸ مرداد ۱۴۰۲</p>
                   <p>
                     زمان مطالعه: <span>۸ دقیقه</span>

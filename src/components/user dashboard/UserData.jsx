@@ -67,9 +67,9 @@ const UserData = () => {
     name: Yup.string().required("لطفا نام خود را وارد کنید"),
     gender: Yup.string().required("لطفا این فیلد را پر کنید"),
     age: Yup.string().required("لطفا سن خود را وارد کنید"),
+    address: Yup.string().required("لطفا شهر خود را وارد کنید"),
     idCard: "",
     carType: "",
-    address: "",
     technicalDiagnosis: "",
     expirationInsurance: "",
     expirationCertificate: "",
@@ -136,11 +136,13 @@ const UserData = () => {
                   name="gender"
                   type="select"
                   value={formik.values.gender}
-                  // onChange={formik.handleChange}
-                  onChange={(e) => console.log(e.target.value)}
+                  onChange={formik.handleChange}
                 >
-                  <option>مرد</option>
-                  <option>زن</option>
+                  <option defaultValue value="" disabled>
+                    جنسیت
+                  </option>
+                  <option value="مرد">مرد</option>
+                  <option value="زن">زن</option>
                 </Input>
                 <Button type="button">
                   <LiaEditSolid />

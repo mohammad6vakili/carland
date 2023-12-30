@@ -39,6 +39,45 @@ export const toPersianString = (str) => {
   }
 };
 
+export const toEnglishString = (str) => {
+  if (typeof str === "string") {
+    return str
+      .replace(/۱/g, "1")
+      .replace(/۲/g, "2")
+      .replace(/۳/g, "3")
+      .replace(/۴/g, "4")
+      .replace(/۵/g, "5")
+      .replace(/۶/g, "6")
+      .replace(/۷/g, "7")
+      .replace(/۸/g, "8")
+      .replace(/۹/g, "9")
+      .replace(/۰/g, "0")
+      .replace(/:/g, ":");
+  } else {
+    return str
+      ?.toString()
+      .replace(/۱/g, "1")
+      .toString()
+      .replace(/۲/g, "2")
+      .toString()
+      .replace(/۳/g, "3")
+      .toString()
+      .replace(/۴/g, "4")
+      .toString()
+      .replace(/۵/g, "5")
+      .toString()
+      .replace(/۶/g, "6")
+      .toString()
+      .replace(/۷/g, "7")
+      .toString()
+      .replace(/۸/g, "8")
+      .toString()
+      .replace(/۹/g, "9")
+      .toString()
+      .replace(/0/g, "۰");
+  }
+};
+
 export const handleTextCut = (text, number) => {
   if (text.length > number) {
     return `${text.substring(0, number)}.....`;
