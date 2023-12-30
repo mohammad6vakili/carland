@@ -98,9 +98,9 @@ const UserTickets = () => {
             <tbody>
               {tickets ? (
                 tickets.length !== 0 ? (
-                  tickets.map((ticket, index) => {
-                    <tr>
-                      <th scope="row">{handleTicketType(ticket.category)}</th>
+                  tickets.map((ticket, index) => (
+                    <tr key={ticket.id}>
+                      <td>{handleTicketType(ticket.category)}</td>
                       <td>۲ روز پیش</td>
                       <td>پاسخ داده شده</td>
                       <td>
@@ -109,8 +109,8 @@ const UserTickets = () => {
                       <td>
                         <Button className={s.see_ticket}>بستن تیکت</Button>
                       </td>
-                    </tr>;
-                  })
+                    </tr>
+                  ))
                 ) : (
                   <tr className={s.noTicket}>تیکتی وجود ندارد</tr>
                 )
@@ -164,7 +164,7 @@ const UserTickets = () => {
               value={formik.values.category}
               onChange={formik.handleChange}
             >
-              <option disabled value="" selected>
+              <option disabled value="" defaultValue>
                 نوع مشکل
               </option>
               <option value="1">امور مالی</option>
