@@ -42,7 +42,9 @@ const UDNavigation = () => {
   const dispatch = useDispatch();
 
   const handleSelectedRoute = (route) => {
-    const currentPage = pathname.replace("/userDashboard", "").replace("/", "");
+    const currentPage = pathname
+      ?.replace("/userDashboard", "")
+      .replace("/", "");
 
     if (route === currentPage) {
       return true;
