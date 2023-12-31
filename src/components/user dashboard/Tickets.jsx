@@ -104,17 +104,17 @@ const UserTickets = () => {
   };
   const handleTicketStatus = (status) => {
     if (status === 0) {
-      return { text: "خوانده نشده", style: "s.status_0" };
+      return { text: "خوانده نشده", style: s.status_0 };
     } else if (status === 1) {
-      return { text: "پاسخ پشتیبان", style: "s.status_1" };
+      return { text: "پاسخ پشتیبان", style: s.status_1 };
     } else if (status === 2) {
-      return { text: "پاسخ کاربر", style: "s.status_2" };
+      return { text: "پاسخ کاربر", style: s.status_2 };
     } else if (status === 3) {
-      return { text: "خوانده شده", style: `s.status_3` };
+      return { text: "خوانده شده", style: s.status_3 };
     } else if (status === 4) {
-      return { text: "بسته شده", style: "s.status_4" };
+      return { text: "بسته شده", style: s.status_4 };
     } else {
-      return { text: "نامشخص", style: "s.status" };
+      return { text: "نامشخص", style: s.status };
     }
   };
   const handleTicketTime = (time) => {
