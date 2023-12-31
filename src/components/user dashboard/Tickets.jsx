@@ -296,13 +296,13 @@ const UserTickets = () => {
         </form>
       </div>
 
-      <Modal isOpen={endTicketModal} toggle={toggle}>
+      {/* <Modal isOpen={endTicketModal} toggle={toggle}>
         <ModalBody>آیا می خواهید تیکت را ببندید؟</ModalBody>
         <ModalFooter>
           <Button onClick={handleEndTicket}>بله</Button>
           <Button onClick={toggle}>خیر</Button>
         </ModalFooter>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
