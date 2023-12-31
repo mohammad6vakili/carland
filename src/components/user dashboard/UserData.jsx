@@ -26,6 +26,7 @@ import { useSelector } from "react-redux";
 const UserData = () => {
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(false);
   const [initialValues, setInitialValues] = useState({
     name: "",
     gender: "",
@@ -305,7 +306,12 @@ const UserData = () => {
                       type="file"
                       id="file"
                       value={formik.values.profile}
-                      onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const [file] = e.target.files;
+                        if (file) {
+                          console.log(file);
+                        }
+                      }}
                       hidden
                     />
                     <span>افزودن عکس</span>

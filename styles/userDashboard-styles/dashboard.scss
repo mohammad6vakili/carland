@@ -336,3 +336,27 @@
     }
   }
 }
+
+@media only screen and (max-width: 800px) {
+  .user_dashboard {
+    .comment_banner {
+      @include flex(column, flex-start, center);
+      gap: 20px;
+    }
+
+    .support_banner {
+      @include flex(column, flex-start, center);
+      height: auto;
+      gap: 20px;
+      padding: 20px;
+
+      .name {
+        @include flex(column, center, center);
+      }
+
+      .text {
+        max-width: 100%;
+      }
+    }
+  }
+}

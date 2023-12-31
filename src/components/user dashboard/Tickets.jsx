@@ -1,4 +1,14 @@
-import { Button, Input, InputGroup, Label, Spinner, Table } from "reactstrap";
+import {
+  Button,
+  Input,
+  InputGroup,
+  Label,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  Spinner,
+  Table,
+} from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import useHttp from "@/src/axiosConfig/useHttp";
 import React, { useEffect, useState } from "react";
@@ -60,6 +70,19 @@ const UserTickets = () => {
       })
       .catch((err) => {
         console.log("error");
+      });
+  };
+
+  const handleEndTicket = (id) => {
+    setLoading(true);
+
+    httpService
+      .get(`CloseTicket/${ticketInfo.chats[0].ticket_id}`)
+      .then((res) => {
+        res.status === 200 ? toast.success("تیکت شما با موفقیت بسته شد") : null;
+      })
+      .catch(() => {
+        toast.error("مشکلی در بستن تیکت بوجود امد");
       });
   };
 
@@ -162,7 +185,12 @@ const UserTickets = () => {
                         </Link>
                       </td>
                       <td>
-                        <Button className={s.end_ticket}>بستن تیکت</Button>
+                        <Button
+                          onClick={() => handleEndTicket(ticket.id)}
+                          className={s.end_ticket}
+                        >
+                          بستن تیکت
+                        </Button>
                       </td>
                     </tr>
                   ))
@@ -267,6 +295,14 @@ const UserTickets = () => {
           </div>
         </form>
       </div>
+
+      <Modal isOpen={endTicketModal} toggle={toggle}>
+        <ModalBody>آیا می خواهید تیکت را ببندید؟</ModalBody>
+        <ModalFooter>
+          <Button onClick={handleEndTicket}>بله</Button>
+          <Button onClick={toggle}>خیر</Button>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

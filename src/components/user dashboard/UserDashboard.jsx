@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from "react";
 import { Navigation } from "swiper/modules";
 import { Button } from "reactstrap";
 import MySkeleton from "../skeleton/Skeleton";
+import Link from "next/link";
 
 const UserDashboard = () => {
   const { httpService } = useHttp(false);
@@ -251,26 +252,28 @@ const UserDashboard = () => {
           </div>
 
           <div className={s.btn}>
-            <Button>
-              <span>پشتیبانی</span>
-              <div>
-                <svg
-                  className={s.svg}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="57"
-                  height="44"
-                  viewBox="0 0 57 44"
-                  fill="none"
-                >
-                  <path
-                    d="M0.851562 10C0.851562 4.7533 5.10486 0.5 10.3516 0.5H46.2644C52.8289 0.5 57.415 6.99914 55.2149 13.184L46.6774 37.184C45.3303 40.9707 41.746 43.5 37.7268 43.5H10.3516C5.10485 43.5 0.851562 39.2467 0.851562 34V10Z"
-                    fill="white"
-                    stroke="#4A80E8"
-                  />
-                </svg>
-                <MdSupportAgent className={s.logo} />
-              </div>
-            </Button>
+            <Link href={"/userDashboard/supports"}>
+              <Button>
+                <span>پشتیبانی</span>
+                <div>
+                  <svg
+                    className={s.svg}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="57"
+                    height="44"
+                    viewBox="0 0 57 44"
+                    fill="none"
+                  >
+                    <path
+                      d="M0.851562 10C0.851562 4.7533 5.10486 0.5 10.3516 0.5H46.2644C52.8289 0.5 57.415 6.99914 55.2149 13.184L46.6774 37.184C45.3303 40.9707 41.746 43.5 37.7268 43.5H10.3516C5.10485 43.5 0.851562 39.2467 0.851562 34V10Z"
+                      fill="white"
+                      stroke="#4A80E8"
+                    />
+                  </svg>
+                  <MdSupportAgent className={s.logo} />
+                </div>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

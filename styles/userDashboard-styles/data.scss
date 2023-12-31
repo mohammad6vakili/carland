@@ -135,3 +135,29 @@
     }
   }
 }
+
+@media only screen and (max-width: 1000px) {
+  .user_data {
+    .form {
+      .formGroup {
+        width: 100%;
+      }
+
+      .profile {
+        flex-direction: column;
+        gap: 20px;
+
+        .text,
+        .input_place {
+          @include flex(column, center, center);
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      .submit {
+        @include flex(row, center, center);
+      }
+    }
+  }
+}

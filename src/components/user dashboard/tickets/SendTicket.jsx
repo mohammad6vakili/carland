@@ -1,11 +1,4 @@
-import {
-  Button,
-  Input,
-  InputGroup,
-  Modal,
-  ModalBody,
-  ModalFooter,
-} from "reactstrap";
+import { Button, Input, InputGroup } from "reactstrap";
 import s from "../../../../styles/main.module.scss";
 import { useState } from "react";
 
