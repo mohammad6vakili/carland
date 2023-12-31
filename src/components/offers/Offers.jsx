@@ -13,7 +13,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import { LeftOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import BuySaleCard from "./cards/BuySaleCard";
 import JobsCard from "./cards/JobsCard";
@@ -30,7 +30,6 @@ import {
 import OfferCardSkeleton from "../skeleton/OfferCardSkeleton";
 import CardRenderer from "./cards/CardRenderer";
 import { useRouter } from "next/router";
-import Head from "next/head";
 
 const offers = () => {
   const router = useRouter();
@@ -168,10 +167,6 @@ const offers = () => {
 
   return (
     <>
-      <Head>
-        <title>آگهی ها</title>
-        <meta property="og:title" content="اگهی خرید و فروش" key="آگهی" />
-      </Head>
       <div className={s.offers}>
         <HCarousel />
 

@@ -17,6 +17,7 @@ import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
 import { toPersianString } from "@/src/hooks/functions";
+import Head from "next/head";
 
 const Magazine = () => {
   const size = useWindowSize();
@@ -76,6 +77,10 @@ const Magazine = () => {
   if (magData.length !== 0) {
     return (
       <>
+        {/* <Head>
+          <title>{magData.title}</title>
+          <meta property="og:title" content="مجله خرید و فروش" key="مجله" />
+        </Head> */}
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>{magData.title}</h1>
