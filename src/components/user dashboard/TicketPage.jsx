@@ -4,17 +4,44 @@ import { useRouter } from "next/router";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import TicketCards from "./tickets/TicketCards";
+import MySkeleton from "../skeleton/Skeleton";
+import SendTicket from "./tickets/SendTicket";
+import { IoCloseCircleOutline } from "react-icons/io5";
+import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 
 const TicketPage = () => {
   const router = useRouter();
   const { httpService } = useHttp(true);
+  const [loading, setLoading] = useState(false);
   const [ticketInfo, setTicketInfo] = useState(null);
+  const [endTicketModal, setEndTicketModal] = useState(false);
 
+  const toggle = () => {
+    setEndTicketModal(!endTicketModal);
+  };
+
+  //end ticket
+  const handleEndTicket = () => {
+    setLoading(true);
+
+    httpService
+      .get(`CloseTicket/${ticketInfo.chats[0].ticket_id}`)
+      .then((res) => {
+        res.status === 200 ? toast.success("تیکت شما با موفقیت بسته شد") : null;
+      })
+      .catch(() => {
+        toast.error("مشکلی در بستن تیکت بوجود امد");
+      });
+  };
+
+  //get ticket
   const handleGetTicketById = (id) => {
     httpService
       .get(`chats/${id}`)
       .then((res) => {
-        res.status === 200 ? setTicketInfo(res.data) : null;
+        res.status === 200
+          ? (setEndTicketModal(false), setTicketInfo(res.data))
+          : null;
       })
       .catch((err) => {
         toast.error("تیکت مورد نظر شما پیدا نشد");
@@ -63,10 +90,32 @@ const TicketPage = () => {
                   <>اطلاعات تیکت شما یافت نشد</>
                 )
               ) : null}
+
+              <SendTicket />
+
+              <Button
+                onClick={() => setEndTicketModal(true)}
+                className={s.close_btn}
+              >
+                بستن تیکت <IoCloseCircleOutline style={{ color: "#F93423" }} />
+              </Button>
             </section>
           </>
-        ) : null}
+        ) : (
+          <>
+            <MySkeleton width={"100px"} height={"40px"} />
+            <MySkeleton width={"100%"} height={"500px"} />
+          </>
+        )}
       </div>
+
+      <Modal isOpen={endTicketModal} toggle={toggle}>
+        <ModalBody>آیا می خواهید تیکت را ببندید؟</ModalBody>
+        <ModalFooter>
+          <Button onClick={handleEndTicket}>بله</Button>
+          <Button onClick={toggle}>خیر</Button>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

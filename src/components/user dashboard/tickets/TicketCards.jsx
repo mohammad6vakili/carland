@@ -1,6 +1,7 @@
 import Image from "next/image";
 import s from "../../../../styles/main.module.scss";
 import { url } from "@/src/axiosConfig/useHttp";
+import { convertDate } from "../../comments/CommentCards";
 
 const TicketCards = ({ userId, profile, name, date, content }) => {
   return (
@@ -14,7 +15,7 @@ const TicketCards = ({ userId, profile, name, date, content }) => {
           <section className={s.texts}>
             <div className={s.head}>
               <span className={s.name}>{name}</span>
-              <span>{date}</span>
+              <span>{convertDate(date)}</span>
             </div>
 
             <div className={s.content}>{content}</div>
@@ -29,7 +30,7 @@ const TicketCards = ({ userId, profile, name, date, content }) => {
                 ادمین <span>کارلند</span>
               </p>
 
-              <span>{date}</span>
+              <span>{convertDate(date)}</span>
             </div>
 
             <div className={s.text}>{content}</div>

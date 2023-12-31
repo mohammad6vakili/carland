@@ -2,20 +2,17 @@ import { toPersianString } from "@/src/hooks/functions";
 import CommentCard from "./CommentCard";
 import jalaliMoment from "jalali-moment";
 
+export const convertDate = (date) => {
+  let convertedDate = toPersianString(date.split("T", 1)).replaceAll("-", "/");
+  // const dateTime = new Date(date);
+  // const jdn = Math.floor(dateTime.getTime() / 8.64e7) + 1721119;
+  // const shamsiDate = jalaliMoment.fromJDN(jdn);
+  // const shamsiDateString = shamsiDate.format("jYY/jMM/jDD");
+
+  return convertedDate;
+};
+
 const CommentCards = ({ comments }) => {
-  const convertDate = (date) => {
-    let convertedDate = toPersianString(date.split("T", 1)).replaceAll(
-      "-",
-      "/"
-    );
-    // const dateTime = new Date(date);
-    // const jdn = Math.floor(dateTime.getTime() / 8.64e7) + 1721119;
-    // const shamsiDate = jalaliMoment.fromJDN(jdn);
-    // const shamsiDateString = shamsiDate.format("jYY/jMM/jDD");
-
-    return convertedDate;
-  };
-
   return (
     <>
       {comments.length !== 0
