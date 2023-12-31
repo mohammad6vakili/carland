@@ -55,8 +55,6 @@ const Magazine = () => {
     setPhotos(data);
   };
 
-  useEffect(() => console.log(photos), [photos]);
-
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [adsSwiper, setAdsSwiper] = useState();
@@ -70,6 +68,10 @@ const Magazine = () => {
       adsSwiper.navigation.update();
     }
   }, [adsSwiper]);
+
+  const handleCreatDate = (date) => {
+    console.log(date);
+  };
 
   if (magData.length !== 0) {
     return (
@@ -135,7 +137,7 @@ const Magazine = () => {
 
                 <div className={s.magazine_details}>
                   <p className={s.name}>{magData.AuthorName}</p>
-                  <p>۸ مرداد ۱۴۰۲</p>
+                  <p>{handleCreatDate(magData.created_at.split("T")[0])}</p>
                   <p>
                     زمان مطالعه:{" "}
                     <span>{toPersianString(magData.StudyTime)} دقیقه</span>

@@ -146,4 +146,99 @@
   p {
     margin: 0;
   }
+
+  .title {
+    @include flex(row, flex-start, center);
+    gap: 10px;
+    width: 100%;
+    color: #101010;
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+
+  .messages {
+    @include flex(column, flex-start, center);
+    width: 100%;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+    padding: 20px 30px;
+
+    .user_ticket {
+      @include flex(row, flex-start, flex-start);
+      gap: 20px;
+      width: 100%;
+      color: #757575;
+
+      .image {
+        width: max-content;
+        @include flex(column, flex-start, flex-start);
+
+        image {
+          border-right: 20px;
+        }
+      }
+
+      .texts {
+        @include flex(column, flex-start, flex-start);
+        gap: 20px;
+        width: 100%;
+        border-bottom: 1px solid #e6e6e6;
+        padding-bottom: 1rem;
+
+        .head {
+          @include flex(row, space-between, center);
+          width: 100%;
+
+          .name {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #101010;
+          }
+        }
+      }
+    }
+
+    .admin_reply {
+      @include flex(column, flex-start, flex-start);
+      gap: 5px;
+      width: 100%;
+      padding: 10px 0;
+
+      .reply_title {
+        @include flex(row, flex-start, center);
+        width: 100%;
+        color: #1bc217;
+        font-weight: 700;
+      }
+
+      .reply_content {
+        @include flex(column, flex-start, flex-start);
+        gap: 1rem;
+        width: 100%;
+        border-radius: 15px;
+        border: 1px solid #4a80e8;
+        background: rgba(74, 128, 232, 0.07);
+        padding: 20px 25px;
+
+        .head {
+          @include flex(row, space-between, center);
+          width: 100%;
+
+          .name {
+            color: #101010;
+            font-weight: 700;
+            font-size: 1.3em;
+            span {
+              color: #4a80e8;
+            }
+          }
+        }
+
+        .text {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
 }

@@ -29,7 +29,7 @@ const Header = () => {
   const isAuth = useSelector((state) => state.isAuth.isAuth);
   const userData = useSelector((state) => state.userInfo.userInfo);
   const dispatch = useDispatch();
-  const { httpService } = useHttp(!getLocal("token") === "unAuth");
+  const { httpService } = useHttp(true);
 
   useEffect(() => {
     getLocal("token") !== "unAuth"

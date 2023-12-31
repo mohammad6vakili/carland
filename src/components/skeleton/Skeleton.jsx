@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 
 const MySkeleton = ({ width, height, borderRadius, count }) => {
   return (
-    <React.Fragment style={{ width: "100%" }}>
+    <section style={{ width: "100%" }}>
       <Skeleton
         borderRadius={borderRadius ? borderRadius : "10px"}
         count={count ? count : 1}
@@ -11,7 +11,7 @@ const MySkeleton = ({ width, height, borderRadius, count }) => {
         width={width}
         height={height}
       />
-    </React.Fragment>
+    </section>
   );
 };
 

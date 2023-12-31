@@ -50,8 +50,6 @@ const Club = () => {
     }
   }, [router]);
 
-  useEffect(() => console.log(clubData), [clubData]);
-
   const handlePhotos = (banner, images) => {
     const data = [];
 

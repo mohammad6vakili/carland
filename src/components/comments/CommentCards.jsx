@@ -1,5 +1,4 @@
 import { toPersianString } from "@/src/hooks/functions";
-import s from "../../../styles/main.module.scss";
 import CommentCard from "./CommentCard";
 import jalaliMoment from "jalali-moment";
 

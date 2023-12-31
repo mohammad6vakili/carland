@@ -26,13 +26,13 @@ const useHttp = (checkAuth) => {
   httpService.interceptors.response.use(
     (response) => response,
     async ({ error, response }) => {
-      console.log("HttpService error", error);
-      console.log("HttpService response", JSON.stringify(response, null, 2));
+      // console.log("HttpService error", error);
+      // console.log("HttpService response", JSON.stringify(response, null, 2));
       if (response?.status === 401 && checkAuth) {
         // toast.error("اطلاعات ثبت نام شما یافت نشد");
         removeLocal("token");
         setLocal("token", "unAuth");
-        // navigate.push("/");
+        navigate.push("/login");
       } else if (response?.status === 422) {
         if (response?.data?.errors) {
           toast.error(response?.data?.errors[0].detail);
