@@ -46,7 +46,7 @@ const Club = () => {
           res.status === 200 ? setClubData(res.data) : null;
           handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
         })
-        .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
+        .catch((err) => toast.error("خطا در پیدا کردن اطلاعات کلوپ مورد نظر"));
     }
   }, [router]);
 
@@ -77,6 +77,16 @@ const Club = () => {
       adsSwiper.navigation.update();
     }
   }, [adsSwiper]);
+
+  const handleDescription = (text) => {
+    let texts = text.split("\n");
+    return texts.map((text, index) => (
+      <>
+        <p>{text}</p>
+        <br />
+      </>
+    ));
+  };
 
   if (clubData.length !== 0) {
     return (
@@ -154,7 +164,9 @@ const Club = () => {
 
               <div className={s.texts}>
                 <div className={s.title}>{clubData.data.title}</div>
-                <p className={s.descriptions}>{clubData.data.description}</p>
+                <p className={s.descriptions}>
+                  {handleDescription(clubData.data.description)}
+                </p>
               </div>
 
               <div className={s.share}>

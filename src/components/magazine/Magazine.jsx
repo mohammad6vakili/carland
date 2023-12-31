@@ -74,6 +74,16 @@ const Magazine = () => {
     console.log(date);
   };
 
+  const handleDescription = (text) => {
+    let texts = text.split("\r\n");
+    return texts.map((text, index) => (
+      <>
+        <p>{text}</p>
+        {index % 2 === 0 ? <br /> : null}
+      </>
+    ));
+  };
+
   if (magData.length !== 0) {
     return (
       <>
@@ -152,7 +162,9 @@ const Magazine = () => {
 
               <div className={s.texts}>
                 <div className={s.title}>{magData.title}</div>
-                <p className={s.descriptions}>{magData.description}</p>
+                <p className={s.descriptions}>
+                  {handleDescription(magData.description)}
+                </p>
               </div>
 
               <div className={s.share}>
