@@ -16,6 +16,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { convertTime } from "@/src/hooks/functions";
 
 const UserTickets = () => {
   const { httpService } = useHttp(true);
@@ -175,7 +176,7 @@ const UserTickets = () => {
                   tickets.map((ticket, index) => (
                     <tr key={ticket.id}>
                       <td>{handleTicketType(ticket.category)}</td>
-                      <td>{handleTicketTime(ticket.created_at)}</td>
+                      <td>{convertTime(ticket.created_at)}</td>
                       <td className={handleTicketStatus(ticket.status).style}>
                         {handleTicketStatus(ticket.status).text}
                       </td>
