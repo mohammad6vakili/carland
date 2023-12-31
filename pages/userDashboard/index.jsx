@@ -3,6 +3,7 @@ import Header from "@/src/components/header-footer/Header";
 import UDNavigation from "@/src/components/user dashboard/UDNavigation";
 import styles from "../../styles/main.module.scss";
 import UserDashboard from "@/src/components/user dashboard/UserDashboard";
+import Head from "next/head";
 // import { url, useServerFetch } from "@/src/axiosConfig/useHttp";
 
 // export const getStaticProps = async () => {
@@ -20,6 +21,10 @@ import UserDashboard from "@/src/components/user dashboard/UserDashboard";
 const index = () => {
   return (
     <>
+      <Head>
+        <title>داشبورد کاربر</title>
+        <meta property="og:title" content="داشبورد کاربر" key="داشبورد" />
+      </Head>
       <Header />
       <section className={styles.userDashboard_container}>
         <UDNavigation />

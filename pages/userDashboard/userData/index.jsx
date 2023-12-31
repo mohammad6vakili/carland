@@ -10,9 +10,9 @@ import React from "react";
 const page = () => {
   return (
     <>
-      {/* <Head>
-        <title>داشبورد</title>
-      </Head> */}
+      <Head>
+        <title>اطلاعات کاربری</title>
+      </Head>
       <Header />
       <section className={styles.userDashboard_container}>
         <UDNavigation />
