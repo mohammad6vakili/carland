@@ -70,10 +70,6 @@ const Magazine = () => {
     }
   }, [adsSwiper]);
 
-  const handleCreatDate = (date) => {
-    console.log(date);
-  };
-
   const handleDescription = (text) => {
     let texts = text.split("\r\n");
     return texts.map((text, index) => (
@@ -152,7 +148,7 @@ const Magazine = () => {
 
                 <div className={s.magazine_details}>
                   <p className={s.name}>{magData.AuthorName}</p>
-                  <p>{handleCreatDate(magData.created_at.split("T")[0])}</p>
+                  <p>{convertDate(clubData.data.created_at)}</p>
                   <p>
                     زمان مطالعه:{" "}
                     <span>{toPersianString(magData.StudyTime)} دقیقه</span>

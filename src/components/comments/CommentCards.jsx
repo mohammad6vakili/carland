@@ -1,6 +1,7 @@
-import { toPersianString } from "@/src/hooks/functions";
+import { toEnglishString, toPersianString } from "@/src/hooks/functions";
 import CommentCard from "./CommentCard";
 import jalaliMoment from "jalali-moment";
+import moment from "jalali-moment";
 
 export const convertDate = (date) => {
   let convertedDate = toPersianString(date.split("T", 1)).replaceAll("-", "/");
@@ -9,7 +10,11 @@ export const convertDate = (date) => {
   // const shamsiDate = jalaliMoment.fromJDN(jdn);
   // const shamsiDateString = shamsiDate.format("jYY/jMM/jDD");
 
-  return convertedDate;
+  const data = moment(toEnglishString(convertedDate), "YYYY/MM/DD")
+    .locale("fa")
+    .format("YYYY/MM/DD");
+
+  return toPersianString(data);
 };
 
 const CommentCards = ({ comments }) => {

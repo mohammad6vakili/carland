@@ -19,7 +19,7 @@ import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
 import { usePathname } from "next/navigation";
 import { handleCopy, toPersianString } from "@/src/hooks/functions";
-import CommentCards from "../comments/CommentCards";
+import CommentCards, { convertDate } from "../comments/CommentCards";
 import SendComment from "../comments/SendComment";
 import CommentCard from "../comments/CommentCard";
 import { useSelector } from "react-redux";
@@ -152,7 +152,7 @@ const Club = () => {
 
                 <div className={s.magazine_details}>
                   <p className={s.name}>{clubData.data.AuthorName}</p>
-                  <p>۸ مرداد ۱۴۰۲</p>
+                  <p>{convertDate(clubData.data.created_at)}</p>
                   <p>
                     زمان مطالعه:{" "}
                     <span>
