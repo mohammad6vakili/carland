@@ -26,10 +26,7 @@ const CreateAdd = () => {
 
             <div className={s.images}>
               <div className={s.input}>
-                <label
-                  className={s.content}
-                  onChange={(e) => console.log(e.target.files[0])}
-                >
+                <label className={s.content}>
                   <Input
                     type="file"
                     id="file"
@@ -180,6 +177,7 @@ const CreateAdd = () => {
                 <option defaultValue value="" disabled>
                   رنگ
                 </option>
+                <option value="">رنگ</option>
               </Input>
 
               <Input className={s.input} placeholder="کیلومتر" />

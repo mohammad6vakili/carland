@@ -306,6 +306,9 @@ $theme: #142d5d;
       border-radius: 12px;
       background: #eaedf3;
     }
+    select :nth-child(1) {
+      display: none;
+    }
 
     .image {
       width: 50%;
@@ -381,7 +384,21 @@ $theme: #142d5d;
 
         .input {
           width: 190px;
+          color: #3c3c3c;
           height: 42px;
+        }
+      }
+
+      .submit_btn {
+        @include flex(row, flex-start, center);
+        width: 100%;
+
+        button {
+          border-radius: 15px;
+          background: #142d5d;
+          color: #fff;
+          padding: 18px 50px;
+          font-weight: 700;
         }
       }
     }
