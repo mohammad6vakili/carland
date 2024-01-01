@@ -14,7 +14,6 @@ const page = () => {
       </Head>
       <Header />
       <div className={styles.userDashboard_container}>
-        <UDNavigation />
         <CreateAdd />
       </div>
       <Footer />

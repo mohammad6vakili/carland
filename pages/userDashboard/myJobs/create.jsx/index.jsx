@@ -13,7 +13,6 @@ const page = () => {
       </Head>
       <Header />
       <div className={styles.userDashboard_container}>
-        <UDNavigation />
         <CreateJob />
       </div>
       <Footer />

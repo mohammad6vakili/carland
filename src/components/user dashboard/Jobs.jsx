@@ -11,6 +11,7 @@ import { FreeMode, Navigation } from "swiper/modules";
 import JobsCard from "../offers/cards/JobsCard";
 import { Button } from "reactstrap";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 const Jobs = () => {
   const MyJobs = [{}, {}, {}, {}, {}, {}];
@@ -167,28 +168,30 @@ const Jobs = () => {
               </section>
 
               <section className={s.btn}>
-                <Button>
-                  <span>ثبت شغل</span>
+                <Link href={"/userDashboard/myJobs/create"}>
+                  <Button>
+                    <span>ثبت شغل</span>
 
-                  <div>
-                    <svg
-                      className={s.svg}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="56"
-                      height="44"
-                      viewBox="0 0 56 44"
-                      fill="none"
-                    >
-                      <path
-                        d="M0.5 10C0.5 4.7533 4.7533 0.5 10 0.5H45.3749C51.9271 0.5 56.5122 6.97653 54.3352 13.1565L45.8807 37.1565C44.5417 40.9574 40.9503 43.5 36.9204 43.5H10C4.7533 43.5 0.5 39.2467 0.5 34V10Z"
-                        fill="white"
-                        stroke="#4A80E8"
-                      />
-                    </svg>
+                    <div>
+                      <svg
+                        className={s.svg}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="56"
+                        height="44"
+                        viewBox="0 0 56 44"
+                        fill="none"
+                      >
+                        <path
+                          d="M0.5 10C0.5 4.7533 4.7533 0.5 10 0.5H45.3749C51.9271 0.5 56.5122 6.97653 54.3352 13.1565L45.8807 37.1565C44.5417 40.9574 40.9503 43.5 36.9204 43.5H10C4.7533 43.5 0.5 39.2467 0.5 34V10Z"
+                          fill="white"
+                          stroke="#4A80E8"
+                        />
+                      </svg>
 
-                    <ArrowLeftOutlined className={s.arrow} />
-                  </div>
-                </Button>
+                      <ArrowLeftOutlined className={s.arrow} />
+                    </div>
+                  </Button>
+                </Link>
               </section>
 
               <section className={s.lines2}>
