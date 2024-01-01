@@ -1,13 +1,18 @@
-import { Form, Input } from "reactstrap";
+import { Button, Form, Input } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import background from "../../../public/assets/userDashboard/create-add.png";
+import frontSide from "../../../public/assets/userDashboard/add images placeholder/front.png";
+import backSide from "../../../public/assets/userDashboard/add images placeholder/back.png";
+import leftSide from "../../../public/assets/userDashboard/add images placeholder/left.png";
+import rightSide from "../../../public/assets/userDashboard/add images placeholder/right.png";
+import kilometers from "../../../public/assets/userDashboard/add images placeholder/kilometers.png";
 
 const CreateAdd = () => {
   return (
     <>
       <div className={s.create_add}>
-        <Form>
+        <Form className={s.form}>
           <section className={s.add_details}>
             <div className={s.title}>
               <h1>ثبت آگهی</h1>
@@ -21,7 +26,10 @@ const CreateAdd = () => {
 
             <div className={s.images}>
               <div className={s.input}>
-                <label onChange={(e) => console.log(e.target.files[0])}>
+                <label
+                  className={s.content}
+                  onChange={(e) => console.log(e.target.files[0])}
+                >
                   <Input
                     type="file"
                     id="file"
@@ -38,7 +46,10 @@ const CreateAdd = () => {
               </div>
 
               <div className={s.input}>
-                <label onChange={(e) => console.log(e.target.files[0])}>
+                <label
+                  className={s.content}
+                  onChange={(e) => console.log(e.target.files[0])}
+                >
                   <Input
                     type="file"
                     id="file"
@@ -50,12 +61,18 @@ const CreateAdd = () => {
                     }}
                     hidden
                   />
-                  <span>نمای جلو</span>
+                  <span>
+                    <Image src={frontSide} alt="" />
+                    <span>نمای جلو</span>
+                  </span>
                 </label>
               </div>
 
               <div className={s.input}>
-                <label onChange={(e) => console.log(e.target.files[0])}>
+                <label
+                  className={s.content}
+                  onChange={(e) => console.log(e.target.files[0])}
+                >
                   <Input
                     type="file"
                     id="file"
@@ -67,12 +84,18 @@ const CreateAdd = () => {
                     }}
                     hidden
                   />
-                  <span>نمای عقب</span>
+                  <span>
+                    <Image src={backSide} alt="" />
+                    <span>نمای عقب</span>
+                  </span>
                 </label>
               </div>
 
               <div className={s.input}>
-                <label onChange={(e) => console.log(e.target.files[0])}>
+                <label
+                  className={s.content}
+                  onChange={(e) => console.log(e.target.files[0])}
+                >
                   <Input
                     type="file"
                     id="file"
@@ -84,12 +107,18 @@ const CreateAdd = () => {
                     }}
                     hidden
                   />
-                  <span>نمای راست</span>
+                  <span>
+                    <Image src={rightSide} alt="" />
+                    <span>نمای راست</span>
+                  </span>
                 </label>
               </div>
 
               <div className={s.input}>
-                <label onChange={(e) => console.log(e.target.files[0])}>
+                <label
+                  className={s.content}
+                  onChange={(e) => console.log(e.target.files[0])}
+                >
                   <Input
                     type="file"
                     id="file"
@@ -101,12 +130,18 @@ const CreateAdd = () => {
                     }}
                     hidden
                   />
-                  <span>نمای چپ</span>
+                  <span className={s.content}>
+                    <Image src={leftSide} alt="" />
+                    <span>نمای چپ</span>
+                  </span>
                 </label>
               </div>
 
               <div className={s.input}>
-                <label onChange={(e) => console.log(e.target.files[0])}>
+                <label
+                  className={s.content}
+                  onChange={(e) => console.log(e.target.files[0])}
+                >
                   <Input
                     type="file"
                     id="file"
@@ -118,24 +153,10 @@ const CreateAdd = () => {
                     }}
                     hidden
                   />
-                  <span>کیلومتر شمار</span>
-                </label>
-              </div>
-
-              <div className={s.input}>
-                <label onChange={(e) => console.log(e.target.files[0])}>
-                  <Input
-                    type="file"
-                    id="file"
-                    onChange={(e) => {
-                      const [file] = e.target.files;
-                      if (file) {
-                        console.log(file);
-                      }
-                    }}
-                    hidden
-                  />
-                  <span>نمای عقب</span>
+                  <span>
+                    <Image src={kilometers} alt="" />
+                    <span>کیلومتر شمار</span>
+                  </span>
                 </label>
               </div>
             </div>
@@ -144,7 +165,7 @@ const CreateAdd = () => {
               <Input className={s.input} placeholder="مدل خودرو" />
 
               <Input className={s.input} type="select">
-                <option defaultValue disabled value="">
+                <option defaultValue value="" disabled>
                   نوع سوخت
                 </option>
                 <option value="بنزین">بنزین</option>
@@ -155,7 +176,41 @@ const CreateAdd = () => {
 
               <Input className={s.input} placeholder="سال تولید" />
 
-              <Input className={s.input} type="select"></Input>
+              <Input className={s.input} type="select">
+                <option defaultValue value="" disabled>
+                  رنگ
+                </option>
+              </Input>
+
+              <Input className={s.input} placeholder="کیلومتر" />
+
+              <Input className={s.input} type="select">
+                <option defaultValue value="" disabled>
+                  وضعیت بدنه
+                </option>
+              </Input>
+
+              <Input className={s.input} type="select">
+                <option defaultValue value="" disabled>
+                  گیربکس
+                </option>
+              </Input>
+
+              <Input className={s.input} placeholder="عنوان آگهی" />
+
+              <Input className={s.input} placeholder="مکان" />
+
+              <Input className={s.input} placeholder="قیمت" />
+
+              <Input
+                className={s.description}
+                type="textarea"
+                placeholder="توضیحات"
+              />
+            </div>
+
+            <div className={s.submit_btn}>
+              <Button type="submit">ثبت آگهی</Button>
             </div>
           </section>
 
