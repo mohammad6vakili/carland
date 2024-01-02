@@ -2,7 +2,7 @@ import Image from "next/image";
 import logo from "../public/assets/carland-logo.svg";
 import s from "../styles/main.module.scss";
 
-const loading = () => {
+const Loading = () => {
   return (
     <>
       <div className={s.loading}>
@@ -22,4 +22,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;

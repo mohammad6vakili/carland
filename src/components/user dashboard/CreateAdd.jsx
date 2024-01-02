@@ -9,9 +9,11 @@ import rightSide from "../../../public/assets/userDashboard/add images placehold
 import kilometers from "../../../public/assets/userDashboard/add images placeholder/kilometers.png";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { useState } from "react";
 
 const CreateAdd = () => {
   const validationSchema = Yup.object().shape({});
+  const [uploaded, setUloaded] = useState();
 
   const formik = useFormik({});
 
@@ -41,9 +43,11 @@ const CreateAdd = () => {
                       if (file) {
                         console.log(file);
                       }
+                      setUloaded(URL.createObjectURL(event.target.files[0]));
                     }}
                     hidden
                   />
+                  <Image src={uploaded} alt="" width={100} height={100} />
                   <span>افزودن عکس</span>
                 </label>
               </div>

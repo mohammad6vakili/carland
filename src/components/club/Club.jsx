@@ -24,6 +24,7 @@ import SendComment from "../comments/SendComment";
 import CommentCard from "../comments/CommentCard";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import Head from "next/head";
 
 const Club = () => {
   const size = useWindowSize();
@@ -91,6 +92,9 @@ const Club = () => {
   if (clubData.length !== 0) {
     return (
       <>
+        <Head>
+          <title>{clubData.data.title}</title>
+        </Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>{clubData.data.title}</h1>
@@ -485,6 +489,9 @@ const Club = () => {
   } else {
     return (
       <>
+        <Head>
+          <title>به بخش کلوپ ها خوش آمدید</title>
+        </Head>
         <div className={s.club_page}>
           <div className={s.main_title}>
             <h1>
