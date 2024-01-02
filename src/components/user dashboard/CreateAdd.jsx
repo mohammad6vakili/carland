@@ -7,8 +7,14 @@ import backSide from "../../../public/assets/userDashboard/add images placeholde
 import leftSide from "../../../public/assets/userDashboard/add images placeholder/left.png";
 import rightSide from "../../../public/assets/userDashboard/add images placeholder/right.png";
 import kilometers from "../../../public/assets/userDashboard/add images placeholder/kilometers.png";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 const CreateAdd = () => {
+  const validationSchema = Yup.object().shape({});
+
+  const formik = useFormik({});
+
   return (
     <>
       <div className={s.create_add}>
