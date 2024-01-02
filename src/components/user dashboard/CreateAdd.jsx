@@ -15,17 +15,44 @@ const CreateAdd = () => {
   const validationSchema = Yup.object().shape({});
   const [uploaded, setUloaded] = useState();
 
-  const formik = useFormik({});
+  const formik = useFormik({
+    initialValues: {
+      category: "",
+      model: "",
+      fuel: "",
+      productYear: "",
+      color: "",
+      kilometers: "",
+      bodyCondition: "",
+      gearbox: "",
+      title: "",
+      location: "",
+      price: "",
+      description: "",
+    },
+
+    validationSchema,
+
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
 
   return (
     <>
       <div className={s.create_add}>
-        <Form className={s.form}>
+        <Form onSubmit={formik.handleSubmit} className={s.form}>
           <section className={s.add_details}>
             <div className={s.title}>
               <h1>ثبت آگهی</h1>
 
-              <Input type="select" className={s.category}>
+              <Input
+                name="category"
+                value={formik.values.category}
+                onChange={formik.handleChange}
+                type="select"
+                className={s.category}
+              >
                 <option defaultValue value="" disabled>
                   دسته بندی
                 </option>
@@ -169,9 +196,21 @@ const CreateAdd = () => {
             </div>
 
             <div className={s.details}>
-              <Input className={s.input} placeholder="مدل خودرو" />
+              <Input
+                name="model"
+                value={formik.values.model}
+                onChange={formik.handleChange}
+                className={s.input}
+                placeholder="مدل خودرو"
+              />
 
-              <Input className={s.input} type="select">
+              <Input
+                name="fuel"
+                value={formik.values.fuel}
+                onChange={formik.handleChange}
+                className={s.input}
+                type="select"
+              >
                 <option defaultValue value="" disabled>
                   نوع سوخت
                 </option>
@@ -181,36 +220,87 @@ const CreateAdd = () => {
                 <option value="هیبریدی">هیبریدی</option>
               </Input>
 
-              <Input className={s.input} placeholder="سال تولید" />
+              <Input
+                name="productYear"
+                value={formik.values.productYear}
+                onChange={formik.handleChange}
+                className={s.input}
+                placeholder="سال تولید"
+              />
 
-              <Input className={s.input} type="select">
+              <Input
+                name="color"
+                value={formik.values.color}
+                onChange={formik.handleChange}
+                className={s.input}
+                type="select"
+              >
                 <option defaultValue value="" disabled>
                   رنگ
                 </option>
                 <option value="">رنگ</option>
               </Input>
 
-              <Input className={s.input} placeholder="کیلومتر" />
+              <Input
+                name="kilometers"
+                value={formik.values.kilometers}
+                onChange={formik.handleChange}
+                className={s.input}
+                placeholder="کیلومتر"
+              />
 
-              <Input className={s.input} type="select">
+              <Input
+                name="bodyCondition"
+                value={formik.values.bodyCondition}
+                onChange={formik.handleChange}
+                className={s.input}
+                type="select"
+              >
                 <option defaultValue value="" disabled>
                   وضعیت بدنه
                 </option>
               </Input>
 
-              <Input className={s.input} type="select">
+              <Input
+                name="gearbox"
+                value={formik.values.gearbox}
+                onChange={formik.handleChange}
+                className={s.input}
+                type="select"
+              >
                 <option defaultValue value="" disabled>
                   گیربکس
                 </option>
               </Input>
 
-              <Input className={s.input} placeholder="عنوان آگهی" />
-
-              <Input className={s.input} placeholder="مکان" />
-
-              <Input className={s.input} placeholder="قیمت" />
+              <Input
+                name="title"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+                className={s.input}
+                placeholder="عنوان آگهی"
+              />
 
               <Input
+                name="location"
+                value={formik.values.location}
+                onChange={formik.handleChange}
+                className={s.input}
+                placeholder="مکان"
+              />
+
+              <Input
+                name="price"
+                value={formik.values.price}
+                onChange={formik.handleChange}
+                className={s.input}
+                placeholder="قیمت"
+              />
+
+              <Input
+                name="description"
+                value={formik.values.description}
+                onChange={formik.handleChange}
                 className={s.description}
                 type="textarea"
                 placeholder="توضیحات"
