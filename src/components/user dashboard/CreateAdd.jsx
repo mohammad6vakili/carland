@@ -16,8 +16,6 @@ const CreateAdd = ({ addCategories }) => {
   const validationSchema = Yup.object().shape({});
   const [uploaded, setUploaded] = useState();
   const [categories, setCategories] = useState([]);
-  const { httpService } = useHttp();
-
   const formik = useFormik({
     initialValues: {
       rearView: "",
@@ -48,15 +46,9 @@ const CreateAdd = ({ addCategories }) => {
   });
 
   useEffect(() => {
-    httpService
-      .get("CategoryCars")
-      .then((res) => {
-        setCategories(res.data);
-        console.log(res.data);
-      })
-      .catch(() => {});
-
-    httpService.post("ads");
+    addCategories.map((cat) => {
+      categories.push(cat.name);
+    });
   }, []);
 
   return (
@@ -77,13 +69,11 @@ const CreateAdd = ({ addCategories }) => {
                 <option defaultValue value="" disabled>
                   دسته بندی
                 </option>
-                {addCategories.length !== 0
-                  ? addCategories.map((cat) => (
-                      <option value={cat.id} key={cat.id}>
-                        {cat.name}
-                      </option>
-                    ))
-                  : null}
+                {categories.map((cat) => {
+                  <option value={cat.id} key={cat.id}>
+                    {cat.name}
+                  </option>;
+                })}
               </Input>
             </div>
 
