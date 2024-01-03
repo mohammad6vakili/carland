@@ -15,7 +15,9 @@ import useHttp from "@/src/axiosConfig/useHttp";
 const CreateAdd = ({ addCategories }) => {
   const validationSchema = Yup.object().shape({});
   const [uploaded, setUploaded] = useState();
-  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const { httpService } = useHttp();
+
   const formik = useFormik({
     initialValues: {
       rearView: "",
@@ -46,10 +48,17 @@ const CreateAdd = ({ addCategories }) => {
   });
 
   useEffect(() => {
-    addCategories.map((cat) => {
-      categories.push(cat.name);
-    });
-  }, []);
+    const categoyId = formik.values.category;
+
+    categoyId
+      ? httpService
+          .get(`models/${categoyId}`)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch(() => {})
+      : null;
+  }, [formik.values.category]);
 
   return (
     <>
@@ -69,11 +78,12 @@ const CreateAdd = ({ addCategories }) => {
                 <option defaultValue value="" disabled>
                   دسته بندی
                 </option>
-                {categories.map((cat) => {
-                  <option value={cat.id} key={cat.id}>
-                    {cat.name}
-                  </option>;
-                })}
+                {addCategories &&
+                  addCategories.map((cat) => {
+                    <option value={cat.id} key={cat.id}>
+                      {cat.name}
+                    </option>;
+                  })}
               </Input>
             </div>
 
