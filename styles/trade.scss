@@ -1,0 +1,423 @@
+$carousel-borderRadius: 20px;
+
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+@mixin responsive {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.trade_page {
+  @include flex(column, flex-start, center);
+  @include responsive();
+  padding: 0 5%;
+  font-size: 16px;
+
+  p,
+  h1 {
+    margin: 0;
+  }
+
+  .title {
+    @include flex(row, flex-start, center);
+    width: 100%;
+    gap: 10px;
+    p {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
+
+  .main_title {
+    @include flex(row, space-between, center);
+    width: 100%;
+    font-size: 2em;
+    padding: 2rem 0;
+    h1 {
+      font-weight: bold;
+    }
+  }
+
+  .contents {
+    @include flex(row, space-between, flex-start);
+    width: 100%;
+    gap: 2rem;
+  }
+
+  .main_content {
+    @include flex(column, flex-start, flex-start);
+    gap: 2rem;
+    width: 60%;
+
+    .gallery {
+      width: 100%;
+      height: max-content;
+
+      img {
+        border-radius: $carousel-borderRadius;
+      }
+
+      .my_swiper {
+        width: 100%;
+        height: 350px;
+        box-sizing: border-box;
+        border-radius: 50px;
+        margin-bottom: 2rem;
+        .slide {
+          @include flex(row, center, center);
+          width: 100%;
+          height: 100%;
+          position: relative;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+
+      .my_swiper2 {
+        width: 100%;
+        height: 120px;
+        .slide2 {
+          width: 120px;
+          height: 100%;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+
+      .mySwiper .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+      }
+
+      .mySwiper .swiper-slide-thumb-active {
+        opacity: 1;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .main_details {
+      @include flex(column, flex-start, center);
+      gap: 2rem;
+      width: 100%;
+
+      .boxes {
+        @include flex(row, flex-start, center);
+        gap: 10px;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .line {
+          width: 1px;
+          height: 40px;
+          border-left: 1px dashed #b2b2b2;
+        }
+
+        .box {
+          @include flex(column, flex-start, center);
+          width: 85px;
+          height: 85px;
+          background: hsl(0, 0%, 70%, 0.2);
+          border-radius: 20px;
+          padding: 5px;
+          color: #142d5d;
+          border: 1px solid #142d5d;
+          :nth-child(2) {
+            font-weight: bold;
+          }
+          :last-child {
+            font-size: 0.8em;
+          }
+        }
+      }
+    }
+
+    .tech_details {
+      @include flex(column, flex-start, flex-start);
+      width: 100%;
+      gap: 2rem;
+
+      .table {
+        @include flex(column, flex-start, flex-start);
+        border-radius: 12px;
+        width: 100%;
+        background: #fff;
+        padding: 1rem;
+        font-size: 1.1em;
+        box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+
+        .table_row {
+          @include flex(row, flex-start, center);
+          gap: 2rem;
+          width: 100%;
+
+          .value,
+          .key {
+            padding: 10px;
+            border-bottom: 1px solid #e6e6e6;
+            min-width: 20%;
+          }
+          .value {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .other_details {
+    @include flex(column, flex-start, center);
+    gap: 2rem;
+    width: 40%;
+
+    .banner {
+      @include flex(row, flex-start, center);
+      width: 100%;
+      max-height: 18%;
+      overflow: hidden;
+      border-radius: 20px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .fan_club {
+      @include flex(column, flex-start, center);
+      gap: 2rem;
+      width: 100%;
+
+      .cards {
+        @include flex(column, flex-start, center);
+        width: 100%;
+
+        .card {
+          @include flex(row, flex-start, center);
+          gap: 10px;
+          width: 100%;
+          border-radius: 20px;
+          background: #fff;
+          padding: 1rem;
+          box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
+
+          .image {
+            @include flex(row, center, center);
+            min-width: 25%;
+            height: 100%;
+            img {
+              border-radius: 20px;
+              width: 80%;
+              height: 80%;
+            }
+          }
+
+          .texts {
+            @include flex(column, flex-start, center);
+            gap: 10px;
+            width: 100%;
+            .title {
+              font-size: 1.1em;
+              font-weight: bold;
+            }
+
+            .detail {
+              @include flex(row, space-between, center);
+              width: 100%;
+              button {
+                @include flex(row, flex-end, center);
+                border: 1px solid #4a80e8;
+                width: 105px;
+                height: 28px;
+                color: #4a80e8;
+                position: relative;
+                padding: 0 !important;
+                padding-right: 10px;
+                div {
+                  width: 40px;
+                  height: 100%;
+                  margin-top: -8px;
+                  img {
+                    width: 120%;
+                    height: 160%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .alike_offers {
+    @include flex(column, flex-start, center);
+    gap: 2rem;
+    width: 100%;
+    padding: 4rem 0;
+
+    .title {
+      font-size: 1.6em;
+      position: relative;
+
+      .next_prev_offers {
+        @include flex(row, center, center);
+        gap: 10px;
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        .next,
+        .prev {
+          @include flex(row, center, center);
+          width: 50px;
+          height: 50px;
+          cursor: pointer;
+          border-radius: 50%;
+          padding: 10px;
+          border: 1px solid #000;
+        }
+      }
+    }
+
+    .cards {
+      width: 100%;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .trade_page {
+    .contents {
+      @include flex(column, flex-start, center);
+
+      .main_content {
+        width: 100%;
+        .gallery {
+          .my_swiper {
+            height: 300px;
+          }
+          .my_swiper2 {
+            height: 100px;
+          }
+        }
+
+        .main_details {
+          .boxes {
+            .box {
+              margin: 0 auto;
+            }
+          }
+        }
+      }
+
+      .other_details {
+        width: 100%;
+        .banner {
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .trade_page {
+    .contents {
+      @include flex(column, flex-start, center);
+
+      .main_content {
+        width: 100%;
+        .gallery {
+          .my_swiper {
+            height: 250px;
+            margin-bottom: 1rem;
+          }
+          .my_swiper2 {
+            height: 80px;
+          }
+        }
+
+        .tech_details {
+          .table {
+            .table_row {
+              :nth-child(1) {
+                min-width: 40%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .trade_page {
+    .contents {
+      @include flex(column, flex-start, center);
+
+      .main_content {
+        width: 100%;
+        .gallery {
+          .my_swiper {
+            height: 200px;
+            margin-bottom: 1rem;
+          }
+          .my_swiper2 {
+            height: 60px;
+            .slide2 {
+              margin-left: 1rem;
+            }
+          }
+        }
+
+        .main_details {
+          .boxes {
+            .line {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .trade_page {
+    .alike_offers {
+      .title {
+        .next_prev_offers {
+          display: none;
+        }
+      }
+
+      .cards {
+        .card {
+          margin: auto;
+        }
+      }
+    }
+  }
+}

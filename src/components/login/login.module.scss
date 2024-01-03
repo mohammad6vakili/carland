@@ -1,0 +1,161 @@
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+
+.login_page {
+  @include flex(column, center, center);
+  gap: 20px;
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+
+  .form {
+    @include flex(column, flex-start, center);
+    width: 500px;
+    border-radius: 10px;
+    border: 1px solid #b4b4b4;
+    background: #fff;
+    box-shadow: 0px 4px 74px 0px rgba(202, 202, 202, 0.25);
+    padding: 75px 70px;
+    padding-top: 50px;
+
+    .name {
+      @include flex(row-reverse, center, center);
+      gap: 10px;
+      color: #101010;
+      font-size: 3.3em;
+      padding: 20px;
+      border-bottom: 1px solid #e6e6e6;
+
+      .blue {
+        color: #4a80e8;
+      }
+
+      .domain {
+        @include flex(row-reverse, center, center);
+        border-radius: 6px;
+        background: #4a80e8;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 3px 5px;
+      }
+    }
+
+    .detail {
+      @include flex(column, flex-start, center);
+      gap: 20px;
+      width: 100%;
+      padding: 25px 0;
+
+      .title {
+        color: #3c3c3c;
+        :nth-child(1) {
+          font-size: 1.5em;
+          font-weight: 600;
+        }
+        :nth-child(2) {
+          font-size: 1.1em;
+          font-weight: 400;
+        }
+      }
+
+      .input,
+      .verify_input {
+        @include flex(column, flex-start, flex-start);
+        gap: 10px;
+        width: 100%;
+        input {
+          border-radius: 10px;
+          border: 1px solid #4a80e8;
+          background: rgba(74, 128, 232, 0.07);
+          height: 60px;
+        }
+
+        .error {
+          color: #d80739 !important;
+          font-size: 0.9em;
+        }
+      }
+
+      .verify_input {
+        .input {
+          input {
+            @include flex(row, center, center);
+            text-align: center;
+          }
+        }
+
+        .resend_code {
+          @include flex(row, space-between, center);
+          width: 100%;
+
+          .timer {
+            @include flex(row, center, center);
+            gap: 10px;
+            color: #3c3c3c;
+            svg {
+              width: 16px;
+              height: 16px;
+            }
+          }
+
+          .resend {
+            color: #4a80e8;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .submit {
+      @include flex(row, center, center);
+      width: 100%;
+      padding-top: 25px;
+
+      button {
+        @include flex(row, space-between, center);
+        width: 150px;
+        height: 40px;
+        background: #4a80e8;
+        color: #fff;
+        padding: 0;
+        padding-right: 40px;
+
+        div {
+          @include flex(row, center, center);
+          width: 60px;
+          height: 100%;
+          position: relative;
+          margin-left: -5px;
+
+          .svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+          }
+
+          .arrow {
+            width: 15px;
+            color: #4a80e8;
+            z-index: 2;
+          }
+        }
+      }
+    }
+  }
+
+  .back {
+    button {
+      @include flex(row, center, center);
+      gap: 10px;
+      font-size: 1.5em;
+      font-weight: 500;
+    }
+  }
+}

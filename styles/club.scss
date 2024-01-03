@@ -1,0 +1,319 @@
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+@mixin responsive {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.clubs {
+  @include flex(column, flex-start, center);
+  @include responsive();
+  width: 100%;
+  padding: 2rem;
+
+  p,
+  h1 {
+    margin: 0;
+  }
+
+  .main_title {
+    @include flex(row, flex-start, center);
+    width: 100%;
+    padding: 1rem 0;
+    h1 {
+      font-size: 2em;
+      font-weight: bold;
+      color: #142d5d;
+    }
+  }
+
+  .title {
+    @include flex(row, space-between, center);
+    width: 100%;
+    .text {
+      @include flex(row, center, center);
+      gap: 10px;
+      h1 {
+        font-weight: 600;
+        font-size: 2em;
+      }
+    }
+  }
+
+  .gallery {
+    width: 100%;
+
+    .mySwiper {
+      width: 100%;
+      position: relative;
+      margin-bottom: 2rem;
+      overflow: visible;
+
+      .slide {
+        width: 100%;
+        height: max-content;
+        border-radius: 20px;
+        margin: 0 auto;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          border-radius: 20px;
+        }
+      }
+
+      .descriptions {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        padding: 1rem 100px;
+        transform: translate(-50%, 50%);
+        border-radius: 20px;
+        border: 1px solid #7f7f7f;
+        background: hsl(0, 0%, 100%);
+        width: 70%;
+        height: 160px;
+        z-index: 2;
+        line-height: 175%;
+
+        .title {
+          width: 100%;
+          text-align: center;
+          font-size: 1.5em;
+          font-weight: bold;
+        }
+        .texts {
+          color: #3a3a3a;
+          text-align: right;
+        }
+
+        .box1,
+        .box2 {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 40px;
+          height: 40px;
+          border-radius: 0px 10px 0px 20px;
+          border: 1px solid #142d5d;
+          div {
+            width: 30px;
+            height: 30px;
+            background: #142d5d;
+            border-radius: 0px 10px;
+          }
+        }
+        .box2 {
+          bottom: 0;
+          left: inherit;
+          top: 0;
+          right: 0;
+        }
+      }
+
+      .navigation_nexprev {
+        @include flex(row, space-between, center);
+        padding-top: 85px;
+        width: 100%;
+        height: 50px;
+        background: #000;
+
+        .next,
+        .prev {
+          width: 44px;
+          height: 44px;
+        }
+      }
+    }
+
+    .navigation_nexprev {
+      @include flex(row, space-around, center);
+      width: 100%;
+      padding-top: 80px;
+      padding-bottom: 40px;
+
+      .navigation {
+        @include flex(row-reverse, center, center);
+        gap: 15px;
+        .next,
+        .prev {
+          border: 1px solid #000;
+          border-radius: 50%;
+          padding: 10px 15px;
+          cursor: pointer;
+        }
+      }
+
+      .pagination {
+        width: 100px;
+      }
+    }
+  }
+
+  .best_clubs {
+    width: 100%;
+    padding-top: 2rem;
+  }
+
+  .clubs_category {
+    @include flex(column, flex-start, center);
+    width: 100%;
+    padding-top: 4rem;
+
+    .categories {
+      @include flex(row, flex-start, flex-start);
+      gap: 3px;
+      flex-wrap: wrap;
+      width: 100%;
+
+      .category {
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
+        max-width: 250px;
+        margin: 30px 0;
+
+        .list {
+          @include flex(column, flex-start, flex-start);
+          width: 100%;
+          border-radius: 20px;
+          background: #fff;
+          box-shadow: 0px 4px 100px 0px rgba(187, 187, 187, 0.2);
+          padding: 1rem;
+
+          .image {
+            width: 100%;
+            height: 30%;
+            margin-bottom: 1.5rem;
+            position: relative;
+            color: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            img {
+              width: 100%;
+              object-fit: cover;
+            }
+
+            .blur {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 23%;
+              svg {
+                width: 100%;
+                height: 120%;
+              }
+            }
+            .text {
+              position: absolute;
+              bottom: 10px;
+              left: 50%;
+              transform: translate(-50%);
+            }
+          }
+
+          .list_item {
+            @include flex(column, flex-start, flex-start);
+            border-right: 1px dashed #4a80e866;
+            padding-bottom: 4rem;
+            .title {
+              @include flex(row, flex-start, center);
+              gap: 5px;
+              margin: 0;
+            }
+            .description {
+              padding-right: 25px;
+              color: #757575;
+            }
+          }
+          .list_item:last-child {
+            border: none;
+            padding-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .suggested_clubs {
+    @include flex(column, flex-start, center);
+    gap: 20px;
+    padding: 70px 0;
+    width: 100%;
+
+    .title {
+      .navigation {
+        @include flex(row, center, center);
+        gap: 10px;
+        .next,
+        .prev {
+          @include flex(row, center, center);
+          width: 50px;
+          height: 50px;
+          border: 1px solid #000;
+          border-radius: 50%;
+          padding: 10px;
+        }
+      }
+    }
+
+    .slide {
+      width: max-content;
+    }
+
+    .suggested_cards {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .clubs {
+    .gallery {
+      .mySwiper {
+        .descriptions {
+          width: 90%;
+          padding: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .clubs {
+    .gallery {
+      .mySwiper {
+        .descriptions {
+          font-size: 0.7em;
+          height: 130px;
+          padding: 1rem;
+
+          .box1,
+          .box2 {
+            width: 25px;
+            height: 25px;
+            div {
+              width: 15px;
+              height: 15px;
+            }
+          }
+        }
+      }
+
+      .navigation_nexprev {
+        padding-top: 50px;
+      }
+    }
+
+    .clubs_category {
+      .categories {
+        @include flex(column, flex-start, center);
+      }
+    }
+  }
+}

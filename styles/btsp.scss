@@ -1,0 +1,27 @@
+$theme-colors: (
+  "main-primary": #4a80e8,
+  "main-secondary": #d80739,
+  "dark": rgba(21, 21, 21, 0.08),
+  ":hover": #4a80e8,
+);
+
+$primary: #4a80e8;
+
+$btn-border-radius: 10px;
+$btn-font-size: 1em;
+
+$btn-primary: (
+  "backgroun-color": "#fff",
+);
+
+// .btn {
+//   background-color: #fff;
+//   color: #fff;
+
+//   :focus {
+//     color: #000 !important;
+//     border: none;
+//   }
+// }
+
+@import "~bootstrap/scss/bootstrap";

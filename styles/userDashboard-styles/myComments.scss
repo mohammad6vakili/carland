@@ -1,0 +1,104 @@
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+
+.user_comments {
+  @include flex(column, flex-start, center);
+  gap: 25px;
+  width: 100%;
+  padding: 100px 45px;
+  min-height: 1225px;
+  background: #f5f5f5;
+  overflow-y: scroll;
+  p {
+    margin: 0;
+  }
+
+  .comment_banner {
+    @include flex(row, space-between, center);
+    width: 100%;
+    border-radius: 11px;
+    background: #142d5d;
+    box-shadow: 0px 3px 20px 0px rgba(211, 210, 210, 0.25);
+    padding: 20px 30px;
+    color: #fff;
+    font-weight: 600;
+
+    .logo_name {
+      @include flex(row, center, center);
+      text-align: left;
+      gap: 20px;
+      font-size: 2em;
+    }
+
+    .text {
+      @include flex(row, center, center);
+      gap: 20px;
+
+      .text {
+        @include flex(column, flex-start, flex-start);
+        :nth-child(2) {
+          font-size: 0.8em;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  .comments {
+    @include flex(column, flex-start, center);
+    gap: 30px;
+    width: 100%;
+    border-radius: 11px;
+    background: #fff;
+    padding: 30px 45px;
+
+    .title {
+      @include flex(row, space-between, center);
+      width: 100%;
+      color: #101010;
+      font-size: 1.1em;
+      font-weight: 700;
+      .see_all {
+        color: #4a80e8;
+        font-size: 0.9em;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+
+    .comments_table {
+      width: 100%;
+
+      .table {
+        width: 100%;
+
+        > :not(caption) > * > * {
+          text-align: center !important;
+        }
+        thead {
+          height: 80px;
+          tr {
+            border-radius: 11px 11px 0 0 !important;
+            th {
+              background: #4a80e8;
+              color: #fff;
+              font-size: 14px;
+              font-weight: 600;
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            height: 130px;
+            margin-top: auto;
+          }
+        }
+      }
+    }
+  }
+}
