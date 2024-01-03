@@ -31,6 +31,8 @@ jobs:
             cd web/frontend
             git reset --hard
             git pull origin main
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             npm install
             npm run build
             pm2 restart next
