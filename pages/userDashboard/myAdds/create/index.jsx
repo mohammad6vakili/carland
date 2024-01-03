@@ -5,8 +5,16 @@ import Adds from "@/src/components/user dashboard/Adds";
 import styles from "../../../../styles/main.module.scss";
 import Head from "next/head";
 import CreateAdd from "@/src/components/user dashboard/CreateAdd";
+import { baseUrl } from "@/src/axiosConfig/useHttp";
 
-const page = () => {
+export async function getStaticProps() {
+  const res = await fetch(`${baseUrl}/CategoryCars`);
+  const addCategories = await res.json();
+
+  return { props: { addCategories } };
+}
+
+const page = ({ addCategories }) => {
   return (
     <>
       <Head>
@@ -14,7 +22,7 @@ const page = () => {
       </Head>
       <Header />
       <div className={styles.userDashboard_container}>
-        <CreateAdd />
+        <CreateAdd addCategories={addCategories} />
       </div>
       <Footer />
     </>

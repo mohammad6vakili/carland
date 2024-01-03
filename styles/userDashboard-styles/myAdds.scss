@@ -304,10 +304,7 @@ $theme: #142d5d;
     select,
     textarea {
       border-radius: 12px;
-      background: #eaedf3;
-    }
-    select :nth-child(1) {
-      display: none;
+      // background: #eaedf3;
     }
 
     .image {

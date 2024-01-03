@@ -9,14 +9,21 @@ import rightSide from "../../../public/assets/userDashboard/add images placehold
 import kilometers from "../../../public/assets/userDashboard/add images placeholder/kilometers.png";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const CreateAdd = () => {
+const CreateAdd = ({ addCategories }) => {
   const validationSchema = Yup.object().shape({});
-  const [uploaded, setUloaded] = useState();
+  const [uploaded, setUploaded] = useState();
+  const [categories, setCategories] = useState([]);
 
   const formik = useFormik({
     initialValues: {
+      rearView: "",
+      frontView: "",
+      leftView: "",
+      rightView: "",
+      moreView: "",
+      kilometersView: "",
       category: "",
       model: "",
       fuel: "",
@@ -38,6 +45,12 @@ const CreateAdd = () => {
     },
   });
 
+  useEffect(() => {
+    addCategories.map((cat) => {
+      categories.push(cat.name);
+    });
+  }, []);
+
   return (
     <>
       <div className={s.create_add}>
@@ -56,6 +69,11 @@ const CreateAdd = () => {
                 <option defaultValue value="" disabled>
                   دسته بندی
                 </option>
+                {categories.map((cat) => {
+                  <option value={cat.id} key={cat.id}>
+                    {cat.name}
+                  </option>;
+                })}
               </Input>
             </div>
 
@@ -70,7 +88,7 @@ const CreateAdd = () => {
                       if (file) {
                         console.log(file);
                       }
-                      setUloaded(URL.createObjectURL(event.target.files[0]));
+                      setUploaded(URL.createObjectURL(event.target.files[0]));
                     }}
                     hidden
                   />
