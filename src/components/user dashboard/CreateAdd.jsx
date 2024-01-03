@@ -55,6 +55,8 @@ const CreateAdd = ({ addCategories }) => {
         console.log(res.data);
       })
       .catch(() => {});
+
+    httpService.post("ads");
   }, []);
 
   return (
