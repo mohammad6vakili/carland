@@ -300,12 +300,6 @@ $theme: #142d5d;
     border-radius: 40px;
     background: #fff;
     box-shadow: 0px 4px 80px 0px rgba(211, 211, 211, 0.25);
-    input,
-    select,
-    textarea {
-      border-radius: 12px;
-      // background: #eaedf3;
-    }
 
     .image {
       width: 50%;
@@ -364,10 +358,14 @@ $theme: #142d5d;
             width: 100%;
             height: 100%;
 
-            img {
+            .img,
+            .img_loading {
               height: fit-content;
               object-fit: cover;
               border-radius: 20px;
+            }
+            .img_loading {
+              opacity: 0.5;
             }
           }
         }
@@ -380,9 +378,34 @@ $theme: #142d5d;
         flex-wrap: wrap;
 
         .input {
-          width: 190px;
+          @include flex(column, flex-start, center);
           color: #3c3c3c;
-          height: 42px;
+          width: 190px;
+
+          input,
+          select {
+            width: 190px;
+            height: 42px;
+            border-radius: 12px;
+          }
+
+          .error {
+            color: #f93423;
+            font-size: 0.8em;
+          }
+        }
+
+        .description {
+          @include flex(column, flex-start, center);
+          width: 100%;
+          textarea {
+            width: 100%;
+          }
+
+          .error {
+            color: #f93423;
+            font-size: 0.8em;
+          }
         }
       }
 

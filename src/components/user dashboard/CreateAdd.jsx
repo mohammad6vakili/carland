@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "reactstrap";
+import { Button, Form, Input, InputGroup } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import background from "../../../public/assets/userDashboard/create-add.png";
@@ -11,12 +11,32 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import useHttp from "@/src/axiosConfig/useHttp";
+import { formatStringJSON, getLocal } from "@/src/hooks/functions";
+import toast from "react-hot-toast";
 
 const CreateAdd = ({ addCategories }) => {
-  const validationSchema = Yup.object().shape({});
-  const [uploaded, setUploaded] = useState();
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const { httpService } = useHttp();
+  const { httpService } = useHttp(true);
+  const [loading, setLoading] = useState(false);
+  const [photos, setPhotos] = useState({
+    rearView: "",
+    frontView: "",
+    leftView: "",
+    rightView: "",
+    moreView: "",
+    kilometersView: "",
+  });
+  const [models, setModels] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [bodyCondition, setBodyCondition] = useState([]);
+
+  //local images
+  const [localMoreSide, setLocalMoreSide] = useState();
+  const [localFront, setLocalFront] = useState();
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required("لطفا برای آگهی خود عنوان انتخاب کنید"),
+    description: Yup.string().required("لطفا برای آگهی خود توضیحات بنویسید"),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -49,16 +69,35 @@ const CreateAdd = ({ addCategories }) => {
 
   useEffect(() => {
     const categoyId = formik.values.category;
+    const adsFilter = JSON.parse(formatStringJSON(getLocal("adsFilter")));
+    setLoading(true);
 
     categoyId
       ? httpService
           .get(`models/${categoyId}`)
           .then((res) => {
-            console.log(res.data);
+            setModels(res.data.models);
           })
-          .catch(() => {})
+          .catch(() => {
+            toast.error("مشکلی در گرفتن اطلاعات سرور بوجود امده");
+          })
       : null;
+
+    adsFilter
+      ? (setColors(adsFilter.colors),
+        setBodyCondition(adsFilter.body_conditions))
+      : null;
+
+    setLoading(false);
   }, [formik.values.category]);
+
+  const handleUploadPhoto = (e, selectedPhoto) => {
+    console.log(e.target.files[0], selectedPhoto);
+
+    if (selectedPhoto === "rearView") {
+      setLocalFront(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
   return (
     <>
@@ -78,12 +117,13 @@ const CreateAdd = ({ addCategories }) => {
                 <option defaultValue value="" disabled>
                   دسته بندی
                 </option>
-                {addCategories &&
-                  addCategories.map((cat) => {
-                    <option value={cat.id} key={cat.id}>
-                      {cat.name}
-                    </option>;
-                  })}
+                {addCategories
+                  ? addCategories.map((cat) => (
+                      <option value={cat.id} key={cat.id}>
+                        {cat.name}
+                      </option>
+                    ))
+                  : null}
               </Input>
             </div>
 
@@ -98,33 +138,30 @@ const CreateAdd = ({ addCategories }) => {
                       if (file) {
                         console.log(file);
                       }
-                      setUploaded(URL.createObjectURL(event.target.files[0]));
                     }}
                     hidden
                   />
-                  <Image src={uploaded} alt="" width={100} height={100} />
+                  <Image src={localMoreSide} alt="" width={100} height={100} />
                   <span>افزودن عکس</span>
                 </label>
               </div>
 
               <div className={s.input}>
-                <label
-                  className={s.content}
-                  onChange={(e) => console.log(e.target.files[0])}
-                >
+                <label className={s.content}>
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => {
-                      const [file] = e.target.files;
-                      if (file) {
-                        console.log(file);
-                      }
-                    }}
+                    onChange={(e) => handleUploadPhoto(e, "rearView")}
                     hidden
                   />
                   <span>
-                    <Image src={frontSide} alt="" />
+                    <Image
+                      className={s.img}
+                      src={localFront ? localFront : frontSide}
+                      alt=""
+                      width={100}
+                      height={100}
+                    />
                     <span>نمای جلو</span>
                   </span>
                 </label>
@@ -147,7 +184,7 @@ const CreateAdd = ({ addCategories }) => {
                     hidden
                   />
                   <span>
-                    <Image src={backSide} alt="" />
+                    <Image className={s.img} src={backSide} alt="" />
                     <span>نمای عقب</span>
                   </span>
                 </label>
@@ -224,115 +261,170 @@ const CreateAdd = ({ addCategories }) => {
             </div>
 
             <div className={s.details}>
-              <Input
-                name="model"
-                value={formik.values.model}
-                onChange={formik.handleChange}
-                className={s.input}
-                placeholder="مدل خودرو"
-              />
+              {/* model */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="model"
+                  value={formik.values.model}
+                  onChange={formik.handleChange}
+                  type="select"
+                  disabled={loading}
+                >
+                  <option defaultValue value="" disabled>
+                    مدل خودرو
+                  </option>
+                  {models.length !== 0 &&
+                    models.map((model, index) => (
+                      <option value={index}>{model.brand}</option>
+                    ))}
+                </Input>
+              </InputGroup>
 
-              <Input
-                name="fuel"
-                value={formik.values.fuel}
-                onChange={formik.handleChange}
-                className={s.input}
-                type="select"
-              >
-                <option defaultValue value="" disabled>
-                  نوع سوخت
-                </option>
-                <option value="بنزین">بنزین</option>
-                <option value="گازوئیل(دیزل)">گازوئیل</option>
-                <option value="دوگانه سوز">دوگانه سوز</option>
-                <option value="هیبریدی">هیبریدی</option>
-              </Input>
+              {/* fuel */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="fuel"
+                  value={formik.values.fuel}
+                  onChange={formik.handleChange}
+                  type="select"
+                >
+                  <option defaultValue value="" disabled>
+                    نوع سوخت
+                  </option>
+                  <option value="بنزین">بنزین</option>
+                  <option value="گازوئیل(دیزل)">گازوئیل</option>
+                  <option value="دوگانه سوز">دوگانه سوز</option>
+                  <option value="هیبریدی">هیبریدی</option>
+                </Input>
+              </InputGroup>
 
-              <Input
-                name="productYear"
-                value={formik.values.productYear}
-                onChange={formik.handleChange}
-                className={s.input}
-                placeholder="سال تولید"
-              />
+              {/* productYear */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="productYear"
+                  value={formik.values.productYear}
+                  onChange={formik.handleChange}
+                  type="number"
+                  placeholder="سال تولید"
+                />
+              </InputGroup>
 
-              <Input
-                name="color"
-                value={formik.values.color}
-                onChange={formik.handleChange}
-                className={s.input}
-                type="select"
-              >
-                <option defaultValue value="" disabled>
-                  رنگ
-                </option>
-                <option value="">رنگ</option>
-              </Input>
+              {/* color */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="color"
+                  value={formik.values.color}
+                  onChange={formik.handleChange}
+                  type="select"
+                >
+                  <option defaultValue value="" disabled>
+                    رنگ
+                  </option>
+                  {colors && colors.length !== 0
+                    ? colors.map((color) => (
+                        <option key={color} value={color}>
+                          {color}
+                        </option>
+                      ))
+                    : null}
+                </Input>
+              </InputGroup>
 
-              <Input
-                name="kilometers"
-                value={formik.values.kilometers}
-                onChange={formik.handleChange}
-                className={s.input}
-                placeholder="کیلومتر"
-              />
+              {/* kilometers */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="kilometers"
+                  value={formik.values.kilometers}
+                  onChange={formik.handleChange}
+                  className={s.input}
+                  placeholder="کیلومتر"
+                  type="number"
+                />
+              </InputGroup>
 
-              <Input
-                name="bodyCondition"
-                value={formik.values.bodyCondition}
-                onChange={formik.handleChange}
-                className={s.input}
-                type="select"
-              >
-                <option defaultValue value="" disabled>
-                  وضعیت بدنه
-                </option>
-              </Input>
+              {/* bodyCondition */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="bodyCondition"
+                  value={formik.values.bodyCondition}
+                  onChange={formik.handleChange}
+                  type="select"
+                >
+                  <option defaultValue value="" disabled>
+                    وضعیت بدنه
+                  </option>
+                  {bodyCondition && bodyCondition.length !== 0
+                    ? bodyCondition.map((bc) => (
+                        <option key={bc} value={bc}>
+                          {bc}
+                        </option>
+                      ))
+                    : null}
+                </Input>
+              </InputGroup>
 
-              <Input
-                name="gearbox"
-                value={formik.values.gearbox}
-                onChange={formik.handleChange}
-                className={s.input}
-                type="select"
-              >
-                <option defaultValue value="" disabled>
-                  گیربکس
-                </option>
-              </Input>
+              {/* gearbox */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="gearbox"
+                  value={formik.values.gearbox}
+                  onChange={formik.handleChange}
+                  type="select"
+                >
+                  <option defaultValue value="" disabled>
+                    گیربکس
+                  </option>
+                  <option value="دنده ای">دنده ای</option>
+                  <option value="اتوماتیک">اتوماتیک</option>
+                </Input>
+              </InputGroup>
 
-              <Input
-                name="title"
-                value={formik.values.title}
-                onChange={formik.handleChange}
-                className={s.input}
-                placeholder="عنوان آگهی"
-              />
+              {/* title */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="title"
+                  value={formik.values.title}
+                  onChange={formik.handleChange}
+                  placeholder="عنوان آگهی"
+                />
+                {formik.errors.title && formik.touched.title && (
+                  <span className={s.error}>{formik.errors.title}</span>
+                )}
+              </InputGroup>
 
-              <Input
-                name="location"
-                value={formik.values.location}
-                onChange={formik.handleChange}
-                className={s.input}
-                placeholder="مکان"
-              />
+              {/* location */}
+              <InputGroup className={s.input}>
+                <InputGroup
+                  name="location"
+                  value={formik.values.location}
+                  onChange={formik.handleChange}
+                  placeholder="مکان"
+                />
+              </InputGroup>
 
-              <Input
-                name="price"
-                value={formik.values.price}
-                onChange={formik.handleChange}
-                className={s.input}
-                placeholder="قیمت"
-              />
+              {/* price */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="price"
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  placeholder="قیمت"
+                />
+              </InputGroup>
 
-              <Input
-                name="description"
-                value={formik.values.description}
-                onChange={formik.handleChange}
-                className={s.description}
-                type="textarea"
-                placeholder="توضیحات"
-              />
+              {/* dexcription */}
+              <InputGroup className={s.description}>
+                <Input
+                  name="description"
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  type="textarea"
+                  placeholder="توضیحات"
+                />
+                {formik.errors.description && formik.touched.description && (
+                  <span className={s.error}>{formik.errors.description}</span>
+                )}
+              </InputGroup>
             </div>
 
             <div className={s.submit_btn}>
