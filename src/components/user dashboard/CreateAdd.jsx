@@ -10,11 +10,13 @@ import kilometers from "../../../public/assets/userDashboard/add images placehol
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import useHttp from "@/src/axiosConfig/useHttp";
 
 const CreateAdd = ({ addCategories }) => {
   const validationSchema = Yup.object().shape({});
   const [uploaded, setUploaded] = useState();
   const [categories, setCategories] = useState([]);
+  const { httpService } = useHttp();
 
   const formik = useFormik({
     initialValues: {
@@ -46,9 +48,13 @@ const CreateAdd = ({ addCategories }) => {
   });
 
   useEffect(() => {
-    addCategories.map((cat) => {
-      categories.push(cat.name);
-    });
+    httpService
+      .get("CategoryCars")
+      .then((res) => {
+        setCategories(res.data);
+        console.log(res.data);
+      })
+      .catch(() => {});
   }, []);
 
   return (
@@ -69,11 +75,13 @@ const CreateAdd = ({ addCategories }) => {
                 <option defaultValue value="" disabled>
                   دسته بندی
                 </option>
-                {categories.map((cat) => {
-                  <option value={cat.id} key={cat.id}>
-                    {cat.name}
-                  </option>;
-                })}
+                {addCategories.length !== 0
+                  ? addCategories.map((cat) => (
+                      <option value={cat.id} key={cat.id}>
+                        {cat.name}
+                      </option>
+                    ))
+                  : null}
               </Input>
             </div>
 
