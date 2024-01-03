@@ -386,7 +386,7 @@ $theme: #142d5d;
           select {
             width: 190px;
             height: 42px;
-            border-radius: 12px;
+            border-radius: 12px !important;
           }
 
           .error {
