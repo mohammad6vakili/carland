@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputGroup } from "reactstrap";
+import { Button, Form, Input, InputGroup, Spinner } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import background from "../../../public/assets/userDashboard/create-add.png";
@@ -13,10 +13,12 @@ import { useEffect, useState } from "react";
 import useHttp from "@/src/axiosConfig/useHttp";
 import { formatStringJSON, getLocal } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
+import { IoAddCircle } from "react-icons/io5";
 
 const CreateAdd = ({ addCategories }) => {
   const { httpService } = useHttp(true);
   const [loading, setLoading] = useState(false);
+  const [loadingImage, setLoadingImage] = useState({});
   const [photos, setPhotos] = useState({
     rearView: "",
     frontView: "",
@@ -32,9 +34,22 @@ const CreateAdd = ({ addCategories }) => {
   //local images
   const [localMoreSide, setLocalMoreSide] = useState();
   const [localFront, setLocalFront] = useState();
+  const [localRear, setLocalRear] = useState();
 
   const validationSchema = Yup.object().shape({
+    category: Yup.string().required(
+      "لطفا این دسته بندی اگهی خود را انتخاب کنید"
+    ),
+    model: Yup.string().required("لطفا این مدل اگهی خود را انتخاب کنید"),
+    fuel: Yup.string().required("لطفا نوع سوخت را مشخص کنید"),
+    productYear: Yup.string().required("لطفا سال ساخت را مشخص کنید"),
+    color: Yup.string().required("لطفا رنگ را انتخاب کنید"),
+    kilometers: Yup.number().required("لطفا مسافت طی کرده را وارد کنید"),
+    bodyCondition: Yup.string().required("این فیلد را پر کنید"),
+    gearbox: Yup.string().required("این فیلد را پر کنید"),
     title: Yup.string().required("لطفا برای آگهی خود عنوان انتخاب کنید"),
+    location: Yup.string().required("این فیلد را پر کنید"),
+    price: Yup.string().required("این فیلد را پر کنید"),
     description: Yup.string().required("لطفا برای آگهی خود توضیحات بنویسید"),
   });
 
@@ -63,7 +78,7 @@ const CreateAdd = ({ addCategories }) => {
     validationSchema,
 
     onSubmit: (values) => {
-      console.log(values);
+      handleCreateAd(values);
     },
   });
 
@@ -92,11 +107,72 @@ const CreateAdd = ({ addCategories }) => {
   }, [formik.values.category]);
 
   const handleUploadPhoto = (e, selectedPhoto) => {
-    console.log(e.target.files[0], selectedPhoto);
+    // const canUpload = e?.target?.files[0].size / 1024 / 1000;
+    console.log(e?.target?.files[0].size / 1024 / 1000);
 
-    if (selectedPhoto === "rearView") {
+    const formData = new FormData();
+    let loadingImage = {};
+    let images = {};
+    loadingImage[`${selectedPhoto}`] = "loading";
+    setLoadingImage(loadingImage);
+    formData.append("image", e.target.files[0]);
+
+    httpService
+      .post("upload", formData)
+      .then((res) => {
+        setPhotos({ ...photos, frontView: res.data });
+        images[`${selectedPhoto}`] = res.data;
+        setLoadingImage();
+      })
+      .catch(() => {
+        setLoadingImage();
+      });
+
+    if (selectedPhoto === "fronView") {
       setLocalFront(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "rearView") {
+      setLocalRear(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "leftView") {
+    } else if (selectedPhoto === "rightView") {
+    } else if (selectedPhoto === "moreView") {
+    } else if (selectedPhoto === "kilometersView") {
     }
+  };
+
+  const handleCreateAd = (values) => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("front_view", photos.frontView);
+    formData.append("rear_view", photos.rearView);
+    formData.append("left_view", photos.leftView);
+    formData.append("right_view", photos.rightView);
+    formData.append("more_view", photos.moreView);
+    formData.append("kilometers_view", photos.kilometersView);
+    formData.append("car_name", values.category);
+    formData.append("car_type", values.category);
+    formData.append("car_model", values.model);
+    formData.append("production_year", values.productYear);
+    formData.append("kilometers", values.kilometers);
+    formData.append("Fuel_type", values.fuel);
+    formData.append("color", values.color);
+    formData.append("body_condition", values.bodyCondition);
+    formData.append("gearbox_type", values.gearbox);
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("location", values.location);
+    formData.append("price", values.price);
+
+    httpService
+      .post("ads", formData)
+      .then((res) => {
+        res.status === 200 ? toast.success("آگهی شما با موفقیت ثبت شد") : null;
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error("مشکلی در ثبت آگهی بوجود امد");
+        toast.error(err);
+        setLoading(false);
+      });
   };
 
   return (
@@ -127,21 +203,28 @@ const CreateAdd = ({ addCategories }) => {
               </Input>
             </div>
 
-            <div className={s.images}>
+            <section className={s.images}>
               <div className={s.input}>
                 <label className={s.content}>
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => {
-                      const [file] = e.target.files;
-                      if (file) {
-                        console.log(file);
-                      }
-                    }}
+                    onChange={(e) => handleUploadPhoto(e, "moreView")}
+                    className={s.img}
                     hidden
+                    accept=""
                   />
-                  <Image src={localMoreSide} alt="" width={100} height={100} />
+                  <Image
+                    className={
+                      loadingImage.moreView === "loading"
+                        ? s.img_loading
+                        : s.img
+                    }
+                    src={localMoreSide}
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
                   <span>افزودن عکس</span>
                 </label>
               </div>
@@ -151,36 +234,39 @@ const CreateAdd = ({ addCategories }) => {
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => handleUploadPhoto(e, "rearView")}
+                    onChange={(e) => handleUploadPhoto(e, "frontView")}
+                    className={s.img}
                     hidden
+                    accept="image/*"
                   />
                   <span>
                     <Image
-                      className={s.img}
+                      className={
+                        loadingImage.frontView === "loading"
+                          ? s.img_loading
+                          : s.img
+                      }
                       src={localFront ? localFront : frontSide}
                       alt=""
                       width={100}
                       height={100}
                     />
+                    {loadingImage.frontView === "loading" ? (
+                      <Spinner
+                        style={{ width: "20px", height: "20px" }}
+                      ></Spinner>
+                    ) : null}
                     <span>نمای جلو</span>
                   </span>
                 </label>
               </div>
 
               <div className={s.input}>
-                <label
-                  className={s.content}
-                  onChange={(e) => console.log(e.target.files[0])}
-                >
+                <label className={s.content}>
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => {
-                      const [file] = e.target.files;
-                      if (file) {
-                        console.log(file);
-                      }
-                    }}
+                    onChange={(e) => handleUploadPhoto(e, "rearView")}
                     hidden
                   />
                   <span>
@@ -253,12 +339,12 @@ const CreateAdd = ({ addCategories }) => {
                     hidden
                   />
                   <span>
-                    <Image src={kilometers} alt="" />
+                    <Image className={s.img} src={kilometers} alt="" />
                     <span>کیلومتر شمار</span>
                   </span>
                 </label>
               </div>
-            </div>
+            </section>
 
             <div className={s.details}>
               {/* model */}
@@ -278,6 +364,9 @@ const CreateAdd = ({ addCategories }) => {
                       <option value={index}>{model.brand}</option>
                     ))}
                 </Input>
+                {formik.errors.model && formik.touched.model && (
+                  <span className={s.error}>{formik.errors.model}</span>
+                )}
               </InputGroup>
 
               {/* fuel */}
@@ -296,6 +385,9 @@ const CreateAdd = ({ addCategories }) => {
                   <option value="دوگانه سوز">دوگانه سوز</option>
                   <option value="هیبریدی">هیبریدی</option>
                 </Input>
+                {formik.errors.fuel && formik.touched.fuel && (
+                  <span className={s.error}>{formik.errors.fuel}</span>
+                )}
               </InputGroup>
 
               {/* productYear */}
@@ -307,6 +399,9 @@ const CreateAdd = ({ addCategories }) => {
                   type="number"
                   placeholder="سال تولید"
                 />
+                {formik.errors.productYear && formik.touched.productYear && (
+                  <span className={s.error}>{formik.errors.productYear}</span>
+                )}
               </InputGroup>
 
               {/* color */}
@@ -328,6 +423,9 @@ const CreateAdd = ({ addCategories }) => {
                       ))
                     : null}
                 </Input>
+                {formik.errors.color && formik.touched.color && (
+                  <span className={s.error}>{formik.errors.color}</span>
+                )}
               </InputGroup>
 
               {/* kilometers */}
@@ -340,6 +438,9 @@ const CreateAdd = ({ addCategories }) => {
                   placeholder="کیلومتر"
                   type="number"
                 />
+                {formik.errors.kilometers && formik.touched.kilometers && (
+                  <span className={s.error}>{formik.errors.kilometers}</span>
+                )}
               </InputGroup>
 
               {/* bodyCondition */}
@@ -361,6 +462,12 @@ const CreateAdd = ({ addCategories }) => {
                       ))
                     : null}
                 </Input>
+                {formik.errors.bodyCondition &&
+                  formik.touched.bodyCondition && (
+                    <span className={s.error}>
+                      {formik.errors.bodyCondition}
+                    </span>
+                  )}
               </InputGroup>
 
               {/* gearbox */}
@@ -377,6 +484,9 @@ const CreateAdd = ({ addCategories }) => {
                   <option value="دنده ای">دنده ای</option>
                   <option value="اتوماتیک">اتوماتیک</option>
                 </Input>
+                {formik.errors.gearbox && formik.touched.gearbox && (
+                  <span className={s.error}>{formik.errors.gearbox}</span>
+                )}
               </InputGroup>
 
               {/* title */}
@@ -394,12 +504,15 @@ const CreateAdd = ({ addCategories }) => {
 
               {/* location */}
               <InputGroup className={s.input}>
-                <InputGroup
+                <Input
                   name="location"
                   value={formik.values.location}
                   onChange={formik.handleChange}
                   placeholder="مکان"
                 />
+                {formik.errors.location && formik.touched.location && (
+                  <span className={s.error}>{formik.errors.location}</span>
+                )}
               </InputGroup>
 
               {/* price */}
@@ -410,6 +523,9 @@ const CreateAdd = ({ addCategories }) => {
                   onChange={formik.handleChange}
                   placeholder="قیمت"
                 />
+                {formik.errors.price && formik.touched.price && (
+                  <span className={s.error}>{formik.errors.price}</span>
+                )}
               </InputGroup>
 
               {/* dexcription */}
@@ -428,7 +544,12 @@ const CreateAdd = ({ addCategories }) => {
             </div>
 
             <div className={s.submit_btn}>
-              <Button type="submit">ثبت آگهی</Button>
+              <Button disabled={loading} type="submit">
+                {loading ? (
+                  <Spinner style={{ width: "20px", height: "20px" }}></Spinner>
+                ) : null}{" "}
+                ثبت آگهی
+              </Button>
             </div>
           </section>
 

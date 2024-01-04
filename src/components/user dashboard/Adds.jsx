@@ -93,6 +93,7 @@ const UserData = () => {
                         time={item.created_at}
                         rate={"۴.۵"}
                         id={item.id}
+                        myAdds={true}
                       />
                     </SwiperSlide>
                   ))

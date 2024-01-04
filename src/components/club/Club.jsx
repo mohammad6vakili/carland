@@ -94,6 +94,10 @@ const Club = () => {
       <>
         <Head>
           <title>{clubData.data.title}</title>
+          <meta
+            property="og:image"
+            content="https://example.com/images/cool-page.jpg"
+          />
         </Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
