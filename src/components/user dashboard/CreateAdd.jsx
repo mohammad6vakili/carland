@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import useHttp from "@/src/axiosConfig/useHttp";
 import { formatStringJSON, getLocal } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
+import { IoAddCircle } from "react-icons/io5";
 
 const CreateAdd = ({ addCategories }) => {
   const { httpService } = useHttp(true);
@@ -33,6 +34,7 @@ const CreateAdd = ({ addCategories }) => {
   //local images
   const [localMoreSide, setLocalMoreSide] = useState();
   const [localFront, setLocalFront] = useState();
+  const [localRear, setLocalRear] = useState();
 
   const validationSchema = Yup.object().shape({
     category: Yup.string().required(
@@ -110,6 +112,7 @@ const CreateAdd = ({ addCategories }) => {
 
     const formData = new FormData();
     let loadingImage = {};
+    let images = {};
     loadingImage[`${selectedPhoto}`] = "loading";
     setLoadingImage(loadingImage);
     formData.append("image", e.target.files[0]);
@@ -118,11 +121,21 @@ const CreateAdd = ({ addCategories }) => {
       .post("upload", formData)
       .then((res) => {
         setPhotos({ ...photos, frontView: res.data });
+        images[`${selectedPhoto}`] = res.data;
+        setLoadingImage();
       })
-      .catch(() => {});
+      .catch(() => {
+        setLoadingImage();
+      });
 
-    if (selectedPhoto === "rearView") {
+    if (selectedPhoto === "fronView") {
       setLocalFront(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "rearView") {
+      setLocalRear(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "leftView") {
+    } else if (selectedPhoto === "rightView") {
+    } else if (selectedPhoto === "moreView") {
+    } else if (selectedPhoto === "kilometersView") {
     }
   };
 
@@ -190,7 +203,7 @@ const CreateAdd = ({ addCategories }) => {
               </Input>
             </div>
 
-            <div className={s.images}>
+            <section className={s.images}>
               <div className={s.input}>
                 <label className={s.content}>
                   <Input
@@ -221,7 +234,7 @@ const CreateAdd = ({ addCategories }) => {
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => handleUploadPhoto(e, "rearView")}
+                    onChange={(e) => handleUploadPhoto(e, "frontView")}
                     className={s.img}
                     hidden
                     accept="image/*"
@@ -249,19 +262,11 @@ const CreateAdd = ({ addCategories }) => {
               </div>
 
               <div className={s.input}>
-                <label
-                  className={s.content}
-                  onChange={(e) => console.log(e.target.files[0])}
-                >
+                <label className={s.content}>
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => {
-                      const [file] = e.target.files;
-                      if (file) {
-                        console.log(file);
-                      }
-                    }}
+                    onChange={(e) => handleUploadPhoto(e, "rearView")}
                     hidden
                   />
                   <span>
@@ -339,7 +344,7 @@ const CreateAdd = ({ addCategories }) => {
                   </span>
                 </label>
               </div>
-            </div>
+            </section>
 
             <div className={s.details}>
               {/* model */}
