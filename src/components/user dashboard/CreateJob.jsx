@@ -6,11 +6,25 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useHttp from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
 
 const CreateJob = ({ jobCategories }) => {
   const { httpService } = useHttp();
   const [currentStep, setCurrentStep] = useState(1);
   const [filters, setFilters] = useState([]);
+
+  const handleCreateJob = (values, body) => {
+    httpService
+      .post("service", body)
+      .then((res) => {
+        res.status === 200
+          ? toast.success("شغل جدید شما با موفقیت ساخته شد")
+          : null;
+      })
+      .catch(() => {
+        toast.error("ساختن شغل جدید با مشکل مواجه شد");
+      });
+  };
 
   const validationSchema = Yup.object().shape({});
 
@@ -36,7 +50,28 @@ const CreateJob = ({ jobCategories }) => {
 
     validationSchema,
 
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      const formData = new FormData();
+      formData.append("categoryId", values.categoryId);
+      formData.append("title", values.title);
+      formData.append("address", values.address);
+      formData.append("filters", values.filters);
+      formData.append("first_name", values.firstName);
+      formData.append("last_name", values.lastName);
+      formData.append("NationalCardImage", values.NationalCardImage);
+      formData.append("images", values.images);
+      formData.append(
+        "ActivityPermissionImage",
+        values.ActivityPermissionImage
+      );
+      formData.append("state", values.state);
+      formData.append("timeTo", values.timeTo);
+      formData.append("timeFrom", values.timeFrom);
+      formData.append("city", values.city);
+      formData.append("phone", values.phone);
+      formData.append("descriptions", values.description);
+      handleCreateJob(values, formData);
+    },
   });
 
   useEffect(() => {
@@ -44,7 +79,7 @@ const CreateJob = ({ jobCategories }) => {
 
     catId
       ? httpService(`category/${catId}`).then((res) => {
-          res.status === 200 ? setFilters(res.data.titles.split(",")) : null;
+          res.success ? setFilters(res.data.titles.split(",")) : null;
         })
       : null;
   }, [formik.values.categoryId]);
@@ -239,18 +274,69 @@ const CreateJob = ({ jobCategories }) => {
 
                 {handleStep(4) && (
                   <div className={s.inputs}>
-                    <Input type="select">
-                      <option selected value="" disabled>
-                        نوع کسب و کار
-                      </option>
+                    <label
+                      className={s.image}
+                      onChange={(e) => console.log(e.target.files[0])}
+                    >
+                      <Input
+                        type="file"
+                        id="file"
+                        onChange={(e) => {
+                          const [file] = e.target.files;
+                          if (file) {
+                            console.log(file);
+                          }
+                        }}
+                        hidden
+                      />
+                      <span>
+                        <Image src={""} alt="" />
+                        <span>عکس کارت ملی</span>
+                      </span>
+                    </label>
 
-                      {jobCategories &&
-                        jobCategories.map((cat) => (
-                          <option key={cat.id} value={cat.id}>
-                            {cat.title}
-                          </option>
-                        ))}
-                    </Input>
+                    <label
+                      className={s.image}
+                      onChange={(e) => console.log(e.target.files[0])}
+                    >
+                      <Input
+                        type="file"
+                        id="file"
+                        onChange={(e) => {
+                          const [file] = e.target.files;
+                          if (file) {
+                            console.log(file);
+                          }
+                        }}
+                        hidden
+                      />
+                      <span>
+                        <Image src={""} alt="" />
+                        <span>عکس پروانه کسب</span>
+                      </span>
+                    </label>
+
+                    <label
+                      className={s.image}
+                      onChange={(e) => console.log(e.target.files[0])}
+                    >
+                      <Input
+                        type="file"
+                        id="file"
+                        multiple
+                        onChange={(e) => {
+                          const [file] = e.target.files;
+                          if (file) {
+                            console.log(file);
+                          }
+                        }}
+                        hidden
+                      />
+                      <span>
+                        <Image src={""} alt="" />
+                        <span>عکس های دیگر</span>
+                      </span>
+                    </label>
                   </div>
                 )}
               </section>
@@ -266,22 +352,7 @@ const CreateJob = ({ jobCategories }) => {
                   )}
                 </div>
 
-                {handleStep(5) && (
-                  <div className={s.inputs}>
-                    <Input type="select">
-                      <option selected value="" disabled>
-                        نوع کسب و کار
-                      </option>
-
-                      {jobCategories &&
-                        jobCategories.map((cat) => (
-                          <option key={cat.id} value={cat.id}>
-                            {cat.title}
-                          </option>
-                        ))}
-                    </Input>
-                  </div>
-                )}
+                {handleStep(5) && <div className={s.inputs}></div>}
               </section>
             </div>
 
