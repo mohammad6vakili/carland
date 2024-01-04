@@ -3,8 +3,18 @@ import Header from "@/src/components/header-footer/Header";
 import styles from "../../../../styles/main.module.scss";
 import Head from "next/head";
 import CreateJob from "@/src/components/user dashboard/CreateJob";
+import { baseUrl } from "@/src/axiosConfig/useHttp";
 
-const page = () => {
+export async function getStaticProps() {
+  const res = await fetch(`${baseUrl}/categories`).catch((err) => {
+    toast.error("مشکلی در پیدا کردن اطلاعات این صفحه بوجود امد");
+  });
+  const jobCategories = await res.json();
+
+  return { props: { jobCategories } };
+}
+
+const page = ({ jobCategories }) => {
   return (
     <>
       <Head>
@@ -12,7 +22,7 @@ const page = () => {
       </Head>
       <Header />
       <div className={styles.userDashboard_container}>
-        <CreateJob />
+        <CreateJob jobCategories={jobCategories.data} />
       </div>
       <Footer />
     </>

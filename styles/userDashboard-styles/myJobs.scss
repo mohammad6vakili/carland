@@ -310,17 +310,94 @@
   .form {
     @include flex(row, space-between, flex-start);
     width: 100%;
+    height: 1000px;
     border-radius: 40px;
     background: #fff;
     box-shadow: 0px 4px 80px 0px rgba(211, 211, 211, 0.25);
-    input,
-    select,
-    textarea {
-      border-radius: 12px;
-      background: #eaedf3;
-    }
-    select :nth-child(1) {
-      display: none;
+
+    .job_details {
+      @include flex(column, flex-start, center);
+      width: 50%;
+      height: 100%;
+      padding: 10px 40px;
+      position: relative;
+      overflow-y: scroll;
+
+      .title {
+        @include flex(row, flex-start, center);
+        width: 100%;
+        padding: 30px 0;
+        h1 {
+          font-size: 1.1em;
+          font-weight: 700;
+          color: #142d5d;
+        }
+      }
+
+      .details {
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
+
+        .step {
+          @include flex(row, flex-start, flex-start);
+          width: 100%;
+
+          .progress {
+            @include flex(row, flex-start, flex-start);
+            height: 100px;
+            border-image: ("../../public/assets/userDashboard/line.svg");
+            position: relative;
+
+            img {
+              position: absolute;
+              bottom: 0;
+              right: 50%;
+              transform: translate(50%);
+              height: 100%;
+              z-index: 1;
+            }
+
+            .level {
+              @include flex(column, flex-start, center);
+              position: absolute;
+              width: max-content;
+              left: 0;
+              transform: translate(-110%);
+              :nth-child(2) {
+                opacity: 0.7;
+              }
+            }
+          }
+
+          .inputs {
+            @include flex(column, flex-start, center);
+            width: 100%;
+            padding-right: 20%;
+          }
+        }
+      }
+
+      .submit_btn {
+        @include flex(row, center, center);
+        gap: 15px;
+        width: 100%;
+        padding: 20px;
+        position: absolute;
+        bottom: 0;
+
+        .next,
+        .prev {
+          border-radius: 15px;
+          background: #142d5d;
+          color: #fff;
+          padding: 18px 50px;
+          font-weight: 700;
+        }
+        .prev {
+          background: #eaedf3;
+          color: #142d5d;
+        }
+      }
     }
 
     .image {
@@ -337,24 +414,6 @@
         height: 100%;
         object-fit: cover;
         border-radius: 40px 0 0 40px;
-      }
-    }
-
-    .submit_btn {
-      @include flex(row, center, center);
-      gap: 15px;
-
-      .next,
-      .prev {
-        border-radius: 15px;
-        background: #142d5d;
-        color: #fff;
-        padding: 18px 50px;
-        font-weight: 700;
-      }
-      .prev {
-        background: #eaedf3;
-        color: #142d5d;
       }
     }
   }
