@@ -4,13 +4,13 @@ import jalaliMoment from "jalali-moment";
 import moment from "jalali-moment";
 
 export const convertDate = (date) => {
-  let convertedDate = toPersianString(date.split("T", 1)).replaceAll("-", "/");
+  let convertedDate = date.split("T")[0].replaceAll("-", "/");
   // const dateTime = new Date(date);
   // const jdn = Math.floor(dateTime.getTime() / 8.64e7) + 1721119;
   // const shamsiDate = jalaliMoment.fromJDN(jdn);
   // const shamsiDateString = shamsiDate.format("jYY/jMM/jDD");
 
-  const data = moment(toEnglishString(convertedDate), "YYYY/MM/DD")
+  const data = moment(convertedDate, "YYYY/MM/DD")
     .locale("fa")
     .format("YYYY/MM/DD");
 

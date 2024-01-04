@@ -18,11 +18,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setIsAuth } from "@/src/app/slices/isAuthSlice";
 import useHttp from "@/src/axiosConfig/useHttp";
-import { getLocal } from "@/src/hooks/functions";
+import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 
 const Header = () => {
   const [menuOpen, setMenuOpne] = useState(false);
+  const [jobCategories, setJobCategories] = useState(
+    JSON.parse(formatStringJSON(getLocal("serviceCat")))
+  );
   const router = useRouter();
   const pathname = usePathname();
   const size = useWindowSize();
@@ -96,6 +99,7 @@ const Header = () => {
             {size.width > 1000 ? (
               <div className={styles.routes}>
                 <UncontrolledDropdown
+                  direction="down"
                   style={{ color: "#000", cursor: "auto", fontWeight: "600" }}
                   className={styles.category}
                 >
@@ -108,7 +112,20 @@ const Header = () => {
                     />{" "}
                     دسته بندی
                   </DropdownToggle>
-                  {}
+                  <DropdownMenu>
+                    {jobCategories && jobCategories !== "null"
+                      ? jobCategories.map((cat) => (
+                          <Link href={"/offers/jobs"}>
+                            <DropdownItem
+                              style={{ margin: "15px 0", textAlign: "center" }}
+                              onClick={() => setLocal("jobCategory", cat.id)}
+                            >
+                              {cat.title}
+                            </DropdownItem>
+                          </Link>
+                        ))
+                      : null}
+                  </DropdownMenu>
                 </UncontrolledDropdown>
 
                 <div className={styles.links_seperator}></div>
