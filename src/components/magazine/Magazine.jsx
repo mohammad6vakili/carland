@@ -83,10 +83,10 @@ const Magazine = () => {
   if (magData.length !== 0) {
     return (
       <>
-        {/* <Head>
+        <Head>
           <title>{magData.title}</title>
           <meta property="og:title" content="مجله خرید و فروش" key="مجله" />
-        </Head> */}
+        </Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>{magData.title}</h1>
@@ -406,6 +406,9 @@ const Magazine = () => {
   } else {
     return (
       <>
+        <Head>
+          <title>به بخش مجله ها خوش آمدید...</title>
+        </Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>
