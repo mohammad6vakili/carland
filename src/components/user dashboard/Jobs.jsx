@@ -12,9 +12,13 @@ import JobsCard from "../offers/cards/JobsCard";
 import { Button } from "reactstrap";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import useHttp from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
+import MySkeleton from "../skeleton/Skeleton";
 
 const Jobs = () => {
-  const MyJobs = [{}, {}, {}, {}, {}, {}];
+  const { httpService } = useHttp(true);
+  const [myJobs, setMyJobs] = useState();
 
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
@@ -27,6 +31,17 @@ const Jobs = () => {
       adsSwiper.navigation.update();
     }
   }, [adsSwiper]);
+
+  useEffect(() => {
+    httpService
+      .get("myServices")
+      .then((res) => {
+        res.status === 200 ? setMyJobs(res.data.data) : null;
+      })
+      .catch((err) => {
+        toast.error("مشکلی در گرفتن اطلاعات مشاغل شما بوجود امد");
+      });
+  }, []);
 
   return (
     <>
@@ -57,23 +72,46 @@ const Jobs = () => {
               onSwiper={setAdsSwiper}
               modules={[Navigation, FreeMode]}
             >
-              {MyJobs.map((card, index) => (
-                <SwiperSlide key={Math.random() * index} className={s.slide}>
-                  <JobsCard
-                    image={"/assets/main/car-2.png"}
-                    rate={""}
-                    title={"لوازم یدکی میلاد"}
-                    description={
-                      "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و ..."
-                    }
-                    isOpen={false}
-                    location={"تهران"}
-                    timeFrom={"2:00"}
-                    timeTo={"2:00"}
-                    myJobs={true}
-                  />
+              {myJobs ? (
+                myJobs.length !== 0 ? (
+                  myJobs.map((card, index) => (
+                    <SwiperSlide
+                      key={Math.random() * index}
+                      className={s.slide}
+                    >
+                      <JobsCard
+                        image={"/assets/main/car-2.png"}
+                        rate={""}
+                        title={"لوازم یدکی میلاد"}
+                        description={
+                          "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و ..."
+                        }
+                        isOpen={false}
+                        location={"تهران"}
+                        timeFrom={"2:00"}
+                        timeTo={"2:00"}
+                        myJobs={true}
+                      />
+                    </SwiperSlide>
+                  ))
+                ) : (
+                  <SwiperSlide
+                    style={{
+                      margin: "2rem auto",
+                      width: "100%",
+                      height: "200px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <span>هیچ شغلی وجود ندارد!</span>
+                  </SwiperSlide>
+                )
+              ) : (
+                <SwiperSlide className={s.slide}>
+                  <MySkeleton width={"100%"} height={"260px"} />
                 </SwiperSlide>
-              ))}
+              )}
             </Swiper>
           </div>
         </section>
