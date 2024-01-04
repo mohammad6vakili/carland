@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
 import { toPersianString } from "@/src/hooks/functions";
 import Head from "next/head";
+import { convertDate } from "../comments/CommentCards";
 
 const Magazine = () => {
   const size = useWindowSize();
@@ -148,7 +149,7 @@ const Magazine = () => {
 
                 <div className={s.magazine_details}>
                   <p className={s.name}>{magData.AuthorName}</p>
-                  <p>{convertDate(clubData.data.created_at)}</p>
+                  <p>{convertDate(magData.created_at)}</p>
                   <p>
                     زمان مطالعه:{" "}
                     <span>{toPersianString(magData.StudyTime)} دقیقه</span>

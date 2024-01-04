@@ -95,18 +95,21 @@ const Header = () => {
 
             {size.width > 1000 ? (
               <div className={styles.routes}>
-                <span
+                <UncontrolledDropdown
                   style={{ color: "#000", cursor: "auto", fontWeight: "600" }}
                   className={styles.category}
                 >
-                  <Image
-                    src={"/assets/category.svg"}
-                    alt="logo"
-                    width={15}
-                    height={15}
-                  />
-                  دسته بندی
-                </span>
+                  <DropdownToggle caret>
+                    <Image
+                      src={"/assets/category.svg"}
+                      alt="logo"
+                      width={15}
+                      height={15}
+                    />{" "}
+                    دسته بندی
+                  </DropdownToggle>
+                  {}
+                </UncontrolledDropdown>
 
                 <div className={styles.links_seperator}></div>
 
