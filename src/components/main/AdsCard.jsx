@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import LocationIcon from "@/src/assets/icons/location_icon";
 import RateIcon from "@/src/assets/icons/rate_icon";
 import { url } from "@/src/axiosConfig/useHttp";
+import { convertDate } from "../comments/CommentCards";
 
 const AdsCard = ({
   image,
@@ -78,7 +79,7 @@ const AdsCard = ({
                 <LocationIcon />
                 <span style={{ marginRight: 5 }}>{location}</span>
               </span>
-              <span>{time}</span>
+              <span>{convertDate(time)}</span>
             </div>
 
             <div className={styles.rate}>
