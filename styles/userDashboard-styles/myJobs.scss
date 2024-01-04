@@ -371,6 +371,7 @@
 
           .inputs {
             @include flex(column, flex-start, center);
+            gap: 20px;
             width: 100%;
             padding-right: 20%;
           }

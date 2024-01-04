@@ -4,9 +4,15 @@ import Image from "next/image";
 import background from "../../../public/assets/userDashboard/create-job.png";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+import useHttp from "@/src/axiosConfig/useHttp";
 
 const CreateJob = ({ jobCategories }) => {
+  const { httpService } = useHttp();
   const [currentStep, setCurrentStep] = useState(1);
+  const [filters, setFilters] = useState([]);
+
+  const validationSchema = Yup.object().shape({});
 
   const formik = useFormik({
     initialValues: {
@@ -14,8 +20,8 @@ const CreateJob = ({ jobCategories }) => {
       title: "",
       address: "",
       filters: "",
-      first_name: "",
-      last_name: "",
+      firstName: "",
+      lastName: "",
       NationalCardImage: "",
       NationalCardImage: "",
       state: "",
@@ -27,11 +33,21 @@ const CreateJob = ({ jobCategories }) => {
       description: "",
       images: "",
     },
+
+    validationSchema,
+
+    onSubmit: (values) => {},
   });
 
   useEffect(() => {
-    console.log(jobCategories);
-  }, [jobCategories]);
+    const catId = formik.values.categoryId;
+
+    catId
+      ? httpService(`category/${catId}`).then((res) => {
+          res.status === 200 ? setFilters(res.data.titles.split(",")) : null;
+        })
+      : null;
+  }, [formik.values.categoryId]);
 
   const handleStep = (step) => {
     if (currentStep === step) {
@@ -44,7 +60,7 @@ const CreateJob = ({ jobCategories }) => {
   return (
     <>
       <div className={s.create_job}>
-        <Form className={s.form}>
+        <Form onSubmit={formik.handleSubmit} className={s.form}>
           <section className={s.job_details}>
             <div className={s.title}>
               <h1>ثبت مشاغل</h1>
@@ -70,7 +86,12 @@ const CreateJob = ({ jobCategories }) => {
 
                 {handleStep(1) && (
                   <div className={s.inputs}>
-                    <Input type="select">
+                    <Input
+                      name="categoryId"
+                      value={formik.values.categoryId}
+                      onChange={formik.handleChange}
+                      type="select"
+                    >
                       <option selected value="" disabled>
                         نوع کسب و کار
                       </option>
@@ -105,6 +126,119 @@ const CreateJob = ({ jobCategories }) => {
 
                 {handleStep(2) && (
                   <div className={s.inputs}>
+                    <Input
+                      name="filters"
+                      value={formik.values.filters}
+                      onChange={formik.handleChange}
+                      multiple
+                      type="select"
+                    >
+                      <option selected value="" disabled>
+                        انتخاب فیلتر ها
+                      </option>
+
+                      {filters &&
+                        filters.map((cat) => (
+                          <option key={cat.id} value={cat.id}>
+                            {cat.title}
+                          </option>
+                        ))}
+                    </Input>
+                  </div>
+                )}
+              </section>
+
+              <section className={s.step}>
+                <div className={s.progress}>
+                  <Input type="checkbox" defaultChecked />{" "}
+                  {handleStep(3) && (
+                    <section className={s.level}>
+                      <p>اطلاعات فروشگاه</p>
+                      <p>مرحله سوم</p>
+                    </section>
+                  )}
+                  <Image
+                    src={"/assets/userDashboard/line.svg"}
+                    alt=""
+                    width={2}
+                    height={100}
+                  />
+                </div>
+
+                {handleStep(3) && (
+                  <div className={s.inputs}>
+                    <Input
+                      name="title"
+                      value={formik.values.title}
+                      onChange={formik.handleChange}
+                      placeholder="عنوان فروشگاه"
+                    />
+
+                    <Input
+                      name="address"
+                      value={formik.values.address}
+                      onChange={formik.handleChange}
+                      placeholder="آدرس"
+                      type="textarea"
+                    />
+
+                    <Input
+                      name="fistName"
+                      value={formik.values.firstName}
+                      onChange={formik.handleChange}
+                      placeholder="نام فروشنده"
+                    />
+
+                    <Input
+                      name="lastName"
+                      value={formik.values.lastName}
+                      onChange={formik.handleChange}
+                      placeholder="نام خانوادگی فروشنده"
+                    />
+
+                    <Input
+                      name="city"
+                      value={formik.values.city}
+                      onChange={formik.handleChange}
+                      placeholder="شهر"
+                    />
+
+                    <Input
+                      name="phone"
+                      value={formik.values.phone}
+                      onChange={formik.handleChange}
+                      placeholder="شماره تماس"
+                    />
+
+                    <Input
+                      name="description"
+                      value={formik.values.description}
+                      onChange={formik.handleChange}
+                      placeholder="توضیحات"
+                    />
+                  </div>
+                )}
+              </section>
+
+              <section className={s.step}>
+                <div className={s.progress}>
+                  <Input type="checkbox" defaultChecked />{" "}
+                  {handleStep(4) && (
+                    <section className={s.level}>
+                      <p>بارگذاری مدارک</p>
+                      <p>مرحله چهارم</p>
+                    </section>
+                  )}
+                  <Image
+                    src={"/assets/userDashboard/line.svg"}
+                    alt=""
+                    width={2}
+                    height={100}
+                  />
+                </div>
+
+                {handleStep(4) && (
+                  <div className={s.inputs}>
                     <Input type="select">
                       <option selected value="" disabled>
                         نوع کسب و کار
@@ -123,83 +257,75 @@ const CreateJob = ({ jobCategories }) => {
 
               <section className={s.step}>
                 <div className={s.progress}>
-                  <Input type="checkbox" defaultChecked />
-                  <Image
-                    src={"/assets/userDashboard/line.svg"}
-                    alt=""
-                    width={2}
-                    height={100}
-                  />
+                  <Input type="checkbox" defaultChecked />{" "}
+                  {handleStep(5) && (
+                    <section className={s.level}>
+                      <p>بررسی و تایید اطلاعات</p>
+                      <p>مرحله پنجم</p>
+                    </section>
+                  )}
                 </div>
 
-                <div className={s.inputs}>
-                  <Input type="select">
-                    <option selected value="" disabled>
-                      نوع کسب و کار
-                    </option>
+                {handleStep(5) && (
+                  <div className={s.inputs}>
+                    <Input type="select">
+                      <option selected value="" disabled>
+                        نوع کسب و کار
+                      </option>
 
-                    {jobCategories &&
-                      jobCategories.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                          {cat.title}
-                        </option>
-                      ))}
-                  </Input>
-                </div>
-              </section>
-
-              <section className={s.step}>
-                <div className={s.progress}>
-                  <Input type="checkbox" defaultChecked />
-                  <Image
-                    src={"/assets/userDashboard/line.svg"}
-                    alt=""
-                    width={2}
-                    height={100}
-                  />
-                </div>
-
-                <div className={s.inputs}>
-                  <Input type="select">
-                    <option selected value="" disabled>
-                      نوع کسب و کار
-                    </option>
-
-                    {jobCategories &&
-                      jobCategories.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                          {cat.title}
-                        </option>
-                      ))}
-                  </Input>
-                </div>
-              </section>
-
-              <section className={s.step}>
-                <div className={s.progress}>
-                  <Input type="checkbox" defaultChecked />
-                </div>
-
-                <div className={s.inputs}>
-                  <Input type="select">
-                    <option selected value="" disabled>
-                      نوع کسب و کار
-                    </option>
-
-                    {jobCategories &&
-                      jobCategories.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                          {cat.title}
-                        </option>
-                      ))}
-                  </Input>
-                </div>
+                      {jobCategories &&
+                        jobCategories.map((cat) => (
+                          <option key={cat.id} value={cat.id}>
+                            {cat.title}
+                          </option>
+                        ))}
+                    </Input>
+                  </div>
+                )}
               </section>
             </div>
 
             <div className={s.submit_btn}>
-              <Button className={s.prev}>مرحله قبل</Button>
-              <Button className={s.next}>مرحله بعد</Button>
+              {currentStep === 5 ? (
+                <>
+                  <Button
+                    className={s.prev}
+                    onClick={() =>
+                      currentStep > 1
+                        ? setCurrentStep((current) => current - 1)
+                        : null
+                    }
+                  >
+                    مرحله قبل
+                  </Button>
+                  <Button type="submit" className={s.next}>
+                    ثبت آگهی
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    className={s.prev}
+                    onClick={() =>
+                      currentStep > 1
+                        ? setCurrentStep((current) => current - 1)
+                        : null
+                    }
+                  >
+                    مرحله قبل
+                  </Button>
+                  <Button
+                    className={s.next}
+                    onClick={() =>
+                      setCurrentStep((current) =>
+                        current < 5 ? current + 1 : null
+                      )
+                    }
+                  >
+                    مرحله بعد
+                  </Button>
+                </>
+              )}
             </div>
           </section>
 

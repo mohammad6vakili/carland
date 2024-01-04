@@ -197,6 +197,7 @@ const CreateAdd = ({ addCategories }) => {
                     type="file"
                     id="file"
                     onChange={(e) => handleUploadPhoto(e, "moreView")}
+                    className={s.img}
                     hidden
                     accept=""
                   />
@@ -221,6 +222,7 @@ const CreateAdd = ({ addCategories }) => {
                     type="file"
                     id="file"
                     onChange={(e) => handleUploadPhoto(e, "rearView")}
+                    className={s.img}
                     hidden
                     accept="image/*"
                   />
@@ -332,7 +334,7 @@ const CreateAdd = ({ addCategories }) => {
                     hidden
                   />
                   <span>
-                    <Image src={kilometers} alt="" />
+                    <Image className={s.img} src={kilometers} alt="" />
                     <span>کیلومتر شمار</span>
                   </span>
                 </label>
