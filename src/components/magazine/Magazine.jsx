@@ -57,6 +57,16 @@ const Magazine = () => {
     setPhotos(data);
   };
 
+  const handleDescription = (text) => {
+    let texts = text.split("\r\n");
+    return texts.map((text, index) => (
+      <>
+        <p>{text}</p>
+        {index % 2 === 0 ? <br /> : null}
+      </>
+    ));
+  };
+
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [adsSwiper, setAdsSwiper] = useState();
@@ -71,22 +81,15 @@ const Magazine = () => {
     }
   }, [adsSwiper]);
 
-  const handleDescription = (text) => {
-    let texts = text.split("\r\n");
-    return texts.map((text, index) => (
-      <>
-        <p>{text}</p>
-        {index % 2 === 0 ? <br /> : null}
-      </>
-    ));
-  };
-
   if (magData.length !== 0) {
     return (
       <>
         <Head>
           <title>{magData.title}</title>
           <meta property="og:title" content="مجله خرید و فروش" key="مجله" />
+          <meta property="og:image" content={url + "/" + magData.image_url} />
+          <meta name="keywords" content={magData.keywords} />
+          <meta name="description" content={magData.description} />
         </Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
@@ -117,6 +120,19 @@ const Magazine = () => {
                         />
                       </SwiperSlide>
                     ))}
+                    {magData
+                      ? magData.video_url &&
+                        magData.video_url.length !== 0 && (
+                          <SwiperSlide className={s.slide}>
+                            <ReactPlayer
+                              width={"100%"}
+                              height={"100%"}
+                              controls
+                              url={url + "/" + magData.video_url}
+                            />
+                          </SwiperSlide>
+                        )
+                      : null}
                   </Swiper>
 
                   {magData.imageAddresses ? (

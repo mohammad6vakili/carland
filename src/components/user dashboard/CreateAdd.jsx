@@ -30,6 +30,39 @@ const CreateAdd = ({ addCategories }) => {
   const [models, setModels] = useState([]);
   const [colors, setColors] = useState([]);
   const [bodyCondition, setBodyCondition] = useState([]);
+  const statesNames = [
+    "آذربایجان شرقی",
+    "آذربایجان غربی",
+    "اردبیل",
+    "اصفهان",
+    "البرز",
+    "ایلام",
+    "بوشهر",
+    "تهران",
+    "چهارمحال و بختیاری",
+    "خراسان جنوبی",
+    "خراسان رضوی",
+    "خراسان شمالی",
+    "خوزستان",
+    "زنجان",
+    "سمنان",
+    "سیستان و بلوچستان",
+    "فارس",
+    "قزوین",
+    "قم",
+    "کردستان",
+    "کرمان",
+    "کرمانشاه",
+    "کهگیلویه و بویراحمد",
+    "گلستان",
+    "گیلان",
+    "لرستان",
+    "مازندران",
+    "مرکزی",
+    "هرمزگان",
+    "همدان",
+    "یزد",
+  ];
 
   //local images
   const [localMoreSide, setLocalMoreSide] = useState();
@@ -49,6 +82,7 @@ const CreateAdd = ({ addCategories }) => {
     gearbox: Yup.string().required("این فیلد را پر کنید"),
     title: Yup.string().required("لطفا برای آگهی خود عنوان انتخاب کنید"),
     location: Yup.string().required("این فیلد را پر کنید"),
+    price: Yup.string().required("این فیلد را پر کنید"),
     price: Yup.string().required("این فیلد را پر کنید"),
     description: Yup.string().required("لطفا برای آگهی خود توضیحات بنویسید"),
   });
@@ -72,6 +106,7 @@ const CreateAdd = ({ addCategories }) => {
       title: "",
       location: "",
       price: "",
+      state: "",
       description: "",
     },
 
@@ -161,6 +196,7 @@ const CreateAdd = ({ addCategories }) => {
     formData.append("description", values.description);
     formData.append("location", values.location);
     formData.append("price", values.price);
+    formData.append("state", values.state);
 
     httpService
       .post("ads", formData)
@@ -515,7 +551,29 @@ const CreateAdd = ({ addCategories }) => {
                 )}
               </InputGroup>
 
-              {/* price */}
+              {/* state */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="state"
+                  value={formik.values.state}
+                  onChange={formik.handleChange}
+                  type="select"
+                >
+                  <option defaultValue value="" disabled>
+                    استان
+                  </option>
+                  {statesNames.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </Input>
+                {formik.errors.state && formik.touched.state && (
+                  <span className={s.error}>{formik.errors.state}</span>
+                )}
+              </InputGroup>
+
+              {/* city */}
               <InputGroup className={s.input}>
                 <Input
                   name="price"

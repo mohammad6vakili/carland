@@ -25,6 +25,7 @@ import CommentCard from "../comments/CommentCard";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import Head from "next/head";
+import ReactPlayer from "react-player";
 
 const Club = () => {
   const size = useWindowSize();
@@ -50,6 +51,16 @@ const Club = () => {
         .catch((err) => toast.error("خطا در پیدا کردن اطلاعات کلوپ مورد نظر"));
     }
   }, [router]);
+
+  const handleDescription = (text) => {
+    let texts = text.split("\n");
+    return texts.map((text, index) => (
+      <>
+        <p>{text}</p>
+        <br />
+      </>
+    ));
+  };
 
   const handlePhotos = (banner, images) => {
     const data = [];
@@ -79,16 +90,6 @@ const Club = () => {
     }
   }, [adsSwiper]);
 
-  const handleDescription = (text) => {
-    let texts = text.split("\n");
-    return texts.map((text, index) => (
-      <>
-        <p>{text}</p>
-        <br />
-      </>
-    ));
-  };
-
   if (clubData.length !== 0) {
     return (
       <>
@@ -96,8 +97,10 @@ const Club = () => {
           <title>{clubData.data.title}</title>
           <meta
             property="og:image"
-            content="https://example.com/images/cool-page.jpg"
+            content={url + "/" + clubData.data.image_url}
           />
+          <meta name="keywords" content={clubData.data.keywords} />
+          <meta name="description" content={clubData.data.description} />
         </Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
@@ -128,6 +131,19 @@ const Club = () => {
                         />
                       </SwiperSlide>
                     ))}
+                    {clubData.data
+                      ? clubData.data.video_url &&
+                        clubData.data.video_url.length !== 0 && (
+                          <SwiperSlide className={s.slide}>
+                            <ReactPlayer
+                              width={"100%"}
+                              height={"100%"}
+                              controls
+                              url={url + "/" + clubData.data.video_url}
+                            />
+                          </SwiperSlide>
+                        )
+                      : null}
                   </Swiper>
 
                   {clubData.data.imageAddresses ? (
