@@ -23,9 +23,7 @@ import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 
 const Header = () => {
   const [menuOpen, setMenuOpne] = useState(false);
-  const [jobCategories, setJobCategories] = useState(
-    JSON.parse(formatStringJSON(getLocal("serviceCat")))
-  );
+  const [jobCategories, setJobCategories] = useState();
   const router = useRouter();
   const pathname = usePathname();
   const size = useWindowSize();
@@ -44,6 +42,10 @@ const Header = () => {
               : null;
           })
           .catch((err) => {})
+      : null;
+
+    getLocal("serviceCat") !== "null"
+      ? setJobCategories(JSON.parse(formatStringJSON(getLocal("serviceCat"))))
       : null;
   }, [isAuth]);
 
@@ -115,7 +117,7 @@ const Header = () => {
                   <DropdownMenu>
                     {jobCategories && jobCategories !== "null"
                       ? jobCategories.map((cat) => (
-                          <Link href={"/offers/jobs"}>
+                          <Link key={cat.id} href={"/offers/jobs"}>
                             <DropdownItem
                               style={{ margin: "15px 0", textAlign: "center" }}
                               onClick={() => setLocal("jobCategory", cat.id)}

@@ -71,11 +71,6 @@ const offers = () => {
     setMaxPiceValue(e.maxValue);
   };
 
-  useEffect(
-    () => console.log(jobFiltersSlected, jobsCategory),
-    [jobFiltersSlected]
-  );
-
   //handle requests
   useEffect(() => {
     if (offers === "خرید و فروش") {

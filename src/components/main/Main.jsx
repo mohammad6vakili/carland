@@ -134,7 +134,7 @@ const Main = () => {
             res.status === 200 ? setServiceCat(res.data.data) : null;
             setLocal("serviceCat", JSON.stringify(res.data.data));
           })
-          .catch((err) => ToastBar.error("خطا در ارتباط"))
+          .catch((err) => toast.error("خطا در ارتباط"))
       : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
   }, []);
 
