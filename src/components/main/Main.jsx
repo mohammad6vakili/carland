@@ -136,6 +136,9 @@ const Main = () => {
           })
           .catch((err) => toast.error("خطا در ارتباط"))
       : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
+
+    const date = new Date();
+    console.log(date.getTime());
   }, []);
 
   useEffect(() => console.log(loading), [loading]);
