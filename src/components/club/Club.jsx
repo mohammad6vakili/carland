@@ -131,17 +131,19 @@ const Club = () => {
                         />
                       </SwiperSlide>
                     ))}
-                    {clubData.data.video_url &&
-                      clubData.data.video_url.length !== 0 && (
-                        <SwiperSlide className={s.slide}>
-                          <ReactPlayer
-                            width={"100%"}
-                            height={"100%"}
-                            controls
-                            url={url + "/" + clubData.data.video_url}
-                          />
-                        </SwiperSlide>
-                      )}
+                    {clubData.data
+                      ? clubData.data.video_url &&
+                        clubData.data.video_url.length !== 0 && (
+                          <SwiperSlide className={s.slide}>
+                            <ReactPlayer
+                              width={"100%"}
+                              height={"100%"}
+                              controls
+                              url={url + "/" + clubData.data.video_url}
+                            />
+                          </SwiperSlide>
+                        )
+                      : null}
                   </Swiper>
 
                   {clubData.data.imageAddresses ? (

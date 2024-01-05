@@ -120,6 +120,19 @@ const Magazine = () => {
                         />
                       </SwiperSlide>
                     ))}
+                    {magData
+                      ? magData.video_url &&
+                        magData.video_url.length !== 0 && (
+                          <SwiperSlide className={s.slide}>
+                            <ReactPlayer
+                              width={"100%"}
+                              height={"100%"}
+                              controls
+                              url={url + "/" + magData.video_url}
+                            />
+                          </SwiperSlide>
+                        )
+                      : null}
                   </Swiper>
 
                   {magData.imageAddresses ? (
