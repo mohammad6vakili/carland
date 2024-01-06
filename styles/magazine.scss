@@ -160,16 +160,62 @@
 
   .mags_category {
     @include flex(column, flex-start, center);
+    gap: 1rem;
     width: 100%;
     padding-top: 4rem;
 
     .categories {
+      @include flex(row, flex-start, center);
+      width: 100%;
+      height: 70px;
+      background: rgb(204, 204, 204, 0.5);
+      overflow-x: scroll;
+
+      .category,
+      .selected_cat {
+        @include flex(row, center, center);
+        margin: 0 10px;
+        min-width: 130px;
+        height: 40px;
+        padding: 0 5px;
+        cursor: pointer;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+
+        .selected_sign {
+          position: absolute;
+          top: 0;
+          background: #142d5d;
+          border-radius: 10px;
+          width: 100%;
+          height: 100%;
+          transition: all ease 1s;
+          z-index: -1;
+        }
+      }
+
+      .selected_cat {
+        color: #fff !important;
+        font-weight: 800;
+      }
+    }
+
+    .magazines,
+    .clubs {
       @include flex(row, flex-start, flex-start);
       gap: 20px;
       flex-wrap: wrap;
       width: 100%;
 
-      .category {
+      .not_found {
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .magazine,
+      .club {
         @include flex(column, flex-start, flex-start);
         width: 100%;
         max-width: 400px;
