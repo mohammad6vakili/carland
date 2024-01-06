@@ -9,8 +9,9 @@ import MainPageMagazine from "../main/magazines/MainPageMagazine";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import SuggestCard from "../suggest card";
+import MySkeleton from "../skeleton/Skeleton";
 
-const MagazineCategory = () => {
+const MagazineCategory = ({ adsCategories }) => {
   const photos = [
     { src: "/assets/trades/trade-1.png" },
     { src: "/assets/trades/trade-2.png" },
@@ -22,6 +23,8 @@ const MagazineCategory = () => {
   ];
   const categories = [{}, {}, {}];
   const [magazines, setMagazines] = useState([]);
+  const [magazinesByCat, setMagazinesByCat] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const { httpService } = useHttp();
 
@@ -38,6 +41,21 @@ const MagazineCategory = () => {
       });
   }, []);
 
+  useEffect(() => {
+    selectedCategory
+      ? httpService
+          .get(`magazines/${selectedCategory}`)
+          .then((res) => {
+            res.status === 200 ? setMagazinesByCat(res.data.data) : null;
+          })
+          .catch((err) => {
+            toast.error(
+              "مشکلی در پیدا کردن مجلات با دسته بندی مورد نظر بوجود امد"
+            );
+          })
+      : null;
+  }, [selectedCategory]);
+
   //swiper
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
@@ -50,7 +68,6 @@ const MagazineCategory = () => {
       adsSwiper.navigation.update();
     }
   }, [adsSwiper]);
-
   const [categorySwiper, setCategorySwiper] = useState();
   const nextCategoryRef = useRef();
   const prevCategoryRef = useRef();
@@ -69,6 +86,12 @@ const MagazineCategory = () => {
       {!isActive && "○"}
     </span>
   );
+
+  const handleSelectedCategory = (id) => {
+    selectedCategory === id
+      ? setSelectedCategory(null)
+      : setSelectedCategory(id);
+  };
 
   return (
     <>
@@ -159,7 +182,7 @@ const MagazineCategory = () => {
           <MainPageMagazine
             magazines={magazines}
             method={"magazine"}
-            overflowedDes={false}
+            overflowedDes={true}
             header={false}
           />
         </div>
@@ -178,108 +201,109 @@ const MagazineCategory = () => {
           </section>
 
           <section className={s.categories}>
-            <div className={s.category}>
-              <div className={s.list}>
-                <div className={s.image}>
-                  <Image
-                    src={"/assets/magazine/latest-club.png"}
-                    alt=""
-                    width={300}
-                    height={150}
-                  />
+            {adsCategories ? (
+              adsCategories.map((cat, index) => (
+                <div
+                  onClick={() => handleSelectedCategory(cat.id)}
+                  key={Math.random() * index}
+                  className={
+                    selectedCategory === cat.id ? s.selected_cat : s.category
+                  }
+                >
+                  {cat.name}
 
-                  <div className={s.div}>تازه‌ها</div>
+                  {selectedCategory === cat.id && (
+                    <div className={s.selected_sign}></div>
+                  )}
                 </div>
+              ))
+            ) : (
+              <MySkeleton width={"100%"} height={"100%"} />
+            )}
+          </section>
 
-                {categories.map((item, index) => (
-                  <div key={Math.random()} className={s.list_item}>
-                    <div className={s.title}>
-                      <span>
+          <section className={s.magazines}>
+            {magazinesByCat !== null ? (
+              magazinesByCat.length !== 0 ? (
+                magazinesByCat.map((cat) => (
+                  <div className={s.magazine}>
+                    <div className={s.list}>
+                      <section className={s.image}>
                         <Image
-                          src={"/assets/trades/triangle.svg"}
+                          src={"/assets/magazine/latest-club.png"}
                           alt=""
-                          width={15}
-                          height={15}
+                          width={300}
+                          height={150}
                         />
-                      </span>
-                      <p>تاریخچه خودروهای مدرن</p>
-                    </div>
 
-                    <div className={s.description}>
-                      تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
+                        <div className={s.div}>تازه‌ها</div>
+                      </section>
+
+                      {categories.map((item, index) => (
+                        <div key={Math.random()} className={s.list_item}>
+                          <section className={s.title}>
+                            <span>
+                              <Image
+                                src={"/assets/trades/triangle.svg"}
+                                alt=""
+                                width={15}
+                                height={15}
+                              />
+                            </span>
+                            <p>تاریخچه خودروهای مدرن</p>
+                          </section>
+
+                          <section className={s.description}>
+                            تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
+                          </section>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className={s.category}>
-              <div className={s.list}>
-                <div className={s.image}>
-                  <Image
-                    src={"/assets/magazine/latest-club.png"}
-                    alt=""
-                    width={300}
-                    height={150}
-                  />
-
-                  <div className={s.div}>تازه‌ها</div>
+                ))
+              ) : (
+                <div className={s.not_found}>
+                  مجله ای با دسته بندی مورد نظر شما پیدا نشد!
                 </div>
+              )
+            ) : (
+              magazines.map((mag) => (
+                <div className={s.magazine}>
+                  <div className={s.list}>
+                    <div className={s.image}>
+                      <Image
+                        src={"/assets/magazine/latest-club.png"}
+                        alt=""
+                        width={300}
+                        height={150}
+                      />
 
-                {categories.map((item, index) => (
-                  <div key={Math.random()} className={s.list_item}>
-                    <div className={s.title}>
-                      <span>
-                        <Image
-                          src={"/assets/trades/triangle.svg"}
-                          alt=""
-                          width={15}
-                          height={15}
-                        />
-                      </span>
-                      <p>تاریخچه خودروهای مدرن</p>
+                      <div className={s.div}>تازه‌ها</div>
                     </div>
 
-                    <div className={s.description}>
-                      تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                    </div>
+                    {categories.map((item, index) => (
+                      <div key={Math.random()} className={s.list_item}>
+                        <div className={s.title}>
+                          <span>
+                            <Image
+                              src={"/assets/trades/triangle.svg"}
+                              alt=""
+                              width={15}
+                              height={15}
+                            />
+                          </span>
+                          <p>تاریخچه خودروهای مدرن</p>
+                        </div>
+
+                        <div className={s.description}>
+                          تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className={s.category}>
-              <div className={s.list}>
-                <div className={s.image}>
-                  <Image
-                    src={"/assets/magazine/latest-club.png"}
-                    alt=""
-                    width={300}
-                    height={150}
-                  />
-
-                  <div className={s.div}>تازه‌ها</div>
                 </div>
-
-                {categories.map((item, index) => (
-                  <div key={Math.random()} className={s.list_item}>
-                    <div className={s.title}>
-                      <span>
-                        <Image
-                          src={"/assets/trades/triangle.svg"}
-                          alt=""
-                          width={15}
-                          height={15}
-                        />
-                      </span>
-                      <p>تاریخچه خودروهای مدرن</p>
-                    </div>
-
-                    <div className={s.description}>
-                      تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+              ))
+            )}
           </section>
         </div>
 
