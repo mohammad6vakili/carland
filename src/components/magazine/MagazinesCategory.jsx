@@ -182,7 +182,7 @@ const MagazineCategory = ({ adsCategories }) => {
           <MainPageMagazine
             magazines={magazines}
             method={"magazine"}
-            overflowedDes={false}
+            overflowedDes={true}
             header={false}
           />
         </div>

@@ -32,7 +32,11 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
       <div className={styles.content}>
         {magazines.length !== 0 ? (
           <div
-            onClick={() => navigate.push(`/${method}/${magazines[0].id}`)}
+            onClick={() =>
+              navigate.push(
+                `/${method}/${magazines[0].id}/${magazines[0].title}`
+              )
+            }
             className={styles.solid_pic}
           >
             <Image
@@ -93,7 +97,9 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                       <div className={styles.refrences}>
                         <span>۱۴۰۲/۰۸/۰۱</span>
                         <Button
-                          onClick={() => navigate.push(`/${method}/${mag.id}`)}
+                          onClick={() =>
+                            navigate.push(`/${method}/${mag.id}/${mag.title}`)
+                          }
                         >
                           مشاهده{" "}
                           <div>
