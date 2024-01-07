@@ -79,7 +79,7 @@ const AdsCard = ({
                 <LocationIcon />
                 <span style={{ marginRight: 5 }}>{location}</span>
               </span>
-              <span>{time}</span>
+              <span>{myAdds ? convertDate(time) : time}</span>
             </div>
 
             <div className={styles.rate}>

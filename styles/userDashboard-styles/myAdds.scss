@@ -352,6 +352,7 @@ $theme: #142d5d;
           background: #fff;
           padding: 20px 15px;
           text-align: center;
+          overflow: hidden;
 
           .content {
             @include flex(column, space-between, center);
@@ -419,6 +420,78 @@ $theme: #142d5d;
           color: #fff;
           padding: 18px 50px;
           font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1110px) {
+  .create_add {
+    .form {
+      position: relative;
+
+      .image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        img {
+          filter: blur(12px);
+        }
+      }
+
+      .add_details {
+        width: 100%;
+        z-index: 2;
+
+        .title {
+          @include flex(column, flex-start, center);
+          gap: 15px;
+          color: #fff;
+          h1 {
+            font-size: 1.5em;
+          }
+        }
+
+        .submit_btn {
+          @include flex(row, center, center);
+          button {
+            box-shadow: 0 0 30px #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .create_add {
+    .form {
+      .add_details {
+        .title {
+          .category {
+            width: 100%;
+          }
+        }
+
+        .images {
+          .input {
+            width: 100px;
+            height: 100px;
+          }
+        }
+
+        .details {
+          .input {
+            width: 100%;
+            input,
+            select {
+              width: 100%;
+            }
+          }
         }
       }
     }

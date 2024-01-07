@@ -68,6 +68,9 @@ const CreateAdd = ({ addCategories }) => {
   const [localMoreSide, setLocalMoreSide] = useState();
   const [localFront, setLocalFront] = useState();
   const [localRear, setLocalRear] = useState();
+  const [localLeft, setLocalLeft] = useState();
+  const [localRight, setLocalRight] = useState();
+  const [localKilometers, setLocalKilometers] = useState();
 
   const validationSchema = Yup.object().shape({
     category: Yup.string().required(
@@ -145,33 +148,35 @@ const CreateAdd = ({ addCategories }) => {
     // const canUpload = e?.target?.files[0].size / 1024 / 1000;
     console.log(e?.target?.files[0].size / 1024 / 1000);
 
+    if (selectedPhoto === "frontView") {
+      setLocalFront(URL.createObjectURL(e.target.files[0]));
+      setLocalFront("loading");
+    } else if (selectedPhoto === "rearView") {
+      setLocalRear(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "leftView") {
+      setLocalLeft(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "rightView") {
+      setLocalRight(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "moreView") {
+      setLocalMoreSide(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "kilometersView") {
+      setLocalKilometers(URL.createObjectURL(e.target.files[0]));
+    }
+
     const formData = new FormData();
-    let loadingImage = {};
     let images = {};
-    loadingImage[`${selectedPhoto}`] = "loading";
-    setLoadingImage(loadingImage);
     formData.append("image", e.target.files[0]);
 
     httpService
       .post("upload", formData)
       .then((res) => {
-        setPhotos({ ...photos, frontView: res.data });
         images[`${selectedPhoto}`] = res.data;
+        setPhotos({ ...photos, images });
         setLoadingImage();
       })
       .catch(() => {
         setLoadingImage();
       });
-
-    if (selectedPhoto === "fronView") {
-      setLocalFront(URL.createObjectURL(e.target.files[0]));
-    } else if (selectedPhoto === "rearView") {
-      setLocalRear(URL.createObjectURL(e.target.files[0]));
-    } else if (selectedPhoto === "leftView") {
-    } else if (selectedPhoto === "rightView") {
-    } else if (selectedPhoto === "moreView") {
-    } else if (selectedPhoto === "kilometersView") {
-    }
   };
 
   const handleCreateAd = (values) => {
@@ -252,7 +257,7 @@ const CreateAdd = ({ addCategories }) => {
                   />
                   <Image
                     className={
-                      loadingImage.moreView === "loading"
+                      loadingImage?.moreView === "loading"
                         ? s.img_loading
                         : s.img
                     }
@@ -278,9 +283,7 @@ const CreateAdd = ({ addCategories }) => {
                   <span>
                     <Image
                       className={
-                        loadingImage.frontView === "loading"
-                          ? s.img_loading
-                          : s.img
+                        localFront == "loading" ? s.img_loading : s.img
                       }
                       src={localFront ? localFront : frontSide}
                       alt=""
@@ -320,12 +323,7 @@ const CreateAdd = ({ addCategories }) => {
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => {
-                      const [file] = e.target.files;
-                      if (file) {
-                        console.log(file);
-                      }
-                    }}
+                    onChange={(e) => handleUploadPhoto(e, "rightView")}
                     hidden
                   />
                   <span>
@@ -343,12 +341,7 @@ const CreateAdd = ({ addCategories }) => {
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => {
-                      const [file] = e.target.files;
-                      if (file) {
-                        console.log(file);
-                      }
-                    }}
+                    onChange={(e) => handleUploadPhoto(e, "leftView")}
                     hidden
                   />
                   <span className={s.content}>
@@ -366,12 +359,7 @@ const CreateAdd = ({ addCategories }) => {
                   <Input
                     type="file"
                     id="file"
-                    onChange={(e) => {
-                      const [file] = e.target.files;
-                      if (file) {
-                        console.log(file);
-                      }
-                    }}
+                    onChange={(e) => handleUploadPhoto(e, "kilometersView")}
                     hidden
                   />
                   <span>
