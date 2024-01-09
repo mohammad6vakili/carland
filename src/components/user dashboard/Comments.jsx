@@ -4,8 +4,25 @@ import Image from "next/image";
 import logo from "../../../public/assets/carland-logo-fff.svg";
 import comment from "../../../public/assets/userDashboard/comment.png";
 import { LineIco } from "@/src/assets/icons/selected_page_line";
+import { useEffect, useState } from "react";
+import useHttp from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
 
 const UserComments = () => {
+  const { httpService } = useHttp(true);
+  const [comments, setComments] = useState(null);
+
+  useEffect(() => {
+    httpService
+      .get("getUserComments")
+      .then((res) => {
+        res.status === 200 ? setComments(res.data.comments) : null;
+      })
+      .catch(() => {
+        toast.error("مشکلی در دریافت اطلاعات بوجود امد");
+      });
+  }, []);
+
   return (
     <>
       <div className={s.user_comments}>
