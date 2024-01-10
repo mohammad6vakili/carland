@@ -359,18 +359,18 @@ const CreateAdd = ({ addCategories }) => {
                     hidden
                     accept="image/*"
                   />
+                  <Image
+                    className={
+                      loadingImage?.includes("rightView")
+                        ? s.img_loading
+                        : s.img
+                    }
+                    src={localRight ? localRight : rightSide}
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
                   <span>
-                    <Image
-                      className={
-                        loadingImage?.includes("rightView")
-                          ? s.img_loading
-                          : s.img
-                      }
-                      src={localRight ? localRight : rightSide}
-                      alt=""
-                      width={100}
-                      height={100}
-                    />
                     {loadingImage?.includes("rightView") ? (
                       <Spinner
                         style={{ width: "20px", height: "20px" }}

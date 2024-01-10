@@ -69,12 +69,9 @@ const CreateJob = ({ jobCategories }) => {
       formData.append("filters", values.filters);
       formData.append("first_name", values.firstName);
       formData.append("last_name", values.lastName);
-      formData.append("NationalCardImage", values.NationalCardImage);
-      formData.append("images", values.images);
-      formData.append(
-        "ActivityPermissionImage",
-        values.ActivityPermissionImage
-      );
+      formData.append("NationalCardImage", photos.nationalCard);
+      formData.append("ActivityPermissionImage", photos.activityPremision);
+      formData.append("images", photos.images);
       formData.append("state", values.state);
       formData.append("timeTo", values.timeTo);
       formData.append("timeFrom", values.timeFrom);
