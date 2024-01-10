@@ -264,6 +264,21 @@ const CreateJob = ({ jobCategories }) => {
                     />
 
                     <Input
+                      name="timeFrom"
+                      value={formik.values.timeFrom}
+                      onChange={formik.handleChange}
+                      placeholder="ساعت شروع کار"
+                      type="time"
+                    />
+                    <Input
+                      name="timeTo"
+                      value={formik.values.timeTo}
+                      onChange={formik.handleChange}
+                      placeholder="ساعت اتمام کار"
+                      type="time"
+                    />
+
+                    <Input
                       name="firstName"
                       value={formik.values.firstName}
                       onChange={formik.handleChange}

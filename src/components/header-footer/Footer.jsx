@@ -33,7 +33,7 @@ const Footer = () => {
             <div className={styles.logo_texts}>
               <div className={styles.logo}>
                 <Image
-                  src={"/assets/carland-logo-fff.svg"}
+                  src={"/assets/carland-logo-fff.png"}
                   alt=""
                   width={50}
                   height={50}

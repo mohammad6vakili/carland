@@ -1,6 +1,6 @@
 import Image from "next/image";
 import s from "../../../styles/main.module.scss";
-import logo from "../../../public/assets/carland-logo-fff.svg";
+import logo from "../../../public/assets/carland-logo-fff.png";
 import comment from "../../../public/assets/userDashboard/comment.png";
 import { LineIco } from "@/src/assets/icons/selected_page_line";
 import { MdSupportAgent } from "react-icons/md";
