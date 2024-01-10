@@ -360,7 +360,12 @@ const CreateJob = ({ jobCategories }) => {
                         hidden
                       />
                       <span>
-                        <Image src={localActivityPremisian : localActivityPremisian : ""} alt="" />
+                        <Image
+                          src={
+                            localActivityPremisian ? localActivityPremisian : ""
+                          }
+                          alt=""
+                        />
                         <span>عکس پروانه کسب</span>
                       </span>
                     </label>
@@ -382,7 +387,7 @@ const CreateJob = ({ jobCategories }) => {
                         hidden
                       />
                       <span>
-                        <Image src={localImages? localImages : ""} alt="" />
+                        <Image src={localImages ? localImages : ""} alt="" />
                         <span>عکس های دیگر</span>
                       </span>
                     </label>
