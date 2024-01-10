@@ -14,7 +14,7 @@ const CreateJob = ({ jobCategories }) => {
   const [filters, setFilters] = useState([]);
   const [loadingImage, setLoadingImage] = useState([]);
   const [photos, setPhotos] = useState({
-    natioanalCard: "",
+    nationalCard: "",
     activityPremision: "",
     images: "",
   });
@@ -109,12 +109,12 @@ const CreateJob = ({ jobCategories }) => {
     // const canUpload = e?.target?.files[0].size / 1024 / 1000;
     // console.log(e?.target?.files[0].size / 1024 / 1000);
 
-    if (selectedPhoto === "frontView") {
-      setLocalFront(URL.createObjectURL(e.target.files[0]));
-    } else if (selectedPhoto === "rearView") {
-      setLocalRear(URL.createObjectURL(e.target.files[0]));
-    } else if (selectedPhoto === "leftView") {
-      setLocalLeft(URL.createObjectURL(e.target.files[0]));
+    if (selectedPhoto === "nationalCard") {
+      setLocalNationalCard(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "activityPremision") {
+      setLocalActivityPremisian(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "images") {
+      setLocalImages(URL.createObjectURL(e.target.files[0]));
     }
 
     const formData = new FormData();
@@ -330,16 +330,16 @@ const CreateJob = ({ jobCategories }) => {
                       <Input
                         type="file"
                         id="file"
-                        onChange={(e) => {
-                          const [file] = e.target.files;
-                          if (file) {
-                            console.log(file);
-                          }
-                        }}
+                        onChange={(e) => handleUploadPhoto(e, "nationalCard")}
                         hidden
                       />
-                      <span>
-                        <Image src={""} alt="" />
+                      <span className={s.content}>
+                        <Image
+                          src={localNationalCard ? localNationalCard : ""}
+                          alt=""
+                          width={100}
+                          height={100}
+                        />
                         <span>عکس کارت ملی</span>
                       </span>
                     </label>
@@ -360,7 +360,7 @@ const CreateJob = ({ jobCategories }) => {
                         hidden
                       />
                       <span>
-                        <Image src={""} alt="" />
+                        <Image src={localActivityPremisian : localActivityPremisian : ""} alt="" />
                         <span>عکس پروانه کسب</span>
                       </span>
                     </label>
@@ -382,7 +382,7 @@ const CreateJob = ({ jobCategories }) => {
                         hidden
                       />
                       <span>
-                        <Image src={""} alt="" />
+                        <Image src={localImages? localImages : ""} alt="" />
                         <span>عکس های دیگر</span>
                       </span>
                     </label>
