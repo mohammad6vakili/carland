@@ -1,4 +1,4 @@
-import { Button, Table } from "reactstrap";
+import { Button, Spinner, Table } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import logo from "../../../public/assets/carland-logo-fff.svg";
@@ -7,6 +7,7 @@ import { LineIco } from "@/src/assets/icons/selected_page_line";
 import { useEffect, useState } from "react";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
+import { convertDate } from "../comments/CommentCards";
 
 const UserComments = () => {
   const { httpService } = useHttp(true);
@@ -74,18 +75,45 @@ const UserComments = () => {
               </thead>
 
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>۱۴۰۲/۰۲/۲۰</td>
-                  <td>جنسش عالی بود و واقعا توصیه میکنم این محصول رو</td>
-                  <td>
-                    <div className={s.update_delete}>
-                      <Button className={s.update}>ویرایش</Button>
-                      <Button className={s.delete}>حذف</Button>
-                    </div>
-                  </td>
-                  <td>تایید شده</td>
-                </tr>
+                {comments ? (
+                  comments.length !== 0 ? (
+                    comments.map((comment, index) => (
+                      <tr key={comment.id}>
+                        <td></td>
+                        {/* <td>{convertDate(comment.created_at)}</td> */}
+                        <td></td>
+                        <td>{comment.content}</td>
+                        <td>
+                          <Button className={s.end_comment}>حذف کامنت</Button>
+                          <Button className={s.edit_comment}>
+                            ویرایش کامنت
+                          </Button>
+                        </td>
+                        <td>{comment.status}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr className={s.noTicket}>تیکتی وجود ندارد</tr>
+                  )
+                ) : (
+                  <tr>
+                    <td>
+                      <Spinner></Spinner>
+                    </td>
+                    <td>
+                      <Spinner></Spinner>
+                    </td>
+                    <td>
+                      <Spinner></Spinner>
+                    </td>
+                    <td>
+                      <Spinner></Spinner>
+                    </td>
+                    <td>
+                      <Spinner></Spinner>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </Table>
           </div>

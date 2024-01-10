@@ -79,6 +79,7 @@
         > :not(caption) > * > * {
           text-align: center !important;
         }
+
         thead {
           height: 80px;
           tr {
@@ -93,9 +94,35 @@
         }
 
         tbody {
+          width: auto;
           tr {
-            height: 130px;
+            height: 90px;
             margin-top: auto;
+
+            .see_ticket {
+              background: #4a80e8;
+              color: #fff;
+            }
+
+            .end_ticket {
+              border-radius: 7px;
+              border: 1px solid #f93423;
+              color: #f93423;
+              background: #fff5f4;
+            }
+
+            .status_1 {
+              color: #10cc67;
+            }
+            .status_2 {
+              color: #4a80e8;
+            }
+            .status_3 {
+              opacity: 0.6;
+            }
+            .status_4 {
+              color: #ffd029;
+            }
           }
         }
       }

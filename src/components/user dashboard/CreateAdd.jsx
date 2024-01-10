@@ -14,11 +14,13 @@ import useHttp from "@/src/axiosConfig/useHttp";
 import { formatStringJSON, getLocal } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
 import { IoAddCircle } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 const CreateAdd = ({ addCategories }) => {
   const { httpService } = useHttp(true);
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [loadingImage, setLoadingImage] = useState({});
+  const [loadingImage, setLoadingImage] = useState([]);
   const [photos, setPhotos] = useState({
     rearView: "",
     frontView: "",
@@ -146,11 +148,10 @@ const CreateAdd = ({ addCategories }) => {
 
   const handleUploadPhoto = (e, selectedPhoto) => {
     // const canUpload = e?.target?.files[0].size / 1024 / 1000;
-    console.log(e?.target?.files[0].size / 1024 / 1000);
+    // console.log(e?.target?.files[0].size / 1024 / 1000);
 
     if (selectedPhoto === "frontView") {
       setLocalFront(URL.createObjectURL(e.target.files[0]));
-      setLocalFront("loading");
     } else if (selectedPhoto === "rearView") {
       setLocalRear(URL.createObjectURL(e.target.files[0]));
     } else if (selectedPhoto === "leftView") {
@@ -165,29 +166,44 @@ const CreateAdd = ({ addCategories }) => {
 
     const formData = new FormData();
     let images = {};
+    let loadingImage = {};
+    loadingImage[`${selectedPhoto}`] === "loading";
+    setLoadingImage([selectedPhoto]);
     formData.append("image", e.target.files[0]);
 
     httpService
       .post("upload", formData)
       .then((res) => {
-        images[`${selectedPhoto}`] = res.data;
-        setPhotos({ ...photos, images });
+        // images[`${selectedPhoto}`] = res.data.url;
+        res.status === 200
+          ? setPhotos((current) => {
+              let images = current;
+              images[`${selectedPhoto}`] = res.data.url;
+              return images;
+            })
+          : null;
+        console.log(photos);
         setLoadingImage();
       })
-      .catch(() => {
-        setLoadingImage();
-      });
+      .catch(() => {});
   };
+
+  useEffect(() => {
+    console.log(photos);
+  }, [photos]);
 
   const handleCreateAd = (values) => {
     setLoading(true);
     const formData = new FormData();
-    formData.append("front_view", photos.frontView);
-    formData.append("rear_view", photos.rearView);
-    formData.append("left_view", photos.leftView);
-    formData.append("right_view", photos.rightView);
-    formData.append("more_view", photos.moreView);
-    formData.append("kilometers_view", photos.kilometersView);
+    formData.append("front_view", photos.frontView ? photos.frontView : "");
+    formData.append("rear_view", photos.rearView ? photos.rearView : "");
+    formData.append("left_view", photos.leftView ? photos.leftView : "");
+    formData.append("right_view", photos.rightView ? photos.rightView : "");
+    formData.append("more_view", photos.moreView ? photos.moreView : "");
+    formData.append(
+      "kilometers_view",
+      photos.kilometersView ? photos.kilometersView : ""
+    );
     formData.append("car_name", values.category);
     formData.append("car_type", values.category);
     formData.append("car_model", values.model);
@@ -208,6 +224,7 @@ const CreateAdd = ({ addCategories }) => {
       .then((res) => {
         res.status === 200 ? toast.success("آگهی شما با موفقیت ثبت شد") : null;
         setLoading(false);
+        // router.back();
       })
       .catch((err) => {
         toast.error("مشکلی در ثبت آگهی بوجود امد");
@@ -253,7 +270,7 @@ const CreateAdd = ({ addCategories }) => {
                     onChange={(e) => handleUploadPhoto(e, "moreView")}
                     className={s.img}
                     hidden
-                    accept=""
+                    accept="image/*"
                   />
                   <Image
                     className={
@@ -283,18 +300,20 @@ const CreateAdd = ({ addCategories }) => {
                   <span>
                     <Image
                       className={
-                        localFront == "loading" ? s.img_loading : s.img
+                        loadingImage?.includes("frontView")
+                          ? s.img_loading
+                          : s.img
                       }
                       src={localFront ? localFront : frontSide}
                       alt=""
                       width={100}
                       height={100}
                     />
-                    {loadingImage.frontView === "loading" ? (
+                    {loadingImage?.includes("frontView") ? (
                       <Spinner
                         style={{ width: "20px", height: "20px" }}
                       ></Spinner>
-                    ) : null}
+                    ) : null}{" "}
                     <span>نمای جلو</span>
                   </span>
                 </label>
@@ -307,9 +326,25 @@ const CreateAdd = ({ addCategories }) => {
                     id="file"
                     onChange={(e) => handleUploadPhoto(e, "rearView")}
                     hidden
+                    accept="image/*"
                   />
                   <span>
-                    <Image className={s.img} src={backSide} alt="" />
+                    <Image
+                      className={
+                        loadingImage?.includes("rearView")
+                          ? s.img_loading
+                          : s.img
+                      }
+                      src={localRear ? localRear : backSide}
+                      alt=""
+                      width={100}
+                      height={100}
+                    />
+                    {loadingImage?.includes("rearView") ? (
+                      <Spinner
+                        style={{ width: "20px", height: "20px" }}
+                      ></Spinner>
+                    ) : null}{" "}
                     <span>نمای عقب</span>
                   </span>
                 </label>
@@ -325,9 +360,25 @@ const CreateAdd = ({ addCategories }) => {
                     id="file"
                     onChange={(e) => handleUploadPhoto(e, "rightView")}
                     hidden
+                    accept="image/*"
                   />
                   <span>
-                    <Image src={rightSide} alt="" />
+                    <Image
+                      className={
+                        loadingImage?.includes("rightView")
+                          ? s.img_loading
+                          : s.img
+                      }
+                      src={localRight ? localRight : rightSide}
+                      alt=""
+                      width={100}
+                      height={100}
+                    />
+                    {loadingImage?.includes("rightView") ? (
+                      <Spinner
+                        style={{ width: "20px", height: "20px" }}
+                      ></Spinner>
+                    ) : null}{" "}
                     <span>نمای راست</span>
                   </span>
                 </label>
@@ -343,9 +394,25 @@ const CreateAdd = ({ addCategories }) => {
                     id="file"
                     onChange={(e) => handleUploadPhoto(e, "leftView")}
                     hidden
+                    accept="image/*"
                   />
                   <span className={s.content}>
-                    <Image src={leftSide} alt="" />
+                    <Image
+                      className={
+                        loadingImage?.includes("leftView")
+                          ? s.img_loading
+                          : s.img
+                      }
+                      src={localLeft ? localLeft : leftSide}
+                      alt=""
+                      width={100}
+                      height={100}
+                    />
+                    {loadingImage?.includes("leftView") ? (
+                      <Spinner
+                        style={{ width: "20px", height: "20px" }}
+                      ></Spinner>
+                    ) : null}{" "}
                     <span>نمای چپ</span>
                   </span>
                 </label>
@@ -361,9 +428,25 @@ const CreateAdd = ({ addCategories }) => {
                     id="file"
                     onChange={(e) => handleUploadPhoto(e, "kilometersView")}
                     hidden
+                    accept="image/*"
                   />
                   <span>
-                    <Image className={s.img} src={kilometers} alt="" />
+                    <Image
+                      className={
+                        loadingImage?.includes("kilometersView")
+                          ? s.img_loading
+                          : s.img
+                      }
+                      src={localKilometers ? localKilometers : kilometers}
+                      alt=""
+                      width={100}
+                      height={100}
+                    />
+                    {loadingImage?.includes("kilometersView") ? (
+                      <Spinner
+                        style={{ width: "20px", height: "20px" }}
+                      ></Spinner>
+                    ) : null}{" "}
                     <span>کیلومتر شمار</span>
                   </span>
                 </label>
