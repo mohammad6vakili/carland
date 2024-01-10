@@ -336,7 +336,7 @@ const JobPage = () => {
             )}
           </div>
 
-          <SendComment />
+          <SendComment page={"jobs"} />
 
           <div className={s.around_jobs}>
             <div className={s.title}>
