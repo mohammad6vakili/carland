@@ -6,10 +6,11 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import CustomPagination from "./CustomPagination";
 import MainPageMagazine from "../main/magazines/MainPageMagazine";
-import useHttp from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import SuggestCard from "../suggest card";
 import MySkeleton from "../skeleton/Skeleton";
+import Link from "next/link";
 
 const MagazineCategory = ({ adsCategories }) => {
   const photos = [
@@ -89,7 +90,7 @@ const MagazineCategory = ({ adsCategories }) => {
 
   const handleSelectedCategory = (id) => {
     selectedCategory === id
-      ? setSelectedCategory(null)
+      ? (setMagazinesByCat(null), setSelectedCategory(null))
       : setSelectedCategory(id);
   };
 
@@ -226,17 +227,20 @@ const MagazineCategory = ({ adsCategories }) => {
             {magazinesByCat !== null ? (
               magazinesByCat.length !== 0 ? (
                 magazinesByCat.map((cat) => (
-                  <div className={s.magazine}>
+                  <Link
+                    href={`/magazine/${cat.id}/${cat.title}`}
+                    className={s.magazine}
+                  >
                     <div className={s.list}>
                       <section className={s.image}>
                         <Image
-                          src={"/assets/magazine/latest-club.png"}
+                          src={url + "/" + cat.image_url}
                           alt=""
                           width={300}
                           height={150}
                         />
 
-                        <div className={s.div}>تازه‌ها</div>
+                        <div className={s.div}>{cat.title}</div>
                       </section>
 
                       {categories.map((item, index) => (
@@ -259,7 +263,7 @@ const MagazineCategory = ({ adsCategories }) => {
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </Link>
                 ))
               ) : (
                 <div className={s.not_found}>
