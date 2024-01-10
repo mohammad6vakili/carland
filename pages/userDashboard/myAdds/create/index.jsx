@@ -12,7 +12,7 @@ export async function getStaticProps() {
   const res = await fetch(`${baseUrl}/CategoryCars`).catch((err) => {
     toast.error("مشکلی در پیدا کردن اطلاعات این صفحه بوجود امد");
   });
-  const addCategories = await res.json();
+  const addCategories = await res?.json();
 
   return { props: { addCategories } };
 }

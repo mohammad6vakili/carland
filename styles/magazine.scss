@@ -995,7 +995,8 @@
     }
 
     .mags_category {
-      .categories {
+      .magazines,
+      .clubs {
         @include flex(column, flex-start, center);
       }
     }

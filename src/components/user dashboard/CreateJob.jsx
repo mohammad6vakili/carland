@@ -12,6 +12,17 @@ const CreateJob = ({ jobCategories }) => {
   const { httpService } = useHttp();
   const [currentStep, setCurrentStep] = useState(1);
   const [filters, setFilters] = useState([]);
+  const [loadingImage, setLoadingImage] = useState([]);
+  const [photos, setPhotos] = useState({
+    nationalCard: "",
+    activityPremision: "",
+    images: "",
+  });
+
+  //local images
+  const [localNationalCard, setLocalNationalCard] = useState();
+  const [localActivityPremisian, setLocalActivityPremisian] = useState();
+  const [localImages, setLocalImages] = useState();
 
   const handleCreateJob = (values, body) => {
     httpService
@@ -79,7 +90,9 @@ const CreateJob = ({ jobCategories }) => {
 
     catId
       ? httpService(`category/${catId}`).then((res) => {
-          res.success ? setFilters(res.data.titles.split(",")) : null;
+          res.data.success
+            ? setFilters(res.data.data.filters.split(","))
+            : null;
         })
       : null;
   }, [formik.values.categoryId]);
@@ -90,6 +103,41 @@ const CreateJob = ({ jobCategories }) => {
     } else {
       return false;
     }
+  };
+
+  const handleUploadPhoto = (e, selectedPhoto) => {
+    // const canUpload = e?.target?.files[0].size / 1024 / 1000;
+    // console.log(e?.target?.files[0].size / 1024 / 1000);
+
+    if (selectedPhoto === "nationalCard") {
+      setLocalNationalCard(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "activityPremision") {
+      setLocalActivityPremisian(URL.createObjectURL(e.target.files[0]));
+    } else if (selectedPhoto === "images") {
+      setLocalImages(URL.createObjectURL(e.target.files[0]));
+    }
+
+    const formData = new FormData();
+    let images = {};
+    let loadingImage = {};
+    loadingImage[`${selectedPhoto}`] === "loading";
+    setLoadingImage([selectedPhoto]);
+    formData.append("image", e.target.files[0]);
+
+    httpService
+      .post("upload", formData)
+      .then((res) => {
+        // images[`${selectedPhoto}`] = res.data.url;
+        res.status === 200
+          ? setPhotos((current) => {
+              let images = current;
+              images[`${selectedPhoto}`] = res.data.url;
+              return images;
+            })
+          : null;
+        setLoadingImage();
+      })
+      .catch(() => {});
   };
 
   return (
@@ -172,12 +220,13 @@ const CreateJob = ({ jobCategories }) => {
                         انتخاب فیلتر ها
                       </option>
 
-                      {filters &&
-                        filters.map((cat) => (
-                          <option key={cat.id} value={cat.id}>
-                            {cat.title}
-                          </option>
-                        ))}
+                      {filters
+                        ? filters.map((cat, index) => (
+                            <option key={index} value={cat}>
+                              {cat}
+                            </option>
+                          ))
+                        : null}
                     </Input>
                   </div>
                 )}
@@ -275,28 +324,28 @@ const CreateJob = ({ jobCategories }) => {
                 {handleStep(4) && (
                   <div className={s.inputs}>
                     <label
-                      className={s.image}
+                      className={s.image_input}
                       onChange={(e) => console.log(e.target.files[0])}
                     >
                       <Input
                         type="file"
                         id="file"
-                        onChange={(e) => {
-                          const [file] = e.target.files;
-                          if (file) {
-                            console.log(file);
-                          }
-                        }}
+                        onChange={(e) => handleUploadPhoto(e, "nationalCard")}
                         hidden
                       />
-                      <span>
-                        <Image src={""} alt="" />
+                      <span className={s.content}>
+                        <Image
+                          src={localNationalCard ? localNationalCard : ""}
+                          alt=""
+                          width={100}
+                          height={100}
+                        />
                         <span>عکس کارت ملی</span>
                       </span>
                     </label>
 
                     <label
-                      className={s.image}
+                      className={s.image_input}
                       onChange={(e) => console.log(e.target.files[0])}
                     >
                       <Input
@@ -311,13 +360,18 @@ const CreateJob = ({ jobCategories }) => {
                         hidden
                       />
                       <span>
-                        <Image src={""} alt="" />
+                        <Image
+                          src={
+                            localActivityPremisian ? localActivityPremisian : ""
+                          }
+                          alt=""
+                        />
                         <span>عکس پروانه کسب</span>
                       </span>
                     </label>
 
                     <label
-                      className={s.image}
+                      className={s.image_input}
                       onChange={(e) => console.log(e.target.files[0])}
                     >
                       <Input
@@ -333,7 +387,7 @@ const CreateJob = ({ jobCategories }) => {
                         hidden
                       />
                       <span>
-                        <Image src={""} alt="" />
+                        <Image src={localImages ? localImages : ""} alt="" />
                         <span>عکس های دیگر</span>
                       </span>
                     </label>

@@ -25,7 +25,6 @@ const UserData = () => {
       .get("myads")
       .then((res) => {
         res.status === 200 ? setMyAds(res.data.data) : null;
-        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -79,10 +78,12 @@ const UserData = () => {
                   myAds.map((item, index) => (
                     <SwiperSlide
                       key={Math.random() * index}
-                      className={s.swiper_slide}
+                      className={s.slide}
                     >
                       <AdsCard
-                        image={item.main_image}
+                        image={
+                          item.main_image !== "undefined" ? item.main_image : ""
+                        }
                         name={item.title}
                         details={{
                           kms: item.kilometers,
