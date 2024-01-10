@@ -267,7 +267,7 @@ const CreateJob = ({ jobCategories }) => {
                     />
 
                     <Input
-                      name="fistName"
+                      name="firstName"
                       value={formik.values.firstName}
                       onChange={formik.handleChange}
                       placeholder="نام فروشنده"

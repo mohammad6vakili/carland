@@ -2,6 +2,7 @@ import { Button, Form, Input, InputGroup, Spinner } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import background from "../../../public/assets/userDashboard/create-add.png";
+import addMore from "../../../public/assets/userDashboard/add images placeholder/more.png";
 import frontSide from "../../../public/assets/userDashboard/add images placeholder/front.png";
 import backSide from "../../../public/assets/userDashboard/add images placeholder/back.png";
 import leftSide from "../../../public/assets/userDashboard/add images placeholder/left.png";
@@ -188,10 +189,6 @@ const CreateAdd = ({ addCategories }) => {
       .catch(() => {});
   };
 
-  useEffect(() => {
-    console.log(photos);
-  }, [photos]);
-
   const handleCreateAd = (values) => {
     setLoading(true);
     const formData = new FormData();
@@ -274,15 +271,18 @@ const CreateAdd = ({ addCategories }) => {
                   />
                   <Image
                     className={
-                      loadingImage?.moreView === "loading"
-                        ? s.img_loading
-                        : s.img
+                      loadingImage?.includes("moreView") ? s.img_loading : s.img
                     }
-                    src={localMoreSide}
+                    src={localMoreSide ? localMoreSide : addMore}
                     alt=""
                     width={100}
                     height={100}
                   />
+                  {loadingImage?.includes("moreView") ? (
+                    <Spinner
+                      style={{ width: "20px", height: "20px" }}
+                    ></Spinner>
+                  ) : null}{" "}
                   <span>افزودن عکس</span>
                 </label>
               </div>
@@ -351,10 +351,7 @@ const CreateAdd = ({ addCategories }) => {
               </div>
 
               <div className={s.input}>
-                <label
-                  className={s.content}
-                  onChange={(e) => console.log(e.target.files[0])}
-                >
+                <label className={s.content}>
                   <Input
                     type="file"
                     id="file"

@@ -154,7 +154,9 @@ const UserDashboard = () => {
                       className={s.swiper_slide}
                     >
                       <AdsCard
-                        image={item.main_image}
+                        image={
+                          item.main_image !== "undefined" ? item.main_image : ""
+                        }
                         name={item.title}
                         details={{
                           kms: item.kilometers,
@@ -165,6 +167,7 @@ const UserDashboard = () => {
                         time={item.created_at}
                         rate={"۴.۵"}
                         id={item.id}
+                        myAdds={true}
                       />
                     </SwiperSlide>
                   ))
