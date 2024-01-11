@@ -16,10 +16,13 @@ import { Navigation } from "swiper/modules";
 import { Button } from "reactstrap";
 import MySkeleton from "../skeleton/Skeleton";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { toPersianString } from "@/src/hooks/functions";
 
 const UserDashboard = () => {
   const { httpService } = useHttp(false);
   const [ads, setAds] = useState([]);
+  const userInfo = useSelector((state) => state.userInfo.userInfo);
 
   const nextAdRef = useRef();
   const prevAdRef = useRef();
@@ -87,7 +90,7 @@ const UserDashboard = () => {
             </div>
 
             <div className={s.value}>
-              <p>{"۵۰۰,۰۰۰"}</p>
+              <p>{userInfo ? toPersianString(userInfo.cash) : null}</p>
               <p>تومان</p>
             </div>
           </div>
@@ -101,7 +104,7 @@ const UserDashboard = () => {
             </div>
 
             <div className={s.value}>
-              <p>{"۳"}</p>
+              <p>{userInfo ? toPersianString(ads.length) : null}</p>
             </div>
           </div>
 

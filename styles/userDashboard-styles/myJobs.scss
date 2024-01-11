@@ -525,6 +525,12 @@
   }
 }
 
+@media only screen and (max-width: 850px) {
+  .jobs {
+    padding: 1rem 10px;
+  }
+}
+
 @media only screen and (max-width: 500px) {
   .create_job {
     .form {

@@ -1,7 +1,7 @@
 import { PiWalletFill } from "react-icons/pi";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
-import logo from "../../../public/assets/carland-logo.png";
+import logo from "../../../public/assets/carland-logo-full.png";
 import { Button, Input } from "reactstrap";
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ const Wallet = () => {
                 <span>شارژ کیف پول</span>
               </div>
               <span className={s.detail}>
-                حسابت رو شارژ کن تا کسب و کارت رو با مات گسترش بدی
+                حسابت رو شارژ کن تا کسب و کارت رو با ما گسترش بدی
               </span>
             </section>
 
@@ -48,8 +48,6 @@ const Wallet = () => {
 
               <div className={s.logo_name}>
                 <Image src={logo} alt="" />
-
-                <span>کارلند</span>
               </div>
             </section>
           </div>

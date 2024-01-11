@@ -28,6 +28,7 @@
     padding-top: 85px;
     position: relative;
     color: #3c3c3c;
+    transform: translate(0, 20%);
 
     .header {
       @include flex(row, space-between, center);
@@ -87,8 +88,9 @@
           font-weight: 700;
           font-size: 1.5em;
           img {
-            width: 40px;
-            height: 40px;
+            width: 100%;
+            object-fit: cover;
+            height: 70px;
           }
         }
       }
@@ -178,6 +180,24 @@
         height: 75px;
         border-radius: 8px;
         background: #4a80e8;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .wallet_page {
+    padding: 1rem 10px;
+    height: 100vh;
+
+    .form {
+      width: auto;
+      max-width: 100%;
+
+      .header {
+        .text {
+          padding: 0 10px;
+        }
       }
     }
   }

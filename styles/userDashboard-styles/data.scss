@@ -161,3 +161,13 @@
     }
   }
 }
+
+@media only screen and (max-width: 1000px) {
+  .user_data {
+    padding: 1rem 10px;
+
+    .form {
+      padding: 2rem;
+    }
+  }
+}
