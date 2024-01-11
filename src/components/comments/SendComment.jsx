@@ -23,6 +23,19 @@ const SendComment = ({ page }) => {
     comment: Yup.string().required("لطفا ابتدا فیلد بالا را پر کنید"),
   });
 
+  const formik = useFormik({
+    initialValues: {
+      comment: "",
+      rate: "",
+    },
+
+    validationSchema,
+
+    onSubmit: (values) => {
+      page === "club" ? handleClubComment(values) : handleJobsComment();
+    },
+  });
+
   const handleClubComment = (values) => {
     const formData = new FormData();
     formData.append("club_id", pathname?.substring(6, pathname.length));
@@ -60,19 +73,6 @@ const SendComment = ({ page }) => {
       });
   };
 
-  const formik = useFormik({
-    initialValues: {
-      comment: "",
-      rate: "",
-    },
-
-    validationSchema,
-
-    onSubmit: (values) => {
-      page === "club" ? handleClubComment(values) : handleJobsComment();
-    },
-  });
-
   return (
     <>
       <Form onSubmit={formik.handleSubmit} className={s.send_comment}>
@@ -88,25 +88,6 @@ const SendComment = ({ page }) => {
           <p>ارسال دیدگاه</p>
         </div>
 
-        {/* <div className={s.name_email}>
-          <Input
-            style={{
-              border: "1px solid #4A80E8",
-              background: "rgba(74, 128, 232, 0.07)",
-              width: "50%",
-            }}
-            placeholder="نام و نام خانوادگی"
-          />
-          <Input
-            style={{
-              border: "1px solid #4A80E8",
-              background: "rgba(74, 128, 232, 0.07)",
-              width: "50%",
-            }}
-            placeholder="ایمیل"
-          />
-        </div> */}
-
         <div className={s.content}>
           <Input
             style={{
@@ -121,13 +102,23 @@ const SendComment = ({ page }) => {
             onChange={formik.handleChange}
           />
         </div>
+
         {page !== "club" ? (
           <div>
             <ButtonGroup>
               <UncontrolledDropdown></UncontrolledDropdown>
             </ButtonGroup>
           </div>
-        ) : null}
+        ) : (
+          <ReactStars
+            value={rate}
+            count={5}
+            size={24}
+            emptyIcon={<i className="far fa-star"></i>}
+            fullIcon={<i className="fa fa-star"></i>}
+            activeColor="#ffd700"
+          />
+        )}
 
         <div className={s.btn}>
           <Button

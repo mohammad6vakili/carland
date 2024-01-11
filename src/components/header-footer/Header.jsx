@@ -86,7 +86,7 @@ const Header = () => {
             <div onClick={() => router.push("/")} className={styles.symbol}>
               <section className={styles.logo}>
                 <Image
-                  src={"/assets/carland-logo.svg"}
+                  src={"/assets/carland-logo.png"}
                   alt="logo"
                   width={56}
                   height={56}

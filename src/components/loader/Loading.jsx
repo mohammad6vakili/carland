@@ -7,7 +7,7 @@ const Loading = () => {
       <div>
         <div className={s.logo}>
           <Image
-            src={"/assets/carland-logo.svg"}
+            src={"/assets/carland-logo.png"}
             alt="logo"
             width={50}
             height={50}

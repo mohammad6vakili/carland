@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "../public/assets/carland-logo.svg";
+import logo from "../public/assets/carland-logo.png";
 import s from "../styles/main.module.scss";
 
 const Loading = () => {

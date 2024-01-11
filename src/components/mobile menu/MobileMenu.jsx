@@ -27,7 +27,7 @@ const MobileMenu = () => {
             <div className={s.symbol}>
               <section className={s.logo}>
                 <Image
-                  src={"/assets/carland-logo.svg"}
+                  src={"/assets/carland-logo.png"}
                   alt="logo"
                   width={40}
                   height={40}

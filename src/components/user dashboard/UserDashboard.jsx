@@ -1,6 +1,6 @@
 import Image from "next/image";
 import s from "../../../styles/main.module.scss";
-import logo from "../../../public/assets/carland-logo-fff.svg";
+import logo from "../../../public/assets/carland-logo-fff.png";
 import comment from "../../../public/assets/userDashboard/comment.png";
 import { LineIco } from "@/src/assets/icons/selected_page_line";
 import { MdSupportAgent } from "react-icons/md";
@@ -154,7 +154,9 @@ const UserDashboard = () => {
                       className={s.swiper_slide}
                     >
                       <AdsCard
-                        image={item.main_image}
+                        image={
+                          item.main_image !== "undefined" ? item.main_image : ""
+                        }
                         name={item.title}
                         details={{
                           kms: item.kilometers,
@@ -165,6 +167,7 @@ const UserDashboard = () => {
                         time={item.created_at}
                         rate={"۴.۵"}
                         id={item.id}
+                        myAdds={true}
                       />
                     </SwiperSlide>
                   ))

@@ -69,12 +69,9 @@ const CreateJob = ({ jobCategories }) => {
       formData.append("filters", values.filters);
       formData.append("first_name", values.firstName);
       formData.append("last_name", values.lastName);
-      formData.append("NationalCardImage", values.NationalCardImage);
-      formData.append("images", values.images);
-      formData.append(
-        "ActivityPermissionImage",
-        values.ActivityPermissionImage
-      );
+      formData.append("NationalCardImage", photos.nationalCard);
+      formData.append("ActivityPermissionImage", photos.activityPremision);
+      formData.append("images", photos.images);
       formData.append("state", values.state);
       formData.append("timeTo", values.timeTo);
       formData.append("timeFrom", values.timeFrom);
@@ -267,7 +264,22 @@ const CreateJob = ({ jobCategories }) => {
                     />
 
                     <Input
-                      name="fistName"
+                      name="timeFrom"
+                      value={formik.values.timeFrom}
+                      onChange={formik.handleChange}
+                      placeholder="ساعت شروع کار"
+                      type="time"
+                    />
+                    <Input
+                      name="timeTo"
+                      value={formik.values.timeTo}
+                      onChange={formik.handleChange}
+                      placeholder="ساعت اتمام کار"
+                      type="time"
+                    />
+
+                    <Input
+                      name="firstName"
                       value={formik.values.firstName}
                       onChange={formik.handleChange}
                       placeholder="نام فروشنده"

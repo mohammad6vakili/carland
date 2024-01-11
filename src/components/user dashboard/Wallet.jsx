@@ -1,7 +1,7 @@
 import { PiWalletFill } from "react-icons/pi";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
-import logo from "../../../public/assets/carland-logo.svg";
+import logo from "../../../public/assets/carland-logo.png";
 import { Button, Input } from "reactstrap";
 import { useState } from "react";
 
