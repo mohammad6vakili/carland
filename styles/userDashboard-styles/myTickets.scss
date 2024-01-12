@@ -176,8 +176,8 @@
         width: max-content;
         @include flex(column, flex-start, flex-start);
 
-        image {
-          border-right: 20px;
+        img {
+          border-radius: 18px;
         }
       }
 
@@ -247,7 +247,7 @@
       @include flex(column, flex-start, flex);
       gap: 10px;
       width: 100%;
-      padding: 25px 0;
+      padding: 50px 0;
 
       .title {
         @include flex(row, flex-start, center);
@@ -293,6 +293,27 @@
       svg {
         width: 20px;
         height: 20px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .ticket_page {
+    padding: 2rem 10px;
+    min-height: 100vh;
+
+    .messages {
+      padding: 20px;
+
+      .send_ticket {
+        .box {
+          padding: 10px;
+
+          .inputGroup {
+            padding: 5px;
+          }
+        }
       }
     }
   }

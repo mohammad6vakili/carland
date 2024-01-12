@@ -121,3 +121,24 @@
     }
   }
 }
+
+@media only screen and (max-width: 800px) {
+  .support {
+    padding: 1rem 10px;
+
+    .support_banner {
+      @include flex(column, flex-start, center);
+      height: auto;
+      gap: 20px;
+      padding: 20px;
+
+      .name {
+        @include flex(column, center, center);
+      }
+
+      .text {
+        max-width: 100%;
+      }
+    }
+  }
+}

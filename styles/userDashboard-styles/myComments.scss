@@ -81,10 +81,9 @@
 
     .comments_table {
       width: 100%;
+      overflow-x: scroll;
 
       .table {
-        width: 100%;
-
         > :not(caption) > * > * {
           text-align: center !important;
         }
@@ -92,7 +91,12 @@
         thead {
           height: 80px;
           tr {
-            border-radius: 11px 11px 0 0 !important;
+            :first-child {
+              border-radius: 0 11px 0 0 !important;
+            }
+            :last-child {
+              border-radius: 11px 0 0 0 !important;
+            }
             th {
               background: #4a80e8;
               color: #fff;
@@ -141,6 +145,8 @@
 
 @media only screen and (max-width: 800px) {
   .user_comments {
+    padding: 1rem 10px;
+
     .comment_banner {
       @include flex(column, flex-start, center);
       gap: 20px;
@@ -149,6 +155,12 @@
         .name {
           font-size: 25px;
         }
+      }
+    }
+
+    .comment_banner {
+      .table {
+        width: 600px;
       }
     }
   }

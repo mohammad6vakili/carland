@@ -91,7 +91,9 @@ const TicketPage = () => {
                 )
               ) : null}
 
-              <SendTicket />
+              <SendTicket
+                lastTicket={ticketInfo.chats[ticketInfo.chats.length]}
+              />
 
               <Button
                 onClick={() => setEndTicketModal(true)}

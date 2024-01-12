@@ -363,12 +363,9 @@ const CreateJob = ({ jobCategories }) => {
                       <Input
                         type="file"
                         id="file"
-                        onChange={(e) => {
-                          const [file] = e.target.files;
-                          if (file) {
-                            console.log(file);
-                          }
-                        }}
+                        onChange={(e) =>
+                          handleUploadPhoto(e, "activityPremision")
+                        }
                         hidden
                       />
                       <span>
@@ -390,12 +387,7 @@ const CreateJob = ({ jobCategories }) => {
                         type="file"
                         id="file"
                         multiple
-                        onChange={(e) => {
-                          const [file] = e.target.files;
-                          if (file) {
-                            console.log(file);
-                          }
-                        }}
+                        onChange={(e) => handleUploadPhoto(e, "images")}
                         hidden
                       />
                       <span>

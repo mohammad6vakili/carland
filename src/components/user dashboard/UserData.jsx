@@ -26,7 +26,7 @@ import { useSelector } from "react-redux";
 const UserData = () => {
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(false);
-  const [uploadedImage, setUploadedImage] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [initialValues, setInitialValues] = useState({
     name: "",
     gender: "",
@@ -105,6 +105,23 @@ const UserData = () => {
         });
     },
   });
+
+  const handleUploadProfile = (event) => {
+    const formData = new FormData();
+    formData.append("image", event.target?.files?.[0]);
+
+    httpService
+      .post("uploadProfile", formData)
+      .then((res) => {
+        res.status === 200
+          ? (setUploadedImage(URL.createObjectURL(event.target?.files?.[0])),
+            toast.success("پروفایل شما با موفقیت تغییر کرد"))
+          : null;
+      })
+      .catch(() => {
+        toast.error("در اپلود عکس پروفایل شما مشکلی بوجود امد");
+      });
+  };
 
   return (
     <>
@@ -288,7 +305,10 @@ const UserData = () => {
 
             <div className={s.profile}>
               <div className={s.text}>
-                <Image src={profilePlaceholder} alt="" />
+                <Image
+                  src={uploadedImage ? uploadedImage : profilePlaceholder}
+                  alt=""
+                />
 
                 <div>
                   <p>عکس پروفایل خود را انتخاب کنید</p>
@@ -306,12 +326,7 @@ const UserData = () => {
                       type="file"
                       id="file"
                       value={formik.values.profile}
-                      onChange={(e) => {
-                        const [file] = e.target.files;
-                        if (file) {
-                          console.log(file);
-                        }
-                      }}
+                      onChange={(e) => handleUploadProfile(e)}
                       hidden
                     />
                     <span>افزودن عکس</span>

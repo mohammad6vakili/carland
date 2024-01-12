@@ -99,7 +99,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     httpService
       .post("services/search", formData)
       .then((res) => {
-        res.status === 200 ? setJobs(res.data.data) : null;
+        res.status === 200 ? setJobs(res.data.data.data) : null;
         setLoading(false);
       })
       .catch((err) => toast.error(err.message));
@@ -115,7 +115,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     httpService
       .post("advertisements", formData)
       .then((res) => {
-        res.status === 200 ? setTrades(res.data.data) : null;
+        res.status === 200 ? setTrades(res.data.data.data) : null;
         setLoading(false);
       })
       .catch((err) => toast.error(err.message));

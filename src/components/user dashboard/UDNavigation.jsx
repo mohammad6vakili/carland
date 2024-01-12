@@ -222,7 +222,7 @@ const UDNavigation = () => {
               <span>نظرات من</span>
             </Link>
 
-            <Link
+            {/* <Link
               href={"/userDashboard/myOrders"}
               className={handleSelectedRoute("myOrders") ? s.selected : s.route}
               style={{ borderBottom: "1px solid #E6E6E6" }}
@@ -234,7 +234,7 @@ const UDNavigation = () => {
                 <Image src={shoppingBag} alt="" />
               </div>
               <span>سفارش‌ها</span>
-            </Link>
+            </Link> */}
 
             <Link
               href={"/userDashboard/transaction"}
@@ -470,7 +470,7 @@ const UDNavigation = () => {
                   <span>نظرات من</span>
                 </Link>
 
-                <Link
+                {/* <Link
                   href={"/userDashboard/myOrders"}
                   className={
                     handleSelectedRoute("myOrders") ? s.selected : s.route
@@ -484,7 +484,7 @@ const UDNavigation = () => {
                     <Image src={shoppingBag} alt="" />
                   </div>
                   <span>سفارش‌ها</span>
-                </Link>
+                </Link> */}
 
                 <Link
                   href={"/userDashboard/transaction"}

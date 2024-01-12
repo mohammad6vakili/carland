@@ -80,8 +80,7 @@ const UserComments = () => {
                     comments.map((comment, index) => (
                       <tr key={comment.id}>
                         <td></td>
-                        {/* <td>{convertDate(comment.created_at)}</td> */}
-                        <td></td>
+                        <td>{convertDate(comment.created_at)}</td>
                         <td>{comment.content}</td>
                         <td>
                           <Button className={s.end_comment}>حذف کامنت</Button>
