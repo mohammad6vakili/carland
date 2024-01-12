@@ -32,6 +32,15 @@
       text-align: left;
       gap: 20px;
       font-size: 2em;
+
+      .logo {
+        width: fit-content;
+        img {
+          width: 100px;
+          height: 70px;
+          object-fit: contain;
+        }
+      }
     }
 
     .text {
@@ -339,9 +348,18 @@
 
 @media only screen and (max-width: 800px) {
   .user_dashboard {
+    padding: 1rem 10px;
+    gap: 30px;
+
     .comment_banner {
       @include flex(column, flex-start, center);
       gap: 20px;
+
+      .logo_name {
+        .name {
+          font-size: 25px;
+        }
+      }
     }
 
     .support_banner {

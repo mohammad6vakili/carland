@@ -110,14 +110,7 @@ const SendComment = ({ page }) => {
             </ButtonGroup>
           </div>
         ) : (
-          <ReactStars
-            value={rate}
-            count={5}
-            size={24}
-            emptyIcon={<i className="far fa-star"></i>}
-            fullIcon={<i className="fa fa-star"></i>}
-            activeColor="#ffd700"
-          />
+          <></>
         )}
 
         <div className={s.btn}>

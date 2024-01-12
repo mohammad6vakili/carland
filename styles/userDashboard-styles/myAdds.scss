@@ -498,6 +498,12 @@ $theme: #142d5d;
   }
 }
 
+@media only screen and (max-width: 850px) {
+  .adds {
+    padding: 1rem 10px;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .create_add {
     padding: 1rem 10px;

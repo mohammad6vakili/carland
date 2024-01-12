@@ -2,7 +2,13 @@ import { Button, Input, InputGroup } from "reactstrap";
 import s from "../../../../styles/main.module.scss";
 import { useState } from "react";
 
-const SendTicket = () => {
+const SendTicket = ({ lastTicket }) => {
+  const [ticketValue, setTicketValue] = useState("");
+
+  const handelSendTikcet = () => {
+    console.log(lastTicket);
+  };
+
   return (
     <>
       <div className={s.send_ticket}>
@@ -26,9 +32,13 @@ const SendTicket = () => {
           <div className={s.head}>تایپ کنید</div>
 
           <InputGroup className={s.inputGroup}>
-            <Input placeholder="پاسخ به ادمین" />
+            <Input
+              onChange={(e) => setTicketValue(e.target.value)}
+              value={ticketValue}
+              placeholder="پاسخ به ادمین"
+            />
 
-            <Button>ارسال</Button>
+            <Button onClick={handelSendTikcet}>ارسال</Button>
           </InputGroup>
         </section>
       </div>
