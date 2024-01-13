@@ -8,8 +8,10 @@ import * as Yup from "yup";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import Compressor from "compressorjs";
+import { useRouter } from "next/router";
 
 const CreateJob = ({ jobCategories }) => {
+  const router = useRouter();
   const { httpService } = useHttp();
   const [currentStep, setCurrentStep] = useState(1);
   const [filters, setFilters] = useState([]);
@@ -63,7 +65,8 @@ const CreateJob = ({ jobCategories }) => {
       .post("service", body)
       .then((res) => {
         res.status === 200
-          ? toast.success("شغل جدید شما با موفقیت ساخته شد")
+          ? (router.push("/userDashboard/myJobs"),
+            toast.success("شغل جدید شما با موفقیت ساخته شد"))
           : null;
       })
       .catch(() => {
@@ -96,6 +99,11 @@ const CreateJob = ({ jobCategories }) => {
     validationSchema,
 
     onSubmit: (values) => {
+      let myFilters = [];
+      values.filters.map((value) => {
+        return myFilters.push(value.replaceAll(" ", ""));
+      });
+      console.log(myFilters);
       const formData = new FormData();
       formData.append("categoryId", values.categoryId);
       formData.append("title", values.title);
@@ -110,6 +118,7 @@ const CreateJob = ({ jobCategories }) => {
       formData.append("timeTo", values.timeTo);
       formData.append("timeFrom", values.timeFrom);
       formData.append("city", values.city);
+      formData.append("district", values.city);
       formData.append("phone", values.phone);
       formData.append("descriptions", values.description);
       handleCreateJob(values, formData);

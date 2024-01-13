@@ -12,7 +12,7 @@ import JobsCard from "../offers/cards/JobsCard";
 import { Button } from "reactstrap";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import useHttp from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
 
@@ -80,16 +80,18 @@ const Jobs = () => {
                       className={s.slide}
                     >
                       <JobsCard
-                        image={"/assets/main/car-2.png"}
-                        rate={""}
-                        title={"لوازم یدکی میلاد"}
-                        description={
-                          "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و ..."
+                        image={
+                          card.images.split(",")[0]
+                            ? url + card.images.split(",")[0]
+                            : ""
                         }
+                        rate={""}
+                        title={card.title}
+                        description={card.descriptions}
                         isOpen={false}
-                        location={"تهران"}
-                        timeFrom={"2:00"}
-                        timeTo={"2:00"}
+                        location={card.state}
+                        timeFrom={card.timeFrom}
+                        timeTo={card.timeTo}
                         myJobs={true}
                       />
                     </SwiperSlide>

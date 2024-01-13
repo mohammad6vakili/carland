@@ -137,7 +137,6 @@ $theme: #142d5d;
 
         .link {
           width: 100%;
-
           button {
             @include flex(row, space-between, center);
             width: 100%;
@@ -170,6 +169,33 @@ $theme: #142d5d;
                 transform: translate(-2px);
               }
             }
+          }
+        }
+
+        .update_delete {
+          @include flex(row, space-between, center);
+          gap: 20px;
+          width: 100%;
+          padding: 0 1rem;
+
+          button {
+            @include flex(row, center, center);
+            width: 50%;
+            height: 42px;
+            color: #fff;
+            padding: 0 !important;
+          }
+
+          .update {
+            border: 1px solid #4a80e8;
+            color: #4a80e8;
+            background: #4a80e812;
+          }
+
+          .delete {
+            border: 1px solid #f93423;
+            color: #f93423;
+            background: #f934230d;
           }
         }
       }
