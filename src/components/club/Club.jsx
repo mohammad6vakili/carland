@@ -202,7 +202,8 @@ const Club = () => {
                     </Button>
                   </a>
                   <a
-                    href={`https://telegram.me/share/url?url=https://t.me&text=carland.ir/club${pathname}`}
+                    target="_blank"
+                    href={`https://telegram.me/share/url?url=https://tm.me&text=carland.ir/club${pathname}`}
                   >
                     <Button>
                       <FaTelegramPlane />
@@ -217,7 +218,12 @@ const Club = () => {
                     </Button>
                   </a>
                   <Button
-                    onClick={() => handleCopy(`https://carlan.ir${pathname}`)}
+                    onClick={() =>
+                      handleCopy(
+                        `https://carland.ir${pathname}`,
+                        "لینک این صفحه کپی شد"
+                      )
+                    }
                   >
                     <LinkOutlined />
                   </Button>
@@ -466,30 +472,13 @@ const Club = () => {
                   prevEl: prevAdRef?.current,
                   nextEl: nextAdRef?.current,
                 }}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 1.8,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 2.5,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 3.2,
-                    spaceBetween: 50,
-                  },
-                  1360: {
-                    slidesPerView: 3.8,
-                    spaceBetween: 50,
-                  },
-                }}
+                slidesPerView={"auto"}
                 modules={[Navigation, FreeMode]}
-                className="mySwiper"
+                className={s.swiper}
                 onSwiper={setAdsSwiper}
               >
                 {photos.map((offer, index) => (
-                  <SwiperSlide key={Math.random() * index}>
+                  <SwiperSlide className={s.slide} key={Math.random() * index}>
                     <SuggestCard
                       image={"/assets/main/car-2.png"}
                       title={"ام وی ام، X55 PRO"}
@@ -512,7 +501,7 @@ const Club = () => {
         <Head>
           <title>به بخش کلوپ ها خوش آمدید</title>
         </Head>
-        <div className={s.club_page}>
+        <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>
               <MySkeleton width={"300px"} height={"40px"} />
@@ -582,161 +571,6 @@ const Club = () => {
 
                 <div className={s.text}>
                   این مجله را با دوستان خود به اشتراک بگذارید
-                </div>
-              </div>
-            </div>
-
-            <div className={s.other_contents}>
-              <div className={s.latest_clubs}>
-                <div className={s.title}>
-                  <span>
-                    <Image
-                      src={"/assets/trades/triangle.svg"}
-                      alt=""
-                      width={15}
-                      height={15}
-                    />
-                  </span>{" "}
-                  <p>آخرین کلوپ‌ها</p>
-                </div>
-
-                <div className={s.list}>
-                  <div className={s.image}>
-                    <Image
-                      src={"/assets/magazine/latest-club.png"}
-                      alt=""
-                      width={300}
-                      height={150}
-                    />
-
-                    <div className={s.blur}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="362"
-                        height="62"
-                        viewBox="0 0 362 62"
-                        fill="none"
-                      >
-                        <g filter="url(#filter0_b_1375_15567)">
-                          <path
-                            d="M117.888 17.9911H239.837C241.256 17.9911 242.673 17.8905 244.077 17.6901L361 1V46C361 54.2843 354.284 61 346 61H16C7.71574 61 1 54.2843 1 46V1L113.491 17.6672C114.947 17.8829 116.416 17.9911 117.888 17.9911Z"
-                            fill="white"
-                            fillOpacity="0.2"
-                          />
-                          <path
-                            d="M117.888 17.9911H239.837C241.256 17.9911 242.673 17.8905 244.077 17.6901L361 1V46C361 54.2843 354.284 61 346 61H16C7.71574 61 1 54.2843 1 46V1L113.491 17.6672C114.947 17.8829 116.416 17.9911 117.888 17.9911Z"
-                            stroke="white"
-                          />
-                        </g>
-                        <defs>
-                          <filter
-                            id="filter0_b_1375_15567"
-                            x="-34.5"
-                            y="-34.5801"
-                            width="431"
-                            height="131.08"
-                            filterUnits="userSpaceOnUse"
-                            colorInterpolationFilters="sRGB"
-                          >
-                            <feFlood
-                              floodOpacity="0"
-                              result="BackgroundImageFix"
-                            />
-                            <feGaussianBlur
-                              in="BackgroundImageFix"
-                              stdDeviation="17.5"
-                            />
-                            <feComposite
-                              in2="SourceAlpha"
-                              operator="in"
-                              result="effect1_backgroundBlur_1375_15567"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in="SourceGraphic"
-                              in2="effect1_backgroundBlur_1375_15567"
-                              result="shape"
-                            />
-                          </filter>
-                        </defs>
-                      </svg>
-                    </div>
-                    <div className={s.text}>کلاسیک</div>
-                  </div>
-
-                  {latestClubs.map((item, index) => (
-                    <div key={Math.random()} className={s.list_item}>
-                      <div className={s.title}>
-                        <span>
-                          <Image
-                            src={"/assets/trades/triangle.svg"}
-                            alt=""
-                            width={15}
-                            height={15}
-                          />
-                        </span>{" "}
-                        <p>تاریخچه خودروهای مدرن</p>
-                      </div>
-
-                      <div className={s.description}>
-                        تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className={s.image}>
-                <Image
-                  src={"/assets/trades/other-detail-1.png"}
-                  alt=""
-                  width={300}
-                  height={150}
-                />
-              </div>
-
-              <div className={s.best_clubs}>
-                <div className={s.title}>
-                  <span>
-                    <Image
-                      src={"/assets/trades/triangle.svg"}
-                      alt=""
-                      width={15}
-                      height={15}
-                    />
-                  </span>{" "}
-                  <p>برترین کلوپ‌ها</p>
-                </div>
-
-                <div className={s.list}>
-                  <div className={s.card}>
-                    <div className={s.image}>
-                      <Image
-                        src={"/assets/trades/fan-club-car.png"}
-                        alt=""
-                        width={30}
-                        height={30}
-                      />
-                    </div>
-
-                    <div className={s.texts}>
-                      <div className={s.title}> تاریخچه خودروهای قدیمی</div>
-                      <div className={s.detail}>
-                        <span>۱۴۰۲/۰۸/۰۱</span>
-                        <Button>
-                          <p>مشاهده</p>
-                          <div>
-                            <Image
-                              src={"/assets/main/see-more.svg"}
-                              alt=""
-                              width={20}
-                              height={20}
-                            />
-                          </div>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

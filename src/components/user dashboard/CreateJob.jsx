@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
+import Compressor from "compressorjs";
 
 const CreateJob = ({ jobCategories }) => {
   const { httpService } = useHttp();
@@ -23,6 +24,39 @@ const CreateJob = ({ jobCategories }) => {
   const [localNationalCard, setLocalNationalCard] = useState();
   const [localActivityPremisian, setLocalActivityPremisian] = useState();
   const [localImages, setLocalImages] = useState();
+  const statesNames = [
+    "آذربایجان شرقی",
+    "آذربایجان غربی",
+    "اردبیل",
+    "اصفهان",
+    "البرز",
+    "ایلام",
+    "بوشهر",
+    "تهران",
+    "چهارمحال و بختیاری",
+    "خراسان جنوبی",
+    "خراسان رضوی",
+    "خراسان شمالی",
+    "خوزستان",
+    "زنجان",
+    "سمنان",
+    "سیستان و بلوچستان",
+    "فارس",
+    "قزوین",
+    "قم",
+    "کردستان",
+    "کرمان",
+    "کرمانشاه",
+    "کهگیلویه و بویراحمد",
+    "گلستان",
+    "گیلان",
+    "لرستان",
+    "مازندران",
+    "مرکزی",
+    "هرمزگان",
+    "همدان",
+    "یزد",
+  ];
 
   const handleCreateJob = (values, body) => {
     httpService
@@ -103,9 +137,6 @@ const CreateJob = ({ jobCategories }) => {
   };
 
   const handleUploadPhoto = (e, selectedPhoto) => {
-    // const canUpload = e?.target?.files[0].size / 1024 / 1000;
-    // console.log(e?.target?.files[0].size / 1024 / 1000);
-
     if (selectedPhoto === "nationalCard") {
       setLocalNationalCard(URL.createObjectURL(e.target.files[0]));
     } else if (selectedPhoto === "activityPremision") {
@@ -119,7 +150,19 @@ const CreateJob = ({ jobCategories }) => {
     let loadingImage = {};
     loadingImage[`${selectedPhoto}`] === "loading";
     setLoadingImage([selectedPhoto]);
-    formData.append("image", e.target.files[0]);
+    formData.append(
+      "image",
+      new Compressor(e?.target?.files[0], {
+        quality: 0.6,
+
+        success(result) {
+          return result;
+        },
+        error(err) {
+          console.log(err.message);
+        },
+      }).file
+    );
 
     httpService
       .post("upload", formData)
@@ -293,6 +336,22 @@ const CreateJob = ({ jobCategories }) => {
                     />
 
                     <Input
+                      name="state"
+                      value={formik.values.state}
+                      onChange={formik.handleChange}
+                      type="select"
+                    >
+                      <option defaultValue value="" disabled>
+                        استان
+                      </option>
+                      {statesNames.map((state) => (
+                        <option key={state} value={state}>
+                          {state}
+                        </option>
+                      ))}
+                    </Input>
+
+                    <Input
                       name="city"
                       value={formik.values.city}
                       onChange={formik.handleChange}
@@ -368,12 +427,14 @@ const CreateJob = ({ jobCategories }) => {
                         }
                         hidden
                       />
-                      <span>
+                      <span className={s.content}>
                         <Image
                           src={
                             localActivityPremisian ? localActivityPremisian : ""
                           }
                           alt=""
+                          width={100}
+                          height={100}
                         />
                         <span>عکس پروانه کسب</span>
                       </span>
@@ -390,8 +451,13 @@ const CreateJob = ({ jobCategories }) => {
                         onChange={(e) => handleUploadPhoto(e, "images")}
                         hidden
                       />
-                      <span>
-                        <Image src={localImages ? localImages : ""} alt="" />
+                      <span className={s.content}>
+                        <Image
+                          src={localImages ? localImages : ""}
+                          alt=""
+                          width={100}
+                          height={100}
+                        />
                         <span>عکس های دیگر</span>
                       </span>
                     </label>

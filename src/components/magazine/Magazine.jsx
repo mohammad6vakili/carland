@@ -16,13 +16,16 @@ import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
-import { toPersianString } from "@/src/hooks/functions";
+import { handleCopy, toPersianString } from "@/src/hooks/functions";
 import Head from "next/head";
 import { convertDate } from "../comments/CommentCards";
+import { usePathname } from "next/navigation";
+import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 
 const Magazine = () => {
   const size = useWindowSize();
   const router = useRouter();
+  const pathname = usePathname();
   const { httpService } = useHttp();
 
   const latestClubs = [{}, {}, {}];
@@ -183,12 +186,37 @@ const Magazine = () => {
               <div className={s.share}>
                 <div className={s.links}>
                   <p>اشتراک گذاری:</p>
-                  <div>
-                    <InstagramFilled />
-                  </div>
-                  <div>
+                  <a>
+                    <Button>
+                      <InstagramFilled />
+                    </Button>
+                  </a>
+                  <a
+                    target="_blank"
+                    href={`https://telegram.me/share/url?url=https://tm.me&text=carland.ir/club${pathname}`}
+                  >
+                    <Button>
+                      <FaTelegramPlane />
+                    </Button>
+                  </a>
+                  <a
+                    target="blank"
+                    href={`whatsapp://send?text=https://carland.ir${pathname}`}
+                  >
+                    <Button>
+                      <FaWhatsapp />
+                    </Button>
+                  </a>
+                  <Button
+                    onClick={() =>
+                      handleCopy(
+                        `https://carland.ir${pathname}`,
+                        "لینک این صفحه کپی شد"
+                      )
+                    }
+                  >
                     <LinkOutlined />
-                  </div>
+                  </Button>
                 </div>
 
                 <div className={s.text}>
@@ -376,34 +404,18 @@ const Magazine = () => {
 
             <div className={s.cards}>
               <Swiper
+                spaceBetween={15}
+                slidesPerView={"auto"}
                 navigation={{
                   prevEl: prevAdRef?.current,
                   nextEl: nextAdRef?.current,
                 }}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 1.8,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 2.5,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 3.2,
-                    spaceBetween: 50,
-                  },
-                  1360: {
-                    slidesPerView: 3.8,
-                    spaceBetween: 50,
-                  },
-                }}
                 modules={[Navigation, FreeMode]}
-                className="mySwiper"
+                className={s.swiper}
                 onSwiper={setAdsSwiper}
               >
                 {photos.map((offer, index) => (
-                  <SwiperSlide key={Math.random() * index}>
+                  <SwiperSlide className={s.slide} key={Math.random() * index}>
                     <SuggestCard
                       image={"/assets/main/car-2.png"}
                       title={"ام وی ام، X55 PRO"}

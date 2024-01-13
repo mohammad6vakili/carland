@@ -99,9 +99,9 @@ const UDNavigation = () => {
                   </div>
                 </div>
 
-                <Button>
+                <Link href={"/userDashboard/wallet"}>
                   <GoPlus style={{ color: "#fff" }} />
-                </Button>
+                </Link>
               </div>
             </>
           ) : (

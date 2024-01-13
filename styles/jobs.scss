@@ -442,21 +442,13 @@
     box-shadow: 20px 4px 100px 0px rgba(187, 187, 187, 0.2);
     margin-left: auto;
 
-    .name_email {
+    .comment_btn {
       @include flex(row, space-between, center);
-      gap: 10%;
       width: 100%;
-    }
 
-    .content {
-      width: 100%;
-    }
-
-    .btn {
-      @include flex(row-reverse, space-between, center);
-      width: 100%;
-      button {
+      Button {
         color: #fff;
+        background: #4a80e8;
       }
     }
   }
