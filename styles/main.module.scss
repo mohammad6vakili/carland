@@ -1293,11 +1293,15 @@ $light-theme: #fff;
     .service_category {
       height: auto;
 
-      .service_list {
+      .my_swiper2 {
+        padding: 0 1rem;
+
         .service {
+          @include flex(column, center, center);
+
           img {
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
           }
         }
       }

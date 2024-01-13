@@ -287,9 +287,10 @@ const Main = () => {
               slidesPerView={"auto"}
               spaceBetween={25}
               autoplay={{
-                delay: 1000,
+                delay: 1,
                 disableOnInteraction: false,
               }}
+              speed={10000}
               modules={[Navigation, Pagination, Autoplay]}
               className={styles.my_swiper2}
             >

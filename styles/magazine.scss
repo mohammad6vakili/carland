@@ -836,6 +836,14 @@
     .cards {
       width: 100%;
 
+      .swiper {
+        width: 100%;
+      }
+
+      .slide {
+        margin: 0;
+      }
+
       .card {
         @include flex(column, space-between, center);
         gap: 1.5rem;
