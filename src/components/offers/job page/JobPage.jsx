@@ -365,24 +365,6 @@ const JobPage = () => {
                   prevEl: prevAdRef?.current,
                   nextEl: nextAdRef?.current,
                 }}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 1.8,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 2.5,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 3.2,
-                    spaceBetween: 50,
-                  },
-                  1360: {
-                    slidesPerView: 3.8,
-                    spaceBetween: 50,
-                  },
-                }}
                 freeMode
                 modules={[Navigation, FreeMode]}
                 className="mySwiper2"
