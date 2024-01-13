@@ -3,13 +3,15 @@ import s from "../../../../styles/main.module.scss";
 import { url } from "@/src/axiosConfig/useHttp";
 import { convertDate } from "../../comments/CommentCards";
 
-const TicketCards = ({ userId, profile, name, date, content }) => {
+const TicketCards = ({ userId, profile, name, date, content, showProfile }) => {
   return (
     <>
       {userId !== 1 ? (
         <div className={s.user_ticket}>
           <section className={s.image}>
-            <Image src={url + profile} alt="profile" width={70} height={70} />
+            {showProfile ? (
+              <Image src={url + profile} alt="profile" width={70} height={70} />
+            ) : null}
           </section>
 
           <section className={s.texts}>

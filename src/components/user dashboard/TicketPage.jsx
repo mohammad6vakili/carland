@@ -84,6 +84,11 @@ const TicketPage = () => {
                       date={ticket.created_at}
                       content={ticket.content}
                       userId={ticket.user_id}
+                      showProfile={
+                        index == 0 || ticketInfo.chats[index - 1].user_id === 1
+                          ? true
+                          : false
+                      }
                     />
                   ))
                 ) : (
@@ -91,9 +96,13 @@ const TicketPage = () => {
                 )
               ) : null}
 
-              <SendTicket
-                lastTicket={ticketInfo.chats[ticketInfo.chats.length]}
-              />
+              {ticketInfo ? (
+                <SendTicket
+                  lastTicket={
+                    ticketInfo.chats[ticketInfo.chats.length - 1].ticket_id
+                  }
+                />
+              ) : null}
 
               <Button
                 onClick={() => setEndTicketModal(true)}
