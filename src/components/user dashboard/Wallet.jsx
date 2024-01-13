@@ -4,9 +4,12 @@ import Image from "next/image";
 import logo from "../../../public/assets/carland-logo-full.png";
 import { Button, Input } from "reactstrap";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { toPersianString } from "@/src/hooks/functions";
 
 const Wallet = () => {
   const [selectedPayWay, setSelectedPayWay] = useState();
+  const userInfo = useSelector((state) => state.userInfo.userInfo);
 
   const payways = [
     { name: "زرین پال" },
@@ -66,7 +69,7 @@ const Wallet = () => {
               <span className={s.title}>موجودی کیف پول</span>
 
               <div className={s.value}>
-                <span>۱۰۰,۰۰۰</span>
+                <span>{toPersianString(userInfo?.cash)}</span>
                 <span>تومان</span>
               </div>
             </section>

@@ -6,9 +6,11 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import CustomPagination from "./CustomPagination";
 import MainPageMagazine from "../main/magazines/MainPageMagazine";
-import useHttp from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import SuggestCard from "../suggest card";
+import { handleTextCut } from "@/src/hooks/functions";
+import { convertDate } from "../comments/CommentCards";
 
 const ClubsCategory = () => {
   const photos = [
@@ -559,18 +561,23 @@ const ClubsCategory = () => {
               spaceBetween={15}
               onSwiper={setCategorySwiper}
             >
-              {photos.map((item, index) => (
-                <SwiperSlide key={Math.random() * index} className={s.slide}>
-                  <SuggestCard
-                    description={
-                      "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و فوری از طریق مجموعه شعب نمایندگی 777 انجام می شود"
-                    }
-                    image={"/assets/main/car-1.png"}
-                    time={"۱۴۰۲/۰۸/۰۱"}
-                    title={"ام وی ام، X55 PRO"}
-                  />
-                </SwiperSlide>
-              ))}
+              {clubs
+                ? clubs.length !== 0
+                  ? clubs.map((item, index) => (
+                      <SwiperSlide
+                        key={Math.random() * index}
+                        className={s.slide}
+                      >
+                        <SuggestCard
+                          title={item.title}
+                          description={handleTextCut(item.description, 200)}
+                          image={url + "/" + item.image_url}
+                          time={convertDate(item.created_at)}
+                        />
+                      </SwiperSlide>
+                    ))
+                  : null
+                : null}
             </Swiper>
           </div>
         </div>

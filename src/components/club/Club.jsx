@@ -472,30 +472,13 @@ const Club = () => {
                   prevEl: prevAdRef?.current,
                   nextEl: nextAdRef?.current,
                 }}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 1.8,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 2.5,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 3.2,
-                    spaceBetween: 50,
-                  },
-                  1360: {
-                    slidesPerView: 3.8,
-                    spaceBetween: 50,
-                  },
-                }}
+                slidesPerView={"auto"}
                 modules={[Navigation, FreeMode]}
-                className="mySwiper"
+                className={s.swiper}
                 onSwiper={setAdsSwiper}
               >
                 {photos.map((offer, index) => (
-                  <SwiperSlide key={Math.random() * index}>
+                  <SwiperSlide className={s.slide} key={Math.random() * index}>
                     <SuggestCard
                       image={"/assets/main/car-2.png"}
                       title={"ام وی ام، X55 PRO"}

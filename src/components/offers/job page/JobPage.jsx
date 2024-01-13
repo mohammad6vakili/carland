@@ -303,7 +303,7 @@ const JobPage = () => {
             </div>
           </div>
 
-          <div className={s.comments}>
+          {/* <div className={s.comments}>
             {isAuth ? (
               <section className={s.comments}>
                 <CommentCards comments={jobData.user_ratings} />
@@ -334,7 +334,7 @@ const JobPage = () => {
                 </Link>
               </div>
             )}
-          </div>
+          </div> */}
 
           <SendComment page={"jobs"} />
 
