@@ -100,7 +100,7 @@ const Main = () => {
     httpService
       .post("advertisements")
       .then((res) => {
-        res.status === 200 ? setAds(res.data.data) : null;
+        res.status === 200 ? setAds(res.data.data.data) : null;
         setLoading(false);
       })
       .catch((err) => {

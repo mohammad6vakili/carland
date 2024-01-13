@@ -1,12 +1,33 @@
-import { Button, Input, InputGroup } from "reactstrap";
+import { Button, Input, InputGroup, Spinner } from "reactstrap";
 import s from "../../../../styles/main.module.scss";
 import { useState } from "react";
+import useHttp from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
 
 const SendTicket = ({ lastTicket }) => {
   const [ticketValue, setTicketValue] = useState("");
+  const [loading, setLoading] = useState("");
+  const { httpService } = useHttp(true);
 
   const handelSendTikcet = () => {
-    console.log(lastTicket);
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("content", ticketValue);
+    ticketValue.length > 1
+      ? httpService
+          .post(`tickets/${lastTicket}/reply`, formData)
+          .then((res) => {
+            res.status >= 200 && res.status < 300
+              ? (toast.success("پاسخ شما با موفقیت ارسال شد"),
+                window.location.reload())
+              : null;
+            setLoading(false);
+          })
+          .catch(() => {
+            toast.error("مشکلی در ارسال پاسخ شما به ادمین بوجود آمد");
+            setLoading(false);
+          })
+      : null;
   };
 
   return (
@@ -38,7 +59,12 @@ const SendTicket = ({ lastTicket }) => {
               placeholder="پاسخ به ادمین"
             />
 
-            <Button onClick={handelSendTikcet}>ارسال</Button>
+            <Button disabled={loading} onClick={handelSendTikcet}>
+              {loading ? (
+                <Spinner style={{ width: "12px", height: "12px" }}></Spinner>
+              ) : null}{" "}
+              ارسال
+            </Button>
           </InputGroup>
         </section>
       </div>
