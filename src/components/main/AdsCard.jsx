@@ -101,8 +101,8 @@ const AdsCard = ({
       };
     } else {
       return {
-        text: "نامشخص",
-        color: "#000",
+        text: "حذف شده",
+        color: "#F93423",
       };
     }
   };
@@ -111,12 +111,14 @@ const AdsCard = ({
     return (
       <>
         <div className={styles.ad_card}>
-          <div
-            className={styles.label}
-            style={{ background: handleStatus().color }}
-          >
-            {handleStatus().text}
-          </div>
+          {myAdds ? (
+            <div
+              className={styles.label}
+              style={{ background: handleStatus().color }}
+            >
+              {handleStatus().text}
+            </div>
+          ) : null}
 
           <div className={styles.image}>
             <Image src={`${url}${image}`} alt="" width={240} height={200} />
@@ -183,22 +185,7 @@ const AdsCard = ({
 
           {myAdds ? (
             <div className={styles.update_delete}>
-              {status == 0 ? (
-                <>
-                  <Button className={styles.update}>
-                    <Link href={`/userDashboard/myAdds/update/${id}`}>
-                      ویرایش
-                    </Link>
-                  </Button>
-
-                  <Button
-                    onClick={() => handleShowDeleteModal()}
-                    className={styles.delete}
-                  >
-                    حذف
-                  </Button>
-                </>
-              ) : (
+              {handleStatus().text === "حذف شده" ? (
                 <>
                   <Button
                     id="UncontrolledPopover"
@@ -216,6 +203,21 @@ const AdsCard = ({
                       <Button onClick={() => handleRecoveryAd()}>تایید</Button>
                     </PopoverBody>
                   </UncontrolledPopover>
+                </>
+              ) : (
+                <>
+                  <Button className={styles.update}>
+                    <Link href={`/userDashboard/myAdds/update/${id}`}>
+                      ویرایش
+                    </Link>
+                  </Button>
+
+                  <Button
+                    onClick={() => handleShowDeleteModal()}
+                    className={styles.delete}
+                  >
+                    حذف
+                  </Button>
                 </>
               )}
             </div>

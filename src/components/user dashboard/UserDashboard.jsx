@@ -12,7 +12,7 @@ import AdsCard from "../main/AdsCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useHttp from "@/src/axiosConfig/useHttp";
 import { useEffect, useRef, useState } from "react";
-import { Navigation } from "swiper/modules";
+import { FreeMode, Navigation } from "swiper/modules";
 import { Button } from "reactstrap";
 import MySkeleton from "../skeleton/Skeleton";
 import Link from "next/link";
@@ -138,6 +138,7 @@ const UserDashboard = () => {
 
           <div className={s.cards}>
             <Swiper
+              freeMode
               slidesPerView={"auto"}
               spaceBetween={20}
               navigation={{
@@ -146,7 +147,7 @@ const UserDashboard = () => {
               }}
               grabCursor
               onSwiper={setAdsSwiper}
-              modules={[Navigation]}
+              modules={[Navigation, FreeMode]}
               className={s.swiper}
             >
               {ads ? (
@@ -169,6 +170,7 @@ const UserDashboard = () => {
                         location={item.location}
                         time={item.created_at}
                         rate={"۴.۵"}
+                        status={item.status}
                         id={item.id}
                         myAdds={true}
                       />

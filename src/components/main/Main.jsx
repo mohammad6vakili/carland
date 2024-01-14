@@ -362,6 +362,7 @@ const Main = () => {
                       time={ad.timeAgo}
                       rate={"۴.۵"}
                       id={ad.id}
+                      myAdds={false}
                     />
                   </SwiperSlide>
                 ))
