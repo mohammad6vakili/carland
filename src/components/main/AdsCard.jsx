@@ -111,12 +111,14 @@ const AdsCard = ({
     return (
       <>
         <div className={styles.ad_card}>
-          <div
-            className={styles.label}
-            style={{ background: handleStatus().color }}
-          >
-            {handleStatus().text}
-          </div>
+          {myAdds ? (
+            <div
+              className={styles.label}
+              style={{ background: handleStatus().color }}
+            >
+              {handleStatus().text}
+            </div>
+          ) : null}
 
           <div className={styles.image}>
             <Image src={`${url}${image}`} alt="" width={240} height={200} />
