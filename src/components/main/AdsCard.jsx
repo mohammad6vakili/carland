@@ -1,12 +1,25 @@
 import Image from "next/image";
 import styles from "../../../styles/main.module.scss";
 import { LeftOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import { Button } from "reactstrap";
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  PopoverBody,
+  PopoverHeader,
+  UncontrolledPopover,
+} from "reactstrap";
 import { useRouter } from "next/navigation";
 import LocationIcon from "@/src/assets/icons/location_icon";
 import RateIcon from "@/src/assets/icons/rate_icon";
-import { url } from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import { convertDate } from "../comments/CommentCards";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import Link from "next/link";
 
 const AdsCard = ({
   image,
@@ -16,22 +29,101 @@ const AdsCard = ({
   time,
   rate,
   id,
+  status,
   myAdds,
 }) => {
+  const { httpService } = useHttp(true);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [reasonDeleting, setReasonDeleting] = useState("");
+
+  const handleShowDeleteModal = () => {
+    setShowDeleteModal(!showDeleteModal);
+  };
+
+  const handleDeleteAd = () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("ads_id", id);
+    formData.append("ReasonDeletion", reasonDeleting);
+
+    httpService
+      .post("DeleteAds", formData)
+      .then((res) => {
+        res.status === 200
+          ? (window.location.reload(),
+            toast.success("آگهی شما با موفقیت به آگهی های حذف شده انتقال یافت"))
+          : null;
+        setLoading(false);
+      })
+
+      .catch(() => {
+        toast.error("مشکلی در حذف آگهی شما بوجود امد");
+        setLoading(false);
+      });
+  };
+
+  const handleRecoveryAd = () => {
+    const formData = new FormData();
+    formData.append("ads_id", id);
+    httpService
+      .post("ActiveAds", formData)
+      .then((res) => {
+        res.status === 200
+          ? (window.location.reload(),
+            toast.success("آگهی شما با موفقیت برگردادنده شد"))
+          : null;
+      })
+      .catch(() => toast.error("مشکلی در حذف آگهی شما بوجود امد"));
+  };
+
+  const handleStatus = () => {
+    if (status == 0) {
+      return {
+        text: "در صف انتشار",
+        color: "#4A80E8",
+      };
+    } else if (status == 1) {
+      return {
+        text: "منتشر شده",
+        color: "#10CC67",
+      };
+    } else if (status == 2) {
+      return {
+        text: "نیاز به اصلاح",
+        color: "#FED30B",
+      };
+    } else if (status == 3) {
+      return {
+        text: "رد شده",
+        color: "#F93423",
+      };
+    } else {
+      return {
+        text: "نامشخص",
+        color: "#000",
+      };
+    }
+  };
 
   if (image !== undefined) {
     return (
       <>
         <div className={styles.ad_card}>
+          <div
+            className={styles.label}
+            style={{ background: handleStatus().color }}
+          >
+            {handleStatus().text}
+          </div>
+
           <div className={styles.image}>
             <Image src={`${url}${image}`} alt="" width={240} height={200} />
           </div>
-
           <div className={styles.name}>
             <span>{name}</span>
           </div>
-
           <div className={styles.details}>
             <section className={styles.option}>
               <Image
@@ -72,7 +164,6 @@ const AdsCard = ({
               </div>
             </section>
           </div>
-
           <div className={styles.location_rate}>
             <div className={styles.location}>
               <span>
@@ -92,9 +183,39 @@ const AdsCard = ({
 
           {myAdds ? (
             <div className={styles.update_delete}>
-              <Button className={styles.update}>ویرایش</Button>
+              {status == 0 ? (
+                <>
+                  <Button className={styles.update}>
+                    <Link href={`/userDashboard/myAdds/${id}`}>ویرایش</Link>
+                  </Button>
 
-              <Button className={styles.delete}>حذف</Button>
+                  <Button
+                    onClick={() => handleShowDeleteModal()}
+                    className={styles.delete}
+                  >
+                    حذف
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    id="UncontrolledPopover"
+                    style={{ margin: "0 auto" }}
+                    className={styles.update}
+                  >
+                    برگرداندن آگهی
+                  </Button>
+                  <UncontrolledPopover
+                    placement="bottom"
+                    target="UncontrolledPopover"
+                  >
+                    <PopoverHeader>برگرداندن آگهی حذف شده</PopoverHeader>
+                    <PopoverBody>
+                      <Button onClick={() => handleRecoveryAd()}>تایید</Button>
+                    </PopoverBody>
+                  </UncontrolledPopover>
+                </>
+              )}
             </div>
           ) : (
             <div className={styles.link}>
@@ -124,6 +245,53 @@ const AdsCard = ({
               </Button>
             </div>
           )}
+
+          <Modal
+            style={{ fontFamily: "dana" }}
+            className={styles.modal}
+            isOpen={showDeleteModal}
+          >
+            <ModalHeader>حذف اگهی "{name}"</ModalHeader>
+            <ModalBody
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "15px",
+                padding: "2rem",
+              }}
+            >
+              <span>آیا می خواهید آگهی مورد نظر را حذف کنید؟</span>
+              <Input
+                value={reasonDeleting}
+                onChange={(e) => setReasonDeleting(e.target.value)}
+                type="select"
+              >
+                <option selected value="" disabled>
+                  علت حذف آگهی
+                </option>
+                <option value="ماشین فروش رفت">ماشین فروش رفت</option>
+                <option value="پشیمون شدم">پشیمون شدم</option>
+              </Input>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => handleDeleteAd()}
+                className={styles.danger}
+                style={{ background: "#F93423", color: "#fff" }}
+                disabled={reasonDeleting.length === 0 || loading}
+              >
+                تایید
+              </Button>
+              <Button
+                className={styles.info}
+                onClick={() => handleShowDeleteModal()}
+                style={{ background: "#4A80E8", color: "#fff" }}
+              >
+                لغو
+              </Button>
+            </ModalFooter>
+          </Modal>
         </div>
       </>
     );
