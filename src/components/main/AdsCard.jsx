@@ -186,7 +186,9 @@ const AdsCard = ({
               {status == 0 ? (
                 <>
                   <Button className={styles.update}>
-                    <Link href={`/userDashboard/myAdds/${id}`}>ویرایش</Link>
+                    <Link href={`/userDashboard/myAdds/update/${id}`}>
+                      ویرایش
+                    </Link>
                   </Button>
 
                   <Button
