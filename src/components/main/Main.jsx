@@ -351,7 +351,7 @@ const Main = () => {
                     key={Math.random() * index}
                   >
                     <AdsCard
-                      image={ad.mainImage}
+                      image={ad.mainImage !== "undefined" ? ad.mainImage : ""}
                       name={ad.car_name}
                       details={{
                         kms: ad.kilometers,
