@@ -8,13 +8,16 @@ import { Button } from "reactstrap";
 import SuggestCard from "../../suggest card";
 import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
+import toast from "react-hot-toast";
+import { convertDate } from "../../comments/CommentCards";
+import { handleTextCut } from "@/src/hooks/functions";
 
 const TradePage = () => {
   const router = useRouter();
   const [tradeData, setTradeData] = useState([]);
   const [photos, setPhotos] = useState([]);
   const { httpService } = useHttp();
-  const alikeOffers = [{}, {}, {}, {}, {}, {}, {}];
+  const [alikeOffers, setAlikeOffers] = useState([]);
 
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -52,6 +55,25 @@ const TradePage = () => {
       });
     }
   }, [router]);
+
+  useEffect(() => {
+    httpService
+      .post("advertisements")
+      .then((res) => {
+        res.status === 200
+          ? setAlikeOffers([
+              res.data.data.data[0],
+              res.data.data.data[1],
+              res.data.data.data[2],
+              res.data.data.data[3],
+              res.data.data.data[4],
+            ])
+          : null;
+      })
+      .catch(() => {
+        toast.error("");
+      });
+  }, []);
 
   if (tradeData.length !== 0) {
     return (
@@ -311,40 +333,27 @@ const TradePage = () => {
                   prevEl: prevAdRef?.current,
                   nextEl: nextAdRef?.current,
                 }}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 1.8,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 2.5,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 3.2,
-                    spaceBetween: 50,
-                  },
-                  1360: {
-                    slidesPerView: 3.8,
-                    spaceBetween: 50,
-                  },
-                }}
+                slidesPerView={"auto"}
+                spaceBetween={15}
                 modules={[Navigation]}
-                className="mySwiper"
+                className={s.swiper}
                 onSwiper={setAdsSwiper}
               >
-                {alikeOffers.map((offer, index) => (
-                  <SwiperSlide key={Math.random() * index}>
-                    <SuggestCard
-                      image={"/assets/main/car-2.png"}
-                      title={"ام وی ام، X55 PRO"}
-                      description={
-                        "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و فوری از طریق مجموعه شعب نمایندگی 777 انجام می شود"
-                      }
-                      time={"۱۴۰۲/۰۸/۰۱"}
-                    />
-                  </SwiperSlide>
-                ))}
+                {alikeOffers.length !== 0
+                  ? alikeOffers.map((offer, index) => (
+                      <SwiperSlide
+                        className={s.slide}
+                        key={Math.random() * index}
+                      >
+                        <SuggestCard
+                          image={url + offer.mainImage}
+                          title={offer.title}
+                          description={handleTextCut(offer.description, 200)}
+                          time={convertDate(offer.created_at)}
+                        />
+                      </SwiperSlide>
+                    ))
+                  : null}
               </Swiper>
             </div>
           </div>

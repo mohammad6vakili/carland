@@ -297,6 +297,15 @@ $carousel-borderRadius: 20px;
 
     .cards {
       width: 100%;
+
+      .slide {
+        width: max-content;
+      }
+
+      .card {
+        width: 260px;
+        height: 300px;
+      }
     }
 
     .swiper {

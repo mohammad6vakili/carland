@@ -158,12 +158,7 @@ const ClubsCategory = () => {
             </div>
           </section>
 
-          <MainPageMagazine
-            magazines={clubs}
-            method={"club"}
-            overflowedDes={false}
-            header={false}
-          />
+          <MainPageMagazine magazines={clubs} method={"club"} header={false} />
         </div>
 
         <div className={s.clubs_category}>

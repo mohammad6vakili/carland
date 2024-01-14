@@ -112,6 +112,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     formData.append("color", adsFilter.color);
     formData.append("body_condition", adsFilter.bodyCondition);
     formData.append("gear_box", adsFilter.gearBoxType);
+    formData.append("state", adsFilter.state);
     httpService
       .post("advertisements", formData)
       .then((res) => {
@@ -129,7 +130,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
             <BuySaleCard
               key={Math.random() * index}
               createYear={item.production_year}
-              image={item.mainImage}
+              image={item.mainImage !== "undefined" ? item.mainImage : ""}
               title={item.title}
               description={item.description}
               timePosted={item.timeAgo}
@@ -175,7 +176,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           ))}
         </>
       );
-    } else if (!jobs || trades) {
+    } else if (!jobs || !trades) {
       <>
         <div style={{ margin: "0 auto", fontWeight: "bold", width: "100%" }}>
           موردی یافت نشد!

@@ -139,6 +139,12 @@
       @include flex(column, flex-start, flex-start);
       width: 30%;
 
+      .main_title {
+        font-size: 1.5em;
+        font-weight: 700;
+        margin: 1rem 0;
+      }
+
       .categories,
       .brands,
       .year,
@@ -683,6 +689,7 @@
       height: 180px;
       padding: 0 20px;
       margin: 20px 0;
+
       .mySwiper {
         .content {
           .texts {
@@ -708,10 +715,21 @@
       gap: 2rem;
 
       .market_filters {
+        @include flex(column, flex-start, flex-start);
         width: 100%;
+        padding: 2rem;
+
+        .categories,
+        .year,
+        .price_range,
+        .color_select {
+          padding: 0 1rem;
+        }
+
         .title {
           background: #f5f5f5;
           padding: 5px;
+          border-radius: 10px;
         }
       }
 
