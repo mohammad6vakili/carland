@@ -6,9 +6,10 @@
 }
 
 .card {
-  @include flex(column, space-between, center);
+  @include flex(column, flex-start, center);
   gap: 1.5rem;
   width: 300px;
+  height: 100%;
   padding: 1rem;
   border-radius: 20px;
   background: #fff;
@@ -17,11 +18,17 @@
   .image {
     width: 100%;
     overflow: hidden;
+    img {
+      object-fit: cover;
+      border-radius: 10px;
+    }
   }
 
   .texts {
     border-bottom: 1px solid #e6e6e6;
     padding-bottom: 1.5rem;
+    width: 100%;
+
     .title {
       font-size: 1.1em;
       font-weight: bold;
@@ -34,6 +41,7 @@
   .bottom_content {
     @include flex(row, space-between, center);
     width: 100%;
+    margin-top: auto;
 
     button {
       @include flex(row, flex-end, center);
