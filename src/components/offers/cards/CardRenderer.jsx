@@ -130,7 +130,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
             <BuySaleCard
               key={Math.random() * index}
               createYear={item.production_year}
-              image={item.mainImage}
+              image={item.mainImage !== "undefined" ? item.mainImage : ""}
               title={item.title}
               description={item.description}
               timePosted={item.timeAgo}

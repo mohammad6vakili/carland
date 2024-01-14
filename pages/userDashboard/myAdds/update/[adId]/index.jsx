@@ -19,7 +19,7 @@ const page = ({ addCategories }) => {
   return (
     <>
       <Head>
-        <title>ساخت آگهی جدید</title>
+        <title>ویرایش آگهی</title>
       </Head>
       <Header />
       <div className={styles.userDashboard_container}>

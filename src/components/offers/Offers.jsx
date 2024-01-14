@@ -207,24 +207,26 @@ const offers = () => {
             {offers === "خرید و فروش" && adsFilter && !loading ? (
               <>
                 <h2 className={s.main_title}>فیلتر ها</h2>
-                <Input
-                  value={adsfilterSelected.state}
-                  onChange={(e) =>
-                    handleAdsFilterClick(e.target.value, "state")
-                  }
-                  type="select"
-                >
-                  <option selected value="" disabled>
-                    انتخاب استان
-                  </option>
-                  {statesNames.map((state, index) => (
-                    <option key={index} value={state}>
-                      {state}
+                {size.width < 700 ? (
+                  <Input
+                    value={adsfilterSelected.state}
+                    onChange={(e) =>
+                      handleAdsFilterClick(e.target.value, "state")
+                    }
+                    type="select"
+                  >
+                    <option selected value="" disabled>
+                      انتخاب استان
                     </option>
-                  ))}
-                </Input>
+                    {statesNames.map((state, index) => (
+                      <option key={index} value={state}>
+                        {state}
+                      </option>
+                    ))}
+                  </Input>
+                ) : null}
 
-                {size.width < 700 && adsfilterSelected.state.length !== 0 ? (
+                {size.width > 700 || adsfilterSelected.state.length !== 0 ? (
                   <>
                     <section className={s.categories}>
                       <div
