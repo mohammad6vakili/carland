@@ -293,7 +293,6 @@ const CreateJob = ({ jobCategories }) => {
                       name="filters"
                       value={formik.values.filters}
                       onChange={formik.handleChange}
-                      multiple
                       type="select"
                     >
                       <option selected value="" disabled>
@@ -303,7 +302,8 @@ const CreateJob = ({ jobCategories }) => {
                       {filters
                         ? filters.map((cat, index) => (
                             <option key={index} value={cat}>
-                              {cat}
+                              <span>{cat}</span>
+                              <Input type="checkbox" />
                             </option>
                           ))
                         : null}
