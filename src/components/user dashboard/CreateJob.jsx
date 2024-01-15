@@ -1,4 +1,13 @@
-import { Button, Form, Input } from "reactstrap";
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Form,
+  Input,
+  UncontrolledDropdown,
+} from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import background from "../../../public/assets/userDashboard/create-job.png";
@@ -9,6 +18,7 @@ import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import Compressor from "compressorjs";
 import { useRouter } from "next/router";
+import { DownOutlined } from "@ant-design/icons";
 
 const CreateJob = ({ jobCategories }) => {
   const router = useRouter();
@@ -75,22 +85,23 @@ const CreateJob = ({ jobCategories }) => {
   };
 
   const validationSchema = Yup.object().shape({
-    categoryId: Yup.string().required(),
-    title: Yup.string().required(),
-    address: Yup.string().required(),
-    filters: Yup.string().required(),
-    firstName: Yup.string().required(),
-    lastName: Yup.string().required(),
-    NationalCardImage: Yup.string().required(),
-    NationalCardImage: Yup.string().required(),
-    state: Yup.string().required(),
-    timeTo: Yup.string().required(),
-    timeFrom: Yup.string().required(),
-    city: Yup.string().required(),
-    distract: Yup.string().required(),
-    phone: Yup.string().required(),
-    description: Yup.string().required(),
-    images: Yup.string().required(),
+    categoryId: Yup.string().required("لطفا نوع کسب و کار خود را انتخاب کنید"),
+    title: Yup.string().required("لطفا عنوان شغل خود را مشخص کنید"),
+    address: Yup.string().required("لطفا آدرس شغل خود را وارد کنید"),
+    filters: Yup.string().required("لطفا فیلتر های کاری خود را مشخص کنید"),
+    firstName: Yup.string().required("لطفا نام خود را وارد کنید"),
+    lastName: Yup.string().required("لطفا نام خانوادگی خود را وارد کنید"),
+    NationalCardImage: Yup.string().required(
+      "لطفا عکس کارت ملی خود را اپلود نمایید"
+    ),
+    NationalCardImage: Yup.string().required(""),
+    images: Yup.string().required("لطفا عکس های محل کار خود را اپلود نمایید"),
+    state: Yup.string().required("لطفا استان مربوط به شغل خود را وارد کنید"),
+    timeTo: Yup.string().required("لطفا ساعت شروع کار را مشخص کنید"),
+    timeFrom: Yup.string().required("لطفا ساعت پایان کار را مشخص کنید"),
+    city: Yup.string().required("لطفا نام شهر خود را وارد کنید"),
+    phone: Yup.string().required("لطفا شماره تماس خود را وارد کنید"),
+    description: Yup.string().required("لطفا برای شغل خود توضیحاتی بنویسید"),
   });
 
   const formik = useFormik({
@@ -206,6 +217,16 @@ const CreateJob = ({ jobCategories }) => {
       .catch(() => {});
   };
 
+  const handleFiltersClick = (value) => {
+    formik.values.filters.includes(value)
+      ? formik.values.filters.splice(value)
+      : formik.values.filters.push(value);
+    console.log(formik.values.filters);
+  };
+  useEffect(() => {
+    formik.values.filters = [];
+  }, [formik.values.categoryId]);
+
   return (
     <>
       <div className={s.create_job}>
@@ -289,25 +310,32 @@ const CreateJob = ({ jobCategories }) => {
 
                 {handleStep(2) && (
                   <div className={s.inputs}>
-                    <Input
+                    <UncontrolledDropdown
+                      className={s.input}
                       name="filters"
                       value={formik.values.filters}
                       onChange={formik.handleChange}
                       type="select"
                     >
-                      <option selected value="" disabled>
-                        انتخاب فیلتر ها
-                      </option>
-
-                      {filters
-                        ? filters.map((cat, index) => (
-                            <option key={index} value={cat}>
-                              <span>{cat}</span>
-                              <Input type="checkbox" />
-                            </option>
-                          ))
-                        : null}
-                    </Input>
+                      <DropdownToggle>
+                        <DownOutlined /> انتخاب فیلتر ها
+                      </DropdownToggle>
+                      <DropdownMenu className={s.menu}>
+                        {filters
+                          ? filters.map((cat, index) => (
+                              <DropdownItem className={s.item} key={index}>
+                                {cat}{" "}
+                                <Input
+                                  className={s.checkbox}
+                                  type="checkbox"
+                                  onChange={() => handleFiltersClick(cat)}
+                                  checked={formik.values.filters.includes(cat)}
+                                />
+                              </DropdownItem>
+                            ))
+                          : null}
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
                   </div>
                 )}
               </section>
