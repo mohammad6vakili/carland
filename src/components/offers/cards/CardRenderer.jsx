@@ -3,7 +3,7 @@ import MarketCard from "../../main/MarketCard";
 import OfferCardSkeleton from "../../skeleton/OfferCardSkeleton";
 import BuySaleCard from "./BuySaleCard";
 import JobsCard from "./JobsCard";
-import useHttp from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../../skeleton/Skeleton";
 import Skeleton from "react-loading-skeleton";
@@ -155,7 +155,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           {jobs.map((item, index) => (
             <JobsCard
               key={Math.random() * index}
-              image={item.images.split(","[0])}
+              image={item.images.split(",")[0]}
               rate={item.average_rating}
               title={item.title}
               description={item.descriptions}
