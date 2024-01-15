@@ -22,6 +22,7 @@ import { toPersianString } from "@/src/hooks/functions";
 const UserDashboard = () => {
   const { httpService } = useHttp(false);
   const [ads, setAds] = useState([]);
+  const [adsPage, setAdsPage] = useState(1);
   const userInfo = useSelector((state) => state.userInfo.userInfo);
 
   const nextAdRef = useRef();
@@ -39,7 +40,7 @@ const UserDashboard = () => {
   //request
   useEffect(() => {
     httpService
-      .get("myads")
+      .get(`myads?page=${adsPage}`)
       .then((res) => {
         res.status === 200 ? setAds(res.data.data) : null;
         console.log(res.data.data);

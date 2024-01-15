@@ -74,14 +74,31 @@ const CreateJob = ({ jobCategories }) => {
       });
   };
 
-  const validationSchema = Yup.object().shape({});
+  const validationSchema = Yup.object().shape({
+    categoryId: Yup.string().required(),
+    title: Yup.string().required(),
+    address: Yup.string().required(),
+    filters: Yup.string().required(),
+    firstName: Yup.string().required(),
+    lastName: Yup.string().required(),
+    NationalCardImage: Yup.string().required(),
+    NationalCardImage: Yup.string().required(),
+    state: Yup.string().required(),
+    timeTo: Yup.string().required(),
+    timeFrom: Yup.string().required(),
+    city: Yup.string().required(),
+    distract: Yup.string().required(),
+    phone: Yup.string().required(),
+    description: Yup.string().required(),
+    images: Yup.string().required(),
+  });
 
   const formik = useFormik({
     initialValues: {
       categoryId: "",
       title: "",
       address: "",
-      filters: "",
+      filters: [],
       firstName: "",
       lastName: "",
       NationalCardImage: "",
