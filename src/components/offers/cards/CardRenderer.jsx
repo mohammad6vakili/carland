@@ -12,9 +12,9 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
   const { httpService } = useHttp();
 
   //cards
-  const [jobs, setJobs] = useState([]);
+  const [trades, setTrades] = useState(null);
+  const [jobs, setJobs] = useState(null);
   const [sale, setSale] = useState([]);
-  const [trades, setTrades] = useState([]);
   const [loading, setLoading] = useState(true);
   const marketItems = [
     {
@@ -99,7 +99,11 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     httpService
       .post("services/search", formData)
       .then((res) => {
-        res.status === 200 ? setJobs(res.data.data.data) : null;
+        res.status === 200
+          ? res.data.code === 404
+            ? setJobs([])
+            : setJobs(res.data.data.data)
+          : null;
         setLoading(false);
       })
       .catch((err) => toast.error(err.message));
@@ -116,7 +120,11 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     httpService
       .post("advertisements", formData)
       .then((res) => {
-        res.status === 200 ? setTrades(res.data.data.data) : null;
+        res.status === 200
+          ? res.data.code === 404
+            ? setTrades(null)
+            : setTrades(res.data.data.data)
+          : null;
         setLoading(false);
       })
       .catch((err) => toast.error(err.message));
@@ -160,6 +168,12 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           ))}
         </>
       );
+    } else if (!jobs || !trades) {
+      <>
+        <div style={{ margin: "0 auto", fontWeight: "bold", width: "100%" }}>
+          موردی یافت نشد!
+        </div>
+      </>;
     } else if (offers === "خدمات" || offers === "فروش") {
       return (
         <>
@@ -176,12 +190,6 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           ))}
         </>
       );
-    } else if (!jobs || !trades) {
-      <>
-        <div style={{ margin: "0 auto", fontWeight: "bold", width: "100%" }}>
-          موردی یافت نشد!
-        </div>
-      </>;
     }
   } else
     return (
