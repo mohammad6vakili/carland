@@ -17,14 +17,19 @@ import Link from "next/link";
 
 const UserData = () => {
   const [myAds, setMyAds] = useState(null);
+  const [adsPage, setAdsPage] = useState(1);
   const { httpService } = useHttp();
 
   //request
   useEffect(() => {
     httpService
-      .get("myads")
+      .get(`myads?page=${adsPage}`)
       .then((res) => {
-        res.status === 200 ? setMyAds(res.data.data) : null;
+        res.status === 200
+          ? res.data.data.data
+            ? setMyAds(res.data.data.data)
+            : setMyAds([])
+          : null;
       })
       .catch((err) => {
         console.log(err);

@@ -343,7 +343,7 @@ const offers = () => {
                   </>
                 )}
 
-                {size.width < 700 || adsfilterSelected.state.length !== 0 ? (
+                {size.width > 700 ? (
                   <>
                     <section className={s.categories}>
                       <div
