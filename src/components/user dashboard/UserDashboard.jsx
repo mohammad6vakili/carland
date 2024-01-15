@@ -24,6 +24,7 @@ const UserDashboard = () => {
   const [ads, setAds] = useState([]);
   const [adsPage, setAdsPage] = useState(1);
   const userInfo = useSelector((state) => state.userInfo.userInfo);
+  const lastAd = useRef();
 
   const nextAdRef = useRef();
   const prevAdRef = useRef();
@@ -42,13 +43,17 @@ const UserDashboard = () => {
     httpService
       .get(`myads?page=${adsPage}`)
       .then((res) => {
-        res.status === 200 ? setAds(res.data.data) : null;
+        res.status === 200 ? setAds(res.data.data.data) : null;
         console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    console.log(lastAd);
+  }, [lastAd]);
 
   return (
     <>
@@ -174,6 +179,7 @@ const UserDashboard = () => {
                         status={item.status}
                         id={item.id}
                         myAdds={true}
+                        ref={index === ads.length ? lastAd : null}
                       />
                     </SwiperSlide>
                   ))

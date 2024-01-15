@@ -37,6 +37,7 @@ const offers = () => {
   const [loading, setLoading] = useState(true);
   const size = useWindowSize();
 
+  const [filterStep, setFilterStep] = useState(1);
   const [adsFilter, setAdsFilter] = useState();
   const [adsfilterSelected, setAdsfilterSelected] = useState({
     fuel: "",
@@ -166,6 +167,8 @@ const offers = () => {
 
   //ads filters
   const handleAdsFilterClick = (selected, category) => {
+    console.log(selected);
+    setFilterStep((current) => current + 1);
     switch (category) {
       case "color":
         setAdsfilterSelected({ ...adsfilterSelected, color: selected });
@@ -196,6 +199,27 @@ const offers = () => {
       return { borderBottom: "2px solid #142D5D", color: "#142D5D" };
     } else return { border: "" };
   };
+  const handleStep = (step) => {
+    if (step === filterStep) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const clearFilters = () => {
+    setAdsfilterSelected({
+      fuel: "",
+      color: "",
+      bodyCondition: "",
+      gearBoxType: "",
+      state: "",
+    });
+    setJobFiltersSlected({
+      categoryId: "",
+      filter: "",
+      title: "",
+    });
+  };
 
   return (
     <>
@@ -206,27 +230,120 @@ const offers = () => {
           <div className={s.market_filters}>
             {offers === "خرید و فروش" && adsFilter && !loading ? (
               <>
-                <h2 className={s.main_title}>فیلتر ها</h2>
-                {size.width < 700 ? (
-                  <Input
-                    value={adsfilterSelected.state}
-                    onChange={(e) =>
-                      handleAdsFilterClick(e.target.value, "state")
-                    }
-                    type="select"
-                  >
-                    <option selected value="" disabled>
-                      انتخاب استان
-                    </option>
-                    {statesNames.map((state, index) => (
-                      <option key={index} value={state}>
-                        {state}
-                      </option>
-                    ))}
-                  </Input>
-                ) : null}
+                <h2 className={s.main_title}>
+                  فیلتر ها <Button onClick={() => clearFilters()}>-</Button>
+                </h2>
+                {size.width < 700 && (
+                  <>
+                    {handleStep(1) && (
+                      <Input
+                        onChange={(e) =>
+                          handleAdsFilterClick(e.target.value, "state")
+                        }
+                        type="select"
+                      >
+                        <option selected value="" disabled>
+                          انتخاب استان
+                        </option>
+                        {statesNames.map((state, index) => (
+                          <option key={index} value={state}>
+                            {state}
+                          </option>
+                        ))}
+                      </Input>
+                    )}
 
-                {size.width > 700 || adsfilterSelected.state.length !== 0 ? (
+                    {handleStep(2) && (
+                      <Input
+                        onChange={(e) =>
+                          handleAdsFilterClick(e.target.value, "fuel")
+                        }
+                        type="select"
+                      >
+                        <option defaultValue value="" disabled>
+                          انتخاب نوع سوخت
+                        </option>
+
+                        {adsFilter["fuels"].map((filter, index) => (
+                          <option
+                            key={Math.random() * index}
+                            className={s.list_item}
+                          >
+                            {filter}
+                          </option>
+                        ))}
+                      </Input>
+                    )}
+
+                    {handleStep(3) && (
+                      <Input
+                        onChange={(e) =>
+                          handleAdsFilterClick(e.target.value, "fuel")
+                        }
+                        type="select"
+                      >
+                        <option defaultValue value="" disabled>
+                          انتخاب نوع سوخت
+                        </option>
+
+                        {adsFilter["gearBox"].map((filter, index) => (
+                          <option
+                            key={Math.random() * index}
+                            className={s.list_item}
+                          >
+                            {filter}
+                          </option>
+                        ))}
+                      </Input>
+                    )}
+
+                    {handleStep(4) && (
+                      <Input
+                        onChange={(e) =>
+                          handleAdsFilterClick(e.target.value, "fuel")
+                        }
+                        type="select"
+                      >
+                        <option defaultValue value="" disabled>
+                          انتخاب نوع سوخت
+                        </option>
+
+                        {adsFilter["bodyCondition"].map((filter, index) => (
+                          <option
+                            key={Math.random() * index}
+                            className={s.list_item}
+                          >
+                            {filter}
+                          </option>
+                        ))}
+                      </Input>
+                    )}
+
+                    {handleStep(5) && (
+                      <Input
+                        onChange={(e) =>
+                          handleAdsFilterClick(e.target.value, "fuel")
+                        }
+                        type="select"
+                      >
+                        <option defaultValue value="" disabled>
+                          انتخاب نوع سوخت
+                        </option>
+
+                        {adsFilter["color"].map((filter, index) => (
+                          <option
+                            key={Math.random() * index}
+                            className={s.list_item}
+                          >
+                            {filter}
+                          </option>
+                        ))}
+                      </Input>
+                    )}
+                  </>
+                )}
+
+                {size.width < 700 || adsfilterSelected.state.length !== 0 ? (
                   <>
                     <section className={s.categories}>
                       <div
