@@ -24,6 +24,30 @@ const UserComments = () => {
       });
   }, []);
 
+  const handleCommnetStatus = (status) => {
+    if (status == 0) {
+      return {
+        text: "در حال بررسی",
+        color: "",
+      };
+    } else if (status == 1) {
+      return {
+        text: "تایید شده",
+        color: "",
+      };
+    } else if (status == 2) {
+      return {
+        text: "رد شده",
+        color: "",
+      };
+    } else {
+      return {
+        text: "نامشخص",
+        color: "",
+      };
+    }
+  };
+
   return (
     <>
       <div className={s.user_comments}>
@@ -69,7 +93,6 @@ const UserComments = () => {
                   <th>تصویر</th>
                   <th>تاریخ ثبت</th>
                   <th>متن نظر</th>
-                  <th>تغییر نظر</th>
                   <th>وضعیت</th>
                 </tr>
               </thead>
@@ -83,12 +106,10 @@ const UserComments = () => {
                         <td>{convertDate(comment.created_at)}</td>
                         <td>{comment.content}</td>
                         <td>
-                          <Button className={s.end_comment}>حذف کامنت</Button>
-                          <Button className={s.edit_comment}>
-                            ویرایش کامنت
-                          </Button>
+                          {comment.status !== undefined
+                            ? handleCommnetStatus(comment.status).text
+                            : "-"}
                         </td>
-                        <td>{comment.status}</td>
                       </tr>
                     ))
                   ) : (

@@ -310,7 +310,6 @@
   .form {
     @include flex(row, space-between, flex-start);
     width: 100%;
-    height: 1000px;
     border-radius: 40px;
     background: #fff;
     box-shadow: 0px 4px 80px 0px rgba(211, 211, 211, 0.25);
@@ -341,21 +340,29 @@
         .step {
           @include flex(row, flex-start, flex-start);
           width: 100%;
+          z-index: 2;
 
-          .progress {
+          .progress_closed,
+          .progress_open {
             @include flex(row, flex-start, flex-start);
             height: 100%;
-            min-height: 100px;
+            height: 30px;
             border-image: ("../../public/assets/userDashboard/line.svg");
             position: relative;
+            z-index: 2;
+
+            input {
+              margin: 0;
+              z-index: 2;
+            }
 
             img {
               position: absolute;
-              bottom: 0;
+              top: 0;
               right: 50%;
               transform: translate(50%);
               height: 100%;
-              object-fit: contain;
+              object-fit: fill;
               z-index: 1;
             }
 
@@ -370,12 +377,48 @@
               }
             }
           }
+          .progress_open {
+            height: 120px;
+            img {
+              display: none;
+            }
+          }
 
           .inputs {
             @include flex(column, flex-start, center);
             gap: 20px;
             width: 100%;
             padding-right: 30%;
+
+            .input {
+              width: 100%;
+              border: 1px solid #ccc;
+              border-radius: 10px;
+
+              button {
+                @include flex(row, flex-start, center);
+                gap: 10px;
+                width: 100%;
+                svg {
+                  width: 10px;
+                  height: 10px;
+                }
+              }
+
+              .menu {
+                width: 100%;
+                .item {
+                  @include flex(row, space-between, center);
+                  width: 100%;
+                  pointer-events: none;
+                  .checkbox {
+                    pointer-events: all;
+                    z-index: 10;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
 
             .image {
               width: 100%;
@@ -415,7 +458,6 @@
         gap: 15px;
         width: 100%;
         padding: 20px;
-        position: absolute;
         bottom: 0;
 
         .next,
