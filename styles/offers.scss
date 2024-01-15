@@ -146,8 +146,12 @@
         font-weight: 700;
         margin: 1rem 0;
         button {
+          @include flex(row, center, center);
           background: #4a80e8;
           color: #fff;
+          width: 30px;
+          height: 20px;
+          border-radius: 5px;
         }
       }
 
