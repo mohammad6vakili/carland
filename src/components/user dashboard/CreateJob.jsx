@@ -217,8 +217,15 @@ const CreateJob = ({ jobCategories }) => {
 
             <div className={s.details}>
               <section className={s.step}>
-                <div className={s.progress}>
-                  <Input type="checkbox" defaultChecked />{" "}
+                <div
+                  className={
+                    handleStep(1) ? s.progress_open : s.progress_closed
+                  }
+                >
+                  <Input
+                    type="checkbox"
+                    defaultChecked={currentStep > 1 ? true : false}
+                  />{" "}
                   {handleStep(1) && (
                     <section className={s.level}>
                       <p>انتخاب شغل</p>
@@ -257,8 +264,15 @@ const CreateJob = ({ jobCategories }) => {
               </section>
 
               <section className={s.step}>
-                <div className={s.progress}>
-                  <Input type="checkbox" defaultChecked />{" "}
+                <div
+                  className={
+                    handleStep(2) ? s.progress_open : s.progress_closed
+                  }
+                >
+                  <Input
+                    type="checkbox"
+                    defaultChecked={currentStep > 2 ? true : false}
+                  />{" "}
                   {handleStep(2) && (
                     <section className={s.level}>
                       <p>انتخاب فیلترها</p>
@@ -299,8 +313,15 @@ const CreateJob = ({ jobCategories }) => {
               </section>
 
               <section className={s.step}>
-                <div className={s.progress}>
-                  <Input type="checkbox" defaultChecked />{" "}
+                <div
+                  className={
+                    handleStep(3) ? s.progress_open : s.progress_closed
+                  }
+                >
+                  <Input
+                    type="checkbox"
+                    defaultChecked={currentStep > 3 ? true : false}
+                  />{" "}
                   {handleStep(3) && (
                     <section className={s.level}>
                       <p>اطلاعات فروشگاه</p>
@@ -402,8 +423,15 @@ const CreateJob = ({ jobCategories }) => {
               </section>
 
               <section className={s.step}>
-                <div className={s.progress}>
-                  <Input type="checkbox" defaultChecked />{" "}
+                <div
+                  className={
+                    handleStep(4) ? s.progress_open : s.progress_closed
+                  }
+                >
+                  <Input
+                    type="checkbox"
+                    defaultChecked={currentStep > 4 ? true : false}
+                  />{" "}
                   {handleStep(4) && (
                     <section className={s.level}>
                       <p>بارگذاری مدارک</p>
@@ -492,8 +520,15 @@ const CreateJob = ({ jobCategories }) => {
               </section>
 
               <section className={s.step}>
-                <div className={s.progress}>
-                  <Input type="checkbox" defaultChecked />{" "}
+                <div
+                  className={
+                    handleStep(5) ? s.progress_open : s.progress_closed
+                  }
+                >
+                  <Input
+                    type="checkbox"
+                    defaultChecked={currentStep >= 5 ? true : false}
+                  />{" "}
                   {handleStep(5) && (
                     <section className={s.level}>
                       <p>بررسی و تایید اطلاعات</p>
