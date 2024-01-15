@@ -140,9 +140,15 @@
       width: 30%;
 
       .main_title {
+        @include flex(row, space-between, center);
+        width: 90%;
         font-size: 1.5em;
         font-weight: 700;
         margin: 1rem 0;
+        button {
+          background: #4a80e8;
+          color: #fff;
+        }
       }
 
       .categories,
@@ -718,6 +724,10 @@
         @include flex(column, flex-start, flex-start);
         width: 100%;
         padding: 2rem;
+
+        .main_title {
+          width: 100%;
+        }
 
         .categories,
         .year,
