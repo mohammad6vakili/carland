@@ -286,7 +286,7 @@ const offers = () => {
                           انتخاب نوع سوخت
                         </option>
 
-                        {adsFilter["gearBox"].map((filter, index) => (
+                        {adsFilter["gearbox"].map((filter, index) => (
                           <option
                             key={Math.random() * index}
                             className={s.list_item}
@@ -308,7 +308,7 @@ const offers = () => {
                           انتخاب نوع سوخت
                         </option>
 
-                        {adsFilter["bodyCondition"].map((filter, index) => (
+                        {adsFilter["body_conditions"].map((filter, index) => (
                           <option
                             key={Math.random() * index}
                             className={s.list_item}
@@ -330,7 +330,7 @@ const offers = () => {
                           انتخاب نوع سوخت
                         </option>
 
-                        {adsFilter["color"].map((filter, index) => (
+                        {adsFilter["colors"].map((filter, index) => (
                           <option
                             key={Math.random() * index}
                             className={s.list_item}
