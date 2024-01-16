@@ -23,12 +23,7 @@ const JobsCard = ({
   return (
     <section className={s.job_card}>
       <div className={s.image}>
-        <Image
-          src={myJobs ? image : `${url + image}`}
-          alt=""
-          width={250}
-          height={200}
-        />{" "}
+        <Image src={url + "/" + image} alt="" width={250} height={200} />{" "}
         <div className={s.rate_box}>
           <StarFilled style={{ color: "#FFD029" }} /> {toPersianString(rate)}
         </div>

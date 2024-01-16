@@ -145,13 +145,31 @@
         font-size: 1.5em;
         font-weight: 700;
         margin: 1rem 0;
+
         button {
           @include flex(row, center, center);
-          background: #4a80e8;
-          color: #fff;
-          width: 30px;
-          height: 20px;
+          height: 25px;
           border-radius: 5px;
+          font-size: 0.9em;
+        }
+      }
+
+      .state {
+        width: 90%;
+        border: 1px solid #ccc;
+        background: #eaedf3;
+        border-radius: 10px;
+        margin: 1rem 0;
+
+        button {
+          @include flex(row, space-between, center);
+          width: 100%;
+        }
+
+        .menu {
+          width: 100%;
+          max-height: 300px;
+          overflow-y: scroll;
         }
       }
 
@@ -167,6 +185,7 @@
         padding-left: 2rem;
         margin: 1rem 0;
         direction: ltr;
+        text-align: right;
 
         button:checked {
           color: #000 !important;
@@ -727,9 +746,13 @@
       .market_filters {
         @include flex(column, flex-start, flex-start);
         width: 100%;
-        padding: 2rem;
+        padding: 1rem;
 
         .main_title {
+          width: 100%;
+        }
+
+        .state {
           width: 100%;
         }
 
@@ -737,7 +760,12 @@
         .year,
         .price_range,
         .color_select {
-          padding: 0 1rem;
+          padding: 0;
+          margin: 10px 0;
+
+          .title {
+            width: 100%;
+          }
         }
 
         .title {

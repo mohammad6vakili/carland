@@ -14,6 +14,8 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
   //cards
   const [trades, setTrades] = useState(null);
   const [jobs, setJobs] = useState(null);
+  const [jobsPage, setJobsPage] = useState(1);
+  const [adsPage, setAdsPage] = useState(1);
   const [sale, setSale] = useState([]);
   const [loading, setLoading] = useState(true);
   const marketItems = [
@@ -96,13 +98,15 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     const formData = new FormData();
     formData.append("categoryId", jobsFilter.categoryId);
     formData.append("filters", jobsFilter.filter);
+    formData.append("state", jobsFilter.state);
+    formData.append("city", jobsFilter.city);
     httpService
-      .post("services/search", formData)
+      .post(`services/search?page=${jobsPage}`, formData)
       .then((res) => {
         res.status === 200
-          ? res.data.code === 404
-            ? setJobs([])
-            : setJobs(res.data.data.data)
+          ? res.data.code == 404
+            ? setJobs(null)
+            : (console.log(res.data.data.data), setJobs(res.data.data.data))
           : null;
         setLoading(false);
       })
@@ -117,11 +121,12 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     formData.append("body_condition", adsFilter.bodyCondition);
     formData.append("gear_box", adsFilter.gearBoxType);
     formData.append("state", adsFilter.state);
+    formData.append("state", adsFilter.city);
     httpService
-      .post("advertisements", formData)
+      .post(`advertisements?page=${adsPage}`, formData)
       .then((res) => {
         res.status === 200
-          ? res.data.code === 404
+          ? res.data.code == 404
             ? setTrades(null)
             : setTrades(res.data.data.data)
           : null;

@@ -29,23 +29,19 @@ const UserData = () => {
   const [loading, setLoading] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
   const userData = useSelector((state) => state.userInfo.userInfo);
-  const [initialValues, setInitialValues] = useState(
-    userData
-      ? {
-          name: userData.name,
-          gender: userData.Gender,
-          age: userData.age,
-          carType: userData.CarType,
-          idCard: userData.NationalCode,
-          address: userData.city,
-          technicalDiagnosis: userData.TechnicalDiagnosis,
-          expirationInsurance: userData.ExpirationInsurance,
-          expirationCertificate: userData.ExpirationCertificate,
-          dateofCarInstallments: userData.DateofCarInstallments,
-          profile: userData.image_profile,
-        }
-      : {}
-  );
+  const [initialValues, setInitialValues] = useState({
+    name: userData?.name,
+    gender: userData?.Gender,
+    age: userData?.age,
+    carType: userData?.CarType,
+    idCard: userData?.NationalCode,
+    address: userData?.city,
+    technicalDiagnosis: userData?.TechnicalDiagnosis,
+    expirationInsurance: userData?.ExpirationInsurance,
+    expirationCertificate: userData?.ExpirationCertificate,
+    dateofCarInstallments: userData?.DateofCarInstallments,
+    profile: userData?.image_profile,
+  });
 
   //handle requests
   const handleSetUserData = () => {
@@ -63,11 +59,6 @@ const UserData = () => {
       profile: userData.image_profile,
     });
   };
-
-  useEffect(() => {
-    console.log(userData);
-    userData ? handleSetUserData() : null;
-  }, [userData]);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("لطفا نام خود را وارد کنید"),
@@ -110,6 +101,13 @@ const UserData = () => {
         });
     },
   });
+
+  useEffect(() => {
+    console.log(formik.values);
+  }, [formik.values]);
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   const handleUploadProfile = (event) => {
     const formData = new FormData();

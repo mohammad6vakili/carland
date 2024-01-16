@@ -36,7 +36,11 @@ const Jobs = () => {
     httpService
       .get("myServices")
       .then((res) => {
-        res.status === 200 ? setMyJobs(res.data.data) : null;
+        res.status === 200
+          ? res.data.code == 404
+            ? setMyJobs(null)
+            : setMyJobs(res.data.data.data)
+          : null;
       })
       .catch((err) => {
         toast.error("مشکلی در گرفتن اطلاعات مشاغل شما بوجود امد");
@@ -82,7 +86,7 @@ const Jobs = () => {
                       <JobsCard
                         image={
                           card.images.split(",")[0]
-                            ? url + card.images.split(",")[0]
+                            ? card.images.split(",")[0]
                             : ""
                         }
                         rate={""}
@@ -92,6 +96,7 @@ const Jobs = () => {
                         location={card.state}
                         timeFrom={card.timeFrom}
                         timeTo={card.timeTo}
+                        id={card.id}
                         myJobs={true}
                       />
                     </SwiperSlide>
