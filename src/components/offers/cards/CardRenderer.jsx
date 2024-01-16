@@ -106,7 +106,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
         res.status === 200
           ? res.data.code == 404
             ? setJobs(null)
-            : (console.log(res.data.data.data), setJobs(res.data.data.data))
+            : setJobs(res.data.data.data)
           : null;
         setLoading(false);
       })
@@ -161,7 +161,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
             <JobsCard
               key={Math.random() * index}
               image={item.images.split(",")[0]}
-              rate={item.average_rating}
+              rate={item.average_rating ? item.average_rating : "جدید"}
               title={item.title}
               description={item.descriptions}
               isOpen={item.status}
