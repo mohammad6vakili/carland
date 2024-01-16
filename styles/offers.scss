@@ -145,13 +145,12 @@
         font-size: 1.5em;
         font-weight: 700;
         margin: 1rem 0;
+
         button {
           @include flex(row, center, center);
-          background: #4a80e8;
-          color: #fff;
-          width: 30px;
-          height: 20px;
+          height: 25px;
           border-radius: 5px;
+          font-size: 0.9em;
         }
       }
 
@@ -746,7 +745,7 @@
       .market_filters {
         @include flex(column, flex-start, flex-start);
         width: 100%;
-        padding: 2rem;
+        padding: 1rem;
 
         .main_title {
           width: 100%;
@@ -756,7 +755,12 @@
         .year,
         .price_range,
         .color_select {
-          padding: 0 1rem;
+          padding: 0;
+          margin: 10px 0;
+
+          .title {
+            width: 100%;
+          }
         }
 
         .title {
