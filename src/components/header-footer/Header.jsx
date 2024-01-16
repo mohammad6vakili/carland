@@ -63,15 +63,17 @@ const Header = () => {
 
         <section className={styles.start}>
           <span>ثبت آگهی</span>
-          <Button style={{ background: "#FED30B" }}>
-            <Image
-              src={"/assets/main/shield.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />{" "}
-            رایگان شروع کنید{" "}
-          </Button>
+          <Link href={"/userDashboard/myAdds/create"}>
+            <Button style={{ background: "#FED30B" }}>
+              <Image
+                src={"/assets/main/shield.svg"}
+                alt=""
+                width={24}
+                height={24}
+              />{" "}
+              رایگان شروع کنید{" "}
+            </Button>
+          </Link>
         </section>
 
         <section className={styles.header_content}>
