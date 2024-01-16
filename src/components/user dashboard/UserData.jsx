@@ -30,17 +30,17 @@ const UserData = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const userData = useSelector((state) => state.userInfo.userInfo);
   const [initialValues, setInitialValues] = useState({
-    name: userData?.name,
-    gender: userData?.Gender,
-    age: userData?.age,
-    carType: userData?.CarType,
-    idCard: userData?.NationalCode,
-    address: userData?.city,
-    technicalDiagnosis: userData?.TechnicalDiagnosis,
-    expirationInsurance: userData?.ExpirationInsurance,
-    expirationCertificate: userData?.ExpirationCertificate,
-    dateofCarInstallments: userData?.DateofCarInstallments,
-    profile: userData?.image_profile,
+    name: "",
+    gender: "",
+    age: "",
+    carType: "",
+    idCard: "",
+    address: "",
+    technicalDiagnosis: "",
+    expirationInsurance: "",
+    expirationCertificate: "",
+    dateofCarInstallments: "",
+    profile: "",
   });
 
   //handle requests
