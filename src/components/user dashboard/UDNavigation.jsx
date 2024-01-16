@@ -1,6 +1,13 @@
 import Image from "next/image";
 import s from "../../../styles/main.module.scss";
-import { Button, Modal, ModalBody, ModalFooter, Offcanvas } from "reactstrap";
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  Offcanvas,
+} from "reactstrap";
 import { usePathname, useRouter } from "next/navigation";
 //images
 import circle1 from "../../../public/assets/userDashboard/circle-1.png";
@@ -30,6 +37,7 @@ import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 import MySkeleton from "../skeleton/Skeleton";
+import Compressor from "compressorjs";
 
 const UDNavigation = () => {
   const pathname = usePathname();
@@ -37,6 +45,7 @@ const UDNavigation = () => {
   const router = useRouter();
   const { httpService } = useHttp(true);
   const [signoutModal, setSignoutModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [navColl, setNavColl] = useState(true);
   const userData = useSelector((state) => state.userInfo.userInfo);
   const dispatch = useDispatch();
@@ -65,6 +74,44 @@ const UDNavigation = () => {
     setNavColl(!navColl);
   };
 
+  const handleUploadProfile = (event) => {
+    setLoading(true);
+
+    new Compressor(event.target?.files?.[0], {
+      quality: 0.6,
+
+      // The compression process is asynchronous,
+      // which means you have to access the `result` in the `success` hook function.
+      success(result) {
+        const formData = new FormData();
+
+        // The third parameter is required for server
+        formData.append("image", result, result.name);
+
+        // Send the compressed image file to server with XMLHttpRequest.
+        httpService
+          .post("uploadProfile", formData)
+          .then((res) => {
+            res.status === 200
+              ? (dispatch(
+                  setUserInfo({ ...userData, image_profile: res.data.url })
+                ),
+                toast.success("پروفایل شما با موفقیت تغییر کرد"))
+              : null;
+            setLoading(false);
+          })
+          .catch(() => {
+            toast.error("در اپلود عکس پروفایل شما مشکلی بوجود امد");
+            setLoading(false);
+          });
+      },
+      error(err) {
+        toast.error("در اپلود عکس پروفایل شما مشکلی بوجود امد");
+        setLoading(false);
+      },
+    });
+  };
+
   return (
     <>
       {size.width > 1000 ? (
@@ -76,13 +123,25 @@ const UDNavigation = () => {
             <>
               <div className={s.name_profile}>
                 <div className={s.profile}>
-                  <Image
-                    src={url + userData.image_profile}
-                    alt="profile"
-                    width={60}
-                    height={60}
-                  />
+                  <label>
+                    <Input
+                      type="file"
+                      id="file"
+                      onChange={(e) => handleUploadProfile(e, "moreView")}
+                      className={s.img}
+                      hidden
+                      accept="image/*"
+                    />
+                    <Image
+                      className={loading ? s.img_blur : s.img}
+                      src={url + userData.image_profile}
+                      alt=""
+                      width={100}
+                      height={100}
+                    />
+                  </label>
                 </div>
+
                 <div className={s.name}>
                   <span>پروفایل</span>
                   <p>{userData.name}</p>
