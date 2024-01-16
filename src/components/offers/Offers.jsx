@@ -52,14 +52,16 @@ const offers = () => {
     color: "",
     bodyCondition: "",
     gearBoxType: "",
-    state: "",
-    city: "",
+    state: getLocal("stateName") !== "null" ? getLocal("stateName") : "",
+    city: getLocal("cityName") !== "null" ? getLocal("cityName") : "",
   });
   const [jobsCategory, setJobsCategory] = useState([]);
   const [jobFiltersSlected, setJobFiltersSlected] = useState({
     categoryId: "",
     filter: "",
     title: "",
+    state: "",
+    city: "",
   });
   const [offers, setOffers] = useState("خرید و فروش");
   const [filters, setFilters] = useState("جدیدترین");
@@ -194,9 +196,11 @@ const offers = () => {
         setAdsfilterSelected({ ...adsfilterSelected, gearBoxType: selected });
         break;
       case "state":
+        setLocal("stateName", selected);
         setAdsfilterSelected({ ...adsfilterSelected, state: selected });
         break;
       case "city":
+        setLocal("cityName", selected);
         setAdsfilterSelected({ ...adsfilterSelected, city: selected });
         break;
     }
@@ -244,6 +248,7 @@ const offers = () => {
                     <HiRefresh />
                   </Button>
                 </h2>
+
                 <Dropdown
                   isOpen={stateDropdown}
                   toggle={() => setStateDropdown(!stateDropdown)}
