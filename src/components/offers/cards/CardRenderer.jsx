@@ -98,6 +98,8 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     const formData = new FormData();
     formData.append("categoryId", jobsFilter.categoryId);
     formData.append("filters", jobsFilter.filter);
+    formData.append("state", jobsFilter.state);
+    formData.append("city", jobsFilter.city);
     httpService
       .post(`services/search?page=${jobsPage}`, formData)
       .then((res) => {
@@ -119,6 +121,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     formData.append("body_condition", adsFilter.bodyCondition);
     formData.append("gear_box", adsFilter.gearBoxType);
     formData.append("state", adsFilter.state);
+    formData.append("state", adsFilter.city);
     httpService
       .post(`advertisements?page=${adsPage}`, formData)
       .then((res) => {
