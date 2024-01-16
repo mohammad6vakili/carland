@@ -100,6 +100,7 @@ const offers = () => {
     "همدان",
     "یزد",
   ];
+  console.log(size.width > 700);
   //control filters collapse
   const [categoryOpen, setCategoryOpen] = useState(size.width > 700);
   const [colorsFilterOpen, setColorsFilterOpen] = useState(size.width > 700);
