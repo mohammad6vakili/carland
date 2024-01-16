@@ -522,6 +522,62 @@ const offers = () => {
               </>
             ) : offers === "کسب و کار" && jobsCategory && !loading ? (
               <>
+                <h2 className={s.main_title}>
+                  فیلتر ها{" "}
+                  <Button onClick={() => clearFilters()}>
+                    <HiRefresh />
+                  </Button>
+                </h2>
+
+                <Dropdown
+                  isOpen={stateDropdown}
+                  toggle={() => setStateDropdown(!stateDropdown)}
+                  className={s.state}
+                >
+                  <DropdownToggle>
+                    <span>
+                      {jobFiltersSlected.state.length !== 0
+                        ? jobFiltersSlected.state +
+                          ", " +
+                          jobFiltersSlected.city
+                        : "انتخاب منطقه "}
+                    </span>
+                    <DownButton />
+                  </DropdownToggle>
+                  <DropdownMenu className={s.menu}>
+                    <DropdownItem
+                      style={{ textAlign: "right", margin: "1rem 0" }}
+                      header
+                    >
+                      {jobFiltersSlected.state.length !== 0
+                        ? "شهر خود را انتخاب کنید"
+                        : "استان خود را انتخاب کنید"}
+                    </DropdownItem>
+                    {jobFiltersSlected.state.length === 0
+                      ? statesNames.map((state, index) => (
+                          <>
+                            <DropdownItem
+                              onClick={() => handleJobsFilters(state, "state")}
+                              key={state}
+                            >
+                              {state} <LeftCircleOutlined />
+                            </DropdownItem>
+                            <DropdownItem divider />
+                          </>
+                        ))
+                      : cityNames[`${jobFiltersSlected.state}`].map((city) => (
+                          <>
+                            <DropdownItem
+                              onClick={() => handleJobsFilters(city, "city")}
+                            >
+                              {city}
+                            </DropdownItem>
+                            <DropdownItem divider />
+                          </>
+                        ))}
+                  </DropdownMenu>
+                </Dropdown>
+
                 <section className={s.categories}>
                   <div
                     onClick={() => setCategoryOpen(!categoryOpen)}

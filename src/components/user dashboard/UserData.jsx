@@ -102,12 +102,12 @@ const UserData = () => {
     },
   });
 
-  useEffect(() => {
-    console.log(formik.values);
-  }, [formik.values]);
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
+  // useEffect(() => {
+  //   console.log(formik.values);
+  // }, [formik.values]);
+  // useEffect(() => {
+  //   console.log(userData);
+  // }, [userData]);
 
   const handleUploadProfile = (event) => {
     const formData = new FormData();
@@ -160,7 +160,7 @@ const UserData = () => {
                     value={formik.values.gender}
                     onChange={formik.handleChange}
                   >
-                    <option defaultValue value="" disabled>
+                    <option selected value="" disabled>
                       جنسیت
                     </option>
                     <option value="مرد">مرد</option>

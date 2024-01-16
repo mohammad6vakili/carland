@@ -28,17 +28,17 @@ const UserComments = () => {
     if (status == 0) {
       return {
         text: "در حال بررسی",
-        color: "",
+        color: "#FED30B",
       };
     } else if (status == 1) {
       return {
         text: "تایید شده",
-        color: "",
+        color: "#10CC67",
       };
     } else if (status == 2) {
       return {
         text: "رد شده",
-        color: "",
+        color: "#F93423",
       };
     } else {
       return {
@@ -90,7 +90,6 @@ const UserComments = () => {
             <Table className={s.table}>
               <thead>
                 <tr>
-                  <th>تصویر</th>
                   <th>تاریخ ثبت</th>
                   <th>متن نظر</th>
                   <th>وضعیت</th>
@@ -102,7 +101,6 @@ const UserComments = () => {
                   comments.length !== 0 ? (
                     comments.map((comment, index) => (
                       <tr key={comment.id}>
-                        <td></td>
                         <td>{convertDate(comment.created_at)}</td>
                         <td>{comment.content}</td>
                         <td>
