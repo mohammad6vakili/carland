@@ -5,6 +5,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
+import adsIcon from "../../../public/assets/mobile menu/ads.svg";
+import clubMagazineIcon from "../../../public/assets/mobile menu/club-magazine.svg";
+import home from "../../../public/assets/mobile menu/home.svg";
+import market from "../../../public/assets/mobile menu/market.svg";
+import { CgProfile } from "react-icons/cg";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledButtonDropdown,
+} from "reactstrap";
 
 const MobileMenu = () => {
   const size = useWindowSize();
@@ -23,104 +35,75 @@ const MobileMenu = () => {
             {isMenuColl ? <RxHamburgerMenu /> : <RxCross2 />}
           </div>
 
-          <div className={isMenuColl ? s.menu : s.menuOpen}>
-            <div className={s.symbol}>
-              <section className={s.logo}>
-                <Image
-                  src={"/assets/carland-logo.png"}
-                  alt="logo"
-                  width={40}
-                  height={40}
-                />
-              </section>
-              <Link href={"/"}>
-                <section className={s.name}>
-                  <p>کارلند</p>
-                  <p>CARLAND</p>
-                </section>
-              </Link>
-            </div>
-
+          <div className={s.menu}>
             <div className={s.routes}>
-              <span
-                style={{ color: "#000", cursor: "auto" }}
-                className={s.category}
-              >
-                <Image
-                  src={"/assets/category.svg"}
-                  alt="logo"
-                  width={15}
-                  height={15}
-                />
-                دسته بندی
-              </span>
-
               <div className={s.links_seperator}>
                 <Link
                   onClick={() => setIsMenuColl(true)}
-                  className={pathname === "/market" ? s.selected : s.link}
+                  className={pathname === "/market" ? s.selected_link : s.link}
                   href={"/market"}
                 >
-                  {" "}
-                  <span>
-                    بازارچه
-                    <div className={s.line1}></div>
-                    <div className={s.line2}></div>
-                  </span>
+                  <Image className={s.img} src={market} alt="market icon" />
+                  <span>بازارچه</span>
                 </Link>
 
                 <Link
-                  onClick={() => setIsMenuColl(true)}
                   className={
-                    pathname?.includes("/offers") ? s.selected : s.link
+                    pathname?.includes("/offers") ? s.selected_link : s.link
                   }
                   href={"/offers/all"}
                 >
-                  <span>
-                    خرید و فروش
-                    <div className={s.line1}></div>
-                    <div className={s.line2}></div>
-                  </span>
+                  <Image className={s.img} src={adsIcon} alt="" />
+                  <span>آگهی ها</span>
                 </Link>
 
                 <Link
                   onClick={() => setIsMenuColl(true)}
-                  className={pathname?.includes("/club") ? s.selected : s.link}
-                  href={"/clubs"}
+                  className={pathname === "/" ? s.selected_link : s.link}
+                  style={
+                    pathname === "/"
+                      ? { marginBottom: "2rem" }
+                      : { marginBottom: "1rem" }
+                  }
+                  href={"/"}
                 >
-                  <span>
-                    {" "}
-                    کلوپ
-                    <div className={s.line1}></div>
-                    <div className={s.line2}></div>
-                  </span>
+                  <Image className={s.img} src={home} alt="home icon" />
                 </Link>
+
+                <a>
+                  <UncontrolledButtonDropdown>
+                    <DropdownToggle
+                      style={{ padding: "0" }}
+                      className={
+                        pathname?.includes("/club") ||
+                        pathname?.includes("/magazine")
+                          ? s.selected_link
+                          : s.link
+                      }
+                    >
+                      <Image className={s.img} src={clubMagazineIcon} alt="" />
+                      <span>مطالب</span>
+                    </DropdownToggle>
+                    <DropdownMenu className={s.dropdown_menu}>
+                      <DropdownItem>
+                        <Link href={"/clubs"}> کلوپ ها</Link>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Link href={"/magazines"}>مجلات</Link>
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledButtonDropdown>
+                </a>
 
                 <Link
                   onClick={() => setIsMenuColl(true)}
                   className={
-                    pathname?.includes("/magazine") ? s.selected : s.link
+                    pathname === "/about_us" ? s.selected_link : s.link
                   }
-                  href={"/magazines"}
-                >
-                  <span>
-                    مجله
-                    <div className={s.line1}></div>
-                    <div className={s.line2}></div>
-                  </span>
-                </Link>
-
-                <Link
-                  onClick={() => setIsMenuColl(true)}
-                  className={pathname === "/about_us" ? s.selected : s.link}
                   href={"/about_us"}
                 >
-                  <span>
-                    {" "}
-                    درباره ما
-                    <div className={s.line1}></div>
-                    <div className={s.line2}></div>
-                  </span>
+                  <CgProfile className={s.img} />
+                  <span>درباره ما</span>
                 </Link>
               </div>
             </div>
