@@ -23,42 +23,12 @@ const MobileMenu = () => {
             {isMenuColl ? <RxHamburgerMenu /> : <RxCross2 />}
           </div>
 
-          <div className={isMenuColl ? s.menu : s.menuOpen}>
-            <div className={s.symbol}>
-              <section className={s.logo}>
-                <Image
-                  src={"/assets/carland-logo.png"}
-                  alt="logo"
-                  width={40}
-                  height={40}
-                />
-              </section>
-              <Link href={"/"}>
-                <section className={s.name}>
-                  <p>کارلند</p>
-                  <p>CARLAND</p>
-                </section>
-              </Link>
-            </div>
-
+          <div className={s.menu}>
             <div className={s.routes}>
-              <span
-                style={{ color: "#000", cursor: "auto" }}
-                className={s.category}
-              >
-                <Image
-                  src={"/assets/category.svg"}
-                  alt="logo"
-                  width={15}
-                  height={15}
-                />
-                دسته بندی
-              </span>
-
               <div className={s.links_seperator}>
                 <Link
                   onClick={() => setIsMenuColl(true)}
-                  className={pathname === "/market" ? s.selected : s.link}
+                  className={pathname === "/market" ? s.selected_link : s.link}
                   href={"/market"}
                 >
                   {" "}

@@ -286,6 +286,7 @@ const Main = () => {
             <Swiper
               slidesPerView={"auto"}
               spaceBetween={25}
+              loop
               autoplay={{
                 delay: 1,
                 disableOnInteraction: false,
