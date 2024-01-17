@@ -40,9 +40,15 @@
     .profile {
       @include flex(row, center, center);
       width: 100%;
-      img {
+      img,
+      .img_blur {
+        width: 70px;
+        height: 70px;
         object-fit: cover;
         border-radius: 50%;
+      }
+      .img_blur {
+        opacity: 0.5;
       }
     }
 
