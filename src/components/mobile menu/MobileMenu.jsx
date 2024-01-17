@@ -10,6 +10,13 @@ import clubMagazineIcon from "../../../public/assets/mobile menu/club-magazine.s
 import home from "../../../public/assets/mobile menu/home.svg";
 import market from "../../../public/assets/mobile menu/market.svg";
 import { CgProfile } from "react-icons/cg";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledButtonDropdown,
+} from "reactstrap";
 
 const MobileMenu = () => {
   const size = useWindowSize();
@@ -53,25 +60,40 @@ const MobileMenu = () => {
                 <Link
                   onClick={() => setIsMenuColl(true)}
                   className={pathname === "/" ? s.selected_link : s.link}
-                  style={pathname === "/" ? { marginBottom: "2rem" } : {}}
+                  style={
+                    pathname === "/"
+                      ? { marginBottom: "2rem" }
+                      : { marginBottom: "1rem" }
+                  }
                   href={"/"}
                 >
                   <Image className={s.img} src={home} alt="home icon" />
                 </Link>
 
-                <Link
-                  onClick={() => setIsMenuColl(true)}
-                  className={
-                    pathname?.includes("/club") ||
-                    pathname?.includes("/magazine")
-                      ? s.selected_link
-                      : s.link
-                  }
-                  href={"/clubs"}
-                >
-                  <Image className={s.img} src={clubMagazineIcon} alt="" />
-                  <span>مطالب</span>
-                </Link>
+                <a>
+                  <UncontrolledButtonDropdown>
+                    <DropdownToggle
+                      style={{ padding: "0" }}
+                      className={
+                        pathname?.includes("/club") ||
+                        pathname?.includes("/magazine")
+                          ? s.selected_link
+                          : s.link
+                      }
+                    >
+                      <Image className={s.img} src={clubMagazineIcon} alt="" />
+                      <span>مطالب</span>
+                    </DropdownToggle>
+                    <DropdownMenu className={s.dropdown_menu}>
+                      <DropdownItem>
+                        <Link href={"/clubs"}> کلوپ ها</Link>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Link href={"/magazines"}>مجلات</Link>
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledButtonDropdown>
+                </a>
 
                 <Link
                   onClick={() => setIsMenuColl(true)}

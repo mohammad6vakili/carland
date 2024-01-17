@@ -1129,7 +1129,7 @@ $light-theme: #fff;
     bottom: 0;
     transform: translate(50%);
     width: 90%;
-    height: 70px;
+    height: 60px;
     background: #142d5d;
     color: #fff;
     border-radius: 100px 100px 0 0;
@@ -1137,7 +1137,7 @@ $light-theme: #fff;
     z-index: 1000;
     a {
       text-decoration: none;
-      color: #fff;
+      color: none;
     }
 
     .routes {
@@ -1163,6 +1163,7 @@ $light-theme: #fff;
           height: 100%;
           font-size: 1em;
           background: #142d5d;
+          color: #fff;
           border-radius: 30px;
           transition: all ease 0.2s;
           .img {
@@ -1178,6 +1179,13 @@ $light-theme: #fff;
           .img {
             width: 35px;
             height: 35px;
+          }
+        }
+
+        .dropdown_menu {
+          text-align: center;
+          a {
+            color: #000;
           }
         }
       }
@@ -1621,9 +1629,8 @@ $light-theme: #fff;
   }
 
   .mobile_menu {
-    .menu_btn {
-      width: 40px;
-      height: 40px;
+    .menu {
+      width: 98%;
     }
   }
 }
