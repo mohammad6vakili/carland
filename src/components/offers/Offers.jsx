@@ -172,8 +172,21 @@ const offers = () => {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   //jobs filters
-  const handleJobsFilters = (cat, filter, title) => {
-    setJobFiltersSlected({ categoryId: cat, filter: filter });
+  const handleJobsFilters = (selected, category) => {
+    switch (category) {
+      case "categoryId":
+        setJobFiltersSlected({ ...jobFiltersSlected, categoryId: selected });
+        break;
+      case "filter":
+        setJobFiltersSlected({ ...jobFiltersSlected, filter: selected });
+        break;
+      case "state":
+        setJobFiltersSlected({ ...jobFiltersSlected, state: selected });
+        break;
+      case "city":
+        setJobFiltersSlected({ ...jobFiltersSlected, city: selected });
+        break;
+    }
   };
 
   //ads filters
@@ -230,6 +243,8 @@ const offers = () => {
       categoryId: "",
       filter: "",
       title: "",
+      state: "",
+      cirty: "",
     });
   };
 
@@ -597,7 +612,9 @@ const offers = () => {
                           className={s.list_item}
                         >
                           <Button
-                            onClick={() => handleJobsFilters(cat.id, "")}
+                            onClick={() =>
+                              handleJobsFilters(cat.id, "categoryId")
+                            }
                             active={jobFiltersSlected.categoryId == cat.id}
                           ></Button>{" "}
                           {cat.title}
@@ -630,10 +647,7 @@ const offers = () => {
                           >
                             <Button
                               onClick={() =>
-                                handleJobsFilters(
-                                  jobFiltersSlected.categoryId,
-                                  filter
-                                )
+                                handleJobsFilters(filter, "filter")
                               }
                               active={jobFiltersSlected.filter === filter}
                             ></Button>{" "}
