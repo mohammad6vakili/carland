@@ -161,7 +161,11 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
             <JobsCard
               key={Math.random() * index}
               image={item.images.split(",")[0]}
-              rate={item.average_rating ? item.average_rating : "جدید"}
+              rate={
+                item.formatted_average_rating
+                  ? item.formatted_average_rating
+                  : "جدید"
+              }
               title={item.title}
               description={item.descriptions}
               isOpen={item.status}
