@@ -63,7 +63,7 @@ const MobileMenu = () => {
                   <Image className={s.img} src={home} alt="home icon" />
                 </Link>
 
-                <a>
+                <div>
                   <UncontrolledButtonDropdown>
                     <DropdownToggle
                       style={{ padding: "0" }}
@@ -86,7 +86,7 @@ const MobileMenu = () => {
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledButtonDropdown>
-                </a>
+                </div>
 
                 <Link
                   onClick={() => setIsMenuColl(true)}
