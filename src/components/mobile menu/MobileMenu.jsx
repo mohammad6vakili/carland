@@ -28,13 +28,6 @@ const MobileMenu = () => {
       {/* mobile menu */}
       {size.width < 1000 ? (
         <div className={s.mobile_menu}>
-          <div
-            onClick={() => setIsMenuColl(!isMenuColl)}
-            className={s.menu_btn}
-          >
-            {isMenuColl ? <RxHamburgerMenu /> : <RxCross2 />}
-          </div>
-
           <div className={s.menu}>
             <div className={s.routes}>
               <div className={s.links_seperator}>
@@ -70,7 +63,7 @@ const MobileMenu = () => {
                   <Image className={s.img} src={home} alt="home icon" />
                 </Link>
 
-                <a>
+                <div>
                   <UncontrolledButtonDropdown>
                     <DropdownToggle
                       style={{ padding: "0" }}
@@ -93,17 +86,19 @@ const MobileMenu = () => {
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledButtonDropdown>
-                </a>
+                </div>
 
                 <Link
                   onClick={() => setIsMenuColl(true)}
                   className={
-                    pathname === "/about_us" ? s.selected_link : s.link
+                    pathname?.includes("/userDashboard")
+                      ? s.selected_link
+                      : s.link
                   }
-                  href={"/about_us"}
+                  href={"/userDashboard"}
                 >
                   <CgProfile className={s.img} />
-                  <span>درباره ما</span>
+                  <span>پروفایل</span>
                 </Link>
               </div>
             </div>

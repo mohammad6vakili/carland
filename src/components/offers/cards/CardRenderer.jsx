@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MarketCard from "../../main/MarketCard";
 import OfferCardSkeleton from "../../skeleton/OfferCardSkeleton";
 import BuySaleCard from "./BuySaleCard";
@@ -18,6 +18,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
   const [adsPage, setAdsPage] = useState(1);
   const [sale, setSale] = useState([]);
   const [loading, setLoading] = useState(true);
+  const lastAdRef = useRef(null);
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -93,6 +94,22 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     handleGetAds();
   }, [adsFilter]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const isVisible = entries[0].isIntersecting;
+        // Perform actions based on visibility
+      },
+      { threshold: 0.5 }
+    ); // Adjust threshold as needed
+
+    if (lastAdRef.current) {
+      observer.observe(lastAdRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [lastAdRef]);
+
   const handleGetJobs = () => {
     setLoading(true);
     const formData = new FormData();
@@ -150,6 +167,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
               location={item.location}
               price={item.price}
               id={item.id}
+              ref={index === trades.length ? lastAdRef : null}
             />
           ))}
         </>

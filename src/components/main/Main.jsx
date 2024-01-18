@@ -23,8 +23,9 @@ import Link from "next/link";
 import ClubCard from "./ClubCard";
 import { useReportWebVitals } from "next/web-vitals";
 import MySkeleton from "../skeleton/Skeleton";
+import Head from "next/head";
 
-const Main = () => {
+const Main = ({ jobCategories }) => {
   //datas
   const [ads, setAds] = useState([]);
   const [magazines, setMagazines] = useState([]);
@@ -95,6 +96,21 @@ const Main = () => {
   const { httpService } = useHttp();
   const size = useWindowSize();
 
+  const calculateTime = (date1, date2) => {
+    //Get 1 day in milliseconds
+    let one_day = 1000 * 60 * 60 * 24;
+
+    // Convert both dates to milliseconds
+    let date1_ms = date1;
+    let date2_ms = date2;
+    console.log(date1, date2);
+    // Calculate the difference in milliseconds
+    let difference_ms = date2_ms - date1_ms;
+
+    // Convert back to days and return
+    return Math.round(difference_ms / one_day);
+  };
+
   //requests
   useEffect(() => {
     httpService
@@ -127,21 +143,31 @@ const Main = () => {
         toast.error("خطا در ارتباط با سرور");
       });
 
-    getLocal("serviceCat") === "null"
+    console.log();
+
+    getLocal("serviceCat") === "null" ||
+    calculateTime(
+      parseInt(JSON.parse(formatStringJSON(getLocal("updateTime")))),
+      new Date().getTime()
+    ) > 2
       ? httpService
           .get("categories")
           .then((res) => {
             res.status === 200 ? setServiceCat(res.data.data) : null;
-            setLocal("serviceCat", JSON.stringify(res.data.data));
+            setLocal(
+              "serviceCat",
+              formatStringJSON(JSON.stringify(res.data.data))
+            );
+            setLocal(
+              "updateTime",
+              formatStringJSON(JSON.stringify(new Date().getTime()))
+            );
           })
           .catch((err) => toast.error("خطا در ارتباط"))
       : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
 
-    const date = new Date();
-    console.log(date.getTime());
+    console.log(jobCategories);
   }, []);
-
-  useEffect(() => console.log(loading), [loading]);
 
   //swipers
   const [adsSwiper, setAdsSwiper] = useState();
@@ -195,6 +221,11 @@ const Main = () => {
 
   return (
     <>
+      <Head>
+        <meta property="og:image" content={url + "/"} />
+        <meta name="keywords" content={jobCategories.keywords} />
+        <meta name="description" content={jobCategories.descriptions} />
+      </Head>
       <section className={styles.main}>
         {loading ? <Loading /> : null}
 

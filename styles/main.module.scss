@@ -1098,25 +1098,6 @@ $light-theme: #fff;
 }
 
 .mobile_menu {
-  .menu_btn {
-    display: none !important;
-    @include flex(row, center, center);
-    position: fixed;
-    z-index: 3;
-    top: 0;
-    right: 0;
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    border-radius: 0 0 0 20px;
-    background-image: url(".././public/assets/header-background.png");
-    svg {
-      color: #fff;
-      width: 70%;
-      height: 70%;
-    }
-  }
-
   a {
     text-decoration: none;
     text-align: center;
