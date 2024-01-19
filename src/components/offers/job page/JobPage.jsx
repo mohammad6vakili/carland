@@ -410,7 +410,9 @@ const JobPage = () => {
 
           {size.width < 700 ? (
             <Button
-              onClick={() => console.log(handleGetPhonAds())}
+              onClick={() =>
+                handleGetPhonAds() ? router.push(`tel:${jobData.phone}`) : null
+              }
               className={s.phone_call_mobile}
             >
               <PhoneFilled /> تماس با این فروشنده
