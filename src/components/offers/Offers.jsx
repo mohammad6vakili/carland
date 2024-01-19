@@ -246,6 +246,8 @@ const offers = () => {
       state: "",
       cirty: "",
     });
+    removeLocal("stateName");
+    removeLocal("cityName");
   };
 
   return (
