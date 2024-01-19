@@ -5,6 +5,7 @@ import {
   LinkOutlined,
   ArrowLeftOutlined,
   ArrowRightOutlined,
+  PhoneFilled,
 } from "@ant-design/icons";
 import Image from "next/image";
 import { Button } from "reactstrap";
@@ -28,9 +29,11 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const JobPage = () => {
   const pathname = usePathname();
+  const size = useWindowSize();
   const { httpService } = useHttp();
   const [jobData, setJobData] = useState([]);
   const [photos, setPhotos] = useState([]);
@@ -385,6 +388,12 @@ const JobPage = () => {
               </Swiper>
             </div>
           </div>
+
+          {size.width < 700 ? (
+            <Button className={s.phone_call_mobile}>
+              <PhoneFilled /> تماس با این فروشنده
+            </Button>
+          ) : null}
         </div>
       </>
     );
