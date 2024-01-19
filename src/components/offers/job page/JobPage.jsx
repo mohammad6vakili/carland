@@ -30,11 +30,12 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { useWindowSize } from "@uidotdev/usehooks";
+import toast from "react-hot-toast";
 
 const JobPage = () => {
   const pathname = usePathname();
   const size = useWindowSize();
-  const { httpService } = useHttp();
+  const { httpService } = useHttp(true);
   const [jobData, setJobData] = useState([]);
   const [photos, setPhotos] = useState([]);
   const router = useRouter();
@@ -49,6 +50,24 @@ const JobPage = () => {
     { day: "پنجشنبه", start: "", end: "", isOpen: true },
     { day: "جمعه", start: "", end: "", isOpen: false },
   ];
+
+  const handleGetPhonAds = () => {
+    let phone;
+    const id = jobData.id;
+    const formData = new FormData();
+    formData.append("id", id);
+
+    httpService
+      .post("GetPhoneAds", formData)
+      .then((res) => {
+        res.status === 200 ? (phone = res.data.phone) : null;
+      })
+      .catch((err) => {
+        toast.error("مشکلی در پیدا کردن اطلاعات تماس شغل مورد نظر بوجود آمد");
+      });
+
+    return phone;
+  };
 
   //swiper
   const [adsSwiper, setAdsSwiper] = useState();
@@ -390,7 +409,10 @@ const JobPage = () => {
           </div>
 
           {size.width < 700 ? (
-            <Button className={s.phone_call_mobile}>
+            <Button
+              onClick={() => console.log(handleGetPhonAds())}
+              className={s.phone_call_mobile}
+            >
               <PhoneFilled /> تماس با این فروشنده
             </Button>
           ) : null}
