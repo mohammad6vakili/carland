@@ -52,21 +52,25 @@ const JobPage = () => {
   ];
 
   const handleGetPhonAds = () => {
-    let phone;
     const id = jobData.id;
     const formData = new FormData();
     formData.append("id", id);
 
-    httpService
+    const response = httpService
       .post("GetPhoneAds", formData)
       .then((res) => {
-        res.status === 200 ? (phone = res.data.phone) : null;
+        if (res.status === 200) {
+          router.push(`tel:${jobData.phone}`);
+        }
       })
       .catch((err) => {
         toast.error("مشکلی در پیدا کردن اطلاعات تماس شغل مورد نظر بوجود آمد");
+        if (err) {
+          return false;
+        }
       });
 
-    return phone;
+    return response;
   };
 
   //swiper
@@ -410,9 +414,9 @@ const JobPage = () => {
 
           {size.width < 700 ? (
             <Button
-              onClick={() =>
-                handleGetPhonAds() ? router.push(`tel:${jobData.phone}`) : null
-              }
+              onClick={() => {
+                handleGetPhonAds();
+              }}
               className={s.phone_call_mobile}
             >
               <PhoneFilled /> تماس با این فروشنده

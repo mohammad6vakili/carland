@@ -167,8 +167,6 @@ const offers = () => {
     }
   }, [router]);
 
-  useEffect(() => console.log(jobFiltersSlected), [jobFiltersSlected]);
-
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   //jobs filters
@@ -297,7 +295,7 @@ const offers = () => {
                               onClick={() =>
                                 handleAdsFilterClick(state, "state")
                               }
-                              key={state}
+                              key={index}
                             >
                               {state} <LeftCircleOutlined />
                             </DropdownItem>

@@ -25,6 +25,7 @@ const CreateJob = ({ jobCategories }) => {
   const { httpService } = useHttp();
   const [currentStep, setCurrentStep] = useState(1);
   const [filters, setFilters] = useState([]);
+  const [filtersOpen, setFiltersOpen] = useState(true);
   const [loadingImage, setLoadingImage] = useState([]);
   const [photos, setPhotos] = useState({
     nationalCard: "",
@@ -218,13 +219,18 @@ const CreateJob = ({ jobCategories }) => {
   };
 
   const handleFiltersClick = (value) => {
-    formik.values.filters.includes(value)
-      ? formik.values.filters.splice(value)
-      : formik.values.filters.push(value);
+    let convertValue = value.replaceAll("  ", "");
+
+    formik.values.filters.includes(convertValue)
+      ? formik.values.filters.splice(convertValue)
+      : formik.values.filters.push(convertValue);
     console.log(formik.values.filters);
   };
   useEffect(() => {
     formik.values.filters = [];
+    formik.values.categoryId.length !== 0
+      ? setCurrentStep((current) => current + 1)
+      : null;
   }, [formik.values.categoryId]);
 
   return (
@@ -310,12 +316,14 @@ const CreateJob = ({ jobCategories }) => {
 
                 {handleStep(2) && (
                   <div className={s.inputs}>
-                    <UncontrolledDropdown
+                    <Dropdown
                       className={s.input}
                       name="filters"
                       value={formik.values.filters}
                       onChange={formik.handleChange}
                       type="select"
+                      toggle={() => setFiltersOpen(!filtersOpen)}
+                      isOpen={filtersOpen}
                     >
                       <DropdownToggle>
                         <DownOutlined /> انتخاب فیلتر ها
@@ -323,19 +331,21 @@ const CreateJob = ({ jobCategories }) => {
                       <DropdownMenu className={s.menu}>
                         {filters
                           ? filters.map((cat, index) => (
-                              <DropdownItem className={s.item} key={index}>
+                              <DropdownItem className={s.item} key={cat}>
                                 {cat}{" "}
                                 <Input
                                   className={s.checkbox}
                                   type="checkbox"
                                   onChange={() => handleFiltersClick(cat)}
-                                  checked={formik.values.filters.includes(cat)}
+                                  checked={formik.values.filters.includes(
+                                    cat.replaceAll("  ", "")
+                                  )}
                                 />
                               </DropdownItem>
                             ))
                           : null}
                       </DropdownMenu>
-                    </UncontrolledDropdown>
+                    </Dropdown>
                   </div>
                 )}
               </section>

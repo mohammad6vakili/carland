@@ -300,7 +300,7 @@
   gap: 25px;
   width: 100%;
   padding: 100px 45px;
-  min-height: 100vh;
+  min-height: 100%;
   background: #f5f5f5;
   overflow-y: scroll;
   p {
@@ -310,6 +310,7 @@
   .form {
     @include flex(row, space-between, flex-start);
     width: 100%;
+    height: 600px;
     border-radius: 40px;
     background: #fff;
     box-shadow: 0px 4px 80px 0px rgba(211, 211, 211, 0.25);
@@ -393,6 +394,7 @@
             .input {
               width: 100%;
               border: 1px solid #ccc;
+              background: #fff;
               border-radius: 10px;
 
               button {
@@ -407,14 +409,20 @@
 
               .menu {
                 width: 100%;
+                background: transparent;
+                border: none;
                 .item {
                   @include flex(row, space-between, center);
                   width: 100%;
+                  height: 40px;
+                  background: #fff;
                   pointer-events: none;
+                  border-radius: 12px;
                   .checkbox {
+                    z-index: 100;
                     pointer-events: all;
-                    z-index: 10;
-                    cursor: pointer;
+                    border: 1px solid #142d5d;
+                    cursor: pointer !important;
                   }
                 }
               }
@@ -477,7 +485,7 @@
 
     .image {
       width: 50%;
-      height: 1000px;
+      height: 100%;
       overflow: hidden;
       position: relative;
       img {
