@@ -103,7 +103,6 @@ const Main = ({ jobCategories }) => {
     // Convert both dates to milliseconds
     let date1_ms = date1;
     let date2_ms = date2;
-    console.log(date1, date2);
     // Calculate the difference in milliseconds
     let difference_ms = date2_ms - date1_ms;
 
@@ -165,8 +164,6 @@ const Main = ({ jobCategories }) => {
           })
           .catch((err) => toast.error("خطا در ارتباط"))
       : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
-
-    console.log(jobCategories);
   }, []);
 
   //swipers
@@ -174,50 +171,24 @@ const Main = ({ jobCategories }) => {
   const [marketRSwiper, setMarketRSwiper] = useState();
   const [marketBSwiper, setMarketBSwiper] = useState();
   const [fanClubSwiper, setFanClubSwiper] = useState();
-  const prevAdRef = useRef();
-  const nextAdRef = useRef();
   const prevMarketRRef = useRef();
   const nextMarketRRef = useRef();
   const prevMarketBRef = useRef();
   const nextMarketBRef = useRef();
   const nextFanClubRef = useRef();
   const prevFanClubRef = useRef();
-  useEffect(() => {
-    if (adsSwiper) {
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
-  useEffect(() => {
-    if (marketRSwiper) {
-      marketRSwiper.params.navigation.prevEl = prevMarketRRef.current;
-      marketRSwiper.params.navigation.nextEl = nextMarketRRef.current;
-      marketRSwiper.navigation.init();
-      marketRSwiper.navigation.update();
-    }
-  }, [marketRSwiper]);
   // useEffect(() => {
-  //   if (marketBSwiper) {
-  //     marketBSwiper.params.navigation.prevEl = prevMarketBRef.current;
-  //     marketBSwiper.params.navigation.nextEl = nextMarketBRef.current;
-  //     marketBSwiper.navigation.init();
-  //     marketBSwiper.navigation.update();
+  //   if (adsSwiper) {
+  //     adsSwiper.params.navigation.prevEl = prevAdRef.current;
+  //     adsSwiper.params.navigation.nextEl = nextAdRef.current;
+  //     adsSwiper.navigation.init();
+  //     adsSwiper.navigation.update();
   //   }
-  // }, [marketBSwiper]);
-  useEffect(() => {
-    if (fanClubSwiper) {
-      fanClubSwiper.params.navigation.prevEl = prevFanClubRef.current;
-      fanClubSwiper.params.navigation.nextEl = nextFanClubRef.current;
-      fanClubSwiper.navigation.init();
-      fanClubSwiper.navigation.update();
-    }
-  }, [fanClubSwiper]);
+  // }, [adsSwiper]);
 
-  // useReportWebVitals((metric) => {
-  //   console.log(metric);
-  // });
+  useReportWebVitals((metric) => {
+    console.log(metric);
+  });
 
   return (
     <>
@@ -366,8 +337,9 @@ const Main = ({ jobCategories }) => {
           <section className={styles.cards}>
             <Swiper
               navigation={{
-                prevEl: prevAdRef?.current,
-                nextEl: nextAdRef?.current,
+                prevEl: "#swiper_prev",
+                nextEl: "#swiper_next",
+                clickable: true,
               }}
               spaceBetween={15}
               slidesPerView={"auto"}
@@ -421,12 +393,13 @@ const Main = ({ jobCategories }) => {
                 </>
               )}
             </Swiper>
-            <div className={styles.swiper_next} ref={nextAdRef}>
+            <div className={styles.swiper_next} id="swiper_next">
               <ArrowLeftOutlined style={{ color: "#fff" }} />
             </div>
-            <div className={styles.swiper_prev} ref={prevAdRef}>
+            <div className={styles.swiper_prev} id="swiper_prev">
               <ArrowRightOutlined style={{ color: "#fff" }} />
             </div>
+
             {/* <div className={styles.opacity}></div> */}
           </section>
         </div>
@@ -667,8 +640,9 @@ const Main = ({ jobCategories }) => {
               spaceBetween={12}
               slidesPerView={"auto"}
               navigation={{
-                nextEl: nextFanClubRef?.current,
-                prevEl: prevFanClubRef?.current,
+                nextEl: "#club_next",
+                prevEl: "#club_prev",
+                clickable: true,
               }}
               autoplay={{
                 delay: 1000,
@@ -691,10 +665,10 @@ const Main = ({ jobCategories }) => {
               ))}
             </Swiper>
 
-            <div className={styles.next} ref={nextFanClubRef}>
+            <div className={styles.next} id="club_next">
               <ArrowLeftOutlined style={{ color: "#fff" }} />
             </div>
-            <div className={styles.prev} ref={prevFanClubRef}>
+            <div className={styles.prev} id="club_prev">
               <ArrowRightOutlined style={{ color: "#fff" }} />
             </div>
           </section>
@@ -704,14 +678,26 @@ const Main = ({ jobCategories }) => {
           {clubs.length !== 0
             ? clubs.map((club, index) => (
                 <>
-                  <ClubCard
-                    key={Math.random() * index}
-                    image={club.image_url}
-                    description={club.description}
-                    authorName={club.AuthorName}
-                    id={club.id}
-                    title={club.title}
-                  />
+                  {index <= 2 ? (
+                    <ClubCard
+                      key={Math.random() * index}
+                      image={club.image_url}
+                      description={club.description}
+                      authorName={club.AuthorName}
+                      id={club.id}
+                      title={club.title}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: "100%",
+                        textAlign: "center",
+                        fontSize: "1.3em",
+                      }}
+                    >
+                      <Link href={"/clubs"}>مشاهده همه کلوپ ها</Link>
+                    </div>
+                  )}
                 </>
               ))
             : null}
