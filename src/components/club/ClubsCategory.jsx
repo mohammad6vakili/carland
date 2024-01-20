@@ -42,28 +42,7 @@ const ClubsCategory = () => {
 
   //swiper
   const [adsSwiper, setAdsSwiper] = useState();
-  const prevAdRef = useRef();
-  const nextAdRef = useRef();
-  useEffect(() => {
-    if (adsSwiper) {
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
-
   const [categorySwiper, setCategorySwiper] = useState();
-  const nextCategoryRef = useRef();
-  const prevCategoryRef = useRef();
-  useEffect(() => {
-    if (categorySwiper) {
-      categorySwiper.params.navigation.prevEl = prevCategoryRef.current;
-      categorySwiper.params.navigation.nextEl = nextCategoryRef.current;
-      categorySwiper.navigation.init();
-      categorySwiper.navigation.update();
-    }
-  }, [categorySwiper]);
 
   const MyPaginationBullet = ({ isActive }) => (
     <span className={isActive ? "active" : ""}>
@@ -92,8 +71,8 @@ const ClubsCategory = () => {
               ),
             }}
             navigation={{
-              prevEl: prevAdRef?.current,
-              nextEl: nextAdRef?.current,
+              prevEl: "#gallery_prev",
+              nextEl: "#gallery_next",
             }}
             modules={[FreeMode, Navigation, Thumbs]}
             className={s.mySwiper}
@@ -114,8 +93,6 @@ const ClubsCategory = () => {
               <h1 className={s.title}>رونمایی از جدیدترین محصول BMW</h1>
               <div className={s.texts}>
                 میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
-                پیش آمده تمام قطعات رو اینجا پیدا کنید. همچنین برای دانلودسریع و
-                بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده در
                 موبایل خود انجام دهید.
               </div>
 
@@ -131,10 +108,10 @@ const ClubsCategory = () => {
 
           <div className={s.navigation_nexprev}>
             <div className={s.navigation}>
-              <div ref={nextAdRef} className={s.next}>
+              <div className={s.next} id="gallery_next">
                 <ArrowLeftOutlined />
               </div>
-              <div ref={prevAdRef} className={s.prev}>
+              <div className={s.prev} id="gallery_prev">
                 <ArrowRightOutlined />
               </div>
             </div>
@@ -535,10 +512,10 @@ const ClubsCategory = () => {
             </div>
 
             <div className={s.navigation}>
-              <div ref={prevCategoryRef} className={s.prev}>
+              <div className={s.prev} id="suggested_prev">
                 <ArrowRightOutlined />
               </div>
-              <div ref={nextCategoryRef} className={s.next}>
+              <div className={s.next} id="suggested_next">
                 <ArrowLeftOutlined />
               </div>
             </div>
@@ -547,8 +524,9 @@ const ClubsCategory = () => {
           <div className={s.suggested_cards}>
             <Swiper
               navigation={{
-                prevEl: prevCategoryRef?.current,
-                nextEl: nextCategoryRef?.current,
+                prevEl: "#suggested_prev",
+                nextEl: "#suggested_next",
+                clickabl: true,
               }}
               modules={[Navigation]}
               slidesPerView={"auto"}
