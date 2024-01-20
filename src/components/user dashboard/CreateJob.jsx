@@ -220,7 +220,6 @@ const CreateJob = ({ jobCategories }) => {
 
   const handleFiltersClick = (value) => {
     let convertValue = value.replaceAll("  ", "");
-
     formik.values.filters.includes(convertValue)
       ? formik.values.filters.splice(convertValue)
       : formik.values.filters.push(convertValue);
@@ -331,7 +330,16 @@ const CreateJob = ({ jobCategories }) => {
                       <DropdownMenu className={s.menu}>
                         {filters
                           ? filters.map((cat, index) => (
-                              <DropdownItem className={s.item} key={cat}>
+                              <DropdownItem
+                                className={
+                                  formik.values.filters.includes(
+                                    cat.replaceAll("  ", "")
+                                  )
+                                    ? s.item_selected
+                                    : s.item
+                                }
+                                key={cat}
+                              >
                                 {cat}{" "}
                                 <Input
                                   className={s.checkbox}
