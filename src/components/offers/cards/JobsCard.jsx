@@ -17,6 +17,7 @@ const JobsCard = ({
   timeTo,
   id,
   myJobs,
+  ref,
 }) => {
   const router = useRouter();
 

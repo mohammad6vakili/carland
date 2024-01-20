@@ -7,6 +7,7 @@ import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../../skeleton/Skeleton";
 import Skeleton from "react-loading-skeleton";
+import s from "@/styles/main.module.scss";
 
 const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
   const { httpService } = useHttp();
@@ -18,7 +19,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
   const [adsPage, setAdsPage] = useState(1);
   const [sale, setSale] = useState([]);
   const [loading, setLoading] = useState(true);
-  const lastAdRef = useRef(null);
+  const lastAdRef = useRef();
   const marketItems = [
     {
       image: "/assets/main/market-1.png",
@@ -102,11 +103,11 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
       },
       { threshold: 0.5 }
     ); // Adjust threshold as needed
-
     if (lastAdRef.current) {
       observer.observe(lastAdRef.current);
     }
 
+    console.log(observer);
     return () => observer.disconnect();
   }, [lastAdRef]);
 
@@ -167,7 +168,6 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
               location={item.location}
               price={item.price}
               id={item.id}
-              ref={index === trades.length ? lastAdRef : null}
             />
           ))}
         </>
@@ -195,7 +195,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           ))}
         </>
       );
-    } else if (!jobs || !trades) {
+    } else if (!jobs && !trades) {
       <>
         <div style={{ margin: "0 auto", fontWeight: "bold", width: "100%" }}>
           موردی یافت نشد!

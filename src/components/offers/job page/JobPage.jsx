@@ -5,6 +5,7 @@ import {
   LinkOutlined,
   ArrowLeftOutlined,
   ArrowRightOutlined,
+  PhoneFilled,
 } from "@ant-design/icons";
 import Image from "next/image";
 import { Button } from "reactstrap";
@@ -28,10 +29,13 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import { useWindowSize } from "@uidotdev/usehooks";
+import toast from "react-hot-toast";
 
 const JobPage = () => {
   const pathname = usePathname();
-  const { httpService } = useHttp();
+  const size = useWindowSize();
+  const { httpService } = useHttp(true);
   const [jobData, setJobData] = useState([]);
   const [photos, setPhotos] = useState([]);
   const router = useRouter();
@@ -46,6 +50,28 @@ const JobPage = () => {
     { day: "پنجشنبه", start: "", end: "", isOpen: true },
     { day: "جمعه", start: "", end: "", isOpen: false },
   ];
+
+  const handleGetPhonAds = () => {
+    const id = jobData.id;
+    const formData = new FormData();
+    formData.append("id", id);
+
+    const response = httpService
+      .post("GetPhoneAds", formData)
+      .then((res) => {
+        if (res.status === 200) {
+          router.push(`tel:${jobData.phone}`);
+        }
+      })
+      .catch((err) => {
+        toast.error("مشکلی در پیدا کردن اطلاعات تماس شغل مورد نظر بوجود آمد");
+        if (err) {
+          return false;
+        }
+      });
+
+    return response;
+  };
 
   //swiper
   const [adsSwiper, setAdsSwiper] = useState();
@@ -385,6 +411,17 @@ const JobPage = () => {
               </Swiper>
             </div>
           </div>
+
+          {size.width < 700 ? (
+            <Button
+              onClick={() => {
+                handleGetPhonAds();
+              }}
+              className={s.phone_call_mobile}
+            >
+              <PhoneFilled /> تماس با این فروشنده
+            </Button>
+          ) : null}
         </div>
       </>
     );

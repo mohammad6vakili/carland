@@ -44,7 +44,6 @@ const offers = () => {
   const [loading, setLoading] = useState(true);
   const size = useWindowSize();
 
-  const [filterStep, setFilterStep] = useState(1);
   const [stateDropdown, setStateDropdown] = useState(false);
   const [adsFilter, setAdsFilter] = useState();
   const [adsfilterSelected, setAdsfilterSelected] = useState({
@@ -150,7 +149,10 @@ const offers = () => {
         setAdsFilter(null);
       });
       getLocal("jobCategory") !== "null"
-        ? (setJobFiltersSlected({ categoryId: getLocal("jobCategory") }),
+        ? (setJobFiltersSlected({
+            ...jobFiltersSlected,
+            categoryId: getLocal("jobCategory"),
+          }),
           removeLocal("jobCategory"))
         : null;
     }
@@ -166,8 +168,6 @@ const offers = () => {
       setOffers("بازارچه");
     }
   }, [router]);
-
-  useEffect(() => console.log(jobFiltersSlected), [jobFiltersSlected]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -191,7 +191,6 @@ const offers = () => {
 
   //ads filters
   const handleAdsFilterClick = (selected, category) => {
-    setFilterStep((current) => current + 1);
     switch (category) {
       case "color":
         setAdsfilterSelected({ ...adsfilterSelected, color: selected });
@@ -246,6 +245,8 @@ const offers = () => {
       state: "",
       cirty: "",
     });
+    removeLocal("stateName");
+    removeLocal("cityName");
   };
 
   return (
@@ -295,7 +296,7 @@ const offers = () => {
                               onClick={() =>
                                 handleAdsFilterClick(state, "state")
                               }
-                              key={state}
+                              key={index}
                             >
                               {state} <LeftCircleOutlined />
                             </DropdownItem>
@@ -551,11 +552,13 @@ const offers = () => {
                 >
                   <DropdownToggle>
                     <span>
-                      {jobFiltersSlected.state.length !== 0
-                        ? jobFiltersSlected.state +
-                          ", " +
-                          jobFiltersSlected.city
-                        : "انتخاب منطقه "}
+                      {jobFiltersSlected
+                        ? jobFiltersSlected.state?.length !== 0
+                          ? jobFiltersSlected.state +
+                            ", " +
+                            jobFiltersSlected.city
+                          : "انتخاب منطقه "
+                        : ""}
                     </span>
                     <DownButton />
                   </DropdownToggle>
@@ -564,9 +567,11 @@ const offers = () => {
                       style={{ textAlign: "right", margin: "1rem 0" }}
                       header
                     >
-                      {jobFiltersSlected.state.length !== 0
-                        ? "شهر خود را انتخاب کنید"
-                        : "استان خود را انتخاب کنید"}
+                      {jobFiltersSlected.state
+                        ? jobFiltersSlected.state.length !== 0
+                          ? "شهر خود را انتخاب کنید"
+                          : "استان خود را انتخاب کنید"
+                        : ""}
                     </DropdownItem>
                     {jobFiltersSlected.state.length === 0
                       ? statesNames.map((state, index) => (

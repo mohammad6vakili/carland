@@ -16,6 +16,7 @@ import { formatStringJSON, getLocal } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
 import { IoAddCircle } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import Compressor from "compressorjs";
 
 const CreateAdd = ({ addCategories }) => {
   const { httpService } = useHttp(true);
@@ -172,21 +173,38 @@ const CreateAdd = ({ addCategories }) => {
     setLoadingImage([selectedPhoto]);
     formData.append("image", e.target.files[0]);
 
-    httpService
-      .post("upload", formData)
-      .then((res) => {
-        // images[`${selectedPhoto}`] = res.data.url;
-        res.status === 200
-          ? setPhotos((current) => {
-              let images = current;
-              images[`${selectedPhoto}`] = res.data.url;
-              return images;
-            })
-          : null;
-        console.log(photos);
-        setLoadingImage();
-      })
-      .catch(() => {});
+    new Compressor(e.target?.files?.[0], {
+      quality: 0.6,
+
+      // The compression process is asynchronous,
+      // which means you have to access the `result` in the `success` hook function.
+      success(result) {
+        const formData = new FormData();
+
+        // The third parameter is required for server
+        formData.append("image", result, result.name);
+
+        // Send the compressed image file to server with XMLHttpRequest.
+        httpService
+          .post("upload", formData)
+          .then((res) => {
+            // images[`${selectedPhoto}`] = res.data.url;
+            res.status === 200
+              ? setPhotos((current) => {
+                  let images = current;
+                  images[`${selectedPhoto}`] = res.data.url;
+                  return images;
+                })
+              : null;
+            toast.success("عکس شما با موفقیت آپلود شد");
+            console.log(photos);
+            setLoadingImage();
+          })
+          .catch(() => {
+            toast.error("مشکلی در اپلود عکس شما بوجود آمد");
+          });
+      },
+    });
   };
 
   const handleCreateAd = (values) => {
