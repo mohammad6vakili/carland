@@ -23,6 +23,7 @@ import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import MySkeleton from "../skeleton/Skeleton";
+import Compressor from "compressorjs";
 
 const UserData = () => {
   const { httpService } = useHttp();
@@ -110,20 +111,41 @@ const UserData = () => {
   // }, [userData]);
 
   const handleUploadProfile = (event) => {
-    const formData = new FormData();
-    formData.append("image", event.target?.files?.[0]);
+    setLoading(true);
 
-    httpService
-      .post("uploadProfile", formData)
-      .then((res) => {
-        res.status === 200
-          ? (setUploadedImage(URL.createObjectURL(event.target?.files?.[0])),
-            toast.success("پروفایل شما با موفقیت تغییر کرد"))
-          : null;
-      })
-      .catch(() => {
+    new Compressor(event.target?.files?.[0], {
+      quality: 0.6,
+
+      // The compression process is asynchronous,
+      // which means you have to access the `result` in the `success` hook function.
+      success(result) {
+        const formData = new FormData();
+
+        // The third parameter is required for server
+        formData.append("image", result, result.name);
+
+        // Send the compressed image file to server with XMLHttpRequest.
+        httpService
+          .post("uploadProfile", formData)
+          .then((res) => {
+            res.status === 200
+              ? (dispatch(
+                  setUserInfo({ ...userData, image_profile: res.data.url })
+                ),
+                toast.success("پروفایل شما با موفقیت تغییر کرد"))
+              : null;
+            setLoading(false);
+          })
+          .catch(() => {
+            toast.error("در اپلود عکس پروفایل شما مشکلی بوجود امد");
+            setLoading(false);
+          });
+      },
+      error(err) {
         toast.error("در اپلود عکس پروفایل شما مشکلی بوجود امد");
-      });
+        setLoading(false);
+      },
+    });
   };
 
   return (
