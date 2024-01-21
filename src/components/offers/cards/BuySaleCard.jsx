@@ -55,7 +55,7 @@ const BuySaleCard = ({
         <section className={s.details}>
           <span className={s.title}>{title}</span>
           <p>
-            {description.length > 30
+            {description?.length > 30
               ? description?.substring(0, 25) + "..."
               : description}
           </p>
