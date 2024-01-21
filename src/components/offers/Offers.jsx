@@ -171,6 +171,18 @@ const offers = () => {
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
+  const handleChangeCards = (selected) => {
+    if (selected === "خرید و فروش") {
+      router.push("/offers/trades");
+      setOffers(selected);
+    } else if (selected === "کسب و کار") {
+      router.push("/offers/jobs");
+      setOffers(selected);
+    } else {
+      router.push("/offers/market");
+    }
+  };
+
   //jobs filters
   const handleJobsFilters = (selected, category) => {
     switch (category) {
@@ -229,6 +241,8 @@ const offers = () => {
       return { borderBottom: "2px solid #142D5D", color: "#142D5D" };
     } else return { border: "" };
   };
+
+  // clear all filters
   const clearFilters = () => {
     setAdsfilterSelected({
       fuel: "",
@@ -822,19 +836,23 @@ const offers = () => {
                 >
                   <DropdownToggle caret>{offers}</DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem onClick={() => setOffers("فروش")}>
+                    <DropdownItem onClick={() => handleChangeCards("فروش")}>
                       {" "}
                       فروش
                     </DropdownItem>
-                    <DropdownItem onClick={() => setOffers("خرید و فروش")}>
+                    <DropdownItem
+                      onClick={() => handleChangeCards("خرید و فروش")}
+                    >
                       {" "}
                       خرید و فروش
                     </DropdownItem>
-                    <DropdownItem onClick={() => setOffers("خدمات")}>
+                    <DropdownItem onClick={() => handleChangeCards("خدمات")}>
                       {" "}
                       خدمات
                     </DropdownItem>
-                    <DropdownItem onClick={() => setOffers("کسب و کار")}>
+                    <DropdownItem
+                      onClick={() => handleChangeCards("کسب و کار")}
+                    >
                       {" "}
                       کسب و کار
                     </DropdownItem>

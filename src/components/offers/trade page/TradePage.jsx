@@ -8,7 +8,14 @@ import {
   PhoneFilled,
 } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "reactstrap";
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from "reactstrap";
 import SuggestCard from "../../suggest card";
 import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
@@ -20,10 +27,13 @@ import { useWindowSize } from "@uidotdev/usehooks";
 const TradePage = () => {
   const router = useRouter();
   const size = useWindowSize();
+  const [loading, setLoading] = useState(false);
   const [tradeData, setTradeData] = useState([]);
   const [photos, setPhotos] = useState([]);
   const { httpService } = useHttp(true);
   const [alikeOffers, setAlikeOffers] = useState([]);
+  const [reportText, setReportText] = useState("");
+  const [reportModal, setReportModal] = useState(false);
 
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -102,7 +112,7 @@ const TradePage = () => {
       .post("GetPhoneAds", formData)
       .then((res) => {
         if (res.status === 200) {
-          handleCopy(`${tradeData.phone}`);
+          handleCopy(`${tradeData.phone}`, "شماره آگهی مورد نظر کپی شد ");
         }
       })
       .catch((err) => {
@@ -113,6 +123,35 @@ const TradePage = () => {
       });
 
     return response;
+  };
+
+  const handleReportSubmit = () => {
+    setLoading(true);
+    const id = tradeData.id;
+    const formData = new FormData();
+    formData.append("id", id);
+    formData.append("report_text", reportText);
+
+    httpService
+      .post("submitReport", formData)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("گزارش شما با موفقیت ثبت و به پشتیبانی ارجاع داده شد");
+        }
+        setLoading(false);
+        setReportModal(false);
+      })
+      .catch((err) => {
+        toast.error("در ثبت کردن گزارش شما مشکلی بوجود آمد");
+        if (err) {
+          return false;
+        }
+        setLoading(false);
+      });
+  };
+
+  const handleReportModal = () => {
+    setReportModal(!reportModal);
   };
 
   if (tradeData.length !== 0) {
@@ -264,22 +303,6 @@ const TradePage = () => {
                     <p>۴۵ لیتر</p>
                     <p>حجم سوخت</p>
                   </div>
-                  {size.width > 1000 && (
-                    <>
-                      <div className={s.line}></div>
-                      <div
-                        style={{ justifyContent: "center" }}
-                        onClick={() => handleGetPhonAdsPc()}
-                        className={s.box}
-                      >
-                        <PhoneFilled />
-                        <p></p>
-                        <p style={{ textAlign: "center" }}>
-                          شماره تماس این آگهی
-                        </p>
-                      </div>
-                    </>
-                  )}
                 </div>
               </div>
 
@@ -299,6 +322,26 @@ const TradePage = () => {
                 <div className={s.table}>
                   <p>{tradeData.description}</p>
                 </div>
+              </div>
+
+              <div className={s.report_phoneNum}>
+                <Button
+                  onClick={handleReportModal}
+                  block={size.width < 1000}
+                  active
+                  color="danger"
+                >
+                  گزارش این آگهی
+                </Button>
+                {size.width > 1000 && (
+                  <Button
+                    onClick={handleGetPhonAdsPc}
+                    style={{ background: "#142D5D" }}
+                    active
+                  >
+                    اطللاعات تماس این آگهی
+                  </Button>
+                )}
               </div>
             </div>
 
@@ -420,7 +463,7 @@ const TradePage = () => {
             </div>
           </div>
 
-          {size.width < 700 ? (
+          {size.width < 1000 ? (
             <Button
               onClick={() => {
                 handleGetPhonAds();
@@ -430,6 +473,27 @@ const TradePage = () => {
               <PhoneFilled /> تماس با این آگهی
             </Button>
           ) : null}
+
+          <Modal isOpen={reportModal} toggle={handleReportModal} centered>
+            <ModalHeader>گزارش آگهی {`${tradeData.title}`}</ModalHeader>
+            <ModalBody>
+              {" "}
+              <p>دلیل گزارش خود را در فیلد زیر وارد کنید:</p>
+              <Input
+                value={reportText}
+                onChange={(e) => setReportText(e.target.value)}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                disabled={loading || reportText.length === 0}
+                onClick={handleReportSubmit}
+                color="danger"
+              >
+                تایید
+              </Button>
+            </ModalFooter>
+          </Modal>
         </div>
       </>
     );

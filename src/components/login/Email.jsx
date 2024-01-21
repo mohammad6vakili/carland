@@ -66,6 +66,7 @@ const Email = ({ verify }) => {
       .then((res) => {
         setLoading(false);
         setTime(60);
+        setResendCode(false);
         res.status === 200 && res.data.success
           ? (router.push("/login/verify"),
             toast.success("کد به شماره شما ارسال شد"))

@@ -179,6 +179,13 @@ $carousel-borderRadius: 20px;
         }
       }
     }
+
+    .report_phoneNum {
+      @include flex(row, space-between, center);
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
   }
 
   .other_details {
@@ -432,6 +439,12 @@ $carousel-borderRadius: 20px;
 
 @media only screen and (max-width: 450px) {
   .trade_page {
+    .main_content {
+      .report_phoneNum {
+        max-width: 450px;
+      }
+    }
+
     .alike_offers {
       .title {
         .next_prev_offers {
