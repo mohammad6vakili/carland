@@ -26,17 +26,7 @@ const UserDashboard = () => {
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const lastAd = useRef();
 
-  const nextAdRef = useRef();
-  const prevAdRef = useRef();
   const [adsSwiper, setAdsSwiper] = useState(null);
-  useEffect(() => {
-    if (adsSwiper) {
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
 
   //request
   useEffect(() => {
@@ -50,10 +40,6 @@ const UserDashboard = () => {
         console.log(err);
       });
   }, []);
-
-  useEffect(() => {
-    console.log(lastAd);
-  }, [lastAd]);
 
   return (
     <>
@@ -133,10 +119,10 @@ const UserDashboard = () => {
             <span>آگهی‌های من</span>
 
             <div className={s.navigation}>
-              <div ref={prevAdRef} className={s.prev}>
+              <div className={s.prev} id="swiper_prev">
                 <RightOutlined />
               </div>
-              <div ref={nextAdRef} className={s.next}>
+              <div className={s.next} id="swiper_next">
                 <LeftOutlined />
               </div>
             </div>
@@ -148,8 +134,8 @@ const UserDashboard = () => {
               slidesPerView={"auto"}
               spaceBetween={20}
               navigation={{
-                prevEl: prevAdRef?.current,
-                nextEl: nextAdRef?.current,
+                prevEl: "#swiper_prev",
+                nextEl: "#swiper_next",
               }}
               grabCursor
               onSwiper={setAdsSwiper}

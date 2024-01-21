@@ -13,6 +13,7 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   // transpilePackages: ["react-leaflet"],
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;

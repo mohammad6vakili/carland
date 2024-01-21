@@ -843,13 +843,11 @@ const offers = () => {
               </div>
             </div>
 
-            <div className={s.market_cards}>
-              <CardRenderer
-                offers={offers}
-                adsFilter={adsfilterSelected}
-                jobsFilter={jobFiltersSlected}
-              />
-            </div>
+            <CardRenderer
+              offers={offers}
+              adsFilter={adsfilterSelected}
+              jobsFilter={jobFiltersSlected}
+            />
           </div>
         </section>
       </div>

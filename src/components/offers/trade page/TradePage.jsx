@@ -2,7 +2,11 @@ import s from "../../../../styles/main.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";
-import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  PhoneFilled,
+} from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
 import SuggestCard from "../../suggest card";
@@ -10,28 +14,20 @@ import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import { convertDate } from "../../comments/CommentCards";
-import { handleTextCut } from "@/src/hooks/functions";
+import { handleCopy, handleTextCut } from "@/src/hooks/functions";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const TradePage = () => {
   const router = useRouter();
+  const size = useWindowSize();
   const [tradeData, setTradeData] = useState([]);
   const [photos, setPhotos] = useState([]);
-  const { httpService } = useHttp();
+  const { httpService } = useHttp(true);
   const [alikeOffers, setAlikeOffers] = useState([]);
 
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [adsSwiper, setAdsSwiper] = useState();
-  const prevAdRef = useRef();
-  const nextAdRef = useRef();
-  useEffect(() => {
-    if (adsSwiper) {
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
 
   //handle photos
   useEffect(() => {
@@ -75,6 +71,50 @@ const TradePage = () => {
       });
   }, []);
 
+  const handleGetPhonAds = () => {
+    const id = tradeData.id;
+    const formData = new FormData();
+    formData.append("id", id);
+
+    const response = httpService
+      .post("GetPhoneAds", formData)
+      .then((res) => {
+        if (res.status === 200) {
+          router.push(`tel:${tradeData.phone}`);
+        }
+      })
+      .catch((err) => {
+        toast.error("مشکلی در پیدا کردن اطلاعات تماس آگهی مورد نظر بوجود آمد");
+        if (err) {
+          return false;
+        }
+      });
+
+    return response;
+  };
+
+  const handleGetPhonAdsPc = () => {
+    const id = tradeData.id;
+    const formData = new FormData();
+    formData.append("id", id);
+
+    const response = httpService
+      .post("GetPhoneAds", formData)
+      .then((res) => {
+        if (res.status === 200) {
+          handleCopy(`${tradeData.phone}`);
+        }
+      })
+      .catch((err) => {
+        toast.error("مشکلی در پیدا کردن اطلاعات تماس آگهی مورد نظر بوجود آمد");
+        if (err) {
+          return false;
+        }
+      });
+
+    return response;
+  };
+
   if (tradeData.length !== 0) {
     return (
       <>
@@ -89,7 +129,12 @@ const TradePage = () => {
                 {photos.length !== 0 ? (
                   <Swiper
                     spaceBetween={50}
-                    thumbs={{ swiper: thumbsSwiper }}
+                    thumbs={{
+                      swiper:
+                        thumbsSwiper && !thumbsSwiper.destroyed
+                          ? thumbsSwiper
+                          : null,
+                    }}
                     modules={[FreeMode, Navigation, Thumbs]}
                     className={s.my_swiper}
                   >
@@ -219,6 +264,22 @@ const TradePage = () => {
                     <p>۴۵ لیتر</p>
                     <p>حجم سوخت</p>
                   </div>
+                  {size.width > 1000 && (
+                    <>
+                      <div className={s.line}></div>
+                      <div
+                        style={{ justifyContent: "center" }}
+                        onClick={() => handleGetPhonAdsPc()}
+                        className={s.box}
+                      >
+                        <PhoneFilled />
+                        <p></p>
+                        <p style={{ textAlign: "center" }}>
+                          شماره تماس این آگهی
+                        </p>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -318,10 +379,10 @@ const TradePage = () => {
               </span>{" "}
               <p>آگهی‌های مشابه</p>
               <div className={s.next_prev_offers}>
-                <div className={s.prev} ref={prevAdRef}>
+                <div className={s.prev} id="suggested_prev">
                   <ArrowRightOutlined />
                 </div>
-                <div className={s.next} ref={nextAdRef}>
+                <div className={s.next} id="suggested_next">
                   <ArrowLeftOutlined />
                 </div>
               </div>
@@ -330,8 +391,9 @@ const TradePage = () => {
             <div className={s.cards}>
               <Swiper
                 navigation={{
-                  prevEl: prevAdRef?.current,
-                  nextEl: nextAdRef?.current,
+                  prevEl: "#suggested_prev",
+                  nextEl: "#suggested_next",
+                  clickable: true,
                 }}
                 slidesPerView={"auto"}
                 spaceBetween={15}
@@ -357,6 +419,17 @@ const TradePage = () => {
               </Swiper>
             </div>
           </div>
+
+          {size.width < 700 ? (
+            <Button
+              onClick={() => {
+                handleGetPhonAds();
+              }}
+              className={s.phone_call_mobile}
+            >
+              <PhoneFilled /> تماس با این آگهی
+            </Button>
+          ) : null}
         </div>
       </>
     );

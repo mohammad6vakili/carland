@@ -51,28 +51,6 @@ const JobPage = () => {
     { day: "جمعه", start: "", end: "", isOpen: false },
   ];
 
-  const handleGetPhonAds = () => {
-    const id = jobData.id;
-    const formData = new FormData();
-    formData.append("id", id);
-
-    const response = httpService
-      .post("GetPhoneAds", formData)
-      .then((res) => {
-        if (res.status === 200) {
-          router.push(`tel:${jobData.phone}`);
-        }
-      })
-      .catch((err) => {
-        toast.error("مشکلی در پیدا کردن اطلاعات تماس شغل مورد نظر بوجود آمد");
-        if (err) {
-          return false;
-        }
-      });
-
-    return response;
-  };
-
   //swiper
   const [adsSwiper, setAdsSwiper] = useState();
   const prevAdRef = useRef();
@@ -411,17 +389,6 @@ const JobPage = () => {
               </Swiper>
             </div>
           </div>
-
-          {size.width < 700 ? (
-            <Button
-              onClick={() => {
-                handleGetPhonAds();
-              }}
-              className={s.phone_call_mobile}
-            >
-              <PhoneFilled /> تماس با این فروشنده
-            </Button>
-          ) : null}
         </div>
       </>
     );

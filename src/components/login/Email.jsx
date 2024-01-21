@@ -32,6 +32,7 @@ const Email = ({ verify }) => {
   const schema = Yup.object().shape({
     number: Yup.string().required("لطفا این فیلد را پر کنید"),
     // .min(11, "لطفا یک شماره ۱۱ رقمی وارد کنید"),
+    code: Yup.string(),
   });
 
   const handleSendCode = (values) => {

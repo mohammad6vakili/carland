@@ -21,16 +21,6 @@ const Jobs = () => {
   const [myJobs, setMyJobs] = useState();
 
   const [adsSwiper, setAdsSwiper] = useState();
-  const prevAdRef = useRef();
-  const nextAdRef = useRef();
-  useEffect(() => {
-    if (adsSwiper) {
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
 
   useEffect(() => {
     httpService
@@ -55,10 +45,10 @@ const Jobs = () => {
             <span>مشاغل من</span>
 
             <section className={s.navigation}>
-              <div ref={prevAdRef} className={s.prev}>
+              <div className={s.prev} id="swiper_prev">
                 <RightOutlined />
               </div>
-              <div ref={nextAdRef} className={s.next}>
+              <div className={s.next} id="swiper_next">
                 <LeftOutlined />
               </div>
             </section>
@@ -70,8 +60,8 @@ const Jobs = () => {
               slidesPerView={"auto"}
               freeMode
               navigation={{
-                prevEl: prevAdRef?.current,
-                nextEl: nextAdRef?.current,
+                prevEl: "#swiper_prev",
+                nextEl: "#swiper_next",
               }}
               onSwiper={setAdsSwiper}
               modules={[Navigation, FreeMode]}

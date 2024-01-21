@@ -60,27 +60,7 @@ const MagazineCategory = ({ adsCategories }) => {
 
   //swiper
   const [adsSwiper, setAdsSwiper] = useState();
-  const prevAdRef = useRef();
-  const nextAdRef = useRef();
-  useEffect(() => {
-    if (adsSwiper) {
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
   const [categorySwiper, setCategorySwiper] = useState();
-  const nextCategoryRef = useRef();
-  const prevCategoryRef = useRef();
-  useEffect(() => {
-    if (categorySwiper) {
-      categorySwiper.params.navigation.prevEl = prevCategoryRef.current;
-      categorySwiper.params.navigation.nextEl = nextCategoryRef.current;
-      categorySwiper.navigation.init();
-      categorySwiper.navigation.update();
-    }
-  }, [categorySwiper]);
 
   const MyPaginationBullet = ({ isActive }) => (
     <span className={isActive ? "active" : ""}>
@@ -115,8 +95,8 @@ const MagazineCategory = ({ adsCategories }) => {
               ),
             }}
             navigation={{
-              prevEl: prevAdRef?.current,
-              nextEl: nextAdRef?.current,
+              prevEl: "#gallery_prev",
+              nextEl: "#gallery_next",
             }}
             modules={[FreeMode, Navigation, Thumbs]}
             className={s.mySwiper}
@@ -154,10 +134,10 @@ const MagazineCategory = ({ adsCategories }) => {
 
           <div className={s.navigation_nexprev}>
             <div className={s.navigation}>
-              <div ref={nextAdRef} className={s.next}>
+              <div className={s.next} id="gallery_next">
                 <ArrowLeftOutlined />
               </div>
-              <div ref={prevAdRef} className={s.prev}>
+              <div className={s.prev} id="gallery_prev">
                 <ArrowRightOutlined />
               </div>
             </div>
@@ -325,10 +305,10 @@ const MagazineCategory = ({ adsCategories }) => {
             </div>
 
             <div className={s.navigation}>
-              <div ref={prevCategoryRef} className={s.prev}>
+              <div className={s.prev} id="suggested_prev">
                 <ArrowRightOutlined />
               </div>
-              <div ref={nextCategoryRef} className={s.next}>
+              <div className={s.next} id="suggested_next">
                 <ArrowLeftOutlined />
               </div>
             </div>
@@ -337,8 +317,8 @@ const MagazineCategory = ({ adsCategories }) => {
           <div className={s.suggested_cards}>
             <Swiper
               navigation={{
-                prevEl: prevCategoryRef?.current,
-                nextEl: nextCategoryRef?.current,
+                prevEl: "#suggested_prev",
+                nextEl: "#suggested_next",
               }}
               modules={[Navigation]}
               slidesPerView={"auto"}
