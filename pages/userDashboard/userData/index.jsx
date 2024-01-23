@@ -6,6 +6,7 @@ import UserDashboard from "@/src/components/user dashboard/UserDashboard";
 import UserData from "@/src/components/user dashboard/UserData";
 import Head from "next/head";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const page = () => {
   return (
