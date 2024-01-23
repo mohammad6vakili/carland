@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import { convertDate } from "../../comments/CommentCards";
 import { handleCopy, handleTextCut } from "@/src/hooks/functions";
 import { useWindowSize } from "@uidotdev/usehooks";
+import Head from "next/head";
 
 const TradePage = () => {
   const router = useRouter();
@@ -157,6 +158,9 @@ const TradePage = () => {
   if (tradeData.length !== 0) {
     return (
       <>
+        <Head>
+          <title>{tradeData.title}</title>
+        </Head>
         <div className={s.trade_page}>
           <div className={s.main_title}>
             <h1>{tradeData.title}</h1>

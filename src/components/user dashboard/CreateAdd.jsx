@@ -125,6 +125,12 @@ const CreateAdd = ({ addCategories }) => {
   });
 
   useEffect(() => {
+    // window.onbeforeunload = function (event) {
+    //   return confirm("Confirm refresh");
+    // };
+  }, []);
+
+  useEffect(() => {
     const categoyId = formik.values.category;
     const adsFilter = JSON.parse(formatStringJSON(getLocal("adsFilter")));
     setLoading(true);
