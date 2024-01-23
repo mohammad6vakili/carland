@@ -138,7 +138,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
 
   if (offers === "خرید و فروش" && trades && trades.length !== 0) {
     return (
-      <section>
+      <section className={s.market_cards}>
         <InfiniteScroll
           className={s.market_cards}
           style={{ overflow: "none" }}
@@ -176,14 +176,16 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           ))}
         </InfiniteScroll>
         {loading && (
-          <Skeleton
-            key={Math.random()}
-            borderRadius={"10px"}
-            className="flex-1"
-            width={"220px"}
-            height={"300px"}
-            style={{ margin: "1rem" }}
-          />
+          <div className={s.buy_sale_card}>
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"100%"}
+              height={"100%"}
+              style={{ margin: "1rem" }}
+            />
+          </div>
         )}
       </section>
     );

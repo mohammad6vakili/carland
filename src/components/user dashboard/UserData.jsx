@@ -24,10 +24,11 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import MySkeleton from "../skeleton/Skeleton";
 import Compressor from "compressorjs";
+import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 
-const UserData = () => {
+const UserData = ({ userInfo }) => {
   const { httpService } = useHttp();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [uploadedImage, setUploadedImage] = useState(null);
   const userData = useSelector((state) => state.userInfo.userInfo);
   const [initialValues, setInitialValues] = useState({
@@ -47,7 +48,7 @@ const UserData = () => {
   //handle requests
   const handleSetUserData = () => {
     setInitialValues({
-      name: userData.name,
+      name: `${userData?.name}`,
       gender: userData.Gender,
       age: userData.age,
       carType: userData.CarType,
@@ -76,7 +77,7 @@ const UserData = () => {
   });
 
   const formik = useFormik({
-    initialValues,
+    initialValues: initialValues,
 
     validationSchema,
 
@@ -103,12 +104,18 @@ const UserData = () => {
     },
   });
 
-  // useEffect(() => {
-  //   console.log(formik.values);
-  // }, [formik.values]);
-  // useEffect(() => {
-  //   console.log(userData);
-  // }, [userData]);
+  useEffect(() => {
+    setLoading(true);
+    console.log(userData);
+    console.log(initialValues);
+  }, []);
+  useEffect(() => {
+    if (userData) {
+      console.log(initialValues);
+      // handleSetUserData();
+      setLoading(false);
+    }
+  }, [userData]);
 
   const handleUploadProfile = (event) => {
     setLoading(true);
@@ -152,7 +159,7 @@ const UserData = () => {
     <>
       <div className={s.user_data}>
         <div className={s.user_form}>
-          {userData ? (
+          {userData && !loading ? (
             <Form onSubmit={formik.handleSubmit} className={s.form}>
               <FormGroup className={s.formGroup}>
                 <Label for="name">نام کاربری</Label>
