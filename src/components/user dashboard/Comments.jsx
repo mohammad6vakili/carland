@@ -103,7 +103,11 @@ const UserComments = () => {
                       <tr key={comment.id}>
                         <td>{convertDate(comment.created_at)}</td>
                         <td>{comment.content}</td>
-                        <td>
+                        <td
+                          style={{
+                            color: handleCommnetStatus(comment.status).color,
+                          }}
+                        >
                           {comment.status !== undefined
                             ? handleCommnetStatus(comment.status).text
                             : "-"}

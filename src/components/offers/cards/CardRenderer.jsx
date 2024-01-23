@@ -80,11 +80,22 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     httpService
       .post(`services/search?page=${jobsPage}`, formData)
       .then((res) => {
-        res.status === 200
-          ? res.data.code == 404
-            ? setJobs(null)
+        res.status === 200 && res.data.code == 404 && setJobs(null);
+
+        res.status === 200 && res.data.code != 404
+          ? jobs && jobs.length !== 0
+            ? res.data.data.data.map((data) => {
+                jobs.push(data);
+              })
             : setJobs(res.data.data.data)
           : null;
+
+        res.status === 200 &&
+        res.data.code !== 404 &&
+        res.data.data.next_page_url
+          ? setMoreJobs(true)
+          : setMoreJobs(false);
+
         setLoading(false);
       })
       .catch((err) => toast.error(err.message));
@@ -99,15 +110,18 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     formData.append("gear_box", adsFilter.gearBoxType);
     formData.append("state", adsFilter.state);
     formData.append("state", adsFilter.city);
+
     httpService
       .post(`advertisements?page=${adsPage}`, formData)
       .then((res) => {
-        res.status === 200
-          ? res.data.code == 404
-            ? setTrades(null)
-            : res.data.data.data.map((data) => {
-                setTrades((current) => [...current, data]);
+        res.status === 200 && res.data.code == 404 && setTrades(null);
+
+        res.status === 200 && res.data.code != 404
+          ? trades && trades.length !== 0
+            ? res.data.data.data.map((data) => {
+                trades.push(data);
               })
+            : setTrades(res.data.data.data)
           : null;
 
         res.status === 200 &&
@@ -122,63 +136,82 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
 
   useEffect(() => console.log(trades), [trades]);
 
-  if (loading === false) {
-    if (offers === "خرید و فروش" && trades && trades.length !== 0) {
-      return (
-        <section>
-          <InfiniteScroll
-            className={s.market_cards}
-            style={{ overflow: "none" }}
-            dataLength={trades.length}
-            next={() => {
-              moreAds ? setAdsPage((current) => current + 1) : null;
-              handleGetAds();
-            }}
-            hasMore={moreAds}
-            // loader={}
-            endMessage={
-              <div
-                style={{
-                  width: "100%",
-                  marginTop: "2rem",
-                  textAlign: "center",
-                }}
-              >
-                <b>شما تمام آگهی ها را تماشا کردید</b>
-              </div>
-            }
-            // below props only if you need pull down functionality
-          >
-            {trades.map((item, index) => (
-              <BuySaleCard
-                key={Math.random() * index}
-                createYear={item.production_year}
-                image={item.mainImage !== "undefined" ? item.mainImage : ""}
-                title={item.title}
-                description={item.description}
-                timePosted={item.timeAgo}
-                location={item.location}
-                price={item.price}
-                id={item.id}
-              />
-            ))}
-          </InfiniteScroll>
-          {loading &&
-            marketItems.map((item, index) => (
-              <Skeleton
-                key={Math.random()}
-                borderRadius={"10px"}
-                className="flex-1"
-                width={"220px"}
-                height={"300px"}
-                style={{ margin: "1rem" }}
-              />
-            ))}
-        </section>
-      );
-    } else if (offers === "کسب و کار" && jobs && jobs.length !== 0) {
-      return (
-        <section className={s.market_cards}>
+  if (offers === "خرید و فروش" && trades && trades.length !== 0) {
+    return (
+      <section>
+        <InfiniteScroll
+          className={s.market_cards}
+          style={{ overflow: "none" }}
+          dataLength={trades.length}
+          next={() => {
+            moreAds ? setAdsPage((current) => current + 1) : null;
+            handleGetAds();
+          }}
+          hasMore={moreAds}
+          endMessage={
+            <div
+              style={{
+                width: "100%",
+                marginTop: "2rem",
+                textAlign: "center",
+              }}
+            >
+              <b>شما تمام آگهی ها را تماشا کردید</b>
+            </div>
+          }
+          // below props only if you need pull down functionality
+        >
+          {trades.map((item, index) => (
+            <BuySaleCard
+              key={Math.random() * index}
+              createYear={item.production_year}
+              image={item.mainImage !== "undefined" ? item.mainImage : ""}
+              title={item.title}
+              description={item.description}
+              timePosted={item.timeAgo}
+              location={item.location}
+              price={item.price}
+              id={item.id}
+            />
+          ))}
+        </InfiniteScroll>
+        {loading && (
+          <Skeleton
+            key={Math.random()}
+            borderRadius={"10px"}
+            className="flex-1"
+            width={"220px"}
+            height={"300px"}
+            style={{ margin: "1rem" }}
+          />
+        )}
+      </section>
+    );
+  } else if (offers === "کسب و کار" && jobs && jobs.length !== 0) {
+    return (
+      <section className={s.market_cards}>
+        <InfiniteScroll
+          className={s.market_cards}
+          style={{ overflow: "none" }}
+          dataLength={trades.length}
+          next={() => {
+            moreJobs ? setJobsPage((current) => current + 1) : null;
+            handleGetJobs();
+          }}
+          hasMore={moreAds}
+          endMessage={
+            <div
+              style={{
+                width: "100%",
+                marginTop: "2rem",
+                textAlign: "center",
+              }}
+            >
+              <b>شما تمام آگهی ها را تماشا کردید</b>
+            </div>
+          }
+          // below props only if you need pull down functionality
+        >
           {jobs.map((item, index) => (
             <JobsCard
               key={Math.random() * index}
@@ -197,33 +230,50 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
               id={item.id}
             />
           ))}
-        </section>
-      );
-    } else if (!jobs || !trades) {
-      return (
-        <>
-          <div style={{ margin: "0 auto", fontWeight: "bold", width: "100%" }}>
-            موردی یافت نشد!
-          </div>
-        </>
-      );
-    } else if (offers === "خدمات" || offers === "فروش") {
-      return (
-        <>
-          {marketItems.map((item, index) => (
-            <MarketCard
-              key={Math.random() * index}
-              image={item.image}
-              off={item.off}
-              title={item.title}
-              description={item.description}
-              price={item.price}
-              index={index + 1}
-            />
-          ))}
-        </>
-      );
-    }
+        </InfiniteScroll>
+        {loading && (
+          <Skeleton
+            key={Math.random()}
+            borderRadius={"10px"}
+            className="flex-1"
+            width={"220px"}
+            height={"300px"}
+            style={{ margin: "1rem" }}
+          />
+        )}
+      </section>
+    );
+  } else if (!jobs || !trades) {
+    return (
+      <>
+        <div
+          style={{
+            textAlign: "center",
+            margin: "2rem 0",
+            fontWeight: "bold",
+            width: "100%",
+          }}
+        >
+          موردی یافت نشد!
+        </div>
+      </>
+    );
+  } else if (offers === "خدمات" || offers === "فروش") {
+    return (
+      <>
+        {marketItems.map((item, index) => (
+          <MarketCard
+            key={Math.random() * index}
+            image={item.image}
+            off={item.off}
+            title={item.title}
+            description={item.description}
+            price={item.price}
+            index={index + 1}
+          />
+        ))}
+      </>
+    );
   }
 };
 

@@ -29,10 +29,13 @@ const Email = ({ verify }) => {
     getLocal("number") === "null" ? router.push("/login") : null;
   }, []);
 
-  const schema = Yup.object().shape({
-    number: Yup.string().required("لطفا این فیلد را پر کنید"),
-    // .min(11, "لطفا یک شماره ۱۱ رقمی وارد کنید"),
-    code: Yup.string(),
+  const loginSchema = Yup.object().shape({
+    number: Yup.string()
+      .required("لطفا شماره خود را وارد کنید")
+      .min(11, "لطفا یک شماره معتبر وارد کنید"),
+  });
+  const verifySchema = Yup.object().shape({
+    code: Yup.string().required("لطفا کد ۶ رقمی ارسال شده را وارد کنید"),
   });
 
   const handleSendCode = (values) => {
@@ -66,6 +69,7 @@ const Email = ({ verify }) => {
       .then((res) => {
         setLoading(false);
         setTime(60);
+        setResendCode(false);
         res.status === 200 && res.data.success
           ? (router.push("/login/verify"),
             toast.success("کد به شماره شما ارسال شد"))
@@ -81,7 +85,7 @@ const Email = ({ verify }) => {
     setLoading(true);
     const formData = new FormData();
     formData.append("phone", parseInt(userNumber));
-    formData.append("verification_code", values.number);
+    formData.append("verification_code", values.code);
 
     httpService
       .post("verify", formData)
@@ -110,7 +114,7 @@ const Email = ({ verify }) => {
       number: "",
     },
 
-    validationSchema: schema,
+    validationSchema: verify ? verifySchema : loginSchema,
 
     onSubmit: async (values) => {
       verify ? handleVerify(values) : handleSendCode(values);
@@ -164,15 +168,15 @@ const Email = ({ verify }) => {
             {verify ? (
               <div className={styles.verify_input}>
                 <Input
-                  name="number"
-                  value={formik.values.number}
+                  name="code"
+                  value={formik.values.code}
                   onChange={formik.handleChange}
-                  type="number"
+                  type="code"
                   placeholder="کد تایید"
                 />
 
-                {formik.errors.number && formik.touched.number && (
-                  <span className={styles.error}>{formik.errors.number}</span>
+                {formik.errors.code && formik.touched.code && (
+                  <span className={styles.error}>{formik.errors.code}</span>
                 )}
 
                 <section className={styles.resend_code}>
