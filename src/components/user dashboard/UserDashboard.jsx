@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 import { toPersianString } from "@/src/hooks/functions";
 
 const UserDashboard = () => {
-  const { httpService } = useHttp(false);
+  const { httpService } = useHttp(true);
   const [ads, setAds] = useState([]);
   const [adsPage, setAdsPage] = useState(1);
   const userInfo = useSelector((state) => state.userInfo.userInfo);

@@ -6,9 +6,34 @@ import UserDashboard from "@/src/components/user dashboard/UserDashboard";
 import UserData from "@/src/components/user dashboard/UserData";
 import Head from "next/head";
 import React from "react";
-import { useSelector } from "react-redux";
+import { baseUrl } from "@/src/axiosConfig/useHttp";
+import axios from "axios";
+import { getLocal } from "@/src/hooks/functions";
+import toast from "react-hot-toast";
 
-const page = () => {
+export async function getStaticProps() {
+  const userInfo = await axios
+    .post(`${baseUrl}/user`, {
+      headers: {
+        Authorization: `Bearer ${getLocal("token")}`,
+      },
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return {};
+      }
+    })
+    .catch((err) => {
+      toast.error("مشکلی در پیدا کردن اطلاعات این صفحه بوجود امد");
+      return {};
+    });
+
+  return { props: { userInfo } };
+}
+
+const page = ({ userInfo }) => {
   return (
     <>
       <Head>
@@ -17,7 +42,7 @@ const page = () => {
       <Header />
       <section className={styles.userDashboard_container}>
         <UDNavigation />
-        <UserData />
+        <UserData userInfo={userInfo} />
       </section>
       <Footer />
     </>

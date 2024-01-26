@@ -32,7 +32,7 @@ const useHttp = (checkAuth) => {
         // toast.error("اطلاعات ثبت نام شما یافت نشد");
         removeLocal("token");
         setLocal("token", "unAuth");
-        navigate.push("/login");
+        navigate.replace("/login");
       } else if (response?.status === 422) {
         if (response?.data?.errors) {
           toast.error(response?.data?.errors[0].detail);

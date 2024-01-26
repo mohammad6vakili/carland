@@ -32,7 +32,7 @@ const UserData = ({ userInfo }) => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const userData = useSelector((state) => state.userInfo.userInfo);
   const [initialValues, setInitialValues] = useState({
-    name: "",
+    name: `${userInfo.name}`,
     gender: "",
     age: "",
     carType: "",
@@ -106,16 +106,15 @@ const UserData = ({ userInfo }) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log(userData);
-    console.log(initialValues);
   }, []);
   useEffect(() => {
-    if (userData) {
+    if (userInfo) {
       console.log(initialValues);
+      console.log(userInfo);
       // handleSetUserData();
       setLoading(false);
     }
-  }, [userData]);
+  }, [userInfo]);
 
   const handleUploadProfile = (event) => {
     setLoading(true);
