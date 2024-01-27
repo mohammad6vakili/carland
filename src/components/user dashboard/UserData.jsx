@@ -46,22 +46,6 @@ const UserData = ({ userInfo }) => {
   });
 
   //handle requests
-  const handleSetUserData = () => {
-    setInitialValues({
-      name: `${userData?.name}`,
-      gender: userData.Gender,
-      age: userData.age,
-      carType: userData.CarType,
-      idCard: userData.NationalCode,
-      address: userData.city,
-      technicalDiagnosis: userData.TechnicalDiagnosis,
-      expirationInsurance: userData.ExpirationInsurance,
-      expirationCertificate: userData.ExpirationCertificate,
-      dateofCarInstallments: userData.DateofCarInstallments,
-      profile: userData.image_profile,
-    });
-  };
-
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("لطفا نام خود را وارد کنید"),
     gender: Yup.string().required("لطفا این فیلد را پر کنید"),
@@ -109,7 +93,6 @@ const UserData = ({ userInfo }) => {
   }, []);
   useEffect(() => {
     if (userInfo) {
-      console.log(initialValues);
       console.log(userInfo);
       // handleSetUserData();
       setLoading(false);
@@ -157,8 +140,8 @@ const UserData = ({ userInfo }) => {
   return (
     <>
       <div className={s.user_data}>
-        <div className={s.user_form}>
-          {userData && !loading ? (
+        <section className={s.user_form}>
+          {userInfo && !loading ? (
             <Form onSubmit={formik.handleSubmit} className={s.form}>
               <FormGroup className={s.formGroup}>
                 <Label for="name">نام کاربری</Label>
@@ -381,7 +364,7 @@ const UserData = ({ userInfo }) => {
           ) : (
             <MySkeleton width={"100%"} height={"500px"} />
           )}
-        </div>
+        </section>
       </div>
     </>
   );

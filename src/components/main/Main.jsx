@@ -168,15 +168,6 @@ const Main = ({ jobCategories }) => {
 
   //swipers
   const [adsSwiper, setAdsSwiper] = useState();
-  const [marketRSwiper, setMarketRSwiper] = useState();
-  const [marketBSwiper, setMarketBSwiper] = useState();
-  const [fanClubSwiper, setFanClubSwiper] = useState();
-  const prevMarketRRef = useRef();
-  const nextMarketRRef = useRef();
-  const prevMarketBRef = useRef();
-  const nextMarketBRef = useRef();
-  const nextFanClubRef = useRef();
-  const prevFanClubRef = useRef();
   // useEffect(() => {
   //   if (adsSwiper) {
   //     adsSwiper.params.navigation.prevEl = prevAdRef.current;
@@ -194,8 +185,8 @@ const Main = ({ jobCategories }) => {
     <>
       <Head>
         <meta property="og:image" content={url + "/"} />
-        <meta name="keywords" content={jobCategories.keywords} />
-        <meta name="description" content={jobCategories.descriptions} />
+        <meta name="keywords" content={jobCategories?.keywords} />
+        <meta name="description" content={jobCategories?.descriptions} />
       </Head>
       <section className={styles.main}>
         {loading ? <Loading /> : null}
@@ -345,7 +336,6 @@ const Main = ({ jobCategories }) => {
               slidesPerView={"auto"}
               grabCursor={true}
               modules={[Navigation]}
-              onSwiper={setAdsSwiper}
               className={styles.my_swiper}
             >
               {ads.length !== 0 ? (
@@ -650,7 +640,6 @@ const Main = ({ jobCategories }) => {
               }}
               grabCursor={true}
               modules={[Navigation, Autoplay]}
-              onSwiper={setFanClubSwiper}
               className={styles.my_swiper}
             >
               {clubsCategory.map((club, index) => (

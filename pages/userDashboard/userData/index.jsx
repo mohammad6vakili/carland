@@ -19,7 +19,7 @@ export async function getStaticProps() {
       },
     })
     .then((res) => {
-      if (res.status === 200) {
+      if (res.status <= 200 || res.status > 300) {
         return res.data;
       } else {
         return {};
