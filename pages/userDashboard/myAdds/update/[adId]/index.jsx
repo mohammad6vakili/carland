@@ -14,7 +14,7 @@ const page = ({ addCategories }) => {
       </Head>
       <Header />
       <div className={styles.userDashboard_container}>
-        <CreateAdd addCategories={addCategories} />
+        <CreateAdd type={"edit"} />
       </div>
       <Footer />
     </>

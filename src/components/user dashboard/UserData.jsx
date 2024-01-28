@@ -19,7 +19,7 @@ import { MdOutlineEditLocationAlt } from "react-icons/md";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
-import useHttp from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import MySkeleton from "../skeleton/Skeleton";
@@ -29,6 +29,7 @@ import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 const UserData = () => {
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(true);
+  const [imageLoading, setImageLoading] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
   const userData = useSelector((state) => state.userInfo.userInfo);
   const [initialValues, setInitialValues] = useState({
@@ -108,12 +109,15 @@ const UserData = () => {
       formik.setFieldValue("name", userData.name);
       formik.setFieldValue("gender", userData.Gender);
       formik.setFieldValue("age", userData.age);
-      console.log(formik.values);
+      // formik.setFieldValue("profile", userData.image_profile);
+      formik.setFieldValue("address", userData.city);
+      formik.setFieldValue("idCard", userData.NationalCode);
+      console.log(userData);
     }
   }, [userData]);
 
   const handleUploadProfile = (event) => {
-    setLoading(true);
+    setImageLoading(true);
 
     new Compressor(event.target?.files?.[0], {
       quality: 0.6,
@@ -136,11 +140,11 @@ const UserData = () => {
                 ),
                 toast.success("پروفایل شما با موفقیت تغییر کرد"))
               : null;
-            setLoading(false);
+            setImageLoading(false);
           })
           .catch(() => {
             toast.error("در اپلود عکس پروفایل شما مشکلی بوجود امد");
-            setLoading(false);
+            setImageLoading(false);
           });
       },
       error(err) {
@@ -333,10 +337,19 @@ const UserData = () => {
 
               <div className={s.profile}>
                 <div className={s.text}>
-                  <Image
-                    src={uploadedImage ? uploadedImage : profilePlaceholder}
-                    alt=""
-                  />
+                  <section className={s.profile_place}>
+                    <Image
+                      src={
+                        userData?.image_profile
+                          ? url + userData.image_profile
+                          : profilePlaceholder
+                      }
+                      alt=""
+                      width={100}
+                      height={100}
+                      style={imageLoading ? { opacity: 0.5 } : {}}
+                    />
+                  </section>
 
                   <div>
                     <p>عکس پروفایل خود را انتخاب کنید</p>

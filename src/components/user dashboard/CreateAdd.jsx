@@ -18,7 +18,7 @@ import { IoAddCircle } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import Compressor from "compressorjs";
 
-const CreateAdd = ({ addCategories }) => {
+const CreateAdd = ({ addCategories, type }) => {
   const { httpService } = useHttp(true);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -126,7 +126,7 @@ const CreateAdd = ({ addCategories }) => {
 
   useEffect(() => {
     // window.onbeforeunload = function (event) {
-    //   return confirm("Confirm refresh");
+    //   return alert("Confirm refresh");
     // };
   }, []);
 
