@@ -26,13 +26,13 @@ import MySkeleton from "../skeleton/Skeleton";
 import Compressor from "compressorjs";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 
-const UserData = ({ userInfo }) => {
+const UserData = () => {
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(true);
   const [uploadedImage, setUploadedImage] = useState(null);
   const userData = useSelector((state) => state.userInfo.userInfo);
   const [initialValues, setInitialValues] = useState({
-    name: `${userInfo.name}`,
+    name: "",
     gender: "",
     age: "",
     carType: "",
@@ -61,7 +61,21 @@ const UserData = ({ userInfo }) => {
   });
 
   const formik = useFormik({
-    initialValues: initialValues,
+    enableReinitialize: true,
+
+    initialValues: {
+      name: "",
+      gender: "",
+      age: "",
+      carType: "",
+      idCard: "",
+      address: "",
+      technicalDiagnosis: "",
+      expirationInsurance: "",
+      expirationCertificate: "",
+      dateofCarInstallments: "",
+      profile: "",
+    },
 
     validationSchema,
 
@@ -89,15 +103,12 @@ const UserData = ({ userInfo }) => {
   });
 
   useEffect(() => {
-    setLoading(true);
-  }, []);
-  useEffect(() => {
-    if (userInfo) {
-      console.log(userInfo);
-      // handleSetUserData();
+    if (userData) {
       setLoading(false);
+      formik.setFieldValue = { name: userData.name };
+      console.log(formik.values);
     }
-  }, [userInfo]);
+  }, [userData]);
 
   const handleUploadProfile = (event) => {
     setLoading(true);
@@ -141,7 +152,7 @@ const UserData = ({ userInfo }) => {
     <>
       <div className={s.user_data}>
         <section className={s.user_form}>
-          {userInfo && !loading ? (
+          {userData && !loading ? (
             <Form onSubmit={formik.handleSubmit} className={s.form}>
               <FormGroup className={s.formGroup}>
                 <Label for="name">نام کاربری</Label>

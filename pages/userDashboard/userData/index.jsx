@@ -7,33 +7,33 @@ import UserData from "@/src/components/user dashboard/UserData";
 import Head from "next/head";
 import React from "react";
 import { baseUrl } from "@/src/axiosConfig/useHttp";
-import axios from "axios";
 import { getLocal } from "@/src/hooks/functions";
-import toast from "react-hot-toast";
 
-export async function getStaticProps() {
-  const userInfo = await axios
-    .post(`${baseUrl}/user`, {
-      headers: {
-        Authorization: `Bearer ${getLocal("token")}`,
-      },
-    })
-    .then((res) => {
-      if (res.status <= 200 || res.status > 300) {
-        return res.data;
-      } else {
-        return {};
-      }
-    })
-    .catch((err) => {
-      toast.error("مشکلی در پیدا کردن اطلاعات این صفحه بوجود امد");
-      return {};
-    });
+// export async function getStaticProps() {
+//   const res = await fetch(`${baseUrl}/user`, {
+//     method: "GET",
+//     headers: {
+//       Authorization:
+//         getLocal("token") !== "null" ? `Bearer ${getLocal("token")}` : "",
+//       Accept: "application/json",
+//       "app-type": "10",
+//     },
+//   })
+//     .then((res) => {
+//       return res;
+//     })
+//     .catch((err) => {
+//       console.log("مشکلی در پیدا کردن اطلاعات این صفحه بوجود امد");
+//       return null;
+//     });
 
-  return { props: { userInfo } };
-}
+//   console.log(res);
+//   const userInfo = res ? await res.json() : null;
 
-const page = ({ userInfo }) => {
+//   return { props: { userInfo } };
+// }
+
+const page = () => {
   return (
     <>
       <Head>
@@ -42,7 +42,7 @@ const page = ({ userInfo }) => {
       <Header />
       <section className={styles.userDashboard_container}>
         <UDNavigation />
-        <UserData userInfo={userInfo} />
+        <UserData />
       </section>
       <Footer />
     </>

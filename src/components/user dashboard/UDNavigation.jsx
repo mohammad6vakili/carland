@@ -67,7 +67,7 @@ const UDNavigation = () => {
   const handleLogout = () => {
     removeLocal("token");
     router.push("/login");
-    toast.success("با موفقیت از خارج شدید");
+    toast.success("با موفقیت از برنامه خارج شدید");
   };
 
   const handleNavColl = () => {
@@ -166,19 +166,28 @@ const UDNavigation = () => {
           ) : (
             <>
               <div className={s.name_profile}>
-                <div className={s.profile}>
+                <div className={s.image_profile}>
                   <MySkeleton
                     width={"60px"}
                     height={"60px"}
                     borderRadius={"50%"}
+                    className={s.profile}
                   />
                 </div>
                 <div className={s.name}>
                   <span>
-                    <MySkeleton width={"50%"} height={"20px"} />
+                    <MySkeleton
+                      width={"30px"}
+                      height={"10px"}
+                      borderRadius={"3px"}
+                    />
                   </span>
                   <p>
-                    <MySkeleton width={"50%"} height={"20px"} />
+                    <MySkeleton
+                      width={"40px"}
+                      height={"10px"}
+                      borderRadius={"3px"}
+                    />
                   </p>
                 </div>
               </div>
