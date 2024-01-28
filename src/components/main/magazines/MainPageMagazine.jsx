@@ -57,7 +57,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                   <span>{magazines[0].title}</span>
                 </div>
                 <div className={styles.description}>
-                  <span>{handleTextCut(magazines[0].description, 250)}</span>
+                  <span>{handleTextCut(magazines[0].description, 200)}</span>
                   <Image
                     src={"/assets/main/quotation.svg"}
                     alt=""

@@ -9,7 +9,8 @@
   margin: 0 auto;
 }
 
-.magazines {
+.magazines,
+.clubs {
   @include flex(column, flex-start, center);
   @include responsive();
   width: 100%;

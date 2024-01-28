@@ -13,7 +13,7 @@ import MySkeleton from "../skeleton/Skeleton";
 import Link from "next/link";
 import { handleTextCut } from "@/src/hooks/functions";
 
-const MagazineCategory = ({ adsCategories }) => {
+const MagazineCategory = ({ magCategories }) => {
   const photos = [
     { src: "/assets/trades/trade-1.png" },
     { src: "/assets/trades/trade-2.png" },
@@ -183,8 +183,8 @@ const MagazineCategory = ({ adsCategories }) => {
           </section>
 
           <section className={s.categories}>
-            {adsCategories ? (
-              adsCategories.map((cat, index) => (
+            {magCategories ? (
+              magCategories.map((cat, index) => (
                 <div
                   onClick={() => handleSelectedCategory(cat.id)}
                   key={Math.random() * index}
