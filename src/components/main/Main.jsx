@@ -156,8 +156,6 @@ const Main = ({ jobCategories }) => {
       : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
   }, []);
 
-  console.log(first);
-
   //swipers
   // useEffect(() => {
   //   if (adsSwiper) {
