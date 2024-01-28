@@ -76,22 +76,7 @@ const Main = ({ jobCategories }) => {
       price: "۲,۵۰۰,۰۰۰",
     },
   ];
-  const clubsCategory = [
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-  ];
+  const [clubsCategory, setClubCategory] = useState([]);
 
   const { httpService } = useHttp();
   const size = useWindowSize();
@@ -133,6 +118,13 @@ const Main = ({ jobCategories }) => {
       });
 
     httpService
+      .get("/CategoriesClub")
+      .then((res) => {
+        res.status === 200 ? setClubCategory(res.data.data) : null;
+      })
+      .catch((err) => {});
+
+    httpService
       .get("clubs")
       .then((res) => {
         res.status === 200 ? setClubs(res.data.data) : null;
@@ -141,8 +133,6 @@ const Main = ({ jobCategories }) => {
       .catch((err) => {
         toast.error("خطا در ارتباط با سرور");
       });
-
-    console.log();
 
     getLocal("serviceCat") === "null" ||
     calculateTime(
@@ -167,7 +157,6 @@ const Main = ({ jobCategories }) => {
   }, []);
 
   //swipers
-  const [adsSwiper, setAdsSwiper] = useState();
   // useEffect(() => {
   //   if (adsSwiper) {
   //     adsSwiper.params.navigation.prevEl = prevAdRef.current;
@@ -177,9 +166,9 @@ const Main = ({ jobCategories }) => {
   //   }
   // }, [adsSwiper]);
 
-  useReportWebVitals((metric) => {
-    console.log(metric);
-  });
+  // useReportWebVitals((metric) => {
+  //   console.log(metric);
+  // });
 
   return (
     <>
@@ -642,16 +631,57 @@ const Main = ({ jobCategories }) => {
               modules={[Navigation, Autoplay]}
               className={styles.my_swiper}
             >
-              {clubsCategory.map((club, index) => (
-                <SwiperSlide
-                  className={styles.slide}
-                  key={Math.random() * index}
-                >
-                  <div className={styles.box}>
-                    <Image src={club.src} alt="" width={50} height={50} />
-                  </div>
-                </SwiperSlide>
-              ))}
+              {clubsCategory.length !== 0 ? (
+                clubsCategory.map((club, index) => (
+                  <>
+                    {!!club.image.length && (
+                      <SwiperSlide
+                        className={styles.slide}
+                        key={Math.random() * index}
+                      >
+                        <div className={styles.box}>
+                          <Image
+                            src={url + club.image}
+                            alt=""
+                            width={50}
+                            height={50}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    )}
+                  </>
+                ))
+              ) : (
+                <>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                </>
+              )}
             </Swiper>
 
             <div className={styles.next} id="club_next">

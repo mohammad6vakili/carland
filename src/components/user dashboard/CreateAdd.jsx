@@ -11,11 +11,11 @@ import kilometers from "../../../public/assets/userDashboard/add images placehol
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import useHttp from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import { formatStringJSON, getLocal } from "@/src/hooks/functions";
 import toast from "react-hot-toast";
 import { IoAddCircle } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import Compressor from "compressorjs";
 
 const CreateAdd = ({ addCategories, type }) => {
@@ -68,6 +68,10 @@ const CreateAdd = ({ addCategories, type }) => {
     "یزد",
   ];
 
+  //edit data
+  const [editCategories, setEditCategories] = useState(null);
+  const [addData, setaddData] = useState(null);
+
   //local images
   const [localMoreSide, setLocalMoreSide] = useState();
   const [localFront, setLocalFront] = useState();
@@ -95,6 +99,8 @@ const CreateAdd = ({ addCategories, type }) => {
   });
 
   const formik = useFormik({
+    enableReinitialize: true,
+
     initialValues: {
       rearView: "",
       frontView: "",
@@ -125,19 +131,13 @@ const CreateAdd = ({ addCategories, type }) => {
   });
 
   useEffect(() => {
-    // window.onbeforeunload = function (event) {
-    //   return alert("Confirm refresh");
-    // };
-  }, []);
-
-  useEffect(() => {
-    const categoyId = formik.values.category;
+    const categoryId = formik.values.category;
     const adsFilter = JSON.parse(formatStringJSON(getLocal("adsFilter")));
     setLoading(true);
 
-    categoyId
+    categoryId
       ? httpService
-          .get(`models/${categoyId}`)
+          .get(`models/${categoryId}`)
           .then((res) => {
             setModels(res.data.models);
           })
@@ -152,7 +152,7 @@ const CreateAdd = ({ addCategories, type }) => {
       : null;
 
     setLoading(false);
-  }, [formik.values.category]);
+  }, [formik.values]);
 
   const handleUploadPhoto = (e, selectedPhoto) => {
     // const canUpload = e?.target?.files[0].size / 1024 / 1000;
@@ -240,19 +240,86 @@ const CreateAdd = ({ addCategories, type }) => {
     formData.append("price", values.price);
     formData.append("state", values.state);
 
-    httpService
-      .post("ads", formData)
-      .then((res) => {
-        res.status === 200 ? toast.success("آگهی شما با موفقیت ثبت شد") : null;
-        setLoading(false);
-        // router.back();
-      })
-      .catch((err) => {
-        toast.error("مشکلی در ثبت آگهی بوجود امد");
-        toast.error(err);
-        setLoading(false);
-      });
+    const id = router?.query?.adId;
+    type !== "edit"
+      ? httpService
+          .post("ads", formData)
+          .then((res) => {
+            res.status === 200
+              ? toast.success("آگهی شما با موفقیت ثبت شد")
+              : null;
+            setLoading(false);
+            // router.back();
+          })
+          .catch((err) => {
+            toast.error("مشکلی در ثبت آگهی بوجود امد");
+            toast.error(err);
+            setLoading(false);
+          })
+      : httpService
+          .post(`ads/${id}`, formData)
+          .then((res) => {
+            res.status === 200
+              ? toast.success("آگهی شما با موفقیت بروزرسانی شد")
+              : null;
+            setLoading(false);
+            // router.back();
+          })
+          .catch((err) => {
+            toast.error("مشکلی در بروزرسانی آگهی بوجود امد");
+            toast.error(err);
+            setLoading(false);
+          });
   };
+
+  //edit conditions
+  useEffect(() => {
+    if (type === "edit") {
+      //add data
+      const id = router.query.adId;
+      httpService
+        .get(`/Showads/${id}`)
+        .then((res) => {
+          res.status === 200 ? setaddData(res.data.data) : null;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      //categories
+      httpService
+        .get("/CategoryCars")
+        .then((res) => {
+          res.status === 200 ? setEditCategories(res.data) : null;
+        })
+        .catch((err) => {});
+    }
+  }, [router]);
+
+  useEffect(() => {
+    if (addData) {
+      formik.setFieldValue("category", parseInt(addData.car_model));
+      formik.setFieldValue("color", addData.color);
+      formik.setFieldValue("kilometers", addData.kilometers);
+      formik.setFieldValue("description", addData.description);
+      formik.setFieldValue("description", addData.description);
+      formik.setFieldValue("fuel", addData.Fuel_type);
+      formik.setFieldValue("bodyCondition", addData.body_condition);
+      formik.setFieldValue("gearbox", addData.gearbox_type);
+      formik.setFieldValue("title", addData.title);
+      formik.setFieldValue("location", addData.location);
+      formik.setFieldValue("state", addData.state);
+      formik.setFieldValue("price", addData.price);
+      formik.setFieldValue("productYear", addData.production_year);
+      addData.front_view && setLocalFront(url + addData.front_view);
+      addData.rear_view && setLocalRear(url + addData.rear_view);
+      addData.left_view && setLocalLeft(url + addData.left_view);
+      addData.right_view && setLocalRight(url + addData.right_view);
+      addData.kilometers_view &&
+        setLocalKilometers(url + addData.kilometers_view);
+      addData.mainImage && setLocalMoreSide(url + addData.mainImage);
+    }
+  }, [addData]);
 
   return (
     <>
@@ -272,13 +339,18 @@ const CreateAdd = ({ addCategories, type }) => {
                 <option defaultValue value="" disabled>
                   دسته بندی
                 </option>
-                {addCategories
+                {addCategories && type !== "edit"
                   ? addCategories.map((cat) => (
                       <option value={cat.id} key={cat.id}>
                         {cat.name}
                       </option>
                     ))
-                  : null}
+                  : editCategories &&
+                    editCategories.map((cat) => (
+                      <option value={cat.id} key={cat.id}>
+                        {cat.name}
+                      </option>
+                    ))}
               </Input>
             </div>
 
@@ -509,7 +581,7 @@ const CreateAdd = ({ addCategories, type }) => {
                     نوع سوخت
                   </option>
                   <option value="بنزین">بنزین</option>
-                  <option value="گازوئیل(دیزل)">گازوئیل</option>
+                  <option value="گازوئیل(دیزل)">گازوئیل(دیزل)</option>
                   <option value="دوگانه سوز">دوگانه سوز</option>
                   <option value="هیبریدی">هیبریدی</option>
                 </Input>

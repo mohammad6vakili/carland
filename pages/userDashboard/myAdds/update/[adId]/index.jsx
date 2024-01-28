@@ -6,7 +6,7 @@ import CreateAdd from "@/src/components/user dashboard/CreateAdd";
 import { baseUrl } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 
-const page = ({ addCategories }) => {
+const page = () => {
   return (
     <>
       <Head>
