@@ -11,8 +11,9 @@ import toast from "react-hot-toast";
 import SuggestCard from "../suggest card";
 import { handleTextCut } from "@/src/hooks/functions";
 import { convertDate } from "../comments/CommentCards";
+import MySkeleton from "../skeleton/Skeleton";
 
-const ClubsCategory = () => {
+const ClubsCategory = ({ clubCategories }) => {
   const photos = [
     { src: "/assets/trades/trade-1.png" },
     { src: "/assets/trades/trade-2.png" },
@@ -24,11 +25,14 @@ const ClubsCategory = () => {
   ];
   const categories = [{}, {}, {}];
   const [clubs, setClubs] = useState([]);
+  const [clubByCategory, setclubByCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const { httpService } = useHttp();
 
   //handle requests
   useEffect(() => {
+    console.log(clubCategories);
     httpService
       .get("clubs")
       .then((res) => {
@@ -40,9 +44,26 @@ const ClubsCategory = () => {
       });
   }, []);
 
-  //swiper
-  const [adsSwiper, setAdsSwiper] = useState();
-  const [categorySwiper, setCategorySwiper] = useState();
+  useEffect(() => {
+    selectedCategory
+      ? httpService
+          .get(`clubs/${selectedCategory}`)
+          .then((res) => {
+            res.status === 200 ? setMagazinesByCat(res.data.data) : null;
+          })
+          .catch((err) => {
+            toast.error(
+              "مشکلی در پیدا کردن مجلات با دسته بندی مورد نظر بوجود امد"
+            );
+          })
+      : null;
+  }, [selectedCategory]);
+
+  const handleSelectedCategory = (id) => {
+    selectedCategory === id
+      ? (setclubByCategory(null), setSelectedCategory(null))
+      : setSelectedCategory(id);
+  };
 
   const MyPaginationBullet = ({ isActive }) => (
     <span className={isActive ? "active" : ""}>
@@ -76,7 +97,6 @@ const ClubsCategory = () => {
             }}
             modules={[FreeMode, Navigation, Thumbs]}
             className={s.mySwiper}
-            onSwiper={setAdsSwiper}
           >
             {photos.map(() => (
               <SwiperSlide key={Math.random()} className={s.slide}>
@@ -135,7 +155,11 @@ const ClubsCategory = () => {
             </div>
           </section>
 
-          <MainPageMagazine magazines={clubs} method={"club"} header={false} />
+          <MainPageMagazine
+            magazines={clubs}
+            method={"magazine"}
+            overflowedDes={true}
+          />
         </div>
 
         <div className={s.clubs_category}>
@@ -152,6 +176,28 @@ const ClubsCategory = () => {
           </section>
 
           <section className={s.categories}>
+            {clubCategories ? (
+              clubCategories.map((cat, index) => (
+                <div
+                  onClick={() => handleSelectedCategory(cat.id)}
+                  key={Math.random() * index}
+                  className={
+                    selectedCategory === cat.id ? s.selected_cat : s.category
+                  }
+                >
+                  {cat.name}
+
+                  {selectedCategory === cat.id && (
+                    <div className={s.selected_sign}></div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <MySkeleton width={"100%"} height={"100%"} />
+            )}
+          </section>
+
+          <section className={s.clubs}>
             <div className={s.category}>
               <div className={s.list}>
                 <div className={s.image}>
@@ -532,7 +578,6 @@ const ClubsCategory = () => {
               slidesPerView={"auto"}
               className={s.swiper}
               spaceBetween={15}
-              onSwiper={setCategorySwiper}
             >
               {clubs
                 ? clubs.length !== 0

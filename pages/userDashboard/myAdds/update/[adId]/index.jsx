@@ -6,7 +6,7 @@ import CreateAdd from "@/src/components/user dashboard/CreateAdd";
 import { baseUrl } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 
-const page = ({ addCategories }) => {
+const page = () => {
   return (
     <>
       <Head>
@@ -14,7 +14,7 @@ const page = ({ addCategories }) => {
       </Head>
       <Header />
       <div className={styles.userDashboard_container}>
-        <CreateAdd addCategories={addCategories} />
+        <CreateAdd type={"edit"} />
       </div>
       <Footer />
     </>

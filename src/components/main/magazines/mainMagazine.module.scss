@@ -49,6 +49,7 @@
       position: relative;
       img {
         width: 100%;
+        height: 100%;
         object-fit: cover;
         border-radius: 20px;
       }
@@ -189,6 +190,7 @@
 
     .content {
       .solid_pic {
+        height: 300px;
         .caption {
           width: 95%;
           padding: 5px;

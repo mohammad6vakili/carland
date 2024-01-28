@@ -79,16 +79,6 @@ const Club = () => {
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [adsSwiper, setAdsSwiper] = useState();
-  const prevAdRef = useRef();
-  const nextAdRef = useRef();
-  useEffect(() => {
-    if (adsSwiper) {
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
 
   if (clubData.length !== 0) {
     return (
@@ -457,10 +447,10 @@ const Club = () => {
               </span>{" "}
               <p>کلوپ‌های پیشنهادی</p>
               <div className={s.next_prev_offers}>
-                <div className={s.prev} ref={prevAdRef}>
+                <div className={s.prev} id="suggested-prev">
                   <ArrowRightOutlined />
                 </div>
-                <div className={s.next} ref={nextAdRef}>
+                <div className={s.next} id="suggested-next">
                   <ArrowLeftOutlined />
                 </div>
               </div>
@@ -469,8 +459,8 @@ const Club = () => {
             <div className={s.cards}>
               <Swiper
                 navigation={{
-                  prevEl: prevAdRef?.current,
-                  nextEl: nextAdRef?.current,
+                  prevEl: "#suggested-prev",
+                  nextEl: "#suggested-next",
                 }}
                 slidesPerView={"auto"}
                 modules={[Navigation, FreeMode]}
@@ -588,10 +578,10 @@ const Club = () => {
               </span>{" "}
               <p>کلوپ‌های پیشنهادی</p>
               <div className={s.next_prev_offers}>
-                <div className={s.prev} ref={prevAdRef}>
+                <div className={s.prev} id="suggested-prev">
                   <ArrowRightOutlined />
                 </div>
-                <div className={s.next} ref={nextAdRef}>
+                <div className={s.next} id="suggested-next">
                   <ArrowLeftOutlined />
                 </div>
               </div>
@@ -600,40 +590,19 @@ const Club = () => {
             <div className={s.cards}>
               <Swiper
                 navigation={{
-                  prevEl: prevAdRef?.current,
-                  nextEl: nextAdRef?.current,
-                }}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 1.8,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 2.5,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 3.2,
-                    spaceBetween: 50,
-                  },
-                  1360: {
-                    slidesPerView: 3.8,
-                    spaceBetween: 50,
-                  },
+                  prevEl: "#suggested-prev",
+                  nextEl: "#suggested-next",
                 }}
                 modules={[Navigation, FreeMode]}
                 className="mySwiper"
-                onSwiper={setAdsSwiper}
               >
                 {latestClubs.map((offer, index) => (
                   <SwiperSlide key={Math.random() * index}>
                     <SuggestCard
                       image={"/assets/main/car-2.png"}
-                      title={"ام وی ام، X55 PRO"}
-                      description={
-                        "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و فوری از طریق مجموعه شعب نمایندگی 777 انجام می شود"
-                      }
-                      time={"۱۴۰۲/۰۸/۰۱"}
+                      title={""}
+                      description={""}
+                      time={""}
                     />
                   </SwiperSlide>
                 ))}

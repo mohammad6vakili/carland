@@ -3,6 +3,8 @@ import s from "../../../../styles/main.module.scss";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";
 import { url } from "@/src/axiosConfig/useHttp";
+import { GoBookmark } from "react-icons/go";
+import { GoBookmarkFill } from "react-icons/go";
 
 const BuySaleCard = ({
   createYear,
@@ -41,12 +43,7 @@ const BuySaleCard = ({
                 />
               </div>
               <div>
-                <Image
-                  src={"/assets/offers/bookmark.svg"}
-                  alt=""
-                  width={15}
-                  height={15}
-                />
+                <GoBookmark style={{ color: "#fff" }} />
               </div>
             </div>
           </div>

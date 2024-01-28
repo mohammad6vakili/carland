@@ -76,22 +76,7 @@ const Main = ({ jobCategories }) => {
       price: "۲,۵۰۰,۰۰۰",
     },
   ];
-  const clubsCategory = [
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-    { src: "/assets/main/club.svg" },
-  ];
+  const [clubsCategory, setClubCategory] = useState([]);
 
   const { httpService } = useHttp();
   const size = useWindowSize();
@@ -133,6 +118,13 @@ const Main = ({ jobCategories }) => {
       });
 
     httpService
+      .get("/CategoriesClub")
+      .then((res) => {
+        res.status === 200 ? setClubCategory(res.data.data) : null;
+      })
+      .catch((err) => {});
+
+    httpService
       .get("clubs")
       .then((res) => {
         res.status === 200 ? setClubs(res.data.data) : null;
@@ -141,8 +133,6 @@ const Main = ({ jobCategories }) => {
       .catch((err) => {
         toast.error("خطا در ارتباط با سرور");
       });
-
-    console.log();
 
     getLocal("serviceCat") === "null" ||
     calculateTime(
@@ -166,17 +156,9 @@ const Main = ({ jobCategories }) => {
       : setServiceCat(JSON.parse(formatStringJSON(getLocal("serviceCat"))));
   }, []);
 
+  console.log(first);
+
   //swipers
-  const [adsSwiper, setAdsSwiper] = useState();
-  const [marketRSwiper, setMarketRSwiper] = useState();
-  const [marketBSwiper, setMarketBSwiper] = useState();
-  const [fanClubSwiper, setFanClubSwiper] = useState();
-  const prevMarketRRef = useRef();
-  const nextMarketRRef = useRef();
-  const prevMarketBRef = useRef();
-  const nextMarketBRef = useRef();
-  const nextFanClubRef = useRef();
-  const prevFanClubRef = useRef();
   // useEffect(() => {
   //   if (adsSwiper) {
   //     adsSwiper.params.navigation.prevEl = prevAdRef.current;
@@ -186,16 +168,16 @@ const Main = ({ jobCategories }) => {
   //   }
   // }, [adsSwiper]);
 
-  useReportWebVitals((metric) => {
-    console.log(metric);
-  });
+  // useReportWebVitals((metric) => {
+  //   console.log(metric);
+  // });
 
   return (
     <>
       <Head>
         <meta property="og:image" content={url + "/"} />
-        <meta name="keywords" content={jobCategories.keywords} />
-        <meta name="description" content={jobCategories.descriptions} />
+        <meta name="keywords" content={jobCategories?.keywords} />
+        <meta name="description" content={jobCategories?.descriptions} />
       </Head>
       <section className={styles.main}>
         {loading ? <Loading /> : null}
@@ -345,7 +327,6 @@ const Main = ({ jobCategories }) => {
               slidesPerView={"auto"}
               grabCursor={true}
               modules={[Navigation]}
-              onSwiper={setAdsSwiper}
               className={styles.my_swiper}
             >
               {ads.length !== 0 ? (
@@ -650,19 +631,59 @@ const Main = ({ jobCategories }) => {
               }}
               grabCursor={true}
               modules={[Navigation, Autoplay]}
-              onSwiper={setFanClubSwiper}
               className={styles.my_swiper}
             >
-              {clubsCategory.map((club, index) => (
-                <SwiperSlide
-                  className={styles.slide}
-                  key={Math.random() * index}
-                >
-                  <div className={styles.box}>
-                    <Image src={club.src} alt="" width={50} height={50} />
-                  </div>
-                </SwiperSlide>
-              ))}
+              {clubsCategory.length !== 0 ? (
+                clubsCategory.map((club, index) => (
+                  <>
+                    {!!club.image.length && (
+                      <SwiperSlide
+                        className={styles.slide}
+                        key={Math.random() * index}
+                      >
+                        <div className={styles.box}>
+                          <Image
+                            src={url + club.image}
+                            alt=""
+                            width={50}
+                            height={50}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    )}
+                  </>
+                ))
+              ) : (
+                <>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                  <SwiperSlide className={styles.slide}>
+                    <div className={styles.box}></div>
+                  </SwiperSlide>
+                </>
+              )}
             </Swiper>
 
             <div className={styles.next} id="club_next">

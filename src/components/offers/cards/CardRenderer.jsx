@@ -176,16 +176,12 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           ))}
         </InfiniteScroll>
         {loading && (
-          <div className={s.buy_sale_card}>
-            <Skeleton
-              key={Math.random()}
-              borderRadius={"10px"}
-              className="flex-1"
-              width={"100%"}
-              height={"100%"}
-              style={{ margin: "1rem" }}
-            />
-          </div>
+          <>
+            <div className={s.buy_sale_card}></div>
+            <div className={s.buy_sale_card}></div>
+            <div className={s.buy_sale_card}></div>
+            <div className={s.buy_sale_card}></div>
+          </>
         )}
       </section>
     );
@@ -234,14 +230,40 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           ))}
         </InfiniteScroll>
         {loading && (
-          <Skeleton
-            key={Math.random()}
-            borderRadius={"10px"}
-            className="flex-1"
-            width={"220px"}
-            height={"300px"}
-            style={{ margin: "1rem" }}
-          />
+          <>
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"220px"}
+              height={"300px"}
+              style={{ margin: "1rem" }}
+            />
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"220px"}
+              height={"300px"}
+              style={{ margin: "1rem" }}
+            />
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"220px"}
+              height={"300px"}
+              style={{ margin: "1rem" }}
+            />
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"220px"}
+              height={"300px"}
+              style={{ margin: "1rem" }}
+            />
+          </>
         )}
       </section>
     );
