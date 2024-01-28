@@ -105,7 +105,9 @@ const UserData = () => {
   useEffect(() => {
     if (userData) {
       setLoading(false);
-      formik.setFieldValue = { name: userData.name };
+      formik.setFieldValue("name", userData.name);
+      formik.setFieldValue("gender", userData.Gender);
+      formik.setFieldValue("age", userData.age);
       console.log(formik.values);
     }
   }, [userData]);
