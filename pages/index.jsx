@@ -3,8 +3,6 @@ import Header from "../src/components/header-footer/Header";
 import Footer from "@/src/components/header-footer/Footer";
 import Main from "@/src/components/main/Main";
 import { baseUrl } from "@/src/axiosConfig/useHttp";
-import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
-import toast from "react-hot-toast";
 
 export async function getStaticProps() {
   const res = await fetch(`${baseUrl}/categories`)

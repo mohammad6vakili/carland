@@ -257,13 +257,13 @@ const CreateAdd = ({ addCategories, type }) => {
             setLoading(false);
           })
       : httpService
-          .post(`ads/${id}`, formData)
+          .put(`ads/${id}`, formData)
           .then((res) => {
             res.status === 200
               ? toast.success("آگهی شما با موفقیت بروزرسانی شد")
               : null;
             setLoading(false);
-            // router.back();
+            router.back();
           })
           .catch((err) => {
             toast.error("مشکلی در بروزرسانی آگهی بوجود امد");

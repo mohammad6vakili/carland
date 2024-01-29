@@ -86,6 +86,7 @@ const UserData = () => {
       formData.append("name", values.name);
       formData.append("Gender", values.gender);
       formData.append("age", values.age);
+      formData.append("NationalCode", values.idCard);
       formData.append("city", values.address);
 
       httpService
