@@ -86,6 +86,7 @@ const Jobs = () => {
                         location={card.state}
                         timeFrom={card.timeFrom}
                         timeTo={card.timeTo}
+                        status={card.status}
                         id={card.id}
                         myJobs={true}
                       />

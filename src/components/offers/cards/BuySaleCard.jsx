@@ -3,8 +3,6 @@ import s from "../../../../styles/main.module.scss";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";
 import { url } from "@/src/axiosConfig/useHttp";
-import { GoBookmark } from "react-icons/go";
-import { GoBookmarkFill } from "react-icons/go";
 
 const BuySaleCard = ({
   createYear,
@@ -33,19 +31,7 @@ const BuySaleCard = ({
               <span>{createYear}</span>
             </div>
 
-            <div className={s.share_bookmark}>
-              <div>
-                <Image
-                  src={"/assets/offers/share.svg"}
-                  alt=""
-                  width={15}
-                  height={15}
-                />
-              </div>
-              <div>
-                <GoBookmark style={{ color: "#fff" }} />
-              </div>
-            </div>
+            <div className={s.share_bookmark}></div>
           </div>
         </section>
 

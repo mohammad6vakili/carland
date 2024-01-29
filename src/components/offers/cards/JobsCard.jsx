@@ -1,10 +1,23 @@
 import Image from "next/image";
 import s from "../../../../styles/main.module.scss";
 import { StarFilled, LeftOutlined } from "@ant-design/icons";
-import { Button } from "reactstrap";
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  PopoverBody,
+  PopoverHeader,
+  UncontrolledPopover,
+} from "reactstrap";
 import { useRouter } from "next/navigation";
-import { url } from "@/src/axiosConfig/useHttp";
-import { convertTime, enToFaNum, toPersianString } from "@/src/hooks/functions";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
+import { convertTime, toPersianString } from "@/src/hooks/functions";
+import Link from "next/link";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const JobsCard = ({
   image,
@@ -17,12 +30,91 @@ const JobsCard = ({
   timeTo,
   id,
   myJobs,
-  ref,
+  status,
 }) => {
   const router = useRouter();
+  const { httpService } = useHttp(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [reasonDeleting, setReasonDeleting] = useState("");
+
+  const handleShowDeleteModal = () => {
+    setShowDeleteModal(!showDeleteModal);
+  };
+
+  const handleDeleteJob = () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("service_id", id);
+    formData.append("ReasonDeletion", reasonDeleting);
+
+    httpService
+      .post("DeleteService", formData)
+      .then((res) => {
+        res.status === 200
+          ? (window.location.reload(),
+            toast.success("آگهی شما با موفقیت به مشاغل حذف شده انتقال یافت"))
+          : null;
+        setLoading(false);
+      })
+
+      .catch(() => {
+        toast.error("مشکلی در حذف شغل شما بوجود امد");
+        setLoading(false);
+      });
+  };
+
+  const handleRecoveryJob = () => {
+    const formData = new FormData();
+    formData.append("service_id", id);
+    httpService
+      .post("ActiveService", formData)
+      .then((res) => {
+        res.status === 200
+          ? (window.location.reload(),
+            toast.success("شغل شما با موفقیت برگردادنده شد"))
+          : null;
+      })
+      .catch(() => toast.error("مشکلی در برگرداندن شغل مورد نظر بوجود امد"));
+  };
+
+  const handleStatus = () => {
+    if (status == 0) {
+      return {
+        text: "غیر فعال",
+        color: "#F93423",
+      };
+    } else if (status == 1) {
+      return {
+        text: "فعال",
+        color: "#10CC67",
+      };
+    } else if (status == 2) {
+      return {
+        text: "در انتظار تایید",
+        color: "#FED30B",
+      };
+    } else if (status == 3) {
+      return {
+        text: "رد شده",
+        color: "#F93423",
+      };
+    } else {
+      return {
+        text: "حذف شده",
+        color: "#F93423",
+      };
+    }
+  };
 
   return (
     <section className={s.job_card}>
+      {myJobs ? (
+        <div className={s.label} style={{ background: handleStatus().color }}>
+          {handleStatus().text}
+        </div>
+      ) : null}
+
       <div className={s.image}>
         <Image src={url + "/" + image} alt="" width={250} height={200} />{" "}
         <div className={s.rate_box}>
@@ -66,11 +158,45 @@ const JobsCard = ({
       </div>
 
       {myJobs ? (
-        <div className={s.update_delete}>
-          <Button className={s.update}>ویرایش</Button>
+        <>
+          <div className={s.update_delete}>
+            {handleStatus().text === "غیر فعال" ? (
+              <>
+                <Button
+                  id="UncontrolledPopover"
+                  style={{ margin: "0 auto" }}
+                  className={s.update}
+                >
+                  برگرداندن آگهی
+                </Button>
+                <UncontrolledPopover
+                  placement="bottom"
+                  target="UncontrolledPopover"
+                >
+                  <PopoverHeader>برگرداندن آگهی حذف شده</PopoverHeader>
+                  <PopoverBody>
+                    <Button onClick={() => handleRecoveryJob()}>تایید</Button>
+                  </PopoverBody>
+                </UncontrolledPopover>
+              </>
+            ) : (
+              <>
+                <Button className={s.update}>
+                  <Link href={`/userDashboard/myJobs/update/${id}`}>
+                    ویرایش
+                  </Link>
+                </Button>
 
-          <Button className={s.delete}>حذف</Button>
-        </div>
+                <Button
+                  onClick={() => handleShowDeleteModal()}
+                  className={s.delete}
+                >
+                  حذف
+                </Button>
+              </>
+            )}
+          </div>
+        </>
       ) : (
         <div className={s.button}>
           <Button onClick={() => router.push(`/jobs/${id}`)}>
@@ -81,6 +207,53 @@ const JobsCard = ({
           </Button>
         </div>
       )}
+
+      <Modal
+        style={{ fontFamily: "dana" }}
+        className={s.modal}
+        isOpen={showDeleteModal}
+      >
+        <ModalHeader>حذف مشاغل "{title}"</ModalHeader>
+        <ModalBody
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "15px",
+            padding: "2rem",
+          }}
+        >
+          <span>آیا می خواهید آگهی مورد نظر را حذف کنید؟</span>
+          <Input
+            value={reasonDeleting}
+            onChange={(e) => setReasonDeleting(e.target.value)}
+            type="select"
+          >
+            <option selected value="" disabled>
+              علت حذف آگهی
+            </option>
+            <option value="ماشین فروش رفت">ماشین فروش رفت</option>
+            <option value="پشیمون شدم">پشیمون شدم</option>
+          </Input>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            onClick={() => handleDeleteJob()}
+            className={s.danger}
+            style={{ background: "#F93423", color: "#fff" }}
+            disabled={reasonDeleting.length === 0 || loading}
+          >
+            تایید
+          </Button>
+          <Button
+            className={s.info}
+            onClick={() => handleShowDeleteModal()}
+            style={{ background: "#4A80E8", color: "#fff" }}
+          >
+            لغو
+          </Button>
+        </ModalFooter>
+      </Modal>
     </section>
   );
 };

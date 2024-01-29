@@ -24,6 +24,8 @@ import { convertDate } from "../../comments/CommentCards";
 import { handleCopy, handleTextCut } from "@/src/hooks/functions";
 import { useWindowSize } from "@uidotdev/usehooks";
 import Head from "next/head";
+import { GoBookmark } from "react-icons/go";
+import { GoBookmarkFill } from "react-icons/go";
 
 const TradePage = () => {
   const router = useRouter();
@@ -163,7 +165,16 @@ const TradePage = () => {
         </Head>
         <div className={s.trade_page}>
           <div className={s.main_title}>
-            <h1>{tradeData.title}</h1>
+            <h1>
+              {tradeData.title}{" "}
+              <Button className={s.bookmark}>
+                {tradeData.is_favorite == 0 ? (
+                  <GoBookmark />
+                ) : (
+                  <GoBookmarkFill />
+                )}
+              </Button>
+            </h1>
           </div>
 
           <div className={s.contents}>

@@ -9,6 +9,7 @@ export async function getStaticProps() {
   const res = await fetch(`${baseUrl}/CategoriesMagazine`).catch((err) => {
     toast.error("مشکلی در پیدا کردن اطلاعات این صفحه بوجود امد");
   });
+  console.log(res);
   const adsCategories = await res?.json();
 
   return { props: { adsCategories } };

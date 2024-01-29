@@ -20,7 +20,7 @@ import Compressor from "compressorjs";
 import { useRouter } from "next/router";
 import { DownOutlined } from "@ant-design/icons";
 
-const CreateJob = ({ jobCategories }) => {
+const CreateJob = ({ jobCategories, type }) => {
   const router = useRouter();
   const { httpService } = useHttp();
   const [currentStep, setCurrentStep] = useState(1);
@@ -32,6 +32,10 @@ const CreateJob = ({ jobCategories }) => {
     activityPremision: "",
     images: "",
   });
+
+  //edit data
+  const [editCategories, setEditCategories] = useState(null);
+  const [jobData, setJobData] = useState(null);
 
   //local images
   const [localNationalCard, setLocalNationalCard] = useState();
@@ -106,6 +110,8 @@ const CreateJob = ({ jobCategories }) => {
   });
 
   const formik = useFormik({
+    enableReinitialize: true,
+
     initialValues: {
       categoryId: "",
       title: "",
@@ -250,6 +256,55 @@ const CreateJob = ({ jobCategories }) => {
       : null;
   }, [formik.values.categoryId]);
 
+  //edit conditions
+  useEffect(() => {
+    const id = router.query.jobId;
+    if ((type === "edit", id)) {
+      //add data
+      httpService
+        .get(`/service/${id}`)
+        .then((res) => {
+          res.status === 200 ? setaddData(res.data.data) : null;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      //categories
+      httpService
+        .get("/CategoryCars")
+        .then((res) => {
+          res.status === 200 ? setEditCategories(res.data) : null;
+        })
+        .catch((err) => {});
+    }
+  }, [router]);
+
+  useEffect(() => {
+    if (jobData) {
+      formik.setFieldValue("categoryId", parseInt(jobData.car_model));
+      formik.setFieldValue("color", jobData.color);
+      formik.setFieldValue("kilometers", jobData.kilometers);
+      formik.setFieldValue("description", jobData.description);
+      formik.setFieldValue("description", jobData.description);
+      formik.setFieldValue("fuel", jobData.Fuel_type);
+      formik.setFieldValue("bodyCondition", jobData.body_condition);
+      formik.setFieldValue("gearbox", jobData.gearbox_type);
+      formik.setFieldValue("title", jobData.title);
+      formik.setFieldValue("location", jobData.location);
+      formik.setFieldValue("state", jobData.state);
+      formik.setFieldValue("price", jobData.price);
+      formik.setFieldValue("productYear", jobData.production_year);
+      jobData.front_view && setLocalFront(url + jobData.front_view);
+      jobData.rear_view && setLocalRear(url + jobData.rear_view);
+      jobData.left_view && setLocalLeft(url + jobData.left_view);
+      jobData.right_view && setLocalRight(url + jobData.right_view);
+      jobData.kilometers_view &&
+        setLocalKilometers(url + jobData.kilometers_view);
+      jobData.mainImage && setLocalMoreSide(url + jobData.mainImage);
+    }
+  }, [jobData]);
+
   return (
     <>
       <div className={s.create_job}>
@@ -296,12 +351,16 @@ const CreateJob = ({ jobCategories }) => {
                         نوع کسب و کار
                       </option>
 
-                      {jobCategories &&
-                        jobCategories.map((cat) => (
-                          <option key={cat.id} value={cat.id}>
-                            {cat.title}
-                          </option>
-                        ))}
+                      {jobCategories && type !== "edit"
+                        ? jobCategories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                              {cat.title}
+                            </option>
+                          ))
+                        : editCategories &&
+                          editCategories.map((cat) => (
+                            <option value={cat.id}>{cat.title}</option>
+                          ))}
                     </Input>
                   </div>
                 )}
