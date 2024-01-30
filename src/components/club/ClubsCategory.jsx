@@ -49,11 +49,11 @@ const ClubsCategory = ({ clubCategories }) => {
       ? httpService
           .get(`clubs/${selectedCategory}`)
           .then((res) => {
-            res.status === 200 ? setMagazinesByCat(res.data.data) : null;
+            res.status === 200 ? setclubByCategory(res.data.data) : null;
           })
           .catch((err) => {
             toast.error(
-              "مشکلی در پیدا کردن مجلات با دسته بندی مورد نظر بوجود امد"
+              "مشکلی در پیدا کردن کلوپ با دسته بندی مورد نظر بوجود امد"
             );
           })
       : null;
@@ -177,7 +177,7 @@ const ClubsCategory = ({ clubCategories }) => {
 
           <section className={s.categories}>
             {clubCategories ? (
-              clubCategories.map((cat, index) => (
+              clubCategories.data.map((cat, index) => (
                 <div
                   onClick={() => handleSelectedCategory(cat.id)}
                   key={Math.random() * index}

@@ -3,19 +3,18 @@ import Footer from "@/src/components/header-footer/Footer";
 import Header from "@/src/components/header-footer/Header";
 import MagazineCategory from "@/src/components/magazine/MagazinesCategory";
 import Head from "next/head";
-import toast from "react-hot-toast";
 
 export async function getStaticProps() {
-  const res = await fetch(`${baseUrl}/CategoriesMagazine`).catch((err) => {
-    toast.error("مشکلی در پیدا کردن اطلاعات این صفحه بوجود امد");
-  });
-  console.log(res);
-  const adsCategories = await res?.json();
+  const res = await fetch(`${baseUrl}/CategoriesMagazine`, {
+    method: "GET",
+  }).catch((err) => {});
 
-  return { props: { adsCategories } };
+  const magsCategories = res ? await res.json() : null;
+
+  return { props: { magsCategories } };
 }
 
-const index = ({ adsCategories }) => {
+const index = ({ magsCategories }) => {
   return (
     <>
       <Head>
@@ -23,7 +22,7 @@ const index = ({ adsCategories }) => {
         <meta property="og:title" content="مجله ماشین کارلند" key="کجله" />
       </Head>
       <Header />
-      <MagazineCategory adsCategories={adsCategories.data} />
+      <MagazineCategory magsCategories={magsCategories.data} />
       <Footer />
     </>
   );

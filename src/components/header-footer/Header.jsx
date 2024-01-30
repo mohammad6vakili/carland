@@ -46,7 +46,8 @@ const Header = () => {
         httpService
           .get("/favorite/list")
           .then((res) => {
-            res.data == 200 ? dispatch(setFavList(res.data.data)) : null;
+            console.log(res.data.data);
+            res.data === 200 ? dispatch(setFavList(res.data.data)) : null;
           })
           .catch(() => {}))
       : null;

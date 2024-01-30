@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  favList: null,
+  favList: [],
 };
 
 export const favListSlice = createSlice({
@@ -9,12 +9,18 @@ export const favListSlice = createSlice({
   initialState,
   reducers: {
     setFavList: (state, action) => {
-      state.favList = action.payload;
+      state.favList === action.payload;
+    },
+    adFavList: (state, action) => {
+      state.favList.push(action.payload);
+    },
+    removeFavList: (state, action) => {
+      state.favList.filter((ad) => ad.id !== action.payload.id);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setFavList } = favListSlice.actions;
+export const { setFavList, adFavList, removeFavList } = favListSlice.actions;
 
 export default favListSlice.reducer;
