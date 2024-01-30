@@ -198,14 +198,14 @@ const JobsCard = ({
           </div>
         </>
       ) : (
-        <div className={s.button}>
-          <Button onClick={() => router.push(`/jobs/${id}`)}>
+        <Link className={s.button} href={`/jobs/${id}`}>
+          <Button>
             مشاهده{" "}
             <div>
               <LeftOutlined />
             </div>
           </Button>
-        </div>
+        </Link>
       )}
 
       <Modal

@@ -3,6 +3,7 @@ import s from "../../../../styles/main.module.scss";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";
 import { url } from "@/src/axiosConfig/useHttp";
+import Link from "next/link";
 
 const BuySaleCard = ({
   createYear,
@@ -18,10 +19,7 @@ const BuySaleCard = ({
 
   return (
     <>
-      <div
-        onClick={() => router.push(`/trades/${id}`)}
-        className={s.buy_sale_card}
-      >
+      <Link href={`/trades/${id}`} className={s.buy_sale_card}>
         <section className={s.image}>
           <Image src={url + image} alt="" width={200} height={400} />
 
@@ -58,7 +56,7 @@ const BuySaleCard = ({
             </Button>
           </div>
         </section>
-      </div>
+      </Link>
     </>
   );
 };
