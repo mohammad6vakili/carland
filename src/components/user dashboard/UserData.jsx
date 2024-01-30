@@ -32,19 +32,6 @@ const UserData = () => {
   const [imageLoading, setImageLoading] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
   const userData = useSelector((state) => state.userInfo.userInfo);
-  const [initialValues, setInitialValues] = useState({
-    name: "",
-    gender: "",
-    age: "",
-    carType: "",
-    idCard: "",
-    address: "",
-    technicalDiagnosis: "",
-    expirationInsurance: "",
-    expirationCertificate: "",
-    dateofCarInstallments: "",
-    profile: "",
-  });
 
   //handle requests
   const validationSchema = Yup.object().shape({
@@ -313,6 +300,7 @@ const UserData = () => {
                     name="expirationCertificate"
                     value={formik.values.expirationCertificate}
                     onChange={formik.handleChange}
+                    type="date"
                   />
                   <Button type="button">
                     <LiaEditSolid />
@@ -328,6 +316,7 @@ const UserData = () => {
                     name="dateofCarInstallments"
                     value={formik.values.dateofCarInstallments}
                     onChange={formik.handleChange}
+                    type="date"
                   />
                   <Button type="button">
                     <LiaEditSolid />

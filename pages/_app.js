@@ -42,7 +42,7 @@ const MyApp = ({ Component, pageProps }) => {
 
             // Default options for specific types
             success: {
-              duration: 3000,
+              duration: 4000,
               theme: {
                 primary: "green",
                 secondary: "black",

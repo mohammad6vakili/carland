@@ -167,13 +167,13 @@ const JobsCard = ({
                   style={{ margin: "0 auto" }}
                   className={s.update}
                 >
-                  برگرداندن آگهی
+                  برگرداندن شغل
                 </Button>
                 <UncontrolledPopover
                   placement="bottom"
                   target="UncontrolledPopover"
                 >
-                  <PopoverHeader>برگرداندن آگهی حذف شده</PopoverHeader>
+                  <PopoverHeader>برگرداندن شغل حذف شده</PopoverHeader>
                   <PopoverBody>
                     <Button onClick={() => handleRecoveryJob()}>تایید</Button>
                   </PopoverBody>

@@ -21,7 +21,8 @@ import { toPersianString } from "@/src/hooks/functions";
 
 const UserDashboard = () => {
   const { httpService } = useHttp(true);
-  const [ads, setAds] = useState([]);
+  // const [ads, setAds] = useState(useSelector((state) => state.favList.favList));
+  const ads = useSelector((state) => state.favList.favList);
   const [adsPage, setAdsPage] = useState(1);
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const lastAd = useRef();
@@ -29,17 +30,17 @@ const UserDashboard = () => {
   const [adsSwiper, setAdsSwiper] = useState(null);
 
   //request
-  useEffect(() => {
-    httpService
-      .get(`myads?page=${adsPage}`)
-      .then((res) => {
-        res.status === 200 ? setAds(res.data.data.data) : null;
-        console.log(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   httpService
+  //     .get(`myads?page=${adsPage}`)
+  //     .then((res) => {
+  //       res.status === 200 ? setAds(res.data.data.data) : null;
+  //       console.log(res.data.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <>
@@ -116,7 +117,7 @@ const UserDashboard = () => {
 
         <div className={s.myAdds}>
           <div className={s.title}>
-            <span>آگهی‌های من</span>
+            <span>آگهی‌های مورد علاقه من</span>
 
             <div className={s.navigation}>
               <div className={s.prev} id="swiper_prev">
@@ -151,20 +152,21 @@ const UserDashboard = () => {
                     >
                       <AdsCard
                         image={
-                          item.main_image !== "undefined" ? item.main_image : ""
+                          item.ad.main_image !== "undefined"
+                            ? item.ad.main_image
+                            : ""
                         }
-                        name={item.title}
+                        name={item.ad.title}
                         details={{
-                          kms: item.kilometers,
-                          createYear: item.production_year,
-                          color: item.color,
+                          kms: item.ad.kilometers,
+                          createYear: item.ad.production_year,
+                          color: item.ad.color,
                         }}
-                        location={item.location}
-                        time={item.created_at}
+                        location={item.ad.location}
+                        time={item.ad.created_at}
                         rate={"۴.۵"}
-                        status={item.status}
-                        id={item.id}
-                        myAdds={true}
+                        status={item.ad.status}
+                        id={item.ad.id}
                         ref={index === ads.length ? lastAd : null}
                       />
                     </SwiperSlide>

@@ -9,7 +9,7 @@ export const favListSlice = createSlice({
   initialState,
   reducers: {
     setFavList: (state, action) => {
-      state.favList === action.payload;
+      state.favList = action.payload;
     },
     adFavList: (state, action) => {
       state.favList.push(action.payload);

@@ -44,10 +44,9 @@ const Header = () => {
           })
           .catch((err) => {}),
         httpService
-          .get("/favorite/list")
+          .get("favorite/list")
           .then((res) => {
-            console.log(res.data.data);
-            res.data === 200 ? dispatch(setFavList(res.data.data)) : null;
+            res.status === 200 ? dispatch(setFavList(res.data.data)) : null;
           })
           .catch(() => {}))
       : null;
