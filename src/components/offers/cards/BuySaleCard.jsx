@@ -3,8 +3,7 @@ import s from "../../../../styles/main.module.scss";
 import { Button } from "reactstrap";
 import { useRouter } from "next/navigation";
 import { url } from "@/src/axiosConfig/useHttp";
-import { GoBookmark } from "react-icons/go";
-import { GoBookmarkFill } from "react-icons/go";
+import Link from "next/link";
 
 const BuySaleCard = ({
   createYear,
@@ -20,10 +19,7 @@ const BuySaleCard = ({
 
   return (
     <>
-      <div
-        onClick={() => router.push(`/trades/${id}`)}
-        className={s.buy_sale_card}
-      >
+      <Link href={`/trades/${id}`} className={s.buy_sale_card}>
         <section className={s.image}>
           <Image src={url + image} alt="" width={200} height={400} />
 
@@ -33,19 +29,7 @@ const BuySaleCard = ({
               <span>{createYear}</span>
             </div>
 
-            <div className={s.share_bookmark}>
-              <div>
-                <Image
-                  src={"/assets/offers/share.svg"}
-                  alt=""
-                  width={15}
-                  height={15}
-                />
-              </div>
-              <div>
-                <GoBookmark style={{ color: "#fff" }} />
-              </div>
-            </div>
+            <div className={s.share_bookmark}></div>
           </div>
         </section>
 
@@ -72,7 +56,7 @@ const BuySaleCard = ({
             </Button>
           </div>
         </section>
-      </div>
+      </Link>
     </>
   );
 };

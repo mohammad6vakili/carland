@@ -15,6 +15,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Spinner,
 } from "reactstrap";
 import SuggestCard from "../../suggest card";
 import { useRouter } from "next/router";
@@ -24,6 +25,10 @@ import { convertDate } from "../../comments/CommentCards";
 import { handleCopy, handleTextCut } from "@/src/hooks/functions";
 import { useWindowSize } from "@uidotdev/usehooks";
 import Head from "next/head";
+import { GoBookmark } from "react-icons/go";
+import { GoBookmarkFill } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
+import { adFavList, removeFavList } from "@/src/app/slices/favListSlice";
 
 const TradePage = () => {
   const router = useRouter();
@@ -35,6 +40,9 @@ const TradePage = () => {
   const [alikeOffers, setAlikeOffers] = useState([]);
   const [reportText, setReportText] = useState("");
   const [reportModal, setReportModal] = useState(false);
+  const dispatch = useDispatch();
+  const favList = useSelector((state) => state.favList.favList);
+  const [loadingFav, setLoadingFav] = useState(false);
 
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -155,7 +163,59 @@ const TradePage = () => {
     setReportModal(!reportModal);
   };
 
-  if (tradeData.length !== 0) {
+  //handle favorites
+  useEffect(() => console.log(favList), [favList]);
+
+  const handleFavorite = () => {
+    setLoadingFav(true);
+    favList.some((ad) => {
+      return ad.id === tradeData.id;
+    })
+      ? handleAdFavlist()
+      : handleRemoveFavlist();
+  };
+
+  const handleAdFavlist = () => {
+    const formData = new FormData();
+    formData.append("ad_id", tradeData.id);
+
+    httpService
+      .post("/favorite/add", formData)
+      .then((res) => {
+        res.status === 200
+          ? (dispatch(adFavList(tradeData)),
+            toast.success("این آگهی به لیست آگهی های مورد علاقه اضافه شد"))
+          : null;
+        setLoadingFav(false);
+      })
+      .catch(() => {
+        toast.error(
+          "مشکلی در اضافه کردن این آگهی به لیست علاقمندی ها بوجود امد"
+        );
+        setLoadingFav(false);
+      });
+  };
+
+  const handleRemoveFavlist = () => {
+    const formData = new FormData();
+    formData.append("ad_id", tradeData.id);
+
+    httpService
+      .delete("/favorite/remove", formData)
+      .then((res) => {
+        res.status === 200
+          ? (dispatch(removeFavList(tradeData)),
+            toast.success("این آگهی از لیست آگهی های مورد علاقه حذف شد"))
+          : null;
+        setLoadingFav(false);
+      })
+      .catch(() => {
+        toast.error("مشکلی در حذف کردن این آگهی از لیست علاقمندی ها بوجود امد");
+      });
+    setLoadingFav(false);
+  };
+
+  if (tradeData) {
     return (
       <>
         <Head>
@@ -163,7 +223,22 @@ const TradePage = () => {
         </Head>
         <div className={s.trade_page}>
           <div className={s.main_title}>
-            <h1>{tradeData.title}</h1>
+            <h1>
+              {tradeData.title}{" "}
+              <Button
+                style={{ padding: "3px" }}
+                onClick={handleFavorite}
+                className={s.bookmark}
+              >
+                {loadingFav ? (
+                  <Spinner style={{ width: "20px" }}></Spinner>
+                ) : tradeData.is_favorite == 0 ? (
+                  <GoBookmark />
+                ) : (
+                  <GoBookmarkFill />
+                )}
+              </Button>
+            </h1>
           </div>
 
           <div className={s.contents}>

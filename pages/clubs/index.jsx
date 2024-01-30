@@ -4,22 +4,19 @@ import ClubsCategory from "@/src/components/club/ClubsCategory";
 import Footer from "@/src/components/header-footer/Footer";
 import Header from "@/src/components/header-footer/Header";
 import Head from "next/head";
-import toast from "react-hot-toast";
 
 export async function getStaticProps() {
-  const res = await fetch(`${baseUrl}/CategoriesClub`)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("مشکلی در پیدا کردن اطلاعات این صفحه بوجود امد");
-    });
+  const res = await fetch(`${baseUrl}/CategoriesClub`, { method: "GET" }).catch(
+    (err) => {}
+  );
   const clubCategories = res ? await res.json() : null;
 
   return { props: { clubCategories } };
 }
 
 const index = ({ clubCategories }) => {
+  console.log(clubCategories);
+
   return (
     <>
       <Head>

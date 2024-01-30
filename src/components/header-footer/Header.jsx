@@ -20,6 +20,7 @@ import { setIsAuth } from "@/src/app/slices/isAuthSlice";
 import useHttp from "@/src/axiosConfig/useHttp";
 import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
+import { setFavList } from "@/src/app/slices/favListSlice";
 
 const Header = () => {
   const [menuOpen, setMenuOpne] = useState(false);
@@ -34,14 +35,21 @@ const Header = () => {
 
   useEffect(() => {
     getLocal("token") !== "unAuth"
-      ? httpService
+      ? (httpService
           .get("user")
           .then((res) => {
             res.status === 200
               ? (dispatch(setIsAuth(true)), dispatch(setUserInfo(res.data)))
               : null;
           })
-          .catch((err) => {})
+          .catch((err) => {}),
+        httpService
+          .get("/favorite/list")
+          .then((res) => {
+            console.log(res.data.data);
+            res.data === 200 ? dispatch(setFavList(res.data.data)) : null;
+          })
+          .catch(() => {}))
       : null;
 
     getLocal("serviceCat") !== "null"

@@ -130,6 +130,11 @@
           }
         }
       }
+
+      .not_found {
+        @include flex(row, center, center);
+        width: 100%;
+      }
     }
   }
 }
