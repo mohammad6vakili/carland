@@ -282,26 +282,10 @@ const CreateJob = ({ jobCategories, type }) => {
 
   useEffect(() => {
     if (jobData) {
-      formik.setFieldValue("categoryId", parseInt(jobData.car_model));
-      formik.setFieldValue("color", jobData.color);
-      formik.setFieldValue("kilometers", jobData.kilometers);
-      formik.setFieldValue("description", jobData.description);
-      formik.setFieldValue("description", jobData.description);
-      formik.setFieldValue("fuel", jobData.Fuel_type);
-      formik.setFieldValue("bodyCondition", jobData.body_condition);
-      formik.setFieldValue("gearbox", jobData.gearbox_type);
-      formik.setFieldValue("title", jobData.title);
-      formik.setFieldValue("location", jobData.location);
-      formik.setFieldValue("state", jobData.state);
-      formik.setFieldValue("price", jobData.price);
+      formik.setFieldValue("categoryId");
       formik.setFieldValue("productYear", jobData.production_year);
-      jobData.front_view && setLocalFront(url + jobData.front_view);
-      jobData.rear_view && setLocalRear(url + jobData.rear_view);
-      jobData.left_view && setLocalLeft(url + jobData.left_view);
-      jobData.right_view && setLocalRight(url + jobData.right_view);
-      jobData.kilometers_view &&
-        setLocalKilometers(url + jobData.kilometers_view);
-      jobData.mainImage && setLocalMoreSide(url + jobData.mainImage);
+      jobData.NationalCardImage &&
+        setLocalNationalCard(url + jobData.NationalCardImage);
     }
   }, [jobData]);
 

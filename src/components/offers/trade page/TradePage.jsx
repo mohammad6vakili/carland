@@ -28,7 +28,11 @@ import Head from "next/head";
 import { GoBookmark } from "react-icons/go";
 import { GoBookmarkFill } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
-import { adFavList, removeFavList } from "@/src/app/slices/favListSlice";
+import {
+  adFavList,
+  removeFavList,
+  setFavList,
+} from "@/src/app/slices/favListSlice";
 
 const TradePage = () => {
   const router = useRouter();
@@ -181,11 +185,12 @@ const TradePage = () => {
     formData.append("ad_id", tradeData.id);
 
     httpService
-      .post("/favorite/add", formData)
+      .post("favorite/add", formData)
       .then((res) => {
         res.status === 200
           ? (setLoadingFav(false),
-            toast.success("این آگهی به لیست آگهی های مورد علاقه اضافه شد"))
+            toast.success("این آگهی به لیست آگهی های مورد علاقه اضافه شد"),
+            dispatch(setFavList(res.data.data.original.data)))
           : null;
       })
       .catch(() => {
@@ -198,15 +203,16 @@ const TradePage = () => {
 
   const handleRemoveFavlist = () => {
     setLoadingFav(true);
-    const formData = new FormData();
+    const formData = new URLSearchParams();
     formData.append("ad_id", tradeData.id);
 
     httpService
-      .delete("/favorite/remove", formData)
+      .post("favorite/remove", formData)
       .then((res) => {
         res.status === 200
           ? (setLoadingFav(false),
-            toast.success("این آگهی از لیست آگهی های مورد علاقه حذف شد"))
+            toast.success("این آگهی از لیست آگهی های مورد علاقه حذف شد"),
+            dispatch(setFavList(res.data.data.original.data)))
           : null;
       })
       .catch(() => {
@@ -235,8 +241,7 @@ const TradePage = () => {
                     <Spinner
                       style={{ width: "20px", height: "20px" }}
                     ></Spinner>
-                  ) : tradeData.is_favorite === 1 &&
-                    favList.some((ad) => {
+                  ) : favList.some((ad) => {
                       return ad.ad_id == tradeData.id;
                     }) ? (
                     <GoBookmarkFill />

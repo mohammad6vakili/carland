@@ -38,7 +38,6 @@ const MyApp = ({ Component, pageProps }) => {
             style: {
               background: "#363636",
               color: "#fff",
-              marginBottom: "2rem",
             },
 
             // Default options for specific types
