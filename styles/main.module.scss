@@ -912,7 +912,10 @@ $light-theme: #fff;
       .my_swiper {
         margin: 0 2rem;
         .slide {
+          @include flex(column, flex-start, center);
+          gap: 10px;
           width: max-content;
+          cursor: pointer;
         }
       }
 
@@ -929,6 +932,13 @@ $light-theme: #fff;
           object-fit: contain;
           border-radius: 20px;
         }
+      }
+
+      .title {
+        @include flex(row, center, center);
+        width: 100%;
+        font-weight: 700;
+        font-size: 1.2em;
       }
     }
 

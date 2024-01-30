@@ -24,8 +24,13 @@ import ClubCard from "./ClubCard";
 import { useReportWebVitals } from "next/web-vitals";
 import MySkeleton from "../skeleton/Skeleton";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 
 const Main = ({ jobCategories }) => {
+  const router = useRouter();
+  const { httpService } = useHttp();
+  const size = useWindowSize();
+
   //datas
   const [ads, setAds] = useState([]);
   const [magazines, setMagazines] = useState([]);
@@ -78,9 +83,6 @@ const Main = ({ jobCategories }) => {
   ];
   const [clubsCategory, setClubCategory] = useState([]);
 
-  const { httpService } = useHttp();
-  const size = useWindowSize();
-
   const calculateTime = (date1, date2) => {
     //Get 1 day in milliseconds
     let one_day = 1000 * 60 * 60 * 24;
@@ -93,6 +95,11 @@ const Main = ({ jobCategories }) => {
 
     // Convert back to days and return
     return Math.round(difference_ms / one_day);
+  };
+
+  const handleClubCategory = (id) => {
+    setLocal("clubCat", id);
+    router.push("/clubs");
   };
 
   //requests
@@ -616,6 +623,7 @@ const Main = ({ jobCategories }) => {
 
           <section className={styles.club_list}>
             <Swiper
+              speed={5000}
               spaceBetween={12}
               slidesPerView={"auto"}
               navigation={{
@@ -627,7 +635,6 @@ const Main = ({ jobCategories }) => {
                 delay: 1000,
                 disableOnInteraction: false,
               }}
-              grabCursor={true}
               modules={[Navigation, Autoplay]}
               className={styles.my_swiper}
             >
@@ -638,6 +645,7 @@ const Main = ({ jobCategories }) => {
                       <SwiperSlide
                         className={styles.slide}
                         key={Math.random() * index}
+                        onClick={() => handleClubCategory(club.id)}
                       >
                         <div className={styles.box}>
                           <Image
@@ -647,6 +655,7 @@ const Main = ({ jobCategories }) => {
                             height={50}
                           />
                         </div>
+                        <h6 className={styles.title}>{club.name}</h6>
                       </SwiperSlide>
                     )}
                   </>
