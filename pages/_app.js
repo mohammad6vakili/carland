@@ -38,11 +38,12 @@ const MyApp = ({ Component, pageProps }) => {
             style: {
               background: "#363636",
               color: "#fff",
+              marginBottom: "2rem",
             },
 
             // Default options for specific types
             success: {
-              duration: 3000,
+              duration: 4000,
               theme: {
                 primary: "green",
                 secondary: "black",

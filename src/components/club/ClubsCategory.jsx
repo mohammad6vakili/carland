@@ -12,6 +12,7 @@ import SuggestCard from "../suggest card";
 import { getLocal, handleTextCut, removeLocal } from "@/src/hooks/functions";
 import { convertDate } from "../comments/CommentCards";
 import MySkeleton from "../skeleton/Skeleton";
+import Link from "next/link";
 
 const ClubsCategory = ({ clubCategories }) => {
   const photos = [
@@ -101,32 +102,40 @@ const ClubsCategory = ({ clubCategories }) => {
             modules={[FreeMode, Navigation, Thumbs]}
             className={s.mySwiper}
           >
-            {photos.map(() => (
-              <SwiperSlide key={Math.random()} className={s.slide}>
-                <Image
-                  src={"/assets/trades/trade-1.png"}
-                  alt=""
-                  width={700}
-                  height={400}
-                />
-              </SwiperSlide>
-            ))}
+            {clubs ? (
+              clubs.map((club, index) => (
+                <>
+                  {index <= 2 && (
+                    <SwiperSlide key={Math.random()} className={s.slide}>
+                      <Link href={`/club/${club.id}`}>
+                        <Image
+                          src={url + "/" + club.image_url}
+                          alt=""
+                          width={600}
+                          height={300}
+                        />
+                        <div className={s.descriptions}>
+                          <h1 className={s.title}>{club.title}</h1>
+                          <div className={s.texts}>
+                            {handleTextCut(club.description, 100)}
+                          </div>
 
-            <div className={s.descriptions}>
-              <h1 className={s.title}>رونمایی از جدیدترین محصول BMW</h1>
-              <div className={s.texts}>
-                میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
-                موبایل خود انجام دهید.
-              </div>
-
-              {/* small boxes */}
-              <div className={s.box1}>
-                <div></div>
-              </div>
-              <div className={s.box2}>
-                <div></div>
-              </div>
-            </div>
+                          {/* small boxes */}
+                          <div className={s.box1}>
+                            <div></div>
+                          </div>
+                          <div className={s.box2}>
+                            <div></div>
+                          </div>
+                        </div>
+                      </Link>
+                    </SwiperSlide>
+                  )}
+                </>
+              ))
+            ) : (
+              <MySkeleton width={"100%"} height={"100%"} />
+            )}
           </Swiper>
 
           <div className={s.navigation_nexprev}>

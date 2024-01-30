@@ -43,6 +43,7 @@ const TradePage = () => {
   const dispatch = useDispatch();
   const favList = useSelector((state) => state.favList.favList);
   const [loadingFav, setLoadingFav] = useState(false);
+  const isAuth = useSelector((state) => state.isAuth.isAuth);
 
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -167,15 +168,15 @@ const TradePage = () => {
   useEffect(() => console.log(favList), [favList]);
 
   const handleFavorite = () => {
-    setLoadingFav(true);
     favList.some((ad) => {
-      return ad.id === tradeData.id;
+      return ad.ad_id == tradeData.id;
     })
-      ? handleAdFavlist()
-      : handleRemoveFavlist();
+      ? handleRemoveFavlist()
+      : handleAdFavlist();
   };
 
   const handleAdFavlist = () => {
+    setLoadingFav(true);
     const formData = new FormData();
     formData.append("ad_id", tradeData.id);
 
@@ -183,10 +184,9 @@ const TradePage = () => {
       .post("/favorite/add", formData)
       .then((res) => {
         res.status === 200
-          ? (dispatch(adFavList(tradeData)),
+          ? (setLoadingFav(false),
             toast.success("این آگهی به لیست آگهی های مورد علاقه اضافه شد"))
           : null;
-        setLoadingFav(false);
       })
       .catch(() => {
         toast.error(
@@ -197,6 +197,7 @@ const TradePage = () => {
   };
 
   const handleRemoveFavlist = () => {
+    setLoadingFav(true);
     const formData = new FormData();
     formData.append("ad_id", tradeData.id);
 
@@ -204,10 +205,9 @@ const TradePage = () => {
       .delete("/favorite/remove", formData)
       .then((res) => {
         res.status === 200
-          ? (dispatch(removeFavList(tradeData)),
+          ? (setLoadingFav(false),
             toast.success("این آگهی از لیست آگهی های مورد علاقه حذف شد"))
           : null;
-        setLoadingFav(false);
       })
       .catch(() => {
         toast.error("مشکلی در حذف کردن این آگهی از لیست علاقمندی ها بوجود امد");
@@ -225,19 +225,26 @@ const TradePage = () => {
           <div className={s.main_title}>
             <h1>
               {tradeData.title}{" "}
-              <Button
-                style={{ padding: "3px" }}
-                onClick={handleFavorite}
-                className={s.bookmark}
-              >
-                {loadingFav ? (
-                  <Spinner style={{ width: "20px" }}></Spinner>
-                ) : tradeData.is_favorite == 0 ? (
-                  <GoBookmark />
-                ) : (
-                  <GoBookmarkFill />
-                )}
-              </Button>
+              {isAuth && (
+                <span
+                  style={{ padding: "3px", cursor: "pointer" }}
+                  onClick={handleFavorite}
+                  className={s.bookmark}
+                >
+                  {loadingFav ? (
+                    <Spinner
+                      style={{ width: "20px", height: "20px" }}
+                    ></Spinner>
+                  ) : tradeData.is_favorite === 1 &&
+                    favList.some((ad) => {
+                      return ad.ad_id == tradeData.id;
+                    }) ? (
+                    <GoBookmarkFill />
+                  ) : (
+                    <GoBookmark />
+                  )}
+                </span>
+              )}
             </h1>
           </div>
 

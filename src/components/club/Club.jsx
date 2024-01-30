@@ -92,6 +92,7 @@ const Club = () => {
           <meta name="keywords" content={clubData.data.keywords} />
           <meta name="description" content={clubData.data.description} />
         </Head>
+
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>{clubData.data.title}</h1>
