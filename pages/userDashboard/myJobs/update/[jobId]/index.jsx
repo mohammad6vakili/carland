@@ -2,7 +2,7 @@ import Footer from "@/src/components/header-footer/Footer";
 import Header from "@/src/components/header-footer/Header";
 import styles from "../../../../../styles/main.module.scss";
 import Head from "next/head";
-import CreateJob from "@/src/components/user dashboard/CreateJob";
+import UpdateJob from "@/src/components/user dashboard/UpdateJob";
 
 const page = () => {
   return (
@@ -12,7 +12,7 @@ const page = () => {
       </Head>
       <Header />
       <div className={styles.userDashboard_container}>
-        <CreateJob type={"edit"} />
+        <UpdateJob />
       </div>
       <Footer />
     </>

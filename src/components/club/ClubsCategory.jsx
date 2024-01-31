@@ -113,6 +113,8 @@ const ClubsCategory = ({ clubCategories }) => {
                           alt=""
                           width={600}
                           height={300}
+                          placeholder="blur"
+                          blurDataURL="...loading"
                         />
                         <div className={s.descriptions}>
                           <h1 className={s.title}>{club.title}</h1>
