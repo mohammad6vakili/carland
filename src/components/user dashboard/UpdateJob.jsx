@@ -9,12 +9,13 @@ import {
   UncontrolledDropdown,
 } from "reactstrap";
 import s from "../../../styles/main.module.scss";
+import addMore from "../../../public/assets/userDashboard/add images placeholder/more.png";
 import Image from "next/image";
 import background from "../../../public/assets/userDashboard/create-job.png";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import useHttp from "@/src/axiosConfig/useHttp";
+import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import Compressor from "compressorjs";
 import { useRouter } from "next/router";
@@ -169,7 +170,7 @@ const UpdateJob = () => {
       httpService
         .get(`/service/${id}`)
         .then((res) => {
-          res.status === 200 ? setaddData(res.data.data) : null;
+          res.status === 200 ? setJobData(res.data.data) : null;
         })
         .catch((err) => {
           console.log(err);
@@ -179,10 +180,11 @@ const UpdateJob = () => {
 
   useEffect(() => {
     if (jobData) {
-      formik.setFieldValue("categoryId");
-      formik.setFieldValue("productYear", jobData.production_year);
-      jobData.NationalCardImage &&
-        setLocalNationalCard(url + jobData.NationalCardImage);
+      formik.setFieldValue("title", jobData.title);
+      formik.setFieldValue("timeTo", jobData.timeTo);
+      formik.setFieldValue("timeFrom", jobData.timeFrom);
+      formik.setFieldValue("description", jobData.descriptions);
+      jobData.images && setLocalNationalCard(url + jobData.images);
     }
   }, [jobData]);
 
@@ -195,7 +197,58 @@ const UpdateJob = () => {
               <h1>اصلاح اطلاعات مشاغل</h1>
             </div>
 
-            <div className={s.details}></div>
+            <div className={s.edit_details}>
+              <div className={s.inputs}>
+                <Input
+                  name="title"
+                  value={formik.values.title}
+                  onChange={formik.handleChange}
+                />
+                <Input
+                  type="time"
+                  name="timeFrom"
+                  value={formik.values.timeFrom}
+                  onChange={formik.handleChange}
+                />
+                <Input
+                  type="time"
+                  name="timeTo"
+                  value={formik.values.timeTo}
+                  onChange={formik.handleChange}
+                />
+                <div className={s.image}>
+                  <label className={s.content}>
+                    <Input
+                      type="file"
+                      id="file"
+                      onChange={(e) => handleUploadPhoto(e, "images")}
+                      className={s.img}
+                      hidden
+                      accept="image/*"
+                    />
+                    <Image
+                      className={
+                        loadingImage?.includes("images") ? s.img_loading : s.img
+                      }
+                      src={localImages ? localImages : addMore}
+                      alt=""
+                    />
+                    {loadingImage?.includes("moreView") ? (
+                      <Spinner
+                        style={{ width: "20px", height: "20px" }}
+                      ></Spinner>
+                    ) : null}{" "}
+                    <span>افزودن عکس</span>
+                  </label>
+                </div>
+                <Input
+                  type="textarea"
+                  name="description"
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                />
+              </div>
+            </div>
 
             <div className={s.submit_btn}>
               <Button
