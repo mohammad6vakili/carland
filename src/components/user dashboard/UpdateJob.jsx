@@ -6,6 +6,7 @@ import {
   DropdownToggle,
   Form,
   Input,
+  Spinner,
   UncontrolledDropdown,
 } from "reactstrap";
 import s from "../../../styles/main.module.scss";
@@ -24,13 +25,13 @@ import { DownOutlined } from "@ant-design/icons";
 const UpdateJob = () => {
   const router = useRouter();
   const { httpService } = useHttp();
+  const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState([]);
   const [photos, setPhotos] = useState({
     images: "",
   });
 
   //edit data
-  const [editCategories, setEditCategories] = useState(null);
   const [jobData, setJobData] = useState(null);
 
   //local images
@@ -39,16 +40,21 @@ const UpdateJob = () => {
   const [localImages, setLocalImages] = useState();
 
   const handleUpdateJob = (values, body) => {
+    const id = router.query.jobId;
+    setLoading(true);
+
     httpService
-      .post("service", body)
+      .post(`service/${id}`, body)
       .then((res) => {
         res.status === 200
           ? (router.push("/userDashboard/myJobs"),
-            toast.success("شغل جدید شما با موفقیت ساخته شد"))
+            toast.success("شغل شما با موفقیت بروزرسانی شد"))
           : null;
+        setLoading(false);
       })
       .catch(() => {
-        toast.error("ساختن شغل جدید با مشکل مواجه شد");
+        toast.error("بروزرسانی شغل شما با مشکل مواجه شد");
+        setLoading(false);
       });
   };
 
@@ -184,7 +190,7 @@ const UpdateJob = () => {
       formik.setFieldValue("timeTo", jobData.timeTo);
       formik.setFieldValue("timeFrom", jobData.timeFrom);
       formik.setFieldValue("description", jobData.descriptions);
-      jobData.images && setLocalNationalCard(url + jobData.images);
+      jobData.images && setLocalImages(url + jobData.images);
     }
   }, [jobData]);
 
@@ -192,13 +198,13 @@ const UpdateJob = () => {
     <>
       <div className={s.create_job}>
         <Form onSubmit={formik.handleSubmit} className={s.form}>
-          <section className={s.job_details}>
+          <section className={s.job_details_edit}>
             <div className={s.title}>
               <h1>اصلاح اطلاعات مشاغل</h1>
             </div>
 
             <div className={s.edit_details}>
-              <div className={s.inputs}>
+              <div className={s.fields}>
                 <Input
                   name="title"
                   value={formik.values.title}
@@ -216,7 +222,7 @@ const UpdateJob = () => {
                   value={formik.values.timeTo}
                   onChange={formik.handleChange}
                 />
-                <div className={s.image}>
+                <div className={s.image_place}>
                   <label className={s.content}>
                     <Input
                       type="file"
@@ -232,13 +238,14 @@ const UpdateJob = () => {
                       }
                       src={localImages ? localImages : addMore}
                       alt=""
+                      width={100}
+                      height={100}
                     />
                     {loadingImage?.includes("moreView") ? (
                       <Spinner
                         style={{ width: "20px", height: "20px" }}
                       ></Spinner>
                     ) : null}{" "}
-                    <span>افزودن عکس</span>
                   </label>
                 </div>
                 <Input
@@ -248,16 +255,22 @@ const UpdateJob = () => {
                   onChange={formik.handleChange}
                 />
               </div>
-            </div>
 
-            <div className={s.submit_btn}>
-              <Button
-                onClick={handleUpdateJob}
-                type="submit"
-                className={s.next}
-              >
-                ثبت تغییرات
-              </Button>
+              <div className={s.submit_edit}>
+                <Button
+                  onClick={handleUpdateJob}
+                  type="submit"
+                  className={s.submit}
+                  disabled={loading}
+                >
+                  {loading && (
+                    <Spinner
+                      style={{ width: "20px", height: "20px" }}
+                    ></Spinner>
+                  )}{" "}
+                  ثبت تغییرات
+                </Button>
+              </div>
             </div>
           </section>
 
