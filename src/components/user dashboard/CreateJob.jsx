@@ -662,7 +662,7 @@ const CreateJob = ({ jobCategories, type }) => {
                     مرحله قبل
                   </Button>
                   <Button type="submit" className={s.next}>
-                    ثبت آگهی
+                    ثبت شغل
                   </Button>
                 </>
               ) : (
