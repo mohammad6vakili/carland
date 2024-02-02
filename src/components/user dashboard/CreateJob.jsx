@@ -110,8 +110,6 @@ const CreateJob = ({ jobCategories, type }) => {
   });
 
   const formik = useFormik({
-    enableReinitialize: true,
-
     initialValues: {
       categoryId: "",
       title: "",
