@@ -145,7 +145,7 @@ const Main = ({ jobCategories }) => {
     calculateTime(
       parseInt(JSON.parse(formatStringJSON(getLocal("updateTime")))),
       new Date().getTime()
-    ) > 2
+    ) >= 0
       ? httpService
           .get("categories")
           .then((res) => {
@@ -154,6 +154,7 @@ const Main = ({ jobCategories }) => {
               "serviceCat",
               formatStringJSON(JSON.stringify(res.data.data))
             );
+            setLocal("contactData", JSON.stringify(res.data));
             setLocal(
               "updateTime",
               formatStringJSON(JSON.stringify(new Date().getTime()))

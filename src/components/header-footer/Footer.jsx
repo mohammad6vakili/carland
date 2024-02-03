@@ -5,9 +5,19 @@ import { Button } from "reactstrap";
 import { InstagramOutlined } from "@ant-design/icons";
 import { useWindowSize } from "@uidotdev/usehooks";
 import LocationIcon from "@/src/assets/icons/location_icon";
+import { useEffect, useState } from "react";
+import { formatStringJSON, getLocal } from "@/src/hooks/functions";
+import Link from "next/link";
 
 const Footer = () => {
   const size = useWindowSize();
+  const [contactData, setContactData] = useState();
+
+  useEffect(() => {
+    getLocal("contactData") != "null"
+      ? setContactData(JSON.parse(formatStringJSON(getLocal("contactData"))))
+      : null;
+  }, []);
 
   const scrollToHeader = () => {
     const section2 = document.getElementById("header");
@@ -44,35 +54,33 @@ const Footer = () => {
               <div className={styles.texts}>
                 <div>
                   <h1>کارلــــــــــــند</h1>
-                  <p>بازار متمرکز وسایل نقلیه</p>
                 </div>
-                <p>
-                  حفظ ایمنی برق در تمام مراحل ایجاد میشودکه امکان شکل میتواند
-                  سرخی ان را از بین ببرد دایان ابران اینجاست که این مشکل را حل
-                  کنند.
-                </p>
+                <div>
+                  <h6>{contactData && contactData.title}</h6>
+                </div>
+                <div>{contactData && contactData.descriptions}</div>
               </div>
             </div>
 
             {size.width > 1000 ? (
               <div className={styles.contatcs}>
                 <div className={styles.phone}>
-                  <div className={styles.logo}>
-                    <PhoneOutlined />
-                  </div>
+                  <a href={`tel:${contactData.phone}`}>
+                    <Button className={styles.button}>
+                      <PhoneOutlined style={{ color: "#fff" }} />
+                    </Button>
+                  </a>
 
                   <div className={styles.texts}>
-                    <p>
-                      45123132 - <span>021</span>
-                    </p>
+                    <p>{contactData && contactData.phone}</p>
                     <p>خدمات و پشتیبانی 24 ساعته!</p>
                   </div>
                 </div>
 
                 <div className={styles.address}>
-                  <div className={styles.logo}>
+                  <Button className={styles.button}>
                     <LocationIcon />
-                  </div>
+                  </Button>
                   <div className={styles.texts}>
                     <p>تهران خیابان ولیعصر بین کاظمی</p>
                     <p>بین هاشمی و خیابان آذر غربی</p>
@@ -89,52 +97,53 @@ const Footer = () => {
                   <div className={styles.blue_box}></div>
                   خدمات مشتریان
                 </div>
-                <span>
+                <Link href={"/about_us"}>
                   <div className={styles.blue_box}></div>
                   درباره ما
-                </span>
-                <span>
+                </Link>
+                <Link href={"/offers/trades"}>
                   <div className={styles.blue_box}></div>
-                  فروشگاه
-                </span>
-                <span>
+                  آگهی ها
+                </Link>
+                <Link href={"/offers/jobs"}>
                   <div className={styles.blue_box}></div>
-                  دسته بندی
-                </span>
-                <span>
+                  مشاغل
+                </Link>
+                <Link href={"/magazines"}>
                   <div className={styles.blue_box}></div>
                   بلاگ
-                </span>
-                <span>
+                </Link>
+                <Link href={"/contact_us"}>
                   <div className={styles.blue_box}></div>
                   تماس با ما
-                </span>
+                </Link>
               </div>
+
               <div>
                 <div className={styles.head}>
                   <div className={styles.blue_box}></div>
-                  خدمات مشتریان
+                  خدمات فروشندگان
                 </div>
-                <span>
+                <Link href={"/about_us"}>
                   <div className={styles.blue_box}></div>
                   درباره ما
-                </span>
-                <span>
+                </Link>
+                <Link href={"/userDashboard/myJobs/create"}>
                   <div className={styles.blue_box}></div>
-                  فروشگاه
-                </span>
-                <span>
+                  ثبت فروشگاه
+                </Link>
+                <Link href={"/"}>
                   <div className={styles.blue_box}></div>
-                  دسته بندی
-                </span>
-                <span>
+                  فروشگاه ها
+                </Link>
+                <Link href={"/clubs"}>
                   <div className={styles.blue_box}></div>
                   بلاگ
-                </span>
-                <span>
+                </Link>
+                <Link href={"/contact_us"}>
                   <div className={styles.blue_box}></div>
                   تماس با ما
-                </span>
+                </Link>
               </div>
             </div>
 

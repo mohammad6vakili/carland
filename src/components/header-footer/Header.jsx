@@ -217,6 +217,22 @@ const Header = () => {
                     </div>
                   </span>
                 </Link>
+
+                <Link href={"/contact_us"}>
+                  <span
+                    className={
+                      pathname === "/contact_us" ? styles.selected : ""
+                    }
+                  >
+                    ارتباط با ما
+                    <div className={styles.line1}>
+                      <SelectedPageLine />
+                    </div>
+                    <div className={styles.line2}>
+                      <SelectedPageLine />
+                    </div>
+                  </span>
+                </Link>
               </div>
             ) : (
               <></>
