@@ -200,14 +200,16 @@ const AboutUs = () => {
                 <div key={Math.random()} className={s.step}>
                   <div
                     className={
-                      (index + 1) % 2 === 0 ? s.data_right : s.data_left
+                      (index + 1) % 2 === 0 ? s.data_left : s.data_right
                     }
                   >
                     <div className={s.title}>
-                      <h3>{step.title}</h3>
+                      <span>{step.title}</span>
                     </div>
 
-                    <div className={s.year_box}>{step.year}</div>
+                    <div className={s.year_box}>
+                      <span>{step.year}</span>
+                    </div>
 
                     <div className={s.description}>{step.description}</div>
                   </div>
