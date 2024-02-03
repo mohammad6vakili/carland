@@ -12,6 +12,10 @@ import { useWindowSize } from "@uidotdev/usehooks";
 const ContactUs = () => {
   const size = useWindowSize();
 
+  const contactData = {
+    phone: "۰۱۲۳۴۵۶۷۸۹",
+  };
+
   return (
     <>
       <div className={s.contact_us}>
@@ -50,7 +54,7 @@ const ContactUs = () => {
             </div>
 
             <div className={s.address}>
-              <span>۰۹۰۳۱۲۱۷۷۲۴</span>
+              <span>{contactData.phone}</span>
               <div className={s.line}></div>
             </div>
           </div>
@@ -68,7 +72,7 @@ const ContactUs = () => {
             </div>
 
             <div className={s.address}>
-              <span>۰۹۰۳۱۲۱۷۷۲۴</span>
+              <span>{contactData.phone}</span>
               <div className={s.line}></div>
             </div>
           </div>
@@ -86,7 +90,7 @@ const ContactUs = () => {
             </div>
 
             <div className={s.address}>
-              <span>۰۹۰۳۱۲۱۷۷۲۴</span>
+              <span>{contactData.phone}</span>
               <div className={s.line}></div>
             </div>
           </div>
@@ -104,7 +108,7 @@ const ContactUs = () => {
             </div>
 
             <div className={s.address}>
-              <span>۰۹۰۳۱۲۱۷۷۲۴</span>
+              <span>{contactData.phone}</span>
               <div className={s.line}></div>
             </div>
           </div>
