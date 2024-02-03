@@ -12,10 +12,15 @@ import { useWindowSize } from "@uidotdev/usehooks";
 const ContactUs = () => {
   const size = useWindowSize();
 
+  const contactData = {
+    phone: "۰۱۲۳۴۵۶۷۸۹",
+  };
+
   return (
     <>
       <div className={s.contact_us}>
         <div className={s.first_sec}>
+          <div className={s.fade_right}></div>
           <div className={s.background}>
             <Image src={background} alt="background" />
           </div>
@@ -31,6 +36,7 @@ const ContactUs = () => {
               <p>ما در کنار شما هستیم تا بهتون کمک کنیم</p>
             </div>
           </div>
+          <div className={s.fade_left}></div>
         </div>
 
         <div className={s.boxes}>
@@ -48,7 +54,7 @@ const ContactUs = () => {
             </div>
 
             <div className={s.address}>
-              <span>۰۹۰۳۱۲۱۷۷۲۴</span>
+              <span>{contactData.phone}</span>
               <div className={s.line}></div>
             </div>
           </div>
@@ -66,7 +72,7 @@ const ContactUs = () => {
             </div>
 
             <div className={s.address}>
-              <span>۰۹۰۳۱۲۱۷۷۲۴</span>
+              <span>{contactData.phone}</span>
               <div className={s.line}></div>
             </div>
           </div>
@@ -84,7 +90,7 @@ const ContactUs = () => {
             </div>
 
             <div className={s.address}>
-              <span>۰۹۰۳۱۲۱۷۷۲۴</span>
+              <span>{contactData.phone}</span>
               <div className={s.line}></div>
             </div>
           </div>
@@ -102,7 +108,7 @@ const ContactUs = () => {
             </div>
 
             <div className={s.address}>
-              <span>۰۹۰۳۱۲۱۷۷۲۴</span>
+              <span>{contactData.phone}</span>
               <div className={s.line}></div>
             </div>
           </div>
@@ -133,6 +139,17 @@ const ContactUs = () => {
                 <Button className={s.submit}>ثبت اطلاعات</Button>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className={s.questions}>
+          <div className={s.header}>
+            <span>
+              سوالات
+              <span>متداول</span>
+            </span>
+
+            <div className={s.line}></div>
           </div>
         </div>
       </div>
