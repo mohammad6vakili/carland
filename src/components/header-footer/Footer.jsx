@@ -65,11 +65,13 @@ const Footer = () => {
             {size.width > 1000 ? (
               <div className={styles.contatcs}>
                 <div className={styles.phone}>
-                  <a href={`tel:${contactData.phone}`}>
-                    <Button className={styles.button}>
-                      <PhoneOutlined style={{ color: "#fff" }} />
-                    </Button>
-                  </a>
+                  {contactData && (
+                    <a href={`tel:${contactData.phone}`}>
+                      <Button className={styles.button}>
+                        <PhoneOutlined style={{ color: "#fff" }} />
+                      </Button>
+                    </a>
+                  )}
 
                   <div className={styles.texts}>
                     <p>{contactData && contactData.phone}</p>
