@@ -16,7 +16,7 @@ import { Provider } from "react-redux";
 import { store } from "@/src/app/store";
 import Head from "next/head";
 
-const dana = localFont({ src: "../public/fonts/Dana-Medium.ttf" });
+const dana = localFont({ src: "../public/fonts/Dana-Medium.woff" });
 
 const MyApp = ({ Component, pageProps }) => {
   return (
