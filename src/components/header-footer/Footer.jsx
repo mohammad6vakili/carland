@@ -66,7 +66,7 @@ const Footer = () => {
               <div className={styles.contatcs}>
                 <div className={styles.phone}>
                   {contactData && (
-                    <a href={`tel:${contactData.phone}`}>
+                    <a href={`tel:${contactData.phone}`} target="_blank">
                       <Button className={styles.button}>
                         <PhoneOutlined style={{ color: "#fff" }} />
                       </Button>

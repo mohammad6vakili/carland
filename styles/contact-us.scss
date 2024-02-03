@@ -1,0 +1,214 @@
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+@mixin responsive {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.contact_us {
+  @include flex(column, flex-start, center);
+  @include responsive();
+  width: 100%;
+
+  .first_sec {
+    @include flex(column, flex-start, center);
+    height: 600px;
+    width: 100%;
+    position: relative;
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: -1;
+    }
+
+    .text_logo {
+      @include flex(column, center, center);
+      height: 100%;
+      gap: 10px;
+
+      .logo {
+        object-fit: cover;
+        margin: 1rem 0;
+      }
+
+      .texts {
+        @include flex(column, flex-start, center);
+        font-size: 1.5em;
+        color: #757575;
+
+        .title {
+          font-size: 32px;
+          color: #202020;
+        }
+      }
+    }
+  }
+
+  .boxes {
+    @include flex(row, space-between, flex-start);
+    width: 100%;
+    gap: 1rem;
+    transform: translate(0, -100%);
+    padding: 0 100px;
+
+    .box {
+      @include flex(column, flex-start, center);
+      gap: 15px;
+      width: 230px;
+      border: 2px solid #265dc8;
+      border-radius: 25px;
+      background: #fff;
+      padding: 25px;
+      color: #101010;
+      transform: translate(0, 50%);
+
+      .icon {
+        @include flex(column, flex-start, center);
+
+        div {
+          @include flex(row, center, center);
+          width: 100%;
+          height: 40px;
+          border: 1px solid #265dc8;
+          border-radius: 0 0 10px 10px;
+
+          svg {
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+
+      .texts {
+        text-align: center;
+        padding-bottom: 2rem;
+
+        :nth-child(1) {
+          font-size: 1.1em;
+          font-weight: 700;
+        }
+
+        :nth-child(2) {
+          color: #757575;
+          font-size: 0.9em;
+        }
+      }
+
+      .address {
+        @include flex(column, center, center);
+
+        :nth-child(1) {
+          font-size: 0.9em;
+        }
+
+        .line {
+          width: 130px;
+          height: 3px;
+          background: linear-gradient(
+            rgba(100, 100, 100, 0) 0%,
+            rgba(60, 60, 60, 1) 100%
+          );
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+
+  .form_sec {
+    @include flex(column, center, center);
+    width: 100%;
+    padding: 150px;
+
+    .form {
+      @include flex(column, flex-end, center);
+      width: 100%;
+      position: relative;
+      padding-top: 4rem;
+
+      .background {
+        @include flex(row, center, center);
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: -1;
+
+        img {
+          width: 120%;
+          object-fit: cover;
+        }
+      }
+
+      .inputs {
+        @include flex(row, flex-start, flex-start);
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 50%;
+        height: auto;
+        transform: translate(50%);
+
+        .input_group {
+          @include flex(column, flex-start, flex-start);
+          width: 200px;
+          color: rgb(255, 255, 255, 90%);
+          margin: 0 auto;
+
+          input,
+          textarea {
+            background: rgb(255, 255, 255, 40%);
+          }
+        }
+
+        :nth-child(3) {
+          width: 80%;
+        }
+
+        .submit {
+          width: 120px;
+          height: 40px;
+          background: #fff;
+          color: #142d5d;
+          border: 1px solid #142d5d;
+          margin: 1rem auto;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .contact_us {
+    .boxes {
+      flex-wrap: wrap;
+    }
+
+    .form_sec {
+      padding: 150px 20px;
+
+      .form {
+        background-color: #142d5d;
+        border-radius: 20px;
+        padding: 1rem;
+
+        .background {
+          display: none;
+          img {
+            border-radius: 20px;
+          }
+        }
+
+        .inputs {
+          width: 100%;
+          transform: translate(0);
+        }
+      }
+    }
+  }
+}
