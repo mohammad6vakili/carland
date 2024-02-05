@@ -171,7 +171,7 @@ const ClubsCategory = ({ clubCategories }) => {
 
           <MainPageMagazine
             magazines={clubs}
-            method={"magazine"}
+            method={"club"}
             overflowedDes={true}
           />
         </div>
