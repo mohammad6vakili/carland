@@ -25,10 +25,7 @@ export default function Home({ jobCategories }) {
       <Head>
         <title>کارلند</title>
         <meta name="twitter:title" content="کارلند" />
-        <meta
-          property="og:image"
-          content={"../public/assets/carland-logo.png"}
-        />
+        <meta property="og:image" content={"/assets/carland-logo.png"} />
       </Head>
       <Header />
       <Main jobCategories={jobCategories} />
