@@ -181,9 +181,14 @@ const Main = ({ jobCategories }) => {
   return (
     <>
       <Head>
-        <meta property="og:image" content={url + "/"} />
-        <meta name="keywords" content={jobCategories?.keywords} />
-        <meta name="description" content={jobCategories?.descriptions} />
+        <meta
+          name="keywords"
+          content={jobCategories && jobCategories.keywords}
+        />
+        <meta
+          name="description"
+          content={jobCategories && jobCategories.descriptions}
+        />
       </Head>
       <section className={styles.main}>
         {loading ? <Loading /> : null}
