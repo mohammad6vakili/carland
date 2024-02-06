@@ -83,15 +83,7 @@ const Club = () => {
   if (clubData.length !== 0) {
     return (
       <>
-        <Head>
-          <title>{clubData.data.title}</title>
-          <meta
-            property="og:image"
-            content={url + "/" + clubData.data.image_url}
-          />
-          <meta name="keywords" content={clubData.data.keywords} />
-          <meta name="description" content={clubData.data.description} />
-        </Head>
+        <Head></Head>
 
         <div className={s.magazine_page}>
           <div className={s.main_title}>
@@ -489,9 +481,7 @@ const Club = () => {
   } else {
     return (
       <>
-        <Head>
-          <title>به بخش کلوپ ها خوش آمدید</title>
-        </Head>
+        <Head></Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>
