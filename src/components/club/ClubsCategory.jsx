@@ -107,7 +107,7 @@ const ClubsCategory = ({ clubCategories }) => {
                 <>
                   {index <= 2 && (
                     <SwiperSlide key={Math.random()} className={s.slide}>
-                      <Link href={`/club/${club.id}`}>
+                      <Link href={`/club/${club.title}/${club.id}`}>
                         <Image
                           src={url + "/" + club.image_url}
                           alt=""
