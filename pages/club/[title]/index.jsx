@@ -4,14 +4,9 @@ import Footer from "@/src/components/header-footer/Footer";
 import Header from "@/src/components/header-footer/Header";
 import Head from "next/head";
 
-const index = ({ club }) => {
-  console.log(club);
-
+const index = () => {
   return (
     <>
-      <Head>
-        <title>{club.title}</title>
-      </Head>
       <Header />
       <Club />
       <Footer />
