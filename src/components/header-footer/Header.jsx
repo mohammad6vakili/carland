@@ -141,7 +141,7 @@ const Header = () => {
 
                 <div className={styles.links_seperator}></div>
 
-                <Link href={"/market"}>
+                {/* <Link href={"/market"}>
                   <span
                     className={pathname === "/market" ? styles.selected : ""}
                   >
@@ -153,7 +153,7 @@ const Header = () => {
                       <SelectedPageLine />
                     </div>
                   </span>
-                </Link>
+                </Link> */}
 
                 <Link href={"/offers/all"}>
                   <span
@@ -240,7 +240,7 @@ const Header = () => {
           </div>
 
           <div className={styles.account_info}>
-            <Button className={styles.shop} color="#EAEDF3">
+            {/* <Button className={styles.shop} color="#EAEDF3">
               <Image
                 src={"/assets/main/shop.png"}
                 alt="user"
@@ -250,7 +250,7 @@ const Header = () => {
               <div className={styles.badge}>
                 <span>۳</span>
               </div>
-            </Button>
+            </Button> */}
 
             {isAuth ? (
               <ButtonGroup>

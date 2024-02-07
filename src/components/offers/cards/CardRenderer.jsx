@@ -134,8 +134,6 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
       .catch((err) => toast.error(err.message));
   };
 
-  useEffect(() => console.log(trades), [trades]);
-
   if (offers === "خرید و فروش" && trades && trades.length !== 0) {
     return (
       <section className={s.market_cards}>

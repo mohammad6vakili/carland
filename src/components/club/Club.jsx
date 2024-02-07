@@ -83,8 +83,6 @@ const Club = () => {
   if (clubData.length !== 0) {
     return (
       <>
-        <Head></Head>
-
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>{clubData.data.title}</h1>
@@ -481,7 +479,6 @@ const Club = () => {
   } else {
     return (
       <>
-        <Head></Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>

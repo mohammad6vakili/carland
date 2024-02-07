@@ -1,0 +1,40 @@
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+@mixin responsive {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.not_found_page {
+  @include flex(column, center, center);
+  gap: 10px;
+  height: 100vh;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+
+  .des {
+    font-size: 20px;
+  }
+
+  .code {
+    font-size: 12px;
+  }
+
+  .back {
+    @include flex(row, center, center);
+    gap: 12px;
+  }
+}
+
+.server_error_page {
+  @include flex(column, center, center);
+}
+
+.error_page {
+  @include flex(column, center, center);
+}

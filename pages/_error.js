@@ -1,10 +1,11 @@
+import s from "@/styles/custom-errors.module.scss";
 function Error({ statusCode }) {
   return (
-    <p>
+    <div className={s.error_page}>
       {statusCode
         ? `An error ${statusCode} occurred on server`
         : "An error occurred on client"}
-    </p>
+    </div>
   );
 }
 
