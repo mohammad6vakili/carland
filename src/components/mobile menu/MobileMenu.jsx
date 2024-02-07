@@ -33,11 +33,13 @@ const MobileMenu = () => {
               <div className={s.links_seperator}>
                 <Link
                   onClick={() => setIsMenuColl(true)}
-                  className={pathname === "/market" ? s.selected_link : s.link}
+                  className={
+                    pathname === "/contact_us" ? s.selected_link : s.link
+                  }
                   href={"/contact_us"}
                 >
                   <Image className={s.img} src={market} alt="market icon" />
-                  <span>بازارچه</span>
+                  <span>تماس با ما</span>
                 </Link>
 
                 <Link

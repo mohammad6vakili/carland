@@ -13,10 +13,17 @@ export async function getStaticProps() {
     })
     .catch((err) => {});
 
-  return { props: { magsCategories } };
+  const magazines = await axios
+    .get(`${baseUrl}/magazines`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {});
+
+  return { props: { magsCategories, magazines } };
 }
 
-const index = ({ magsCategories }) => {
+const index = ({ magsCategories, magazines }) => {
   return (
     <>
       <Head>
@@ -24,7 +31,10 @@ const index = ({ magsCategories }) => {
         <meta property="og:title" content="مجله ماشین کارلند" key="کجله" />
       </Head>
       <Header />
-      <MagazineCategory magsCategories={magsCategories.data} />
+      <MagazineCategory
+        magsCategories={magsCategories.data}
+        magazines={magazines}
+      />
       <Footer />
     </>
   );
