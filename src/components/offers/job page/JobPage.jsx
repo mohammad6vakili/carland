@@ -72,7 +72,7 @@ const JobPage = () => {
 
   //handle job id
   useEffect(() => {
-    const id = router.query.job;
+    const id = router.query.jobId;
     if (id) {
       httpService.get(`service/${id}`).then((res) => {
         res.status === 200 ? setJobData(res.data.data) : null;

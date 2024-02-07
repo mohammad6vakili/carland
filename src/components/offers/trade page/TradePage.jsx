@@ -68,7 +68,7 @@ const TradePage = () => {
 
   //handle trade id
   useEffect(() => {
-    const id = router.query.trade;
+    const id = router.query.tradeId;
     if (id) {
       httpService.get(`Showads/${id}`).then((res) => {
         res.status === 200 ? setTradeData(res.data.data) : null;
@@ -167,9 +167,6 @@ const TradePage = () => {
   const handleReportModal = () => {
     setReportModal(!reportModal);
   };
-
-  //handle favorites
-  useEffect(() => console.log(favList), [favList]);
 
   const handleFavorite = () => {
     favList.some((ad) => {

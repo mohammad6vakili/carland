@@ -1,12 +1,13 @@
 import Footer from "@/src/components/header-footer/Footer";
 import Header from "@/src/components/header-footer/Header";
-import JobPage from "@/src/components/offers/job page/JobPage";
+import Magazine from "@/src/components/magazine/Magazine";
+import Head from "next/head";
 
 const index = () => {
   return (
     <>
       <Header />
-      <JobPage />
+      <Magazine />
       <Footer />
     </>
   );

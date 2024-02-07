@@ -8,6 +8,7 @@ import OfferCardSkeleton from "../../skeleton/OfferCardSkeleton";
 import MySkeleton from "../../skeleton/Skeleton";
 import React from "react";
 import { handleTextCut } from "@/src/hooks/functions";
+import Link from "next/link";
 
 const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
   const navigate = useRouter();
@@ -31,12 +32,8 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
 
       <div className={styles.content}>
         {magazines.length !== 0 ? (
-          <div
-            onClick={() =>
-              navigate.push(
-                `/${method}/${magazines[0].id}/${magazines[0].title}`
-              )
-            }
+          <Link
+            href={`/${method}/${magazines[0].title}/${magazines[0].id}`}
             className={styles.solid_pic}
           >
             <Image
@@ -67,7 +64,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                 </div>
               </div>
             ) : null}
-          </div>
+          </Link>
         ) : (
           <OfferCardSkeleton width={"100%"} height={500} />
         )}
@@ -96,21 +93,19 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                       </p>
                       <div className={styles.refrences}>
                         <span>۱۴۰۲/۰۸/۰۱</span>
-                        <Button
-                          onClick={() =>
-                            navigate.push(`/${method}/${mag.id}/${mag.title}`)
-                          }
-                        >
-                          مشاهده{" "}
-                          <div>
-                            <Image
-                              src={"/assets/main/see-more.svg"}
-                              alt=""
-                              width={15}
-                              height={15}
-                            />
-                          </div>
-                        </Button>
+                        <Link href={`/${method}/${mag.title}/${mag.id}`}>
+                          <Button>
+                            مشاهده{" "}
+                            <div>
+                              <Image
+                                src={"/assets/main/see-more.svg"}
+                                alt=""
+                                width={15}
+                                height={15}
+                              />
+                            </div>
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </section>

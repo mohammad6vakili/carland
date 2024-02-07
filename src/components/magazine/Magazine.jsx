@@ -87,13 +87,6 @@ const Magazine = () => {
   if (magData.length !== 0) {
     return (
       <>
-        <Head>
-          <title>{magData.title}</title>
-          <meta property="og:title" content="مجله خرید و فروش" key="مجله" />
-          <meta property="og:image" content={url + "/" + magData.image_url} />
-          <meta name="keywords" content={magData.keywords} />
-          <meta name="description" content={magData.description} />
-        </Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>{magData.title}</h1>
@@ -435,9 +428,6 @@ const Magazine = () => {
   } else {
     return (
       <>
-        <Head>
-          <title>به بخش مجله ها خوش آمدید...</title>
-        </Head>
         <div className={s.magazine_page}>
           <div className={s.main_title}>
             <h1>

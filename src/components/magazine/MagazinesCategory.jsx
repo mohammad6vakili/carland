@@ -211,6 +211,7 @@ const MagazineCategory = ({ magsCategories }) => {
                   <Link
                     href={`/magazine/${cat.id}/${cat.title}`}
                     className={s.magazine}
+                    key={cat.id}
                   >
                     <div className={s.list}>
                       <section className={s.image}>
