@@ -27,7 +27,6 @@ const page = ({ addCategories }) => {
       <div className={styles.userDashboard_container}>
         <CreateAdd addCategories={addCategories} />
       </div>
-      <Footer />
     </>
   );
 };

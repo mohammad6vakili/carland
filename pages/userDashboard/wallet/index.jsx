@@ -12,7 +12,6 @@ const page = () => {
         <UDNavigation />
         <Wallet />
       </div>
-      <Footer />
     </>
   );
 };

@@ -12,7 +12,6 @@ const page = () => {
         <UDNavigation />
         <UserComments />
       </div>
-      <Footer />
     </>
   );
 };

@@ -44,7 +44,6 @@ const page = () => {
         <UDNavigation />
         <UserData />
       </section>
-      <Footer />
     </>
   );
 };
