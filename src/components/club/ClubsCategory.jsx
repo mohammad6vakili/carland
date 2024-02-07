@@ -14,7 +14,7 @@ import { convertDate } from "../comments/CommentCards";
 import MySkeleton from "../skeleton/Skeleton";
 import Link from "next/link";
 
-const ClubsCategory = ({ clubCategories }) => {
+const ClubsCategory = ({ clubCategories, clubs }) => {
   const photos = [
     { src: "/assets/trades/trade-1.png" },
     { src: "/assets/trades/trade-2.png" },
@@ -25,41 +25,44 @@ const ClubsCategory = ({ clubCategories }) => {
     { src: "/assets/trades/trade-1.png" },
   ];
   const categories = [{}, {}, {}];
-  const [clubs, setClubs] = useState([]);
+  // const [clubs, setClubs] = useState([]);
   const [clubByCategory, setclubByCategory] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(
     getLocal("clubCat") !== "null" ? parseInt(getLocal("clubCat")) : null
   );
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { httpService } = useHttp();
 
   //handle requests
-  useEffect(() => {
-    httpService
-      .get("clubs")
-      .then((res) => {
-        res.status === 200 ? setClubs(res.data.data) : null;
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error("خطا در ارتباط با سرور");
-      });
+  // useEffect(() => {
+  //   httpService
+  //     .get("clubs")
+  //     .then((res) => {
+  //       res.status === 200 ? setClubs(res.data.data) : null;
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       toast.error("خطا در ارتباط با سرور");
+  //     });
 
-    removeLocal("clubCat");
-  }, []);
+  //   removeLocal("clubCat");
+  // }, []);
 
   useEffect(() => {
     selectedCategory
-      ? httpService
+      ? (setLoading(true),
+        httpService
           .get(`clubs/${selectedCategory}`)
           .then((res) => {
             res.status === 200 ? setclubByCategory(res.data.data) : null;
+            setLoading(false);
           })
           .catch((err) => {
             toast.error(
               "مشکلی در پیدا کردن کلوپ با دسته بندی مورد نظر بوجود امد"
             );
-          })
+            setLoading(false);
+          }))
       : null;
   }, [selectedCategory]);
 
@@ -136,7 +139,7 @@ const ClubsCategory = ({ clubCategories }) => {
                 </>
               ))
             ) : (
-              <MySkeleton width={"100%"} height={"100%"} />
+              <MySkeleton width={"100%"} height={"400px"} />
             )}
           </Swiper>
 

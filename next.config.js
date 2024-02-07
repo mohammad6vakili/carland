@@ -12,7 +12,7 @@ const nextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
   },
-  // transpilePackages: ["react-leaflet"],
+  transpilePackages: ["zaman"],
   reactStrictMode: false,
 };
 

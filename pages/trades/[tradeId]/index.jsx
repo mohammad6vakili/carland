@@ -50,7 +50,7 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-const index = () => {
+const index = ({ trade }) => {
   return (
     <>
       <Header />

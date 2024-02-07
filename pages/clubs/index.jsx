@@ -12,12 +12,23 @@ export async function getStaticProps() {
     .then((res) => {
       return res.data;
     })
-    .catch((err) => {});
+    .catch((err) => {
+      return null;
+    });
 
-  return { props: { clubCategories } };
+  const clubs = await axios
+    .get(`${baseUrl}/clubs`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {
+      return null;
+    });
+
+  return { props: { clubCategories, clubs } };
 }
 
-const index = ({ clubCategories }) => {
+const index = ({ clubCategories, clubs }) => {
   return (
     <>
       <Head>
@@ -25,7 +36,7 @@ const index = ({ clubCategories }) => {
         <meta property="og:title" content="کلوپ کارلند" key="کلوپ" />
       </Head>
       <Header />
-      <ClubsCategory clubCategories={clubCategories} />
+      <ClubsCategory clubCategories={clubCategories} clubs={clubs} />
       <Footer />
     </>
   );

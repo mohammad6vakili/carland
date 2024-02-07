@@ -30,7 +30,6 @@ const UserData = () => {
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
-  const [uploadedImage, setUploadedImage] = useState(null);
   const userData = useSelector((state) => state.userInfo.userInfo);
 
   //handle requests
@@ -267,13 +266,9 @@ const UserData = () => {
                 <InputGroup className={s.input}>
                   <Input
                     name="expirationInsurance"
-                    type="date"
                     value={formik.values.expirationInsurance}
                     onChange={formik.handleChange}
                   />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
                 </InputGroup>
                 <FormFeedback>لطفا پر کنید</FormFeedback>
               </FormGroup>

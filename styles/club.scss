@@ -177,11 +177,5 @@
         padding-top: 50px;
       }
     }
-
-    .clubs_category {
-      .categories {
-        @include flex(column, flex-start, center);
-      }
-    }
   }
 }

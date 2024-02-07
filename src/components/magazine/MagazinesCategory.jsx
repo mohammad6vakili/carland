@@ -13,7 +13,7 @@ import MySkeleton from "../skeleton/Skeleton";
 import Link from "next/link";
 import { handleTextCut } from "@/src/hooks/functions";
 
-const MagazineCategory = ({ magsCategories }) => {
+const MagazineCategory = ({ magsCategories, magazines }) => {
   const photos = [
     { src: "/assets/trades/trade-1.png" },
     { src: "/assets/trades/trade-2.png" },
@@ -24,24 +24,24 @@ const MagazineCategory = ({ magsCategories }) => {
     { src: "/assets/trades/trade-1.png" },
   ];
   const categories = [{}, {}, {}];
-  const [magazines, setMagazines] = useState([]);
+  // const [magazines, setMagazines] = useState([]);
   const [magazinesByCat, setMagazinesByCat] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const { httpService } = useHttp();
 
   //handle requests
-  useEffect(() => {
-    httpService
-      .get("magazines")
-      .then((res) => {
-        res.status === 200 ? setMagazines(res.data.data) : null;
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error("خطا در ارتباط با سرور");
-      });
-  }, []);
+  // useEffect(() => {
+  //   httpService
+  //     .get("magazines")
+  //     .then((res) => {
+  //       res.status === 200 ? setMagazines(res.data.data) : null;
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       toast.error("خطا در ارتباط با سرور");
+  //     });
+  // }, []);
 
   useEffect(() => {
     selectedCategory
@@ -100,36 +100,43 @@ const MagazineCategory = ({ magsCategories }) => {
             }}
             modules={[FreeMode, Navigation, Thumbs]}
             className={s.mySwiper}
-            onSwiper={setAdsSwiper}
           >
-            {photos.map((item, index) => (
-              <SwiperSlide key={Math.random() * index} className={s.slide}>
-                <Image
-                  src={"/assets/trades/trade-1.png"}
-                  alt=""
-                  width={700}
-                  height={400}
-                />
-              </SwiperSlide>
-            ))}
+            {magazines ? (
+              magazines.map((magazine, index) => (
+                <>
+                  {index <= 2 && (
+                    <SwiperSlide key={Math.random()} className={s.slide}>
+                      <Link href={`/magazine/${magazine.title}/${magazine.id}`}>
+                        <Image
+                          src={url + "/" + magazine.image_url}
+                          alt=""
+                          width={600}
+                          height={300}
+                          placeholder="blur"
+                          blurDataURL="...loading"
+                        />
+                        <div className={s.descriptions}>
+                          <h1 className={s.title}>{magazine.title}</h1>
+                          <div className={s.texts}>
+                            {handleTextCut(magazine.description, 100)}
+                          </div>
 
-            <div className={s.descriptions}>
-              <h1 className={s.title}>رونمایی از جدیدترین محصول BMW</h1>
-              <div className={s.texts}>
-                میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
-                پیش آمده تمام قطعات رو اینجا پیدا کنید. همچنین برای دانلودسریع و
-                بهتر آن میتوانید از لینک مستقیم یا اپ کافه بازا استفاده در
-                موبایل خود انجام دهید.
-              </div>
-
-              {/* small boxes */}
-              <div className={s.box1}>
-                <div></div>
-              </div>
-              <div className={s.box2}>
-                <div></div>
-              </div>
-            </div>
+                          {/* small boxes */}
+                          <div className={s.box1}>
+                            <div></div>
+                          </div>
+                          <div className={s.box2}>
+                            <div></div>
+                          </div>
+                        </div>
+                      </Link>
+                    </SwiperSlide>
+                  )}
+                </>
+              ))
+            ) : (
+              <MySkeleton width={"100%"} height={"400px"} />
+            )}
           </Swiper>
 
           <div className={s.navigation_nexprev}>

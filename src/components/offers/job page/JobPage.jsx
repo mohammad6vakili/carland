@@ -31,7 +31,6 @@ import { FaWhatsapp } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { useWindowSize } from "@uidotdev/usehooks";
 import toast from "react-hot-toast";
-import Head from "next/head";
 
 const JobPage = () => {
   const pathname = usePathname();
@@ -83,9 +82,6 @@ const JobPage = () => {
   if (jobData.length !== 0) {
     return (
       <>
-        <Head>
-          <title>{jobData.title}</title>
-        </Head>
         <div className={s.job_page}>
           <div className={s.gallery}>
             <Swiper className={s.my_swiper} spaceBetween={50}>
