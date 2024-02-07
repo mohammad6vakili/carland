@@ -4,17 +4,17 @@ import Footer from "@/src/components/header-footer/Footer";
 import Main from "@/src/components/main/Main";
 import { baseUrl } from "@/src/axiosConfig/useHttp";
 import carlandLogo from "@/public/assets/carland-logo.png";
+import axios from "axios";
 
 export async function getStaticProps() {
-  const res = await fetch(`${baseUrl}/categories`)
+  const jobCategories = await axios
+    .get(`${baseUrl}/categories`)
     .then((res) => {
-      return res;
+      return res.data;
     })
     .catch((err) => {
       return null;
     });
-
-  const jobCategories = res ? await res.json() : null;
 
   return { props: { jobCategories } };
 }
@@ -23,8 +23,10 @@ export default function Home({ jobCategories }) {
   return (
     <>
       <Head>
-        <title>کارلند</title>
-        <meta name="twitter:title" content="کارلند" />
+        <title>{jobCategories.title}</title>
+        <meta name="og:title" content={jobCategories.title} />
+        <meta name="keywords" content={jobCategories.keywords} />
+        <meta name="description" content={jobCategories.description} />
         <meta property="og:image" content={"/assets/carland-logo.png"} />
       </Head>
       <Header />

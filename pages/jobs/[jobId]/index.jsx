@@ -5,34 +5,34 @@ import JobPage from "@/src/components/offers/job page/JobPage";
 import axios from "axios";
 import Head from "next/head";
 
-export const getStaticPaths = async () => {
-  const data = await axios
-    .get(`${baseUrl}/ServiceListId`, {
-      headers: {
-        Accept: "application/json",
-        "app-type": "10",
-      },
-    })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+// export const getStaticPaths = async () => {
+//   const data = await axios
+//     .get(`${baseUrl}/ServiceListId`, {
+//       headers: {
+//         Accept: "application/json",
+//         "app-type": "10",
+//       },
+//     })
+//     .then((res) => {
+//       return res.data;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
 
-  const paths = data.map((job) => {
-    return {
-      params: { jobId: job.id.toString() },
-    };
-  });
+//   const paths = data.map((job) => {
+//     return {
+//       params: { jobId: job.id.toString() },
+//     };
+//   });
 
-  return {
-    paths: paths,
-    fallback: false,
-  };
-};
+//   return {
+//     paths: paths,
+//     fallback: false,
+//   };
+// };
 
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const jobId = context.params.jobId;
   const data = await axios
     .get(`${baseUrl}/service/${jobId}`)
