@@ -16,7 +16,6 @@ const page = () => {
         <UDNavigation />
         <UserTickets />
       </div>
-      <Footer />
     </>
   );
 };

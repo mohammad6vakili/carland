@@ -25,7 +25,6 @@ const page = ({ jobCategories }) => {
       <div className={styles.userDashboard_container}>
         <CreateJob jobCategories={jobCategories.data} />
       </div>
-      <Footer />
     </>
   );
 };

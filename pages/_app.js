@@ -14,7 +14,6 @@ import MobileMenu from "@/src/components/mobile menu/MobileMenu";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { store } from "@/src/app/store";
-import Head from "next/head";
 
 const dana = localFont({ src: "../public/fonts/Dana-Medium.woff" });
 

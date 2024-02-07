@@ -14,7 +14,6 @@ const page = () => {
       <div className={styles.userDashboard_container}>
         <CreateAdd type={"edit"} />
       </div>
-      <Footer />
     </>
   );
 };
