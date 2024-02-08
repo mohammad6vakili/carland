@@ -10,6 +10,7 @@ import profile from "@/public/assets/about us/person-profile.png";
 import { Button } from "reactstrap";
 import { IoTriangleSharp } from "react-icons/io5";
 import { ButtonIcon } from "@/src/assets/buttonIcon";
+import Link from "next/link";
 
 const AboutUs = () => {
   const steps = [
@@ -50,7 +51,9 @@ const AboutUs = () => {
               از یک دهه فعالیت
             </p>
 
-            <Button className={s.contact_us_btn}>ارتباط با ما</Button>
+            <Link href={"/contact_us"}>
+              <Button className={s.contact_us_btn}>ارتباط با ما</Button>
+            </Link>
           </div>
 
           <div className={s.image}>
