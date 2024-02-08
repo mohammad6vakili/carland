@@ -56,6 +56,7 @@ const index = ({ job }) => {
       <Head>
         <title>{job.title}</title>
         <meta name="title" content={job.title} />
+        <meta name="description" content={job.category.title} />
         <meta name="description" content={job.descriptions} />
         <meta property="og:image" content={url + job.images.split(",")[0]} />
       </Head>

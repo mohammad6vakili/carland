@@ -451,6 +451,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                           description={handleTextCut(item.description, 200)}
                           image={url + "/" + item.image_url}
                           time={convertDate(item.created_at)}
+                          href={`/club/${item.title}/${item.id}`}
                         />
                       </SwiperSlide>
                     ))

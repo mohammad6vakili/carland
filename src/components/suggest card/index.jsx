@@ -1,8 +1,9 @@
 import s from "./suggest.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "reactstrap";
 
-const SuggestCard = ({ image, title, description, time }) => {
+const SuggestCard = ({ image, title, description, time, href }) => {
   return (
     <>
       <div className={s.card}>
@@ -17,17 +18,19 @@ const SuggestCard = ({ image, title, description, time }) => {
 
         <div className={s.bottom_content}>
           <span>{time}</span>
-          <Button>
-            مشاهده
-            <div>
-              <Image
-                src={"/assets/main/see-more.svg"}
-                alt=""
-                width={20}
-                height={20}
-              />
-            </div>
-          </Button>
+          <Link href={`${href}`}>
+            <Button>
+              مشاهده
+              <div>
+                <Image
+                  src={"/assets/main/see-more.svg"}
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+              </div>
+            </Button>
+          </Link>
         </div>
       </div>
     </>
