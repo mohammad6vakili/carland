@@ -17,6 +17,13 @@
     text-decoration: none;
   }
 
+  .close_btn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+  }
+
   .circle1,
   .circle2 {
     position: absolute;
@@ -157,6 +164,7 @@
   background: #fff;
   box-shadow: 0 0 50px rgb(0, 0, 0, 0.4);
   z-index: 10;
+  border-radius: 20px 0 0 20px;
 
   div {
     @include flex(row, center, center);

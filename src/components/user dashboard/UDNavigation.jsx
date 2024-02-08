@@ -22,7 +22,7 @@ import { PiWalletFill } from "react-icons/pi";
 import { IoMdMegaphone } from "react-icons/io";
 import { TbBriefcaseFilled } from "react-icons/tb";
 import { HiChatAlt } from "react-icons/hi";
-import { ImExit } from "react-icons/im";
+import { ImCross, ImExit } from "react-icons/im";
 import shoppingBag from "../../../public/assets/userDashboard/shopping-bag.svg";
 import transaction from "../../../public/assets/userDashboard/transaction.svg";
 import ticket from "../../../public/assets/userDashboard/ticket.svg";
@@ -374,11 +374,15 @@ const UDNavigation = () => {
             style={{ fontFamily: "dana" }}
             scrollable
             isOpen={!navColl}
-            toggle={() => handleNavColl()}
+            toggle={handleNavColl}
           >
             <div className={s.userDashboard_navigation}>
               <Image className={s.circle1} src={circle1} alt="" />
               <Image className={s.circle2} src={circle2} alt="" />
+
+              <Button onClick={handleNavColl} className={s.close_btn}>
+                <ImCross />
+              </Button>
 
               {userData ? (
                 <>
