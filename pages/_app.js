@@ -29,7 +29,7 @@ const MyApp = ({ Component, pageProps }) => {
           reverseOrder={false}
           gutter={8}
           containerClassName=""
-          containerStyle={{}}
+          containerStyle={{ marginBottom: "50px" }}
           toastOptions={{
             // Define default options
             className: "",

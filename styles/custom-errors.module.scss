@@ -16,25 +16,101 @@
   width: 100%;
   padding: 2rem;
   text-align: center;
+  position: relative;
 
-  .des {
-    font-size: 20px;
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
-  .code {
-    font-size: 12px;
-  }
+  .text {
+    @include flex(column, center, center);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    background: #fff;
 
-  .back {
-    @include flex(row, center, center);
-    gap: 12px;
+    .des {
+      font-size: 20px;
+    }
+
+    .code {
+      font-size: 12px;
+    }
+
+    .back {
+      @include flex(row, center, center);
+      gap: 12px;
+    }
   }
 }
 
 .server_error_page {
   @include flex(column, center, center);
+  height: 100vh;
+  width: 100%;
+  padding: 0 2rem;
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .text {
+    @include flex(column, center, center);
+    padding: 1rem;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    background: #fff;
+    text-align: center;
+  }
 }
 
 .error_page {
   @include flex(column, center, center);
+  position: relative;
+  height: 100vh;
+  width: 100%;
+
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .text {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+  }
 }

@@ -12,6 +12,7 @@ import SuggestCard from "../suggest card";
 import MySkeleton from "../skeleton/Skeleton";
 import Link from "next/link";
 import { handleTextCut } from "@/src/hooks/functions";
+import { convertDate } from "../comments/CommentCards";
 
 const MagazineCategory = ({ magsCategories, magazines }) => {
   const photos = [
@@ -344,8 +345,9 @@ const MagazineCategory = ({ magsCategories, magazines }) => {
                       <SuggestCard
                         description={handleTextCut(item.description, 200)}
                         image={url + "/" + item.image_url}
-                        time={"۱۴۰۲/۰۸/۰۱"}
-                        title={"ام وی ام، X55 PRO"}
+                        time={convertDate(item.created_at)}
+                        title={item.title}
+                        href={`/magazine/${item.title}/${item.id}`}
                       />
                     </SwiperSlide>
                   ))

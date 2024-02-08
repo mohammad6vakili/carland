@@ -37,6 +37,7 @@ import {
 const TradePage = () => {
   const router = useRouter();
   const size = useWindowSize();
+  const [loadingGetNum, setLoadingGetNum] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tradeData, setTradeData] = useState([]);
   const [photos, setPhotos] = useState([]);
@@ -96,6 +97,7 @@ const TradePage = () => {
   }, []);
 
   const handleGetPhonAds = () => {
+    setLoadingGetNum(true);
     const id = tradeData.id;
     const formData = new FormData();
     formData.append("id", id);
@@ -112,12 +114,16 @@ const TradePage = () => {
         if (err) {
           return false;
         }
+      })
+      .finally(() => {
+        setLoadingGetNum(false);
       });
 
     return response;
   };
 
   const handleGetPhonAdsPc = () => {
+    setLoadingGetNum(true);
     const id = tradeData.id;
     const formData = new FormData();
     formData.append("id", id);
@@ -134,6 +140,9 @@ const TradePage = () => {
         if (err) {
           return false;
         }
+      })
+      .finally(() => {
+        setLoadingGetNum(false);
       });
 
     return response;
@@ -427,7 +436,7 @@ const TradePage = () => {
                     style={{ background: "#142D5D" }}
                     active
                   >
-                    اطللاعات تماس این آگهی
+                    اطلاعات تماس این آگهی
                   </Button>
                 )}
               </div>
@@ -553,11 +562,12 @@ const TradePage = () => {
 
           {size.width < 1000 ? (
             <Button
-              onClick={() => {
-                handleGetPhonAds();
-              }}
+              onClick={() => handleGetPhonAds()}
               className={s.phone_call_mobile}
             >
+              {loading && (
+                <Spinner style={{ width: "20px", height: "20px" }}></Spinner>
+              )}
               <PhoneFilled /> تماس با این آگهی
             </Button>
           ) : null}

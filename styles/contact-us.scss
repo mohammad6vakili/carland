@@ -171,6 +171,11 @@
           textarea {
             background: rgb(255, 255, 255, 40%);
           }
+
+          .error {
+            padding: 1rem 0;
+            color: #d80739;
+          }
         }
 
         :nth-child(3) {
