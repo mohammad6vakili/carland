@@ -558,7 +558,7 @@ const UDNavigation = () => {
                   <span>سفارش‌ها</span>
                 </Link> */}
 
-                <Link
+                {/* <Link
                   href={"/userDashboard/transaction"}
                   className={
                     handleSelectedRoute("transaction") ? s.selected : s.route
@@ -571,7 +571,7 @@ const UDNavigation = () => {
                     <Image src={transaction} alt="" />
                   </div>
                   <span>تراکنش‌ها</span>
-                </Link>
+                </Link> */}
 
                 <Link
                   href={"/userDashboard/myTickets"}

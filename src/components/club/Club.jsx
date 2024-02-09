@@ -26,6 +26,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import Head from "next/head";
 import ReactPlayer from "react-player";
+import ReactImageGallery from "react-image-gallery";
 
 const Club = () => {
   const size = useWindowSize();
@@ -67,8 +68,10 @@ const Club = () => {
 
     images
       ? images.split(",").map((ph) => {
-          let converted = ph.replace("https://api.carland.ir/", "");
-          data.push(converted.replace(" ", ""));
+          let converted = ph
+            .replace("https://api.carland.ir/", "")
+            .replace(" ", "");
+          data.push({ original: converted, thumbnail: converted });
         })
       : null;
     data.push(banner);
@@ -126,6 +129,9 @@ const Club = () => {
                         )
                       : null}
                   </Swiper>
+                  {/* <div className={s.my_swiper}>
+                    <ReactImageGallery fullscreen items={photos} />
+                  </div> */}
 
                   {clubData.data.imageAddresses ? (
                     <Swiper

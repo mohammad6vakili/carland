@@ -18,8 +18,6 @@ export async function getStaticProps() {
 }
 
 const index = ({ contactInfo }) => {
-  console.log(contactInfo);
-
   return (
     <>
       <Header />

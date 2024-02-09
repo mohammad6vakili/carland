@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const { url, baseUrl } = require("@/src/axiosConfig/useHttp");
+import { url, baseUrl } from "@/src/axiosConfig/useHttp";
 
 function generateSiteMap({ adids }) {
   return `<?xml version="1.0" encoding="UTF-8"?>

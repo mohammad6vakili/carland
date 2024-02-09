@@ -116,8 +116,10 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                           alt=""
                           width={600}
                           height={300}
-                          placeholder="blur"
-                          blurDataURL="...loading"
+                          className={s.lazy_load}
+                          onLoadingComplete={(img) =>
+                            img.classList.remove(s.lazy_load)
+                          }
                         />
                         <div className={s.descriptions}>
                           <h1 className={s.title}>{club.title}</h1>

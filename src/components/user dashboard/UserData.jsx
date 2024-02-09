@@ -25,12 +25,15 @@ import { useSelector } from "react-redux";
 import MySkeleton from "../skeleton/Skeleton";
 import Compressor from "compressorjs";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
+import { DatePicker } from "zaman";
+import moment from "jalali-moment";
 
 const UserData = () => {
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
   const userData = useSelector((state) => state.userInfo.userInfo);
+  const m = moment();
 
   //handle requests
   const validationSchema = Yup.object().shape({
@@ -46,6 +49,10 @@ const UserData = () => {
     dateofCarInstallments: "",
     profile: "",
   });
+
+  const handleDateFormat = (date) => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  };
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -74,6 +81,7 @@ const UserData = () => {
       formData.append("age", values.age);
       formData.append("NationalCode", values.idCard);
       formData.append("city", values.address);
+      formData.append("ExpirationInsurance", values.expirationInsurance);
 
       httpService
         .post("user", formData)
@@ -99,6 +107,7 @@ const UserData = () => {
       // formik.setFieldValue("profile", userData.image_profile);
       formik.setFieldValue("address", userData.city);
       formik.setFieldValue("idCard", userData.NationalCode);
+      formik.setFieldValue("expirationInsurance", userData.ExpirationInsurance);
       console.log(userData);
     }
   }, [userData]);
@@ -145,7 +154,7 @@ const UserData = () => {
     <>
       <div className={s.user_data}>
         <section className={s.user_form}>
-          {userData && !loading ? (
+          {userData ? (
             <Form onSubmit={formik.handleSubmit} className={s.form}>
               <FormGroup className={s.formGroup}>
                 <Label for="name">نام کاربری</Label>
@@ -264,11 +273,20 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="date">انقضای بیمه</Label>
                 <InputGroup className={s.input}>
-                  <Input
+                  <DatePicker
                     name="expirationInsurance"
                     value={formik.values.expirationInsurance}
-                    onChange={formik.handleChange}
+                    onChange={(e) =>
+                      console.log(
+                        m
+                          .locale("fa", { useGregorianParser: true })
+                          .format(handleDateFormat(e.value))
+                      )
+                    }
                   />
+                  <Button type="button">
+                    <LiaEditSolid />
+                  </Button>
                 </InputGroup>
                 <FormFeedback>لطفا پر کنید</FormFeedback>
               </FormGroup>
