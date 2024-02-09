@@ -34,6 +34,10 @@ const index = ({ clubCategories, clubs }) => {
       <Head>
         <title>کارلند | کلوپ ها</title>
         <meta property="og:title" content="کلوپ کارلند" key="کلوپ" />
+        <meta
+          property="og:image"
+          content="https://api.carland.ir/carland-logo.png"
+        />
       </Head>
       <Header />
       <ClubsCategory clubCategories={clubCategories} clubs={clubs} />

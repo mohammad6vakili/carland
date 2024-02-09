@@ -51,7 +51,7 @@ const Magazine = () => {
 
     images
       ? images.split(",").map((ph) => {
-          let converted = ph.replace("https://api.carland.ir/", "");
+          let converted = ph.replace(`${url}`, "");
           data.push(converted.replace(" ", ""));
         })
       : null;

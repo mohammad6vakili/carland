@@ -68,9 +68,7 @@ const Club = () => {
 
     images
       ? images.split(",").map((ph) => {
-          let converted = ph
-            .replace("https://api.carland.ir/", "")
-            .replace(" ", "");
+          let converted = ph.replace(`${url}/`, "").replace(" ", "");
           data.push({ original: converted, thumbnail: converted });
         })
       : null;

@@ -9,6 +9,10 @@ const index = () => {
       <Head>
         <title>کارلند | آگهی ها</title>
         <meta property="og:title" content="اگهی خرید و فروش" key="آگهی" />
+        <meta
+          property="og:image"
+          content={"https://api.carland.ir/carland-logo.png"}
+        />
       </Head>
       <Header />
       <Offers />

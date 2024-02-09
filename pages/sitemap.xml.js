@@ -1,5 +1,6 @@
 import axios from "axios";
-import { url, baseUrl } from "@/src/axiosConfig/useHttp";
+export const url = "https://api.carland.ir";
+export const baseUrl = "https://api.carland.ir/api";
 
 function generateSiteMap({ adids }) {
   return `<?xml version="1.0" encoding="UTF-8"?>

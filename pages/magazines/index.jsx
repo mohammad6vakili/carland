@@ -29,6 +29,10 @@ const index = ({ magsCategories, magazines }) => {
       <Head>
         <title>کارلند | مجلات</title>
         <meta property="og:title" content="مجله ماشین کارلند" key="کجله" />
+        <meta
+          property="og:image"
+          content={"https://api.carland.ir/carland-logo.png"}
+        />
       </Head>
       <Header />
       <MagazineCategory
