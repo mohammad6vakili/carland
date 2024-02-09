@@ -2,7 +2,7 @@ import axios from "axios";
 export const url = "https://api.carland.ir";
 export const baseUrl = "https://api.carland.ir/api";
 
-function generateSiteMap({ adids }) {
+function generateSiteMap({ adids, serviceIds }) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <url>
@@ -82,12 +82,26 @@ function generateSiteMap({ adids }) {
        <loc>${url}/userDashboard/supports</loc>
        <priority>0</priority>
      </url>
-     ${adids.map((ad) => (
-       <url>
-         <loc>{`${url}/${ad}`}</loc>
-         <priority>1</priority>
-       </url>
-     ))}
+     ${adids
+       .map(({ id }) => {
+         return `
+      <url>
+          <loc>${`${EXTERNAL_DATA_URL}/trades/${id}`}</loc>
+          <priority>1</priority>
+      </url>
+    `;
+       })
+       .join("")}
+     ${serviceIds
+       .map(({ id }) => {
+         return `
+      <url>
+          <loc>${`${EXTERNAL_DATA_URL}/jobs/${id}`}</loc>
+          <priority>1</priority>
+      </url>
+    `;
+       })
+       .join("")}
    </urlset>
  `;
 }
@@ -107,8 +121,17 @@ export async function getServerSideProps({ res }) {
       return [];
     });
 
+  const serviceIds = await axios
+    .get(`${baseUrl}/ServiceAllAds`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch(() => {
+      return [];
+    });
+
   // We generate the XML sitemap with the posts data
-  const sitemap = generateSiteMap({ adids });
+  const sitemap = generateSiteMap({ adids, serviceIds });
 
   res.setHeader("Content-Type", "text/xml");
   // we send the XML to the browser
