@@ -34,9 +34,9 @@ const MobileMenu = () => {
                 <Link
                   onClick={() => setIsMenuColl(true)}
                   className={
-                    pathname === "/contact_us" ? s.selected_link : s.link
+                    pathname === "/contact-us" ? s.selected_link : s.link
                   }
-                  href={"/contact_us"}
+                  href={"/contact-us"}
                 >
                   <Image className={s.img} src={market} alt="market icon" />
                   <span>تماس با ما</span>

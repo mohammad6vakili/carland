@@ -17,7 +17,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
     <div className={styles.magazine}>
       {header ? (
         <section className={styles.main_title}>
-          <h1>مجله</h1>
+          <h2 className={styles.title}>مجله</h2>
 
           <div className={styles.btns}>
             <Button type="primary">
@@ -30,15 +30,15 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
         </section>
       ) : null}
 
-      <div className={styles.content}>
-        {magazines.length !== 0 ? (
+      {magazines.length !== 0 ? (
+        <div className={styles.content}>
           <Link
             href={`/${method}/${magazines[0].title}/${magazines[0].id}`}
             className={styles.solid_pic}
           >
             <Image
               src={url + "/" + magazines[0].image_url}
-              alt=""
+              alt="مجله"
               width={500}
               height={480}
             />
@@ -47,7 +47,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                 <div className={styles.title}>
                   <Image
                     src={"/assets/main/quotation.svg"}
-                    alt=""
+                    alt="icon"
                     width={18}
                     height={18}
                   />{" "}
@@ -57,7 +57,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                   <span>{handleTextCut(magazines[0].description, 200)}</span>
                   <Image
                     src={"/assets/main/quotation.svg"}
-                    alt=""
+                    alt="icon"
                     width={18}
                     height={18}
                   />
@@ -65,20 +65,16 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
               </div>
             ) : null}
           </Link>
-        ) : (
-          <OfferCardSkeleton width={"100%"} height={500} />
-        )}
 
-        <div className={styles.options}>
-          {magazines.length !== 0 && magazines ? (
-            magazines.map((mag, index) => (
+          <div className={styles.options}>
+            {magazines.map((mag, index) => (
               <React.Fragment key={Math.random() * index}>
                 {index !== 0 ? (
                   <section className={styles.option}>
                     <div className={styles.pic}>
                       <Image
                         src={url + "/" + mag.image_url}
-                        alt=""
+                        alt="مجله"
                         width={50}
                         height={50}
                       />
@@ -111,12 +107,12 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                   </section>
                 ) : null}
               </React.Fragment>
-            ))
-          ) : (
-            <MySkeleton width={"100%"} height={"100px"} />
-          )}
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <MySkeleton width={"100%"} height={"500px"} />
+      )}
     </div>
   );
 };

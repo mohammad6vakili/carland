@@ -26,11 +26,11 @@ function generateSiteMap({ adids }) {
        <priority>0.7</priority>
      </url>
      <url>
-       <loc>${url}/about_us</loc>
+       <loc>${url}/about-us</loc>
        <priority>0.8</priority>
      </url>
      <url>
-       <loc>${url}/contact_us</loc>
+       <loc>${url}/contact-us</loc>
        <priority>0</priority>
      </url>
 

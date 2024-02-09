@@ -5,7 +5,7 @@ function Error({ statusCode }) {
   return (
     <div className={s.error_page}>
       <div className={s.background}>
-        <Image src={background} alt="" />
+        <Image src={background} alt="error page" />
       </div>
       <div className={s.text}>
         {statusCode

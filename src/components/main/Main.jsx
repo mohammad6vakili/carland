@@ -180,16 +180,6 @@ const Main = ({ jobCategories }) => {
 
   return (
     <>
-      <Head>
-        <meta
-          name="keywords"
-          content={jobCategories && jobCategories.keywords}
-        />
-        <meta
-          name="description"
-          content={jobCategories && jobCategories.descriptions}
-        />
-      </Head>
       <section className={styles.main}>
         {loading ? <Loading /> : null}
 
@@ -197,7 +187,7 @@ const Main = ({ jobCategories }) => {
 
         <div className={styles.service_category}>
           <section className={styles.title}>
-            <span>دسته بندی خدمات</span>
+            <h2>دسته بندی خدمات</h2>
             <div className={styles.pagination}></div>
           </section>
           {size.width > 1000 && serviceCat.length !== 0 ? (
@@ -217,7 +207,7 @@ const Main = ({ jobCategories }) => {
                         className={styles.service}
                       >
                         <Image
-                          alt=""
+                          alt="دسته بندی مشاغل"
                           width={48}
                           height={48}
                           src={url + item.serviceIcon}
@@ -321,7 +311,7 @@ const Main = ({ jobCategories }) => {
 
         <div className={styles.ads}>
           <section className={styles.title}>
-            <h1>ثبت آگهی</h1>
+            <h2 className={styles.head}>ثبت آگهی</h2>
             <Link href={"/offers/trade"}>
               <Button>مشاهده همه</Button>
             </Link>
@@ -407,10 +397,10 @@ const Main = ({ jobCategories }) => {
               />
             </div>
             <section className={styles.texts}>
-              <h1>
+              <h3 className={styles.title}>
                 همین الان
                 <span>فروشنده شو!</span>
-              </h1>
+              </h3>
               <p>
                 میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
                 پیش آمده تمام قطعات رو اینجا پیدا کنید.
@@ -436,7 +426,7 @@ const Main = ({ jobCategories }) => {
 
           <div className={styles.info}>
             <section className={styles.texts}>
-              <h1>خرید سایپا ساینا اس</h1>
+              <h3 className={styles.title}>خرید سایپا ساینا اس</h3>
               <p>
                 میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
                 پیش آمده تمام قطعات رو اینجا پیدا کنید.
@@ -559,7 +549,7 @@ const Main = ({ jobCategories }) => {
         </div>
 
         <div className={styles.infos}>
-          <div className={styles.info}>
+          <div className={styles.info_black}>
             <div className={styles.background}>
               <Image
                 src={"/assets/main/infos/info-back-1.svg"}
@@ -569,7 +559,10 @@ const Main = ({ jobCategories }) => {
               />
             </div>
             <section className={styles.texts}>
-              <h1>همین الان فروشنده شو!</h1>
+              <h3 className={styles.title}>
+                همین الان
+                <span>فروشنده شو!</span>
+              </h3>
               <p>
                 میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
                 پیش آمده تمام قطعات رو اینجا پیدا کنید.
@@ -595,7 +588,7 @@ const Main = ({ jobCategories }) => {
 
           <div className={styles.info}>
             <section className={styles.texts}>
-              <h1>خرید سایپا ساینا اس</h1>
+              <h3 className={styles.title}>خرید سایپا ساینا اس</h3>
               <p>
                 میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
                 پیش آمده تمام قطعات رو اینجا پیدا کنید.
@@ -722,14 +715,11 @@ const Main = ({ jobCategories }) => {
                       title={club.title}
                     />
                   ) : (
-                    <div
-                      style={{
-                        width: "100%",
-                        textAlign: "center",
-                        fontSize: "1.3em",
-                      }}
-                    >
-                      <Link href={"/clubs"}>مشاهده همه کلوپ ها</Link>
+                    <div className={styles.see_all}>
+                      <Link className={styles.button} href={"/clubs"}>
+                        <span>مشاهده همه کلوپ ها</span>
+                        <LeftOutlined />
+                      </Link>
                     </div>
                   )}
                 </>
@@ -740,9 +730,9 @@ const Main = ({ jobCategories }) => {
         <div className={styles.install_app}>
           <div className={styles.texts}>
             <div>
-              <span className={styles.title}>
-                دانلود اپلیکیشن <span>کارلند سرزمین خودرو</span>
-              </span>
+              <div className={styles.title}>
+                دانلود اپلیکیشن <h1>کارلند سرزمین خودرو</h1>
+              </div>
               <p>
                 میتوانید به راحتی خودروی خود را خریداری کنید و اگر مشکلی برای آن
                 پیش آمده تمام قطعات رو اینجا پیدا کنید. همچنین برای دانلود سریع
