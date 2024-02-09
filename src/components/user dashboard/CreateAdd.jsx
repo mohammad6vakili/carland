@@ -120,6 +120,7 @@ const CreateAdd = ({ addCategories, type }) => {
       location: "",
       price: "",
       state: "",
+      city: "",
       description: "",
     },
 
@@ -239,6 +240,7 @@ const CreateAdd = ({ addCategories, type }) => {
     formData.append("location", values.location);
     formData.append("price", values.price);
     formData.append("state", values.state);
+    formData.append("city", values.city);
 
     const id = router?.query?.adId;
     type !== "edit"
@@ -738,6 +740,19 @@ const CreateAdd = ({ addCategories, type }) => {
               </InputGroup>
 
               {/* city */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="city"
+                  value={formik.values.city}
+                  onChange={formik.handleChange}
+                  placeholder="شهر"
+                />
+                {formik.errors.city && formik.touched.city && (
+                  <span className={s.error}>{formik.errors.city}</span>
+                )}
+              </InputGroup>
+
+              {/* price */}
               <InputGroup className={s.input}>
                 <Input
                   name="price"

@@ -6,11 +6,11 @@ import {
   DropdownToggle,
   Form,
   Input,
-  UncontrolledDropdown,
 } from "reactstrap";
-import s from "../../../styles/main.module.scss";
+import s from "@/styles/main.module.scss";
 import Image from "next/image";
-import background from "../../../public/assets/userDashboard/create-job.png";
+import background from "@/public/assets/userDashboard/create-job.png";
+import addMore from "@/public/assets/userDashboard/more.png";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -564,12 +564,14 @@ const CreateJob = ({ jobCategories, type }) => {
                         hidden
                       />
                       <span className={s.content}>
-                        <Image
-                          src={localNationalCard ? localNationalCard : ""}
-                          alt=""
-                          width={100}
-                          height={100}
-                        />
+                        {localNationalCard && (
+                          <Image
+                            src={localNationalCard}
+                            alt=""
+                            width={100}
+                            height={100}
+                          />
+                        )}
                         <span>عکس کارت ملی</span>
                       </span>
                     </label>
@@ -587,14 +589,14 @@ const CreateJob = ({ jobCategories, type }) => {
                         hidden
                       />
                       <span className={s.content}>
-                        <Image
-                          src={
-                            localActivityPremisian ? localActivityPremisian : ""
-                          }
-                          alt=""
-                          width={100}
-                          height={100}
-                        />
+                        {localActivityPremisian && (
+                          <Image
+                            src={localActivityPremisian}
+                            alt=""
+                            width={100}
+                            height={100}
+                          />
+                        )}
                         <span>عکس پروانه کسب</span>
                       </span>
                     </label>
@@ -611,12 +613,14 @@ const CreateJob = ({ jobCategories, type }) => {
                         hidden
                       />
                       <span className={s.content}>
-                        <Image
-                          src={localImages ? localImages : ""}
-                          alt=""
-                          width={100}
-                          height={100}
-                        />
+                        {localImages && (
+                          <Image
+                            src={localImages}
+                            alt=""
+                            width={100}
+                            height={100}
+                          />
+                        )}
                         <span>عکس های دیگر</span>
                       </span>
                     </label>

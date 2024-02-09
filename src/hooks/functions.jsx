@@ -111,18 +111,17 @@ export const handleCopy = (value, toastText) => {
     .catch((error) => toast.success("مشکلی در کپی متن بوجود امد"));
 };
 
+//local storage
 export const setLocal = (key, value) => {
   return typeof window !== "undefined"
     ? localStorage.setItem(key, value)
     : undefined;
 };
-
 export const getLocal = (key) => {
   return typeof window !== "undefined"
     ? JSON.stringify(localStorage.getItem(key))?.replaceAll('"', "")
     : null;
 };
-
 export const removeLocal = (key) => {
   return typeof window !== "undefined"
     ? JSON.stringify(localStorage.removeItem(key))
