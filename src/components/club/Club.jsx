@@ -68,9 +68,7 @@ const Club = () => {
 
     images
       ? images.split(",").map((ph) => {
-          let converted = ph
-            .replace("https://api.carland.ir/", "")
-            .replace(" ", "");
+          let converted = ph.replace(`${url}/`, "").replace(" ", "");
           data.push({ original: converted, thumbnail: converted });
         })
       : null;
@@ -109,7 +107,7 @@ const Club = () => {
                       >
                         <Image
                           src={url + "/" + ph}
-                          alt=""
+                          alt="club"
                           width={700}
                           height={500}
                         />
@@ -151,7 +149,7 @@ const Club = () => {
                         >
                           <Image
                             src={url + "/" + ph}
-                            alt=""
+                            alt="club"
                             width={100}
                             height={100}
                           />
@@ -261,7 +259,7 @@ const Club = () => {
                           />
                           <Image
                             src={"/assets/jobs/rectangle.svg"}
-                            alt=""
+                            alt="icon"
                             width={20}
                             height={30}
                             className={s.back}
@@ -282,7 +280,7 @@ const Club = () => {
                   <span>
                     <Image
                       src={"/assets/trades/triangle.svg"}
-                      alt=""
+                      alt="icon"
                       width={15}
                       height={15}
                     />
@@ -360,7 +358,7 @@ const Club = () => {
                         <span>
                           <Image
                             src={"/assets/trades/triangle.svg"}
-                            alt=""
+                            alt="icon"
                             width={15}
                             height={15}
                           />
@@ -390,7 +388,7 @@ const Club = () => {
                   <span>
                     <Image
                       src={"/assets/trades/triangle.svg"}
-                      alt=""
+                      alt="icon"
                       width={15}
                       height={15}
                     />
@@ -418,7 +416,7 @@ const Club = () => {
                           <div>
                             <Image
                               src={"/assets/main/see-more.svg"}
-                              alt=""
+                              alt="more"
                               width={20}
                               height={20}
                             />
@@ -437,7 +435,7 @@ const Club = () => {
               <span>
                 <Image
                   src={"/assets/trades/triangle.svg"}
-                  alt=""
+                  alt="icon"
                   width={15}
                   height={15}
                 />
@@ -565,7 +563,7 @@ const Club = () => {
               <span>
                 <Image
                   src={"/assets/trades/triangle.svg"}
-                  alt=""
+                  alt="icon"
                   width={15}
                   height={15}
                 />

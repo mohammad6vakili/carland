@@ -836,19 +836,15 @@ const offers = () => {
                 >
                   <DropdownToggle caret>{offers}</DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem onClick={() => handleChangeCards("فروش")}>
+                    {/* <DropdownItem onClick={() => handleChangeCards("فروش")}>
                       {" "}
                       فروش
-                    </DropdownItem>
+                    </DropdownItem> */}
                     <DropdownItem
                       onClick={() => handleChangeCards("خرید و فروش")}
                     >
                       {" "}
                       خرید و فروش
-                    </DropdownItem>
-                    <DropdownItem onClick={() => handleChangeCards("خدمات")}>
-                      {" "}
-                      خدمات
                     </DropdownItem>
                     <DropdownItem
                       onClick={() => handleChangeCards("کسب و کار")}

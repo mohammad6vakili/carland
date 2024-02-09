@@ -51,7 +51,7 @@ const AboutUs = () => {
               از یک دهه فعالیت
             </p>
 
-            <Link href={"/contact_us"}>
+            <Link href={"/contact-us"}>
               <Button className={s.contact_us_btn}>ارتباط با ما</Button>
             </Link>
           </div>

@@ -257,11 +257,18 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="address">معاینه فنی</Label>
                 <InputGroup className={s.input}>
-                  <Input
+                  <DatePicker
                     className={s.address}
                     name="technicalDiagnosis"
                     value={formik.values.technicalDiagnosis}
-                    onChange={formik.handleChange}
+                    onChange={(e) => {
+                      formik.setFieldValue(
+                        "expirationInsurance",
+                        m
+                          .locale("fa", { useGregorianParser: true })
+                          .format(handleDateFormat(e.value))
+                      );
+                    }}
                   />
                   <Button type="button">
                     <LiaEditSolid />
@@ -275,9 +282,11 @@ const UserData = () => {
                 <InputGroup className={s.input}>
                   <DatePicker
                     name="expirationInsurance"
+                    placeholder="yy/mm/dd"
                     value={formik.values.expirationInsurance}
                     onChange={(e) =>
-                      console.log(
+                      formik.setFieldValue(
+                        "expirationInsurance",
                         m
                           .locale("fa", { useGregorianParser: true })
                           .format(handleDateFormat(e.value))
@@ -309,10 +318,17 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="expirationCertificate">انقضای گواهینامه</Label>
                 <InputGroup className={s.input}>
-                  <Input
+                  <DatePicker
                     name="expirationCertificate"
                     value={formik.values.expirationCertificate}
-                    onChange={formik.handleChange}
+                    onChange={(e) =>
+                      formik.setFieldValue(
+                        "expirationCertificate",
+                        m
+                          .locale("fa", { useGregorianParser: true })
+                          .format(handleDateFormat(e.value))
+                      )
+                    }
                     type="date"
                   />
                   <Button type="button">
@@ -325,10 +341,17 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="dateofCarInstallments">تاریخ اقساط خودرو</Label>
                 <InputGroup className={s.input}>
-                  <Input
+                  <DatePicker
                     name="dateofCarInstallments"
                     value={formik.values.dateofCarInstallments}
-                    onChange={formik.handleChange}
+                    onChange={(e) =>
+                      formik.setFieldValue(
+                        "dateofCarInstallments",
+                        m
+                          .locale("fa", { useGregorianParser: true })
+                          .format(handleDateFormat(e.value))
+                      )
+                    }
                     type="date"
                   />
                   <Button type="button">
@@ -385,7 +408,7 @@ const UserData = () => {
                     <Spinner
                       style={{ width: "20px", height: "20px" }}
                     ></Spinner>
-                  ) : null}
+                  ) : null}{" "}
                   ثبت اطلاعات
                 </Button>
               </div>

@@ -25,14 +25,10 @@ $light-theme: #fff;
 
 .main {
   @include flex(column, flex-start, center);
+  @include responsive();
   width: 100%;
   font-size: 16px;
-  @include responsive();
 
-  a {
-    text-decoration: none;
-    color: none;
-  }
   p {
     margin: 0;
   }
@@ -265,7 +261,7 @@ $light-theme: #fff;
       color: #3a3a3a;
       padding: 0 4rem;
 
-      h1 {
+      .head {
         font-size: 2em;
         font-weight: bold;
         color: #3a3a3a;
@@ -512,7 +508,7 @@ $light-theme: #fff;
         z-index: 1;
         padding: 0 1rem;
 
-        h1 {
+        .title {
           @include flex(row, center, center);
           gap: 5px;
           font-size: 1.5em;
@@ -1027,6 +1023,18 @@ $light-theme: #fff;
         }
       }
     }
+
+    .see_all {
+      width: 100%;
+
+      .button {
+        @include flex(row, center, center);
+        text-align: center;
+        color: #265dc7 !important;
+        gap: 1rem;
+        margin: 0 auto;
+      }
+    }
   }
 
   .install_app {
@@ -1045,9 +1053,11 @@ $light-theme: #fff;
       .title {
         @include flex(row, flex-start, center);
         gap: 5px;
-        font-size: 1.9em;
+        font-size: 30px !important;
         margin-bottom: 3rem;
-        span {
+        h1 {
+          font-size: 30px !important;
+          margin: 0;
           color: #265dc7;
         }
       }

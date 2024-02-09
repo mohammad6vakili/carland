@@ -1,5 +1,6 @@
 import axios from "axios";
-import { url, baseUrl } from "@/src/axiosConfig/useHttp";
+export const url = "https://api.carland.ir";
+export const baseUrl = "https://api.carland.ir/api";
 
 function generateSiteMap({ adids }) {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -25,11 +26,11 @@ function generateSiteMap({ adids }) {
        <priority>0.7</priority>
      </url>
      <url>
-       <loc>${url}/about_us</loc>
+       <loc>${url}/about-us</loc>
        <priority>0.8</priority>
      </url>
      <url>
-       <loc>${url}/contact_us</loc>
+       <loc>${url}/contact-us</loc>
        <priority>0</priority>
      </url>
 

@@ -113,7 +113,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                       <Link href={`/club/${club.title}/${club.id}`}>
                         <Image
                           src={url + "/" + club.image_url}
-                          alt=""
+                          alt="club"
                           width={600}
                           height={300}
                           className={s.lazy_load}
@@ -186,7 +186,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
             <div className={s.text}>
               <Image
                 src={"/assets/trades/polygon.svg"}
-                alt=""
+                alt="icon"
                 width={20}
                 height={20}
               />
@@ -290,7 +290,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                           <span>
                             <Image
                               src={"/assets/trades/triangle.svg"}
-                              alt=""
+                              alt="icon"
                               width={15}
                               height={15}
                             />
@@ -387,7 +387,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                           <span>
                             <Image
                               src={"/assets/trades/triangle.svg"}
-                              alt=""
+                              alt="icon"
                               width={15}
                               height={15}
                             />
@@ -412,7 +412,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
             <div className={s.text}>
               <Image
                 src={"/assets/trades/polygon.svg"}
-                alt=""
+                alt="icon"
                 width={20}
                 height={20}
               />

@@ -102,8 +102,8 @@ const Header = () => {
                 />
               </section>
               <section className={styles.name}>
-                <p>کارلند</p>
-                <p>CARLAND</p>
+                <h1p>کارلند</h1p>
+                <h2>CARLAND</h2>
               </section>
             </div>
 
@@ -204,7 +204,7 @@ const Header = () => {
                   </span>
                 </Link>
 
-                <Link href={"/about_us"}>
+                <Link href={"/about-us"}>
                   <span
                     className={pathname === "/about_us" ? styles.selected : ""}
                   >
@@ -218,10 +218,10 @@ const Header = () => {
                   </span>
                 </Link>
 
-                <Link href={"/contact_us"}>
+                <Link href={"/contact-us"}>
                   <span
                     className={
-                      pathname === "/contact_us" ? styles.selected : ""
+                      pathname === "/contact-us" ? styles.selected : ""
                     }
                   >
                     ارتباط با ما

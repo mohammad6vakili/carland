@@ -44,7 +44,7 @@ const Footer = () => {
               <div className={styles.logo}>
                 <Image
                   src={"/assets/carland-logo-fff.png"}
-                  alt=""
+                  alt="carland logo"
                   width={50}
                   height={50}
                   style={{ color: "#fff" }}
@@ -53,7 +53,7 @@ const Footer = () => {
 
               <div className={styles.texts}>
                 <div>
-                  <h1>کارلــــــــــــند</h1>
+                  <h2 className={styles.title}>کارلــــــــــــند</h2>
                 </div>
                 <div>
                   <h6>{contactData && contactData.title}</h6>
@@ -99,7 +99,7 @@ const Footer = () => {
                   <div className={styles.blue_box}></div>
                   خدمات مشتریان
                 </div>
-                <Link href={"/about_us"}>
+                <Link href={"/about-us"}>
                   <div className={styles.blue_box}></div>
                   درباره ما
                 </Link>
@@ -115,7 +115,7 @@ const Footer = () => {
                   <div className={styles.blue_box}></div>
                   بلاگ
                 </Link>
-                <Link href={"/contact_us"}>
+                <Link href={"/contact-us"}>
                   <div className={styles.blue_box}></div>
                   تماس با ما
                 </Link>
@@ -126,7 +126,7 @@ const Footer = () => {
                   <div className={styles.blue_box}></div>
                   خدمات فروشندگان
                 </div>
-                <Link href={"/about_us"}>
+                <Link href={"/about-us"}>
                   <div className={styles.blue_box}></div>
                   درباره ما
                 </Link>
@@ -142,7 +142,7 @@ const Footer = () => {
                   <div className={styles.blue_box}></div>
                   بلاگ
                 </Link>
-                <Link href={"/contact_us"}>
+                <Link href={"/contact-us"}>
                   <div className={styles.blue_box}></div>
                   تماس با ما
                 </Link>

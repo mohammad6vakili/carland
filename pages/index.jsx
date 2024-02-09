@@ -26,8 +26,11 @@ export default function Home({ jobCategories }) {
         <title>{jobCategories.title}</title>
         <meta name="og:title" content={jobCategories.title} />
         <meta name="keywords" content={jobCategories.keywords} />
-        <meta name="description" content={jobCategories.description} />
-        <meta property="og:image" content={"/assets/carland-logo.png"} />
+        <meta name="description" content={jobCategories.descriptions} />
+        <meta
+          property="og:image"
+          content={"https://api.carland.ir/carland-logo.png"}
+        />
       </Head>
       <Header />
       <Main jobCategories={jobCategories} />

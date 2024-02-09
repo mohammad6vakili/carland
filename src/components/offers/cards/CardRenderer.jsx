@@ -118,9 +118,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
 
         res.status === 200 && res.data.code != 404
           ? trades && trades.length !== 0
-            ? res.data.data.data.map((data) => {
-                trades.push(data);
-              })
+            ? trades.push.apply(trades, res.data.data.data)
             : setTrades(res.data.data.data)
           : null;
 
@@ -281,7 +279,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           </div>
         </>
       );
-    } else if (offers === "خدمات" || offers === "فروش") {
+    } else if ((offers === "خدمات" || offers === "فروش") && !loading) {
       return (
         <>
           {marketItems.map((item, index) => (
@@ -298,7 +296,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
         </>
       );
     }
-  } else {
+  } else if (loading && (!trades || !jobs)) {
     return (
       <>
         <section className={s.market_cards}>

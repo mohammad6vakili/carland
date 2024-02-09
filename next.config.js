@@ -2,6 +2,10 @@
 const nextConfig = {
   // output: "export",
   // useFileSystemPublicRoutes: false,
+  i18n: {
+    locales: ["fa"],
+    defaultLocale: "fa",
+  },
   images: {
     // unoptimized: true,
     remotePatterns: [

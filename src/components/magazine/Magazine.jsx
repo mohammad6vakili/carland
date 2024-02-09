@@ -51,7 +51,7 @@ const Magazine = () => {
 
     images
       ? images.split(",").map((ph) => {
-          let converted = ph.replace("https://api.carland.ir/", "");
+          let converted = ph.replace(`${url}`, "");
           data.push(converted.replace(" ", ""));
         })
       : null;
@@ -110,7 +110,7 @@ const Magazine = () => {
                       >
                         <Image
                           src={url + "/" + ph}
-                          alt=""
+                          alt="magazine"
                           width={700}
                           height={500}
                         />
@@ -149,7 +149,7 @@ const Magazine = () => {
                         >
                           <Image
                             src={url + "/" + ph}
-                            alt=""
+                            alt="magazine"
                             width={100}
                             height={100}
                           />
@@ -224,7 +224,7 @@ const Magazine = () => {
                   <span>
                     <Image
                       src={"/assets/trades/triangle.svg"}
-                      alt=""
+                      alt="magazine"
                       width={15}
                       height={15}
                     />
