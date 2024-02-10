@@ -26,7 +26,6 @@ import MySkeleton from "../skeleton/Skeleton";
 import Compressor from "compressorjs";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 import { DatePicker } from "zaman";
-import moment from "jalali-moment";
 import { InputDatePicker } from "jalaali-react-date-picker";
 
 const UserData = () => {
@@ -34,7 +33,6 @@ const UserData = () => {
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
   const userData = useSelector((state) => state.userInfo.userInfo);
-  const m = moment();
 
   //handle requests
   const validationSchema = Yup.object().shape({
