@@ -460,7 +460,6 @@ const Club = () => {
                 slidesPerView={"auto"}
                 modules={[Navigation, FreeMode]}
                 className={s.swiper}
-                onSwiper={setAdsSwiper}
               >
                 {photos.map((offer, index) => (
                   <SwiperSlide className={s.slide} key={Math.random() * index}>
