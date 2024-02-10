@@ -84,9 +84,35 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
 
         res.status === 200 && res.data.code != 404
           ? jobs && jobs.length !== 0
-            ? res.data.data.data.map((data) => {
-                jobs.push(data);
-              })
+            ? setJobs(res.data.data.data)
+            : setJobs(res.data.data.data)
+          : null;
+
+        res.status === 200 &&
+        res.data.code !== 404 &&
+        res.data.data.next_page_url
+          ? setMoreJobs(true)
+          : setMoreJobs(false);
+
+        setLoading(false);
+      })
+      .catch((err) => toast.error(err.message));
+  };
+  const handleGetMoreJobs = () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("categoryId", jobsFilter.categoryId);
+    formData.append("filters", jobsFilter.filter);
+    formData.append("state", jobsFilter.state);
+    formData.append("city", jobsFilter.city);
+    httpService
+      .post(`services/search?page=${jobsPage}`, formData)
+      .then((res) => {
+        res.status === 200 && res.data.code == 404 && setJobs(null);
+
+        res.status === 200 && res.data.code != 404
+          ? jobs && jobs.length !== 0
+            ? jobs.push.apply(jobs, res.data.data.data)
             : setJobs(res.data.data.data)
           : null;
 
@@ -104,12 +130,42 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
   const handleGetAds = () => {
     setLoading(true);
     const formData = new FormData();
-    formData.append("fuel", adsFilter.fuel);
+    formData.append("Fuel_type", adsFilter.fuel);
     formData.append("color", adsFilter.color);
     formData.append("body_condition", adsFilter.bodyCondition);
-    formData.append("gear_box", adsFilter.gearBoxType);
+    formData.append("gearbox_type", adsFilter.gearBoxType);
     formData.append("state", adsFilter.state);
-    formData.append("state", adsFilter.city);
+    formData.append("city", adsFilter.city);
+
+    httpService
+      .post(`advertisements?page=${adsPage}`, formData)
+      .then((res) => {
+        res.status === 200 && res.data.code == 404 && setTrades(null);
+
+        res.status === 200 && res.data.code != 404
+          ? trades && trades.length !== 0
+            ? setTrades(res.data.data.data)
+            : setTrades(res.data.data.data)
+          : null;
+
+        res.status === 200 &&
+        res.data.code !== 404 &&
+        res.data.data.next_page_url
+          ? setMoreAds(true)
+          : setMoreAds(false);
+        setLoading(false);
+      })
+      .catch((err) => toast.error(err.message));
+  };
+  const handleGetMoreAds = () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("Fuel_type", adsFilter.fuel);
+    formData.append("color", adsFilter.color);
+    formData.append("body_condition", adsFilter.bodyCondition);
+    formData.append("gearbox_type", adsFilter.gearBoxType);
+    formData.append("state", adsFilter.state);
+    formData.append("city", adsFilter.city);
 
     httpService
       .post(`advertisements?page=${adsPage}`, formData)
@@ -141,8 +197,9 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
             style={{ overflow: "none" }}
             dataLength={trades.length}
             next={() => {
-              moreAds ? setAdsPage((current) => current + 1) : null;
-              handleGetAds();
+              moreAds
+                ? (setAdsPage((current) => current + 1), handleGetMoreAds())
+                : null;
             }}
             hasMore={moreAds}
             endMessage={
@@ -188,10 +245,11 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           <InfiniteScroll
             className={s.market_cards}
             style={{ overflow: "none" }}
-            dataLength={trades.length}
+            dataLength={jobs.length}
             next={() => {
-              moreJobs ? setJobsPage((current) => current + 1) : null;
-              handleGetJobs();
+              moreJobs
+                ? (setJobsPage((current) => current + 1), handleGetMoreJobs())
+                : null;
             }}
             hasMore={moreAds}
             endMessage={
@@ -264,7 +322,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           )}
         </section>
       );
-    } else if (!jobs || !trades) {
+    } else if ((!jobs || !trades) && !loading) {
       return (
         <>
           <div
@@ -279,7 +337,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
           </div>
         </>
       );
-    } else if ((offers === "خدمات" || offers === "فروش") && !loading) {
+    } else if (offers === "خدمات" || offers === "فروش") {
       return (
         <>
           {marketItems.map((item, index) => (

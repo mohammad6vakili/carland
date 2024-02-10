@@ -148,15 +148,18 @@ const offers = () => {
         setJobsCategory(data);
         setAdsFilter(null);
       });
-      getLocal("jobCategory") !== "null"
-        ? (setJobFiltersSlected({
-            ...jobFiltersSlected,
-            categoryId: getLocal("jobCategory"),
-          }),
-          removeLocal("jobCategory"))
-        : null;
     }
   }, [offers]);
+
+  useEffect(() => {
+    getLocal("jobCategory") !== "null"
+      ? (setJobFiltersSlected({
+          ...jobFiltersSlected,
+          categoryId: getLocal("jobCategory"),
+        }),
+        removeLocal("jobCategory"))
+      : null;
+  }, [getLocal("jobCategory")]);
 
   useEffect(() => {
     const offersGroup = router.query.adGroup;
@@ -257,7 +260,7 @@ const offers = () => {
       filter: "",
       title: "",
       state: "",
-      cirty: "",
+      city: "",
     });
     removeLocal("stateName");
     removeLocal("cityName");
@@ -322,7 +325,7 @@ const offers = () => {
                             <DropdownItem
                               onClick={() => handleAdsFilterClick(city, "city")}
                             >
-                              {city}
+                              {city && city}
                             </DropdownItem>
                             <DropdownItem divider />
                           </>

@@ -40,7 +40,7 @@ export const getServerSideProps = async (context) => {
       return res.data.data;
     })
     .catch((err) => {
-      return null;
+      return [];
     });
 
   return {
@@ -49,19 +49,19 @@ export const getServerSideProps = async (context) => {
 };
 
 const index = ({ job }) => {
-  console.log(job);
-
   return (
     <>
       <Head>
         <title>{job.title}</title>
         <meta name="title" content={job.title} />
-        <meta name="description" content={job.category.title} />
-        <meta name="description" content={job.descriptions} />
+        <meta
+          name="description"
+          content={job.category.title + job.descriptions}
+        />
         <meta property="og:image" content={url + job.images.split(",")[0]} />
       </Head>
       <Header />
-      <JobPage />
+      <JobPage jobData={job} />
       <Footer />
     </>
   );

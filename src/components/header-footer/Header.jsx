@@ -42,7 +42,9 @@ const Header = () => {
               ? (dispatch(setIsAuth(true)), dispatch(setUserInfo(res.data)))
               : null;
           })
-          .catch((err) => {}),
+          .catch((err) => {
+            dispatch(setUserInfo("unAuth"));
+          }),
         httpService
           .get("favorite/list")
           .then((res) => {
@@ -206,7 +208,7 @@ const Header = () => {
 
                 <Link href={"/about-us"}>
                   <span
-                    className={pathname === "/about_us" ? styles.selected : ""}
+                    className={pathname === "/about-us" ? styles.selected : ""}
                   >
                     درباره ما
                     <div className={styles.line1}>
@@ -275,6 +277,7 @@ const Header = () => {
                     >
                       <DropdownItem>تنظیمات حساب کاربری</DropdownItem>
                     </Link>
+                    <DropdownItem>خروج</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </ButtonGroup>
