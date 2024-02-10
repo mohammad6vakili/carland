@@ -258,7 +258,7 @@ const UserData = () => {
                 </FormText>
               </FormGroup>
 
-              <FormGroup className={s.formGroup}>
+              {/* <FormGroup className={s.formGroup}>
                 <Label for="address">معاینه فنی</Label>
                 <InputGroup className={s.input}>
                   <InputDatePicker
@@ -336,7 +336,7 @@ const UserData = () => {
                   </Button>
                 </InputGroup>
                 <FormFeedback>لطفا پر کنید</FormFeedback>
-              </FormGroup>
+              </FormGroup> */}
 
               <div className={s.profile}>
                 <div className={s.text}>
