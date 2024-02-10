@@ -4,19 +4,8 @@ import UDNavigation from "@/src/components/user dashboard/UDNavigation";
 import styles from "../../styles/main.module.scss";
 import UserDashboard from "@/src/components/user dashboard/UserDashboard";
 import Head from "next/head";
-// import { url, useServerFetch } from "@/src/axiosConfig/useHttp";
-
-// export const getStaticProps = async () => {
-//   const { httpService } = useServerFetch();
-//   return await httpService
-//     .get(`${url}/myads`)
-//     .then((res) => {
-//       return { props: { data: res.data.data } };
-//     })
-//     .catch((err) => {
-//       return { props: { data: err.message } };
-//     });
-// };
+import { baseUrl } from "@/src/axiosConfig/useHttp";
+import axios from "axios";
 
 const index = () => {
   return (

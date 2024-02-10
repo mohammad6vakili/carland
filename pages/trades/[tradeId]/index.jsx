@@ -35,9 +35,7 @@ import axios from "axios";
 export const getServerSideProps = async (context) => {
   const tradeId = context.params.tradeId;
   const data = await axios
-    .get(`${baseUrl}/Showads/${tradeId}`, {
-      headers: { Authorization: `Bearer ${getLocal("token")}` },
-    })
+    .get(`${baseUrl}/Show-ads/${tradeId}`)
     .then((res) => {
       return res.data.data;
     })

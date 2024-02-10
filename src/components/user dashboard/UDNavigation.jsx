@@ -38,6 +38,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 import MySkeleton from "../skeleton/Skeleton";
 import Compressor from "compressorjs";
+import { BiSupport } from "react-icons/bi";
 
 const UDNavigation = () => {
   const pathname = usePathname();
@@ -342,7 +343,7 @@ const UDNavigation = () => {
                 <Image src={selectedBackground} alt="" />
               </div>
               <div className={s.icon}>
-                <Image src={support} alt="" style={{ borderRadius: "10px" }} />
+                <BiSupport />
               </div>
               <span>پشتیبانی</span>
             </Link>
@@ -419,19 +420,28 @@ const UDNavigation = () => {
               ) : (
                 <>
                   <div className={s.name_profile}>
-                    <div className={s.profile}>
+                    <div className={s.image_profile}>
                       <MySkeleton
                         width={"60px"}
                         height={"60px"}
                         borderRadius={"50%"}
+                        className={s.profile}
                       />
                     </div>
                     <div className={s.name}>
                       <span>
-                        <MySkeleton width={"50%"} height={"20px"} />
+                        <MySkeleton
+                          width={"30px"}
+                          height={"10px"}
+                          borderRadius={"3px"}
+                        />
                       </span>
                       <p>
-                        <MySkeleton width={"50%"} height={"20px"} />
+                        <MySkeleton
+                          width={"40px"}
+                          height={"10px"}
+                          borderRadius={"3px"}
+                        />
                       </p>
                     </div>
                   </div>
@@ -598,11 +608,7 @@ const UDNavigation = () => {
                     <Image src={selectedBackground} alt="" />
                   </div>
                   <div className={s.icon}>
-                    <Image
-                      src={support}
-                      alt=""
-                      style={{ borderRadius: "10px" }}
-                    />
+                    <BiSupport />
                   </div>
                   <span>پشتیبانی</span>
                 </Link>

@@ -24,32 +24,34 @@ import {
   handleCopy,
   toPersianString,
 } from "@/src/hooks/functions";
-import CommentCards from "../../comments/CommentCards";
+import CommentCards, { convertDate } from "../../comments/CommentCards";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { useWindowSize } from "@uidotdev/usehooks";
 import toast from "react-hot-toast";
+import MySkeleton from "../../skeleton/Skeleton";
 
-const JobPage = () => {
+const JobPage = ({ jobData }) => {
   const pathname = usePathname();
   const size = useWindowSize();
   const { httpService } = useHttp(true);
-  const [jobData, setJobData] = useState([]);
+  // const [jobData, setJobData] = useState([]);
+  const [aroundJobs, setAroundJobs] = useState(null);
   const [photos, setPhotos] = useState([]);
   const router = useRouter();
   const isAuth = useSelector((state) => state.isAuth.isAuth);
 
-  const tableTime = [
-    { day: "شنبه", start: "", end: "", isOpen: true },
-    { day: "یکشنبه", start: "", end: "", isOpen: true },
-    { day: "دوشنبه", start: "", end: "", isOpen: true },
-    { day: "سه شنبه", start: "", end: "", isOpen: true },
-    { day: "چهارشنبه", start: "", end: "", isOpen: true },
-    { day: "پنجشنبه", start: "", end: "", isOpen: true },
-    { day: "جمعه", start: "", end: "", isOpen: false },
-  ];
+  // const tableTime = [
+  //   { day: "شنبه", start: "", end: "", isOpen: true },
+  //   { day: "یکشنبه", start: "", end: "", isOpen: true },
+  //   { day: "دوشنبه", start: "", end: "", isOpen: true },
+  //   { day: "سه شنبه", start: "", end: "", isOpen: true },
+  //   { day: "چهارشنبه", start: "", end: "", isOpen: true },
+  //   { day: "پنجشنبه", start: "", end: "", isOpen: true },
+  //   { day: "جمعه", start: "", end: "", isOpen: false },
+  // ];
 
   //swiper
   const [adsSwiper, setAdsSwiper] = useState();
@@ -69,15 +71,30 @@ const JobPage = () => {
     jobData.length !== 0 ? setPhotos(jobData.images.split(",")) : null;
   }, [jobData]);
 
-  //handle job id
   useEffect(() => {
-    const id = router.query.jobId;
-    if (id) {
-      httpService.get(`service/${id}`).then((res) => {
-        res.status === 200 ? setJobData(res.data.data) : null;
+    const formData = new FormData();
+    formData.append("state", jobData.state);
+    formData.append("city", jobData.city);
+
+    httpService
+      .post("services/search", formData)
+      .then((res) => {
+        res?.status === 200 ? setAroundJobs(res.data.data.data) : null;
+      })
+      .catch(() => {
+        setAroundJobs([]);
       });
-    }
-  }, [router]);
+  }, [jobData]);
+
+  //handle job id
+  // useEffect(() => {
+  //   const id = router.query.jobId;
+  //   if (id) {
+  //     httpService.get(`service/${id}`).then((res) => {
+  //       res.status === 200 ? setJobData(res.data.data) : null;
+  //     });
+  //   }
+  // }, [router]);
 
   if (jobData.length !== 0) {
     return (
@@ -207,7 +224,7 @@ const JobPage = () => {
           </div>
 
           <section className={s.address_times}>
-            <div className={s.work_time}>
+            {/* <div className={s.work_time}>
               <div className={s.title}>
                 <span>
                   <Image
@@ -252,7 +269,7 @@ const JobPage = () => {
                   <InstagramFilled />
                 </Button>
               </div>
-            </div>
+            </div> */}
 
             <div className={s.address}>
               <div className={s.title}>
@@ -369,23 +386,49 @@ const JobPage = () => {
                   prevEl: prevAdRef?.current,
                   nextEl: nextAdRef?.current,
                 }}
+                spaceBetween={35}
+                slidesPerView={"auto"}
                 freeMode
                 modules={[Navigation, FreeMode]}
                 className="mySwiper2"
                 onSwiper={setAdsSwiper}
               >
-                {photos.map((offer, index) => (
-                  <SwiperSlide key={Math.random() * index}>
-                    <SuggestCard
-                      image={"/assets/main/car-2.png"}
-                      title={"ام وی ام، X55 PRO"}
-                      description={
-                        "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و فوری از طریق مجموعه شعب نمایندگی 777 انجام می شود"
-                      }
-                      time={"۱۴۰۲/۰۸/۰۱"}
-                    />
+                {aroundJobs ? (
+                  !!aroundJobs.length ? (
+                    aroundJobs.map((item, index) => (
+                      <SwiperSlide
+                        style={{ width: "max-content" }}
+                        key={Math.random() * index}
+                      >
+                        <SuggestCard
+                          image={url + item.images.split(",")[0]}
+                          title={item.title}
+                          description={item.descriptions}
+                          time={convertDate(item.updated_at)}
+                          href={`/${item.id}`}
+                        />
+                      </SwiperSlide>
+                    ))
+                  ) : (
+                    <>
+                      <SwiperSlide>
+                        <div
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <span>شغلی وجود ندارد</span>
+                        </div>
+                      </SwiperSlide>
+                    </>
+                  )
+                ) : (
+                  <SwiperSlide>
+                    <MySkeleton width={"250px"} height={"350px"} />
                   </SwiperSlide>
-                ))}
+                )}
               </Swiper>
             </div>
           </div>

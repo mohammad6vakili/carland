@@ -246,7 +246,11 @@ const CreateJob = ({ jobCategories, type }) => {
       ? formik.values.filters.splice(convertValue)
       : formik.values.filters.push(convertValue);
     console.log(formik.values.filters);
+    setTimeout(() => {
+      setFiltersOpen(true);
+    }, 100);
   };
+
   useEffect(() => {
     formik.values.filters = [];
     formik.values.categoryId.length !== 0
@@ -387,7 +391,7 @@ const CreateJob = ({ jobCategories, type }) => {
                         <DownOutlined /> انتخاب فیلتر ها
                       </DropdownToggle>
                       <DropdownMenu className={s.menu}>
-                        {filters
+                        {filters && filtersOpen
                           ? filters.map((cat, index) => (
                               <DropdownItem
                                 className={

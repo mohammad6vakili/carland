@@ -27,6 +27,7 @@ import Compressor from "compressorjs";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 import { DatePicker } from "zaman";
 import moment from "jalali-moment";
+import { InputDatePicker } from "jalaali-react-date-picker";
 
 const UserData = () => {
   const { httpService } = useHttp();
@@ -81,7 +82,11 @@ const UserData = () => {
       formData.append("age", values.age);
       formData.append("NationalCode", values.idCard);
       formData.append("city", values.address);
+      formData.append("TechnicalDiagnosis", values.technicalDiagnosis);
+      formData.append("DateofCarInstallments", values.dateofCarInstallments);
       formData.append("ExpirationInsurance", values.expirationInsurance);
+      formData.append("CarType", values.carType);
+      formData.append("ExpirationCertificate", values.expirationCertificate);
 
       httpService
         .post("user", formData)
@@ -107,7 +112,8 @@ const UserData = () => {
       // formik.setFieldValue("profile", userData.image_profile);
       formik.setFieldValue("address", userData.city);
       formik.setFieldValue("idCard", userData.NationalCode);
-      formik.setFieldValue("expirationInsurance", userData.ExpirationInsurance);
+      // formik.setFieldValue("expirationInsurance", userData.ExpirationInsurance);
+      // formik.setFieldValue("technicalDiagnosis", userData.TechnicalDiagnosis);
       console.log(userData);
     }
   }, [userData]);
@@ -257,40 +263,25 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="address">معاینه فنی</Label>
                 <InputGroup className={s.input}>
-                  <DatePicker
-                    className={s.address}
+                  <InputDatePicker
                     name="technicalDiagnosis"
                     value={formik.values.technicalDiagnosis}
-                    onChange={(e) => {
-                      formik.setFieldValue(
-                        "expirationInsurance",
-                        m
-                          .locale("fa", { useGregorianParser: true })
-                          .format(handleDateFormat(e.value))
-                      );
+                    onChange={(date) => {
+                      formik.setFieldValue("technicalDiagnosis", date);
                     }}
                   />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
                 </InputGroup>
-                <FormFeedback tooltip>لطفا ادرس خود را وارد کنید</FormFeedback>
+                <FormFeedback>لطفا ادرس خود را وارد کنید</FormFeedback>
               </FormGroup>
 
               <FormGroup className={s.formGroup}>
                 <Label for="date">انقضای بیمه</Label>
                 <InputGroup className={s.input}>
-                  <DatePicker
+                  <InputDatePicker
                     name="expirationInsurance"
-                    placeholder="yy/mm/dd"
                     value={formik.values.expirationInsurance}
-                    onChange={(e) =>
-                      formik.setFieldValue(
-                        "expirationInsurance",
-                        m
-                          .locale("fa", { useGregorianParser: true })
-                          .format(handleDateFormat(e.value))
-                      )
+                    onChange={(date) =>
+                      formik.setFieldValue("expirationInsurance", date)
                     }
                   />
                   <Button type="button">
@@ -318,18 +309,12 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="expirationCertificate">انقضای گواهینامه</Label>
                 <InputGroup className={s.input}>
-                  <DatePicker
+                  <InputDatePicker
                     name="expirationCertificate"
                     value={formik.values.expirationCertificate}
-                    onChange={(e) =>
-                      formik.setFieldValue(
-                        "expirationCertificate",
-                        m
-                          .locale("fa", { useGregorianParser: true })
-                          .format(handleDateFormat(e.value))
-                      )
+                    onChange={(date) =>
+                      formik.setFieldValue("expirationCertificate", date)
                     }
-                    type="date"
                   />
                   <Button type="button">
                     <LiaEditSolid />
@@ -339,20 +324,14 @@ const UserData = () => {
               </FormGroup>
 
               <FormGroup className={s.formGroup}>
-                <Label for="dateofCarInstallments">تاریخ اقساط خودرو</Label>
+                <Label for="dateofCarInstallments">تاریخ تعمیرات خودرو</Label>
                 <InputGroup className={s.input}>
-                  <DatePicker
+                  <InputDatePicker
                     name="dateofCarInstallments"
                     value={formik.values.dateofCarInstallments}
-                    onChange={(e) =>
-                      formik.setFieldValue(
-                        "dateofCarInstallments",
-                        m
-                          .locale("fa", { useGregorianParser: true })
-                          .format(handleDateFormat(e.value))
-                      )
+                    onChange={(date) =>
+                      formik.setFieldValue("dateofCarInstallments", date)
                     }
-                    type="date"
                   />
                   <Button type="button">
                     <LiaEditSolid />

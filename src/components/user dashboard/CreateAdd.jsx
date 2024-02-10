@@ -31,6 +31,7 @@ const CreateAdd = ({ addCategories, type }) => {
     moreView: "",
     kilometersView: "",
   });
+  const [brand, setBrand] = useState([]);
   const [models, setModels] = useState([]);
   const [colors, setColors] = useState([]);
   const [bodyCondition, setBodyCondition] = useState([]);
@@ -84,7 +85,8 @@ const CreateAdd = ({ addCategories, type }) => {
     category: Yup.string().required(
       "لطفا این دسته بندی اگهی خود را انتخاب کنید"
     ),
-    model: Yup.string().required("لطفا این مدل اگهی خود را انتخاب کنید"),
+    brand: Yup.string().required("لطفا مدل ماشین خود را انتخاب کنید"),
+    model: Yup.string().required("لطفا اسم ماشین خود را انتخاب کنید"),
     fuel: Yup.string().required("لطفا نوع سوخت را مشخص کنید"),
     productYear: Yup.string().required("لطفا سال ساخت را مشخص کنید"),
     color: Yup.string().required("لطفا رنگ را انتخاب کنید"),
@@ -109,6 +111,7 @@ const CreateAdd = ({ addCategories, type }) => {
       moreView: "",
       kilometersView: "",
       category: "",
+      brand: "",
       model: "",
       fuel: "",
       productYear: "",
@@ -140,7 +143,7 @@ const CreateAdd = ({ addCategories, type }) => {
       ? httpService
           .get(`models/${categoryId}`)
           .then((res) => {
-            setModels(res.data.models);
+            setBrand(res.data.models);
           })
           .catch(() => {
             toast.error("مشکلی در گرفتن اطلاعات سرور بوجود امده");
@@ -154,6 +157,16 @@ const CreateAdd = ({ addCategories, type }) => {
 
     setLoading(false);
   }, [formik.values]);
+
+  useEffect(() => {
+    if (brand) {
+      brand.map((brand) => {
+        if (Object.values(brand).indexOf(`${formik.values.brand}`) > -1) {
+          setModels(brand.model.split(",").filter((model) => model !== ""));
+        }
+      });
+    }
+  }, [brand]);
 
   const handleUploadPhoto = (e, selectedPhoto) => {
     // const canUpload = e?.target?.files[0].size / 1024 / 1000;
@@ -552,8 +565,8 @@ const CreateAdd = ({ addCategories, type }) => {
               {/* model */}
               <InputGroup className={s.input}>
                 <Input
-                  name="model"
-                  value={formik.values.model}
+                  name="brand"
+                  value={formik.values.brand}
                   onChange={formik.handleChange}
                   type="select"
                   disabled={loading}
@@ -561,9 +574,31 @@ const CreateAdd = ({ addCategories, type }) => {
                   <option defaultValue value="" disabled>
                     مدل خودرو
                   </option>
+                  {brand.length !== 0 &&
+                    brand.map((brand, index) => (
+                      <option value={brand.brand}>{brand.brand}</option>
+                    ))}
+                </Input>
+                {formik.errors.brand && formik.touched.brand && (
+                  <span className={s.error}>{formik.errors.brand}</span>
+                )}
+              </InputGroup>
+
+              {/* car name */}
+              <InputGroup className={s.input}>
+                <Input
+                  name="model"
+                  value={formik.values.model}
+                  onChange={formik.handleChange}
+                  type="select"
+                  disabled={loading}
+                >
+                  <option defaultValue value="" disabled>
+                    اسم مدل
+                  </option>
                   {models.length !== 0 &&
                     models.map((model, index) => (
-                      <option value={index}>{model.brand}</option>
+                      <option value={model}>{model}</option>
                     ))}
                 </Input>
                 {formik.errors.model && formik.touched.model && (

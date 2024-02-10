@@ -116,12 +116,18 @@ a {
   text-decoration: none !important;
 }
 
-.css-1m8qzkt {
-  z-index: 2;
-}
-
 .modal-content {
   font-family: dana !important;
+}
+
+/* styling the datepickers */
+.picker-input-wrapper {
+  border: 1px solid #d3d3d3 !important;
+  height: 100% !important;
+  border-radius: 10px !important;
+}
+.picker-input-wrapper input {
+  border: none !important;
 }
 
 @media only screen and (max-width: 1000px) {
