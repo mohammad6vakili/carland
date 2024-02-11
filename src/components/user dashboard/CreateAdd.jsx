@@ -105,15 +105,18 @@ const CreateAdd = ({ addCategories, type }) => {
     enableReinitialize: true,
 
     initialValues: {
+      //photos
       rearView: "",
       frontView: "",
       leftView: "",
       rightView: "",
       moreView: "",
       kilometersView: "",
+      //car details
       category: "",
       brand: "",
       model: "",
+
       fuel: "",
       productYear: "",
       color: "",
@@ -240,8 +243,9 @@ const CreateAdd = ({ addCategories, type }) => {
       "kilometers_view",
       photos.kilometersView ? photos.kilometersView : ""
     );
-    formData.append("car_name", values.category);
-    formData.append("car_type", values.category);
+    formData.append("model_id", values.category);
+    formData.append("car_type", addCategories[values.category + 1].name);
+    formData.append("car_name", values.brand);
     formData.append("car_model", values.model);
     formData.append("production_year", values.productYear);
     formData.append("kilometers", values.kilometers);
@@ -563,7 +567,7 @@ const CreateAdd = ({ addCategories, type }) => {
             </section>
 
             <div className={s.details}>
-              {/* model */}
+              {/* brand */}
               <InputGroup className={s.input}>
                 <Input
                   name="brand"
@@ -585,7 +589,7 @@ const CreateAdd = ({ addCategories, type }) => {
                 )}
               </InputGroup>
 
-              {/* car name */}
+              {/* model */}
               <InputGroup className={s.input}>
                 <Input
                   name="model"
@@ -784,7 +788,7 @@ const CreateAdd = ({ addCategories, type }) => {
                   placeholder="شهر"
                   type="select"
                 >
-                  <option defaultValue value="">
+                  <option defaultValue value="" disabled>
                     شهر
                   </option>
                   {formik.values.state &&

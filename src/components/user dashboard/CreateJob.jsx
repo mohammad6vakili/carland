@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import Compressor from "compressorjs";
 import { useRouter } from "next/router";
 import { DownOutlined } from "@ant-design/icons";
+import { cityNames } from "../offers/cities";
 
 const CreateJob = ({ jobCategories, type }) => {
   const router = useRouter();
@@ -102,6 +103,7 @@ const CreateJob = ({ jobCategories, type }) => {
     NationalCardImage: Yup.string().required(""),
     images: Yup.string().required("لطفا عکس های محل کار خود را اپلود نمایید"),
     state: Yup.string().required("لطفا استان مربوط به شغل خود را وارد کنید"),
+    state: Yup.string().required("لطفا شهر مربوط به شغل خود را وارد کنید"),
     timeTo: Yup.string().required("لطفا ساعت شروع کار را مشخص کنید"),
     timeFrom: Yup.string().required("لطفا ساعت پایان کار را مشخص کنید"),
     city: Yup.string().required("لطفا نام شهر خود را وارد کنید"),
@@ -120,6 +122,7 @@ const CreateJob = ({ jobCategories, type }) => {
       NationalCardImage: "",
       NationalCardImage: "",
       state: "",
+      city: "",
       timeTo: "",
       timeFrom: "",
       city: "",
@@ -512,7 +515,18 @@ const CreateJob = ({ jobCategories, type }) => {
                       value={formik.values.city}
                       onChange={formik.handleChange}
                       placeholder="شهر"
-                    />
+                      type="select"
+                    >
+                      <option value="" defaultValue disabled>
+                        شهر
+                      </option>
+                      {formik.values.state &&
+                        cityNames[`${formik.values.state}`].map((city) => (
+                          <option key={city} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                    </Input>
 
                     <Input
                       name="phone"
