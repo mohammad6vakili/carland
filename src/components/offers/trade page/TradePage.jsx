@@ -230,9 +230,6 @@ const TradePage = () => {
   if (tradeData) {
     return (
       <>
-        <Head>
-          <title>{tradeData.title}</title>
-        </Head>
         <div className={s.trade_page}>
           <div className={s.main_title}>
             <h1>
