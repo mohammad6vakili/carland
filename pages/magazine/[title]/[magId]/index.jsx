@@ -43,12 +43,19 @@ export const getServerSideProps = async (context) => {
       return [];
     });
 
+  const magazines = await axios
+    .get(`${baseUrl}/magazines`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {});
+
   return {
-    props: { magazine: data },
+    props: { magazine: data, magazines },
   };
 };
 
-const index = ({ magazine }) => {
+const index = ({ magazine, magazines }) => {
   return (
     <>
       <Head>
@@ -59,7 +66,7 @@ const index = ({ magazine }) => {
         <meta name="og:image" content={url + "/" + magazine.image_url} />
       </Head>
       <Header />
-      <Magazine />
+      <Magazine magazines={magazines} />
       <Footer />
     </>
   );

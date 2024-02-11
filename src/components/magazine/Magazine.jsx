@@ -16,13 +16,18 @@ import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
-import { handleCopy, toPersianString } from "@/src/hooks/functions";
+import {
+  handleCopy,
+  handleTextCut,
+  toPersianString,
+} from "@/src/hooks/functions";
 import Head from "next/head";
 import { convertDate } from "../comments/CommentCards";
 import { usePathname } from "next/navigation";
 import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
+import Link from "next/link";
 
-const Magazine = () => {
+const Magazine = ({ magazines }) => {
   const size = useWindowSize();
   const router = useRouter();
   const pathname = usePathname();
@@ -241,7 +246,7 @@ const Magazine = () => {
                       height={150}
                     />
 
-                    <div className={s.blur}>
+                    {/* <div className={s.blur}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="362"
@@ -292,12 +297,15 @@ const Magazine = () => {
                           </filter>
                         </defs>
                       </svg>
-                    </div>
-                    <div className={s.text}>کلاسیک</div>
+                    </div> */}
                   </div>
 
-                  {latestClubs.map((item, index) => (
-                    <div key={Math.random()} className={s.list_item}>
+                  {magazines.map((magazine, index) => (
+                    <Link
+                      href={`magazine/${magazine.title}/${magazine.id}`}
+                      key={Math.random()}
+                      className={s.list_item}
+                    >
                       <div className={s.title}>
                         <span>
                           <Image
@@ -307,13 +315,13 @@ const Magazine = () => {
                             height={15}
                           />
                         </span>{" "}
-                        <p>تاریخچه خودروهای مدرن</p>
+                        <p>{magazine.title}</p>
                       </div>
 
                       <div className={s.description}>
-                        تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
+                        {handleTextCut(magazine.description, 50)}
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -407,15 +415,14 @@ const Magazine = () => {
                 className={s.swiper}
                 onSwiper={setAdsSwiper}
               >
-                {photos.map((offer, index) => (
+                {magazines.map((magazine, index) => (
                   <SwiperSlide className={s.slide} key={Math.random() * index}>
                     <SuggestCard
-                      image={"/assets/main/car-2.png"}
-                      title={"ام وی ام، X55 PRO"}
-                      description={
-                        "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و فوری از طریق مجموعه شعب نمایندگی 777 انجام می شود"
-                      }
-                      time={"۱۴۰۲/۰۸/۰۱"}
+                      image={url + "/" + magazine.image_url}
+                      title={magazine.title}
+                      description={handleTextCut(magazine.description, 300)}
+                      time={convertDate(magazine.created_at)}
+                      href={`/magazine/${magazine.title}/${magazine.id}`}
                     />
                   </SwiperSlide>
                 ))}
@@ -519,7 +526,6 @@ const Magazine = () => {
                       height={15}
                     />
                   </span>{" "}
-                  <p>آخرین کلوپ‌ها</p>
                 </div>
 
                 <div className={s.list}>
@@ -587,23 +593,7 @@ const Magazine = () => {
                   </div>
 
                   {latestClubs.map((item, index) => (
-                    <div key={Math.random()} className={s.list_item}>
-                      <div className={s.title}>
-                        <span>
-                          <Image
-                            src={"/assets/trades/triangle.svg"}
-                            alt=""
-                            width={15}
-                            height={15}
-                          />
-                        </span>{" "}
-                        <p>تاریخچه خودروهای مدرن</p>
-                      </div>
-
-                      <div className={s.description}>
-                        تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                      </div>
-                    </div>
+                    <MySkeleton width={"100%"} height={"15px"} />
                   ))}
                 </div>
               </div>

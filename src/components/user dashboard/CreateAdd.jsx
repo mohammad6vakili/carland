@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { IoAddCircle } from "react-icons/io5";
 import { useRouter } from "next/router";
 import Compressor from "compressorjs";
+import { cityNames } from "../offers/cities";
 
 const CreateAdd = ({ addCategories, type }) => {
   const { httpService } = useHttp(true);
@@ -781,7 +782,18 @@ const CreateAdd = ({ addCategories, type }) => {
                   value={formik.values.city}
                   onChange={formik.handleChange}
                   placeholder="شهر"
-                />
+                  type="select"
+                >
+                  <option defaultValue value="">
+                    شهر
+                  </option>
+                  {formik.values.state &&
+                    cityNames[`${formik.values.state}`].map((city) => (
+                      <option key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                </Input>
                 {formik.errors.city && formik.touched.city && (
                   <span className={s.error}>{formik.errors.city}</span>
                 )}

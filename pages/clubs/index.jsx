@@ -22,7 +22,7 @@ export async function getStaticProps() {
       return res.data.data;
     })
     .catch((err) => {
-      return null;
+      return [];
     });
 
   return { props: { clubCategories, clubs } };

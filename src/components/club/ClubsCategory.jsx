@@ -64,6 +64,8 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
             setLoading(false);
           }))
       : null;
+
+    removeLocal("clubCat");
   }, [selectedCategory]);
 
   const handleSelectedCategory = (id) => {
@@ -220,7 +222,10 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
             {clubByCategory ? (
               clubByCategory.length !== 0 ? (
                 clubByCategory.map((club) => (
-                  <div className={s.category}>
+                  <Link
+                    href={`club/${club.title}/${club.id}`}
+                    className={s.category}
+                  >
                     <div className={s.list}>
                       <div className={s.image}>
                         <Image
@@ -307,7 +312,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))
               ) : (
                 <div className={s.not_found}>
@@ -315,91 +320,35 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                 </div>
               )
             ) : (
-              clubs.map((cub) => (
+              clubs.map((club) => (
                 <div className={s.category}>
                   <div className={s.list}>
                     <div className={s.image}>
                       <Image
-                        src={"/assets/magazine/latest-club.png"}
+                        src={url + "/" + club.image_url}
                         alt=""
                         width={300}
                         height={150}
                       />
-
-                      <div className={s.blur}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="362"
-                          height="62"
-                          viewBox="0 0 362 62"
-                          fill="none"
-                        >
-                          <g filter="url(#filter0_b_1375_15567)">
-                            <path
-                              d="M117.888 17.9911H239.837C241.256 17.9911 242.673 17.8905 244.077 17.6901L361 1V46C361 54.2843 354.284 61 346 61H16C7.71574 61 1 54.2843 1 46V1L113.491 17.6672C114.947 17.8829 116.416 17.9911 117.888 17.9911Z"
-                              fill="white"
-                              fillOpacity="0.2"
-                            />
-                            <path
-                              d="M117.888 17.9911H239.837C241.256 17.9911 242.673 17.8905 244.077 17.6901L361 1V46C361 54.2843 354.284 61 346 61H16C7.71574 61 1 54.2843 1 46V1L113.491 17.6672C114.947 17.8829 116.416 17.9911 117.888 17.9911Z"
-                              stroke="white"
-                            />
-                          </g>
-                          <defs>
-                            <filter
-                              id="filter0_b_1375_15567"
-                              x="-34.5"
-                              y="-34.5801"
-                              width="431"
-                              height="131.08"
-                              filterUnits="userSpaceOnUse"
-                              colorInterpolationFilters="sRGB"
-                            >
-                              <feFlood
-                                floodOpacity="0"
-                                result="BackgroundImageFix"
-                              />
-                              <feGaussianBlur
-                                in="BackgroundImageFix"
-                                stdDeviation="17.5"
-                              />
-                              <feComposite
-                                in2="SourceAlpha"
-                                operator="in"
-                                result="effect1_backgroundBlur_1375_15567"
-                              />
-                              <feBlend
-                                mode="normal"
-                                in="SourceGraphic"
-                                in2="effect1_backgroundBlur_1375_15567"
-                                result="shape"
-                              />
-                            </filter>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div className={s.text}>کلاسیک</div>
                     </div>
 
-                    {categories.map((item, index) => (
-                      <div key={Math.random()} className={s.list_item}>
-                        <div className={s.title}>
-                          <span>
-                            <Image
-                              src={"/assets/trades/triangle.svg"}
-                              alt="icon"
-                              width={15}
-                              height={15}
-                            />
-                          </span>
-                          <p>تاریخچه خودروهای مدرن</p>
-                        </div>
-
-                        <div className={s.description}>
-                          تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                        </div>
+                    <div key={Math.random()} className={s.list_item}>
+                      <div className={s.title}>
+                        <span>
+                          <Image
+                            src={"/assets/trades/triangle.svg"}
+                            alt="icon"
+                            width={15}
+                            height={15}
+                          />
+                        </span>
+                        <p>{club.title}</p>
                       </div>
-                    ))}
+
+                      <div className={s.description}>
+                        {handleTextCut(club.description, 200)}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))

@@ -262,40 +262,41 @@ const MagazineCategory = ({ magsCategories, magazines }) => {
               )
             ) : (
               magazines.map((mag) => (
-                <div className={s.magazine}>
+                <Link
+                  href={`magazine/${mag.title}/${mag.id}`}
+                  className={s.magazine}
+                >
                   <div className={s.list}>
                     <div className={s.image}>
                       <Image
-                        src={"/assets/magazine/latest-club.png"}
+                        src={url + "/" + mag.image_url}
                         alt=""
                         width={300}
                         height={150}
                       />
 
-                      <div className={s.div}>تازه‌ها</div>
+                      <div className={s.div}>{mag.title}</div>
                     </div>
 
-                    {categories.map((item, index) => (
-                      <div key={Math.random()} className={s.list_item}>
-                        <div className={s.title}>
-                          <span>
-                            <Image
-                              src={"/assets/trades/triangle.svg"}
-                              alt=""
-                              width={15}
-                              height={15}
-                            />
-                          </span>
-                          <p>تاریخچه خودروهای مدرن</p>
-                        </div>
-
-                        <div className={s.description}>
-                          تاریخچه خودروهای قدیمی را در کارلند دنبال کنید!
-                        </div>
+                    <div key={Math.random()} className={s.list_item}>
+                      <div className={s.title}>
+                        <span>
+                          <Image
+                            src={"/assets/trades/triangle.svg"}
+                            alt=""
+                            width={15}
+                            height={15}
+                          />
+                        </span>
+                        {mag.title}
                       </div>
-                    ))}
+
+                      <div className={s.description}>
+                        {handleTextCut(mag.description, 400)}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </section>
