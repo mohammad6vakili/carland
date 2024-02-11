@@ -49,8 +49,19 @@ export const getServerSideProps = async (context) => {
 };
 
 const index = ({ trade }) => {
+  console.log(trade);
+
   return (
     <>
+      <Head>
+        <title>{trade.title}</title>
+        <meta name="title" content={trade.title} />
+        <meta
+          name="description"
+          content={trade.category.title + trade.descriptions}
+        />
+        <meta property="og:image" content={url + trade.images.split(",")[0]} />
+      </Head>
       <Header />
       <TradePage />
       <Footer />
