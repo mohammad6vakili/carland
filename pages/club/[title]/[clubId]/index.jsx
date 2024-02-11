@@ -43,12 +43,21 @@ export const getServerSideProps = async (context) => {
       return [];
     });
 
+  const clubs = await axios
+    .get(`${baseUrl}/clubs`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {
+      return [];
+    });
+
   return {
-    props: { club: data },
+    props: { club: data, clubs },
   };
 };
 
-const index = ({ club }) => {
+const index = ({ club, clubs }) => {
   return (
     <>
       <Head>
@@ -59,7 +68,7 @@ const index = ({ club }) => {
         <meta property="og:image" content={url + "/" + club.image_url} />
       </Head>
       <Header />
-      <Club />
+      <Club clubs={clubs} />
       <Footer />
     </>
   );

@@ -258,10 +258,10 @@ const UserData = () => {
                 </FormText>
               </FormGroup>
 
-              {/* <FormGroup className={s.formGroup}>
+              <FormGroup className={s.formGroup}>
                 <Label for="address">معاینه فنی</Label>
                 <InputGroup className={s.input}>
-                  <InputDatePicker
+                  <DatePicker
                     name="technicalDiagnosis"
                     value={formik.values.technicalDiagnosis}
                     onChange={(date) => {
@@ -275,7 +275,7 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="date">انقضای بیمه</Label>
                 <InputGroup className={s.input}>
-                  <InputDatePicker
+                  <DatePicker
                     name="expirationInsurance"
                     value={formik.values.expirationInsurance}
                     onChange={(date) =>
@@ -307,7 +307,7 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="expirationCertificate">انقضای گواهینامه</Label>
                 <InputGroup className={s.input}>
-                  <InputDatePicker
+                  <DatePicker
                     name="expirationCertificate"
                     value={formik.values.expirationCertificate}
                     onChange={(date) =>
@@ -324,7 +324,7 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="dateofCarInstallments">تاریخ تعمیرات خودرو</Label>
                 <InputGroup className={s.input}>
-                  <InputDatePicker
+                  <DatePicker
                     name="dateofCarInstallments"
                     value={formik.values.dateofCarInstallments}
                     onChange={(date) =>
@@ -336,7 +336,7 @@ const UserData = () => {
                   </Button>
                 </InputGroup>
                 <FormFeedback>لطفا پر کنید</FormFeedback>
-              </FormGroup> */}
+              </FormGroup>
 
               <div className={s.profile}>
                 <div className={s.text}>

@@ -1056,7 +1056,9 @@
 }
 
 @media only screen and (max-width: 450px) {
-  .magazine_page {
+  .magazine_page,
+  .magazines,
+  .clubs {
     .main_title {
       line-height: 200%;
     }
