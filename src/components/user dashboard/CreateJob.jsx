@@ -168,7 +168,7 @@ const CreateJob = ({ jobCategories, type }) => {
 
     catId
       ? httpService(`category/${catId}`).then((res) => {
-          res.data.success
+          res?.data.success
             ? setFilters(res.data.data.filters.split(","))
             : null;
         })
@@ -176,7 +176,8 @@ const CreateJob = ({ jobCategories, type }) => {
   }, [formik.values.categoryId]);
 
   const handleStep = (step) => {
-    if (currentStep == step) {
+    console.log(currentStep);
+    if (currentStep === step) {
       return true;
     } else {
       return false;
@@ -184,15 +185,17 @@ const CreateJob = ({ jobCategories, type }) => {
   };
 
   const handleStepForward = () => {
-    if (currentStep == 1 && formik.values.categoryId) {
+    if (currentStep === 1 && formik.values.categoryId) {
       // setCurrentStep((current) => (current < 5 ? current + 1 : null));
       return true;
-    } else if (currentStep == 2 && !!formik.values.filters.length) {
-      setCurrentStep((current) => (current < 5 ? current + 1 : null));
-    } else if (currentStep == 3 && formik.values.description) {
-      setCurrentStep((current) => (current < 5 ? current + 1 : null));
-    } else if (currentStep == 4 && localImages) {
-      setCurrentStep((current) => (current < 5 ? current + 1 : null));
+    } else if (currentStep === 2 && !!formik.values.filters.length) {
+      currentStep < 5 ? setCurrentStep((current) => current + 1) : null;
+    } else if (currentStep === 3 && formik.values.description) {
+      currentStep < 5 ? setCurrentStep((current) => current + 1) : null;
+    } else if (currentStep === 4 && localImages) {
+      currentStep < 5 ? setCurrentStep((current) => current + 1) : null;
+    } else {
+      toast("لطفا اطلاعات این مرحله کامل کنید");
     }
   };
 
@@ -327,10 +330,7 @@ const CreateJob = ({ jobCategories, type }) => {
                     handleStep(1) ? s.progress_open : s.progress_closed
                   }
                 >
-                  <Input
-                    type="checkbox"
-                    defaultChecked={currentStep > 1 ? true : false}
-                  />{" "}
+                  <Input type="checkbox" defaultChecked={currentStep > 1} />{" "}
                   {handleStep(1) && (
                     <section className={s.level}>
                       <p>انتخاب شغل</p>
