@@ -199,6 +199,8 @@ const CreateJob = ({ jobCategories, type }) => {
       "image",
       new Compressor(e?.target?.files[0], {
         quality: 0.5,
+        maxWidth: 500,
+        maxHeight: 500,
 
         success(result) {
           return result;

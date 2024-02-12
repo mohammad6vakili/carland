@@ -134,7 +134,35 @@ const CreateAdd = ({ addCategories, type }) => {
     validationSchema,
 
     onSubmit: (values) => {
-      handleCreateAd(values);
+      const formData = new FormData();
+      const selectedCategoryIndex = parseInt(values.category) + 1;
+
+      formData.append("front_view", photos.frontView ? photos.frontView : "");
+      formData.append("rear_view", photos.rearView ? photos.rearView : "");
+      formData.append("left_view", photos.leftView ? photos.leftView : "");
+      formData.append("right_view", photos.rightView ? photos.rightView : "");
+      formData.append("more_view", photos.moreView ? photos.moreView : "");
+      formData.append(
+        "kilometers_view",
+        photos.kilometersView ? photos.kilometersView : ""
+      );
+      formData.append("model_id", values.category);
+      formData.append("car_type", addCategories[selectedCategoryIndex].name);
+      formData.append("car_name", values.brand);
+      formData.append("car_model", values.model);
+      formData.append("production_year", values.productYear);
+      formData.append("kilometers", values.kilometers);
+      formData.append("Fuel_type", values.fuel);
+      formData.append("color", values.color);
+      formData.append("body_condition", values.bodyCondition);
+      formData.append("gearbox_type", values.gearbox);
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("location", values.location);
+      formData.append("price", values.price);
+      formData.append("state", values.state);
+      formData.append("city", values.city);
+      handleCreateAd(formData);
     },
   });
 
@@ -160,10 +188,10 @@ const CreateAdd = ({ addCategories, type }) => {
       : null;
 
     setLoading(false);
-  }, [formik.values]);
+  }, [formik.values.category]);
 
   useEffect(() => {
-    if (brand) {
+    if (brand.length !== 0) {
       brand.map((brand) => {
         if (Object.values(brand).indexOf(`${formik.values.brand}`) > -1) {
           setModels(brand.model.split(",").filter((model) => model !== ""));
@@ -198,7 +226,9 @@ const CreateAdd = ({ addCategories, type }) => {
     formData.append("image", e.target.files[0]);
 
     new Compressor(e.target?.files?.[0], {
-      quality: 0.6,
+      quality: 0.5,
+      maxWidth: 600,
+      maxHeight: 400,
 
       // The compression process is asynchronous,
       // which means you have to access the `result` in the `success` hook function.
@@ -231,36 +261,11 @@ const CreateAdd = ({ addCategories, type }) => {
     });
   };
 
-  const handleCreateAd = (values) => {
+  const handleCreateAd = (formData) => {
     setLoading(true);
-    const formData = new FormData();
-    formData.append("front_view", photos.frontView ? photos.frontView : "");
-    formData.append("rear_view", photos.rearView ? photos.rearView : "");
-    formData.append("left_view", photos.leftView ? photos.leftView : "");
-    formData.append("right_view", photos.rightView ? photos.rightView : "");
-    formData.append("more_view", photos.moreView ? photos.moreView : "");
-    formData.append(
-      "kilometers_view",
-      photos.kilometersView ? photos.kilometersView : ""
-    );
-    formData.append("model_id", values.category);
-    formData.append("car_type", addCategories[values.category + 1].name);
-    formData.append("car_name", values.brand);
-    formData.append("car_model", values.model);
-    formData.append("production_year", values.productYear);
-    formData.append("kilometers", values.kilometers);
-    formData.append("Fuel_type", values.fuel);
-    formData.append("color", values.color);
-    formData.append("body_condition", values.bodyCondition);
-    formData.append("gearbox_type", values.gearbox);
-    formData.append("title", values.title);
-    formData.append("description", values.description);
-    formData.append("location", values.location);
-    formData.append("price", values.price);
-    formData.append("state", values.state);
-    formData.append("city", values.city);
-
     const id = router?.query?.adId;
+    console.log(type);
+
     type !== "edit"
       ? httpService
           .post("ads", formData)
@@ -268,14 +273,13 @@ const CreateAdd = ({ addCategories, type }) => {
             res.status === 200
               ? toast.success("آگهی شما با موفقیت ثبت شد")
               : null;
-            setLoading(false);
-            // router.back();
+            router.back();
           })
           .catch((err) => {
             toast.error("مشکلی در ثبت آگهی بوجود امد");
             toast.error(err);
-            setLoading(false);
           })
+          .finally(() => setLoading(false))
       : httpService
           .put(`ads/${id}`, formData)
           .then((res) => {
