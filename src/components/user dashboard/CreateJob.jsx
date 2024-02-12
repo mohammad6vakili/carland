@@ -6,6 +6,8 @@ import {
   DropdownToggle,
   Form,
   Input,
+  InputGroup,
+  Label,
 } from "reactstrap";
 import s from "@/styles/main.module.scss";
 import Image from "next/image";
@@ -174,10 +176,23 @@ const CreateJob = ({ jobCategories, type }) => {
   }, [formik.values.categoryId]);
 
   const handleStep = (step) => {
-    if (currentStep === step) {
+    if (currentStep == step) {
       return true;
     } else {
       return false;
+    }
+  };
+
+  const handleStepForward = () => {
+    if (currentStep == 1 && formik.values.categoryId) {
+      // setCurrentStep((current) => (current < 5 ? current + 1 : null));
+      return true;
+    } else if (currentStep == 2 && !!formik.values.filters.length) {
+      setCurrentStep((current) => (current < 5 ? current + 1 : null));
+    } else if (currentStep == 3 && formik.values.description) {
+      setCurrentStep((current) => (current < 5 ? current + 1 : null));
+    } else if (currentStep == 4 && localImages) {
+      setCurrentStep((current) => (current < 5 ? current + 1 : null));
     }
   };
 
@@ -253,7 +268,7 @@ const CreateJob = ({ jobCategories, type }) => {
     console.log(formik.values.filters);
     setTimeout(() => {
       setFiltersOpen(true);
-    }, 100);
+    }, 10);
   };
 
   useEffect(() => {
@@ -467,20 +482,29 @@ const CreateJob = ({ jobCategories, type }) => {
                       type="textarea"
                     />
 
-                    <Input
-                      name="timeFrom"
-                      value={formik.values.timeFrom}
-                      onChange={formik.handleChange}
-                      placeholder="ساعت شروع کار"
-                      type="time"
-                    />
-                    <Input
-                      name="timeTo"
-                      value={formik.values.timeTo}
-                      onChange={formik.handleChange}
-                      placeholder="ساعت اتمام کار"
-                      type="time"
-                    />
+                    <InputGroup className={s.group}>
+                      <div>
+                        <Label>ساعت شروع کار</Label>
+                        <Input
+                          name="timeFrom"
+                          value={formik.values.timeFrom}
+                          onChange={formik.handleChange}
+                          placeholder="ساعت شروع کار"
+                          type="time"
+                        />
+                      </div>
+                    </InputGroup>
+                    <InputGroup className={s.group}>
+                      <div>
+                        <Label>ساعت پایان کار</Label>
+                        <Input
+                          name="timeTo"
+                          value={formik.values.timeTo}
+                          onChange={formik.handleChange}
+                          type="time"
+                        />
+                      </div>
+                    </InputGroup>
 
                     <Input
                       name="firstName"
@@ -699,14 +723,7 @@ const CreateJob = ({ jobCategories, type }) => {
                   >
                     مرحله قبل
                   </Button>
-                  <Button
-                    className={s.next}
-                    onClick={() =>
-                      setCurrentStep((current) =>
-                        current < 5 ? current + 1 : null
-                      )
-                    }
-                  >
+                  <Button className={s.next} onClick={handleStepForward}>
                     مرحله بعد
                   </Button>
                 </>
