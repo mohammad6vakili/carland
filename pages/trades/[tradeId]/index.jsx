@@ -1,9 +1,11 @@
+import { url } from "@/pages/sitemap.xml";
 import { baseUrl } from "@/src/axiosConfig/useHttp";
 import Footer from "@/src/components/header-footer/Footer";
 import Header from "@/src/components/header-footer/Header";
 import TradePage from "@/src/components/offers/trade page/TradePage";
 import { getLocal } from "@/src/hooks/functions";
 import axios from "axios";
+import Head from "next/head";
 
 // export const getStaticPaths = async () => {
 //   const data = await axios
@@ -49,18 +51,13 @@ export const getServerSideProps = async (context) => {
 };
 
 const index = ({ trade }) => {
-  console.log(trade);
-
   return (
     <>
       <Head>
         <title>{trade.title}</title>
         <meta name="title" content={trade.title} />
-        <meta
-          name="description"
-          content={trade.category.title + trade.descriptions}
-        />
-        <meta property="og:image" content={url + trade.images.split(",")[0]} />
+        <meta name="description" content={trade.description} />
+        <meta property="og:image" content={url + trade.mainImage} />
       </Head>
       <Header />
       <TradePage />
