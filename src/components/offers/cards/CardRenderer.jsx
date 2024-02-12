@@ -362,7 +362,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
             key={Math.random()}
             borderRadius={"10px"}
             className="flex-1"
-            width={"220px"}
+            width={"210px"}
             height={"300px"}
             style={{ margin: "1rem" }}
           />
