@@ -540,14 +540,9 @@ const Club = ({ clubs }) => {
                 modules={[Navigation, FreeMode]}
                 className="mySwiper"
               >
-                {latestClubs.map((offer, index) => (
+                {clubs.map((offer, index) => (
                   <SwiperSlide key={Math.random() * index}>
-                    <SuggestCard
-                      image={"/assets/main/car-2.png"}
-                      title={""}
-                      description={""}
-                      time={""}
-                    />
+                    <MySkeleton width={"250px"} height={"500px"} />
                   </SwiperSlide>
                 ))}
               </Swiper>

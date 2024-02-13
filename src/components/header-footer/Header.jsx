@@ -104,7 +104,7 @@ const Header = () => {
                 />
               </section>
               <section className={styles.name}>
-                <h1p>کارلند</h1p>
+                <h1>کارلند</h1>
                 <h2>CARLAND</h2>
               </section>
             </div>
