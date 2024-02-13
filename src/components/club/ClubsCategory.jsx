@@ -119,9 +119,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                           width={600}
                           height={300}
                           className={s.lazy_load}
-                          onLoadingComplete={(img) =>
-                            img.classList.remove(s.lazy_load)
-                          }
+                          onLoad={(img) => img.classList.remove(s.lazy_load)}
                         />
                         <div className={s.descriptions}>
                           <h1 className={s.title}>{club.title}</h1>
@@ -223,7 +221,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
               clubByCategory.length !== 0 ? (
                 clubByCategory.map((club) => (
                   <Link
-                    href={`club/${club.title}/${club.id}`}
+                    href={`/club/${club.title}/${club.id}`}
                     className={s.category}
                   >
                     <div className={s.list}>
@@ -321,7 +319,10 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
               )
             ) : (
               clubs.map((club) => (
-                <div className={s.category}>
+                <Link
+                  href={`/club/${club.title}/${club.id}`}
+                  className={s.category}
+                >
                   <div className={s.list}>
                     <div className={s.image}>
                       <Image
@@ -350,7 +351,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </section>

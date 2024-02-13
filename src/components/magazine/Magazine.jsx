@@ -302,7 +302,7 @@ const Magazine = ({ magData, magazines }) => {
 
                   {magazines.map((magazine, index) => (
                     <Link
-                      href={`magazine/${magazine.title}/${magazine.id}`}
+                      href={`/magazine/${magazine.title}/${magazine.id}`}
                       key={index}
                       className={s.list_item}
                     >
