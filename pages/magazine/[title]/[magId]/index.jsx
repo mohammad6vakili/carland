@@ -66,7 +66,7 @@ const index = ({ magazine, magazines }) => {
         <meta name="og:image" content={url + "/" + magazine.image_url} />
       </Head>
       <Header />
-      <Magazine magazines={magazines} />
+      <Magazine magData={magazine} magazines={magazines} />
       <Footer />
     </>
   );
