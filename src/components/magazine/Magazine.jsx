@@ -27,29 +27,29 @@ import { usePathname } from "next/navigation";
 import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 
-const Magazine = ({ magazines }) => {
+const Magazine = ({ magData, magazines }) => {
   const size = useWindowSize();
   const router = useRouter();
   const pathname = usePathname();
   const { httpService } = useHttp();
 
   const latestmagazines = [{}, {}, {}];
-  const [magData, setMagData] = useState([]);
+  // const [magData, setMagData] = useState([]);
   const [photos, setPhotos] = useState([]);
 
   //handleRequests
-  useEffect(() => {
-    const id = router.query.magId;
-    if (id) {
-      httpService
-        .get(`magazine/${id}`)
-        .then((res) => {
-          res.status === 200 ? setMagData(res.data.data) : null;
-          handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
-        })
-        .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   const id = router.query.magId;
+  //   if (id) {
+  //     httpService
+  //       .get(`magazine/${id}`)
+  //       .then((res) => {
+  //         res.status === 200 ? setMagData(res.data.data) : null;
+  //         handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
+  //       })
+  //       .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
+  //   }
+  // }, [router]);
 
   const handlePhotos = (banner, images) => {
     const data = [];
@@ -89,7 +89,7 @@ const Magazine = ({ magazines }) => {
     }
   }, [adsSwiper]);
 
-  if (magData.length !== 0) {
+  if (magData) {
     return (
       <>
         <div className={s.magazine_page}>
@@ -303,7 +303,7 @@ const Magazine = ({ magazines }) => {
                   {magazines.map((magazine, index) => (
                     <Link
                       href={`magazine/${magazine.title}/${magazine.id}`}
-                      key={Math.random()}
+                      key={index}
                       className={s.list_item}
                     >
                       <div className={s.title}>
@@ -405,7 +405,6 @@ const Magazine = ({ magazines }) => {
 
             <div className={s.cards}>
               <Swiper
-                spaceBetween={15}
                 slidesPerView={"auto"}
                 navigation={{
                   prevEl: prevAdRef?.current,
@@ -592,7 +591,7 @@ const Magazine = ({ magazines }) => {
                     <div className={s.text}>کلاسیک</div>
                   </div>
 
-                  {magazines.map((item, index) => (
+                  {latestmagazines.map((item, index) => (
                     <MySkeleton width={"100%"} height={"15px"} />
                   ))}
                 </div>
@@ -703,7 +702,7 @@ const Magazine = ({ magazines }) => {
                 className="mySwiper"
                 onSwiper={setAdsSwiper}
               >
-                {magazines.map((magazine, index) => (
+                {latestmagazines.map((magazine, index) => (
                   <SwiperSlide key={Math.random() * index}>
                     <MySkeleton width={"250px"} height={"500px"} />
                   </SwiperSlide>
