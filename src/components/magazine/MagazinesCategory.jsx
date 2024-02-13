@@ -217,7 +217,7 @@ const MagazineCategory = ({ magsCategories, magazines }) => {
               magazinesByCat.length !== 0 ? (
                 magazinesByCat.map((cat) => (
                   <Link
-                    href={`/magazine/${cat.id}/${cat.title}`}
+                    href={`/magazine/${cat.title}/${cat.id}`}
                     className={s.magazine}
                     key={cat.id}
                   >
@@ -263,7 +263,7 @@ const MagazineCategory = ({ magsCategories, magazines }) => {
             ) : (
               magazines.map((mag) => (
                 <Link
-                  href={`magazine/${mag.title}/${mag.id}`}
+                  href={`/magazine/${mag.title}/${mag.id}`}
                   className={s.magazine}
                 >
                   <div className={s.list}>

@@ -9,16 +9,16 @@ export async function getStaticProps() {
   const magsCategories = await axios
     .get(`${baseUrl}/CategoriesMagazine`)
     .then((res) => {
-      return res.data;
+      return res.data.data;
     })
-    .catch((err) => {});
+    .catch((err) => null);
 
   const magazines = await axios
     .get(`${baseUrl}/magazines`)
     .then((res) => {
       return res.data.data;
     })
-    .catch((err) => {});
+    .catch((err) => []);
 
   return { props: { magsCategories, magazines } };
 }
@@ -35,10 +35,7 @@ const index = ({ magsCategories, magazines }) => {
         />
       </Head>
       <Header />
-      <MagazineCategory
-        magsCategories={magsCategories.data}
-        magazines={magazines}
-      />
+      <MagazineCategory magsCategories={magsCategories} magazines={magazines} />
       <Footer />
     </>
   );

@@ -304,7 +304,7 @@ const Club = ({ clubs }) => {
 
                   {clubs.map((club, index) => (
                     <Link
-                      href={`club/${club.title}/${club.id}`}
+                      href={`/club/${club.title}/${club.id}`}
                       key={Math.random()}
                       className={s.list_item}
                     >
