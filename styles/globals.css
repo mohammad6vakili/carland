@@ -130,6 +130,10 @@ a {
   border: none !important;
 }
 
+.infinite-scroll-component__outerdiv {
+  width: 100%;
+}
+
 @media only screen and (max-width: 1000px) {
   body {
     padding-bottom: 30px;

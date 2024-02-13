@@ -17,7 +17,7 @@ import toast from "react-hot-toast";
 import { IoAddCircle } from "react-icons/io5";
 import { useRouter } from "next/router";
 import Compressor from "compressorjs";
-import { cityNames } from "../offers/cities";
+import { cityNames, statesNames } from "../offers/cities";
 
 const CreateAdd = ({ addCategories, type }) => {
   const { httpService } = useHttp(true);
@@ -36,39 +36,6 @@ const CreateAdd = ({ addCategories, type }) => {
   const [models, setModels] = useState([]);
   const [colors, setColors] = useState([]);
   const [bodyCondition, setBodyCondition] = useState([]);
-  const statesNames = [
-    "آذربایجان شرقی",
-    "آذربایجان غربی",
-    "اردبیل",
-    "اصفهان",
-    "البرز",
-    "ایلام",
-    "بوشهر",
-    "تهران",
-    "چهارمحال و بختیاری",
-    "خراسان جنوبی",
-    "خراسان رضوی",
-    "خراسان شمالی",
-    "خوزستان",
-    "زنجان",
-    "سمنان",
-    "سیستان و بلوچستان",
-    "فارس",
-    "قزوین",
-    "قم",
-    "کردستان",
-    "کرمان",
-    "کرمانشاه",
-    "کهگیلویه و بویراحمد",
-    "گلستان",
-    "گیلان",
-    "لرستان",
-    "مازندران",
-    "مرکزی",
-    "هرمزگان",
-    "همدان",
-    "یزد",
-  ];
 
   //edit data
   const [editCategories, setEditCategories] = useState(null);
@@ -97,8 +64,14 @@ const CreateAdd = ({ addCategories, type }) => {
     title: Yup.string().required("لطفا برای آگهی خود عنوان انتخاب کنید"),
     location: Yup.string().required("این فیلد را پر کنید"),
     price: Yup.string().required("این فیلد را پر کنید"),
-    price: Yup.string().required("این فیلد را پر کنید"),
     description: Yup.string().required("لطفا برای آگهی خود توضیحات بنویسید"),
+  });
+  const validationSchemaEdit = Yup.object().shape({
+    title: Yup.string().required("لطفا برای آگهی خود عنوان انتخاب کنید"),
+    description: Yup.string().required("لطفا برای آگهی خود توضیحات بنویسید"),
+    price: Yup.string().required("این فیلد را پر کنید"),
+    kilometers: Yup.number().required("لطفا مسافت طی کرده را وارد کنید"),
+    productYear: Yup.string().required("لطفا سال ساخت را مشخص کنید"),
   });
 
   const formik = useFormik({
