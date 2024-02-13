@@ -18,7 +18,7 @@ const SuggestCard = ({ image, title, description, time, href }) => {
 
         <div className={s.bottom_content}>
           <span>{time}</span>
-          <Link href={`${href}`}>
+          <Link href={href}>
             <Button>
               مشاهده
               <div>
