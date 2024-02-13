@@ -287,7 +287,8 @@ const CreateAdd = ({ addCategories, type }) => {
               ? toast.success("آگهی شما با موفقیت بروزرسانی شد")
               : null;
             setLoading(false);
-            router.back();
+            router.push("/userDashboard/myAdds");
+            toast.success(" اگهی شما ثبت شد و پس از بررسی منتشر خواهد شد");
           })
           .catch((err) => {
             toast.error("مشکلی در بروزرسانی آگهی بوجود امد");

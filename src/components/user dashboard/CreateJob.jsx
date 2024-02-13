@@ -773,7 +773,7 @@ const CreateJob = ({ jobCategories, type }) => {
                   </Button>
                   <Button
                     disabled={loading}
-                    type={loading ? "submit" : "button"}
+                    type={loading ? "button" : "submit"}
                     className={s.next}
                   >
                     ثبت شغل
