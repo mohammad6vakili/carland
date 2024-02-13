@@ -8,6 +8,7 @@ import {
   Input,
   InputGroup,
   Label,
+  Spinner,
 } from "reactstrap";
 import s from "@/styles/main.module.scss";
 import Image from "next/image";
@@ -29,6 +30,16 @@ const CreateJob = ({ jobCategories, type }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [filters, setFilters] = useState([]);
   const [filtersOpen, setFiltersOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  //edit data
+  const [editCategories, setEditCategories] = useState(null);
+  const [jobData, setJobData] = useState(null);
+
+  //images
+  const [localNationalCard, setLocalNationalCard] = useState();
+  const [localActivityPremisian, setLocalActivityPremisian] = useState();
+  const [localImages, setLocalImages] = useState();
   const [loadingImage, setLoadingImage] = useState([]);
   const [photos, setPhotos] = useState({
     nationalCard: "",
@@ -36,14 +47,6 @@ const CreateJob = ({ jobCategories, type }) => {
     images: "",
   });
 
-  //edit data
-  const [editCategories, setEditCategories] = useState(null);
-  const [jobData, setJobData] = useState(null);
-
-  //local images
-  const [localNationalCard, setLocalNationalCard] = useState();
-  const [localActivityPremisian, setLocalActivityPremisian] = useState();
-  const [localImages, setLocalImages] = useState();
   const statesNames = [
     "آذربایجان شرقی",
     "آذربایجان غربی",
@@ -79,6 +82,7 @@ const CreateJob = ({ jobCategories, type }) => {
   ];
 
   const handleCreateJob = (values, body) => {
+    setLoading(true);
     httpService
       .post("service", body)
       .then((res) => {
@@ -89,6 +93,9 @@ const CreateJob = ({ jobCategories, type }) => {
       })
       .catch(() => {
         toast.error("ساختن شغل جدید با مشکل مواجه شد");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -96,14 +103,10 @@ const CreateJob = ({ jobCategories, type }) => {
     categoryId: Yup.string().required("لطفا نوع کسب و کار خود را انتخاب کنید"),
     title: Yup.string().required("لطفا عنوان شغل خود را مشخص کنید"),
     address: Yup.string().required("لطفا آدرس شغل خود را وارد کنید"),
-    filters: Yup.string().required("لطفا فیلتر های کاری خود را مشخص کنید"),
+    // filters: Yup.required("لطفا فیلتر های کاری خود را مشخص کنید"),
     firstName: Yup.string().required("لطفا نام خود را وارد کنید"),
     lastName: Yup.string().required("لطفا نام خانوادگی خود را وارد کنید"),
-    NationalCardImage: Yup.string().required(
-      "لطفا عکس کارت ملی خود را اپلود نمایید"
-    ),
-    NationalCardImage: Yup.string().required(""),
-    images: Yup.string().required("لطفا عکس های محل کار خود را اپلود نمایید"),
+
     state: Yup.string().required("لطفا استان مربوط به شغل خود را وارد کنید"),
     state: Yup.string().required("لطفا شهر مربوط به شغل خود را وارد کنید"),
     timeTo: Yup.string().required("لطفا ساعت شروع کار را مشخص کنید"),
@@ -111,6 +114,10 @@ const CreateJob = ({ jobCategories, type }) => {
     city: Yup.string().required("لطفا نام شهر خود را وارد کنید"),
     phone: Yup.string().required("لطفا شماره تماس خود را وارد کنید"),
     description: Yup.string().required("لطفا برای شغل خود توضیحاتی بنویسید"),
+    //     NationalCardImage: Yup.string().required(
+    // "لطفا عکس کارت ملی خود را اپلود نمایید"
+    // ),
+    // images: Yup.string().required("لطفا عکس های محل کار خود را اپلود نمایید"),
   });
 
   const formik = useFormik({
@@ -121,8 +128,6 @@ const CreateJob = ({ jobCategories, type }) => {
       filters: [],
       firstName: "",
       lastName: "",
-      NationalCardImage: "",
-      NationalCardImage: "",
       state: "",
       city: "",
       timeTo: "",
@@ -131,7 +136,9 @@ const CreateJob = ({ jobCategories, type }) => {
       distract: "",
       phone: "",
       description: "",
-      images: "",
+      images: photos.images,
+      NationalCardImage: photos.nationalCard,
+      activityPremision: photos.activityPremision,
     },
 
     validationSchema,
@@ -176,7 +183,6 @@ const CreateJob = ({ jobCategories, type }) => {
   }, [formik.values.categoryId]);
 
   const handleStep = (step) => {
-    console.log(currentStep);
     if (currentStep === step) {
       return true;
     } else {
@@ -606,8 +612,15 @@ const CreateJob = ({ jobCategories, type }) => {
                         id="file"
                         onChange={(e) => handleUploadPhoto(e, "nationalCard")}
                         hidden
+                        accept="image/*"
                       />
-                      <span className={s.content}>
+                      <span
+                        className={
+                          loadingImage?.includes("nationalCard")
+                            ? s.content_loading
+                            : s.content
+                        }
+                      >
                         {localNationalCard && (
                           <Image
                             src={localNationalCard}
@@ -616,7 +629,13 @@ const CreateJob = ({ jobCategories, type }) => {
                             height={100}
                           />
                         )}
-                        <span>عکس کارت ملی</span>
+                        {loadingImage?.includes("nationalCard") ? (
+                          <span className={s.loading_image_text}>
+                            در حال بارگذاری <Spinner></Spinner>
+                          </span>
+                        ) : (
+                          <span>عکس کارت ملی</span>
+                        )}
                       </span>
                     </label>
 
@@ -632,7 +651,13 @@ const CreateJob = ({ jobCategories, type }) => {
                         }
                         hidden
                       />
-                      <span className={s.content}>
+                      <span
+                        className={
+                          loadingImage?.includes("activityPremision")
+                            ? s.content_loading
+                            : s.content
+                        }
+                      >
                         {localActivityPremisian && (
                           <Image
                             src={localActivityPremisian}
@@ -641,7 +666,13 @@ const CreateJob = ({ jobCategories, type }) => {
                             height={100}
                           />
                         )}
-                        <span>عکس پروانه کسب</span>
+                        {loadingImage?.includes("activityPremision") ? (
+                          <span className={s.loading_image_text}>
+                            در حال بارگذاری <Spinner></Spinner>
+                          </span>
+                        ) : (
+                          <span>عکس پروانه کسب</span>
+                        )}
                       </span>
                     </label>
 
@@ -656,7 +687,13 @@ const CreateJob = ({ jobCategories, type }) => {
                         onChange={(e) => handleUploadPhoto(e, "images")}
                         hidden
                       />
-                      <span className={s.content}>
+                      <span
+                        className={
+                          loadingImage?.includes("images")
+                            ? s.content_loading
+                            : s.content
+                        }
+                      >
                         {localImages && (
                           <Image
                             src={localImages}
@@ -665,7 +702,13 @@ const CreateJob = ({ jobCategories, type }) => {
                             height={100}
                           />
                         )}
-                        <span>عکس های دیگر</span>
+                        {loadingImage?.includes("images") ? (
+                          <span className={s.loading_image_text}>
+                            در حال بارگذاری <Spinner></Spinner>
+                          </span>
+                        ) : (
+                          <span>عکس های دیگر</span>
+                        )}
                       </span>
                     </label>
                   </div>
@@ -690,7 +733,16 @@ const CreateJob = ({ jobCategories, type }) => {
                   )}
                 </div>
 
-                {handleStep(5) && <div className={s.inputs}></div>}
+                {handleStep(5) && (
+                  <div className={s.inputs}>
+                    {Object.keys(formik.errors).length !== 0 && (
+                      <span style={{ textAlign: "center", color: "red" }}>
+                        لطفا به مراحل قبل برگردید و اطلاعات خود را کامل کنید
+                        {console.log(formik.errors)}
+                      </span>
+                    )}
+                  </div>
+                )}
               </section>
             </div>
 
@@ -707,7 +759,11 @@ const CreateJob = ({ jobCategories, type }) => {
                   >
                     مرحله قبل
                   </Button>
-                  <Button type="submit" className={s.next}>
+                  <Button
+                    disabled={loading}
+                    type={loading ? "submit" : "button"}
+                    className={s.next}
+                  >
                     ثبت شغل
                   </Button>
                 </>

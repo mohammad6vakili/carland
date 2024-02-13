@@ -68,7 +68,7 @@ const index = ({ club, clubs }) => {
         <meta property="og:image" content={url + "/" + club.image_url} />
       </Head>
       <Header />
-      <Club clubs={clubs} />
+      <Club clubs={clubs} clubData={club} />
       <Footer />
     </>
   );

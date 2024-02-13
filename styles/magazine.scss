@@ -284,7 +284,7 @@
     }
   }
 
-  .suggested_clubs {
+  .suggested {
     @include flex(column, flex-start, center);
     gap: 20px;
     padding: 70px 0;
@@ -307,7 +307,7 @@
     }
 
     .slide {
-      width: max-content;
+      width: fit-content;
     }
 
     .suggested_cards {
@@ -804,7 +804,7 @@
     }
   }
 
-  .suggested_clubs {
+  .suggested {
     @include flex(column, flex-start, center);
     gap: 2rem;
     width: 100%;
@@ -843,6 +843,7 @@
 
       .slide {
         margin: 0;
+        width: fit-content;
       }
 
       .card {

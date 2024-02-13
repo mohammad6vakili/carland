@@ -356,7 +356,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
           </section>
         </div>
 
-        <div className={s.suggested_clubs}>
+        <div className={s.suggested}>
           <section className={s.title}>
             <div className={s.text}>
               <Image

@@ -382,7 +382,7 @@ const Magazine = ({ magData, magazines }) => {
             </div>
           </div>
 
-          <div className={s.suggested_clubs}>
+          <div className={s.suggested}>
             <div className={s.title}>
               <span>
                 <Image

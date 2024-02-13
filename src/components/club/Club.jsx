@@ -384,7 +384,7 @@ const Club = ({ clubs }) => {
             </div>
           </div>
 
-          <div className={s.suggested_clubs}>
+          <div className={s.suggested}>
             <div className={s.title}>
               <span>
                 <Image
@@ -411,6 +411,8 @@ const Club = ({ clubs }) => {
                   prevEl: "#suggested-prev",
                   nextEl: "#suggested-next",
                 }}
+                freeMode
+                spaceBetween={35}
                 slidesPerView={"auto"}
                 modules={[Navigation, FreeMode]}
                 className={s.swiper}
@@ -422,7 +424,7 @@ const Club = ({ clubs }) => {
                       title={club.title}
                       description={handleTextCut(club.description, 300)}
                       time={convertDate(club.created_at)}
-                      href={`club/${club.title}/${club.id}`}
+                      href={`/club/${club.title}/${club.id}`}
                     />
                   </SwiperSlide>
                 ))}
@@ -542,7 +544,7 @@ const Club = ({ clubs }) => {
               >
                 {clubs.map((offer, index) => (
                   <SwiperSlide key={Math.random() * index}>
-                    <MySkeleton width={"250px"} height={"500px"} />
+                    <MySkeleton width={"250px"} height={"400px"} />
                   </SwiperSlide>
                 ))}
               </Swiper>
