@@ -34,12 +34,12 @@ import {
   setFavList,
 } from "@/src/app/slices/favListSlice";
 
-const TradePage = () => {
+const TradePage = ({ tradeData }) => {
   const router = useRouter();
   const size = useWindowSize();
   const [loadingGetNum, setLoadingGetNum] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [tradeData, setTradeData] = useState([]);
+  // const [tradeData, setTradeData] = useState([]);
   const [photos, setPhotos] = useState([]);
   const { httpService } = useHttp();
   const [alikeOffers, setAlikeOffers] = useState([]);
@@ -68,31 +68,25 @@ const TradePage = () => {
   }, [tradeData]);
 
   //handle trade id
-  useEffect(() => {
-    const id = router.query.tradeId;
-    if (id && getLocal("token") !== "unAuth" && getLocal("token") !== "null") {
-      httpService.get(`Showads/${id}`).then((res) => {
-        res.status === 200 ? setTradeData(res.data.data) : null;
-      });
-    } else {
-      httpService.get(`Show-ads/${id}`).then((res) => {
-        res.status === 200 ? setTradeData(res.data.data) : null;
-      });
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   const id = router.query.tradeId;
+  //   if (id && getLocal("token") !== "unAuth" && getLocal("token") !== "null") {
+  //     httpService.get(`Showads/${id}`).then((res) => {
+  //       res.status === 200 ? setTradeData(res.data.data) : null;
+  //     });
+  //   } else {
+  //     httpService.get(`Show-ads/${id}`).then((res) => {
+  //       res.status === 200 ? setTradeData(res.data.data) : null;
+  //     });
+  //   }
+  // }, [router]);
 
   useEffect(() => {
     httpService
       .post("advertisements")
       .then((res) => {
         res.status === 200
-          ? setAlikeOffers([
-              res.data.data.data[0],
-              res.data.data.data[1],
-              res.data.data.data[2],
-              res.data.data.data[3],
-              res.data.data.data[4],
-            ])
+          ? (console.log(res.data), setAlikeOffers([res.data.data.data]))
           : null;
       })
       .catch(() => {
@@ -543,22 +537,30 @@ const TradePage = () => {
                 className={s.swiper}
                 onSwiper={setAdsSwiper}
               >
-                {alikeOffers.length !== 0
-                  ? alikeOffers.map((item, index) => (
-                      <SwiperSlide
-                        className={s.slide}
-                        key={Math.random() * index}
-                      >
-                        <SuggestCard
-                          image={url + item.mainImage}
-                          title={item.title}
-                          description={handleTextCut(item.description, 200)}
-                          time={convertDate(item.created_at)}
-                          href={`trades/${item.id}`}
-                        />
-                      </SwiperSlide>
-                    ))
-                  : null}
+                {alikeOffers.length !== 0 ? (
+                  alikeOffers.map((item, index) => (
+                    <>
+                      {index > 5 && (
+                        <SwiperSlide
+                          className={s.slide}
+                          key={Math.random() * index}
+                        >
+                          <SuggestCard
+                            image={url + item.mainImage}
+                            title={item.title}
+                            description={handleTextCut(item.description, 200)}
+                            time={convertDate(item.created_at)}
+                            href={`trades/${item.id}`}
+                          />
+                        </SwiperSlide>
+                      )}
+                    </>
+                  ))
+                ) : (
+                  <SwiperSlide className={s.slide} key={Math.random()}>
+                    <span>آگهی مرتبطی وجود ندارد</span>
+                  </SwiperSlide>
+                )}
               </Swiper>
             </div>
           </div>

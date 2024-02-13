@@ -238,13 +238,17 @@
 
       .year {
         .list {
-          @include flex(row, flex-start, flex-start);
-          flex-wrap: wrap;
-          height: auto;
-          overflow: hidden;
+          @include flex(column, flex-start, flex-start);
+          gap: 10px;
+          max-width: 100%;
+          height: 250px;
+          overflow-y: scroll;
 
           .list_item {
-            width: auto;
+            @include flex(row, center, center);
+            gap: 10px;
+            width: 100%;
+
             gap: 3px;
             padding: 5px;
             margin: 0;
@@ -631,6 +635,12 @@
               }
             }
           }
+        }
+
+        .end_message {
+          @include flex(row, center, center);
+          width: 100%;
+          margin: 120px 0;
         }
       }
     }

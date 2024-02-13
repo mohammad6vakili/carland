@@ -60,7 +60,7 @@ const index = ({ trade }) => {
         <meta property="og:image" content={url + trade.mainImage} />
       </Head>
       <Header />
-      <TradePage />
+      <TradePage tradeData={trade} />
       <Footer />
     </>
   );

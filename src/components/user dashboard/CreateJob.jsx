@@ -22,7 +22,7 @@ import toast from "react-hot-toast";
 import Compressor from "compressorjs";
 import { useRouter } from "next/router";
 import { DownOutlined } from "@ant-design/icons";
-import { cityNames } from "../offers/cities";
+import { cityNames, statesNames } from "../offers/cities";
 
 const CreateJob = ({ jobCategories, type }) => {
   const router = useRouter();
@@ -46,40 +46,6 @@ const CreateJob = ({ jobCategories, type }) => {
     activityPremision: "",
     images: "",
   });
-
-  const statesNames = [
-    "آذربایجان شرقی",
-    "آذربایجان غربی",
-    "اردبیل",
-    "اصفهان",
-    "البرز",
-    "ایلام",
-    "بوشهر",
-    "تهران",
-    "چهارمحال و بختیاری",
-    "خراسان جنوبی",
-    "خراسان رضوی",
-    "خراسان شمالی",
-    "خوزستان",
-    "زنجان",
-    "سمنان",
-    "سیستان و بلوچستان",
-    "فارس",
-    "قزوین",
-    "قم",
-    "کردستان",
-    "کرمان",
-    "کرمانشاه",
-    "کهگیلویه و بویراحمد",
-    "گلستان",
-    "گیلان",
-    "لرستان",
-    "مازندران",
-    "مرکزی",
-    "هرمزگان",
-    "همدان",
-    "یزد",
-  ];
 
   const handleCreateJob = (values, body) => {
     setLoading(true);

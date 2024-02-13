@@ -43,6 +43,17 @@ const offers = () => {
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(true);
   const size = useWindowSize();
+  const yearsFilter = [
+    "1402",
+    "1401",
+    "1400",
+    "1399",
+    "1398",
+    "1397",
+    "1396",
+    "1395",
+    "1394",
+  ];
 
   const [stateDropdown, setStateDropdown] = useState(false);
   const [adsFilter, setAdsFilter] = useState();
@@ -51,6 +62,7 @@ const offers = () => {
     color: "",
     bodyCondition: "",
     gearBoxType: "",
+    year: "",
     state: getLocal("stateName") !== "null" ? getLocal("stateName") : "",
     city: getLocal("cityName") !== "null" ? getLocal("cityName") : "",
   });
@@ -100,7 +112,7 @@ const offers = () => {
     "یزد",
   ];
   //control filters collapse
-  const [categoryOpen, setCategoryOpen] = useState(size.width > 700);
+  const [categoryOpen, setCategoryOpen] = useState(size?.width > 700);
   const [colorsFilterOpen, setColorsFilterOpen] = useState(size.width > 700);
   const [desFilterOpen, setDesFilterOpen] = useState(size.width > 700);
   const [yearsOpen, setYearsOpen] = useState(size.width > 700);
@@ -223,6 +235,9 @@ const offers = () => {
         break;
       case "gearBoxType":
         setAdsfilterSelected({ ...adsfilterSelected, gearBoxType: selected });
+        break;
+      case "year":
+        setAdsfilterSelected({ ...adsfilterSelected, year: selected });
         break;
       case "state":
         setLocal("stateName", selected);
@@ -473,46 +488,20 @@ const offers = () => {
                     style={{ width: "100%", overflow: "hidden" }}
                   >
                     <div className={s.list}>
-                      <div className={s.list_item}>
-                        <Button
-                        // onClick={() => onCheckboxBtnClick(1)}
-                        // active={cSelected.includes(1)}
-                        ></Button>{" "}
-                        1402
-                      </div>
-                      <div className={s.list_item}>
-                        <Button
-                        // onClick={() => onCheckboxBtnClick(2)}
-                        // active={cSelected.includes(2)}
-                        ></Button>{" "}
-                        1402
-                      </div>
-                      <div className={s.list_item}>
-                        <Button
-                        // onClick={() => onCheckboxBtnClick(3)}
-                        // active={cSelected.includes(3)}
-                        ></Button>{" "}
-                        1402
-                      </div>
-                      <div className={s.list_item}>
-                        <Button
-                        // onClick={() => onCheckboxBtnClick(4)}
-                        // active={cSelected.includes(4)}
-                        ></Button>{" "}
-                        1402
-                      </div>
-                      <div className={s.list_item}>
-                        <Button
-                        // onClick={() => onCheckboxBtnClick(5)}
-                        // active={cSelected.includes(5)}
-                        ></Button>{" "}
-                        1402
-                      </div>
+                      {yearsFilter.map((year) => (
+                        <div className={s.list_item}>
+                          <Button
+                            onClick={() => handleAdsFilterClick(year, "year")}
+                            active={adsfilterSelected.year == year}
+                          ></Button>{" "}
+                          {year}
+                        </div>
+                      ))}
                     </div>
                   </Collapse>
                 </section>
 
-                <section className={s.price_range}>
+                {/* <section className={s.price_range}>
                   <div
                     onClick={() => setPriceRangeOpen(!priceRangeOpen)}
                     className={s.title}
@@ -526,34 +515,13 @@ const offers = () => {
                   >
                     <div className={s.range}>
                       <span className={s.from}>۲۰,۶۰۰,۰۰۰ تومان</span>
-                      {/* <div className={s.range_input}> */}
-                      <Input style={{ background: "none" }} type="range" />
-                      {/* </div> */}
+                      <div className={s.range_input}>
+                        <Input style={{ background: "none" }} type="range" />
+                      </div>
                       <span className={s.to}>۲۰,۶۰۰,۰۰۰ تومان</span>
                     </div>
                   </Collapse>
-                </section>
-
-                <section className={s.color_select}>
-                  <div
-                    onClick={() => setColorSelectOpen(!colorSelectOpen)}
-                    className={s.title}
-                  >
-                    {colorSelectOpen ? <DownOutlined /> : <UpOutlined />}
-                    انتخاب رنگ
-                  </div>
-                  <Collapse
-                    isOpen={colorSelectOpen}
-                    style={{ width: "100%", overflow: "hidden" }}
-                  >
-                    <div className={s.color_list}>
-                      <div className={s.color_box}></div>
-                      <div className={s.color_box}></div>
-                      <div className={s.color_box}></div>
-                      <div className={s.color_box}></div>
-                    </div>
-                  </Collapse>
-                </section>
+                </section> */}
               </>
             ) : offers === "کسب و کار" && jobsCategory && !loading ? (
               <>
