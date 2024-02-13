@@ -16,7 +16,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
 
   //cards
   const [trades, setTrades] = useState([]);
-  const [jobs, setJobs] = useState(null);
+  const [jobs, setJobs] = useState([]);
   const [jobsPage, setJobsPage] = useState(1);
   const [moreAds, setMoreAds] = useState(false);
   const [adsPage, setAdsPage] = useState(1);
@@ -105,6 +105,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     formData.append("filters", jobsFilter.filter);
     formData.append("state", jobsFilter.state);
     formData.append("city", jobsFilter.city);
+
     httpService
       .post(`services/search?page=${jobsPage}`, formData)
       .then((res) => {
@@ -124,7 +125,8 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
 
         setLoading(false);
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => toast.error(err.message))
+      .finally(() => setLoading(false));
   };
 
   const handleGetAds = () => {
@@ -188,172 +190,171 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
       .catch((err) => toast.error(err.message));
   };
 
-  if (!loading) {
-    if (offers === "خرید و فروش" && trades && trades.length !== 0) {
-      return (
-        <section className={s.market_cards}>
-          <InfiniteScroll
-            className={s.market_cards}
-            style={{ overflow: "none" }}
-            dataLength={trades.length}
-            next={() => {
-              moreAds
-                ? (setAdsPage((current) => current + 1), handleGetMoreAds())
-                : null;
-            }}
-            hasMore={moreAds}
-            endMessage={
-              <div
-                style={{
-                  width: "100%",
-                  marginTop: "2rem",
-                  textAlign: "center",
-                }}
-              >
-                <b>شما تمام آگهی ها را تماشا کردید</b>
-              </div>
-            }
-            // below props only if you need pull down functionality
-          >
-            {trades.map((item, index) => (
-              <BuySaleCard
-                key={Math.random() * index}
-                createYear={item.production_year}
-                image={item.mainImage !== "undefined" ? item.mainImage : ""}
-                title={item.title}
-                description={item.description}
-                timePosted={item.timeAgo}
-                location={item.location}
-                price={item.price}
-                id={item.id}
-              />
-            ))}
-          </InfiniteScroll>
-          {loading && (
-            <>
-              <div className={s.buy_sale_card}></div>
-              <div className={s.buy_sale_card}></div>
-              <div className={s.buy_sale_card}></div>
-              <div className={s.buy_sale_card}></div>
-            </>
-          )}
-        </section>
-      );
-    } else if (offers === "کسب و کار" && jobs && jobs.length !== 0) {
-      return (
-        <section className={s.market_cards}>
-          <InfiniteScroll
-            className={s.market_cards}
-            style={{ overflow: "none" }}
-            dataLength={jobs.length}
-            next={() => {
-              moreJobs
-                ? (setJobsPage((current) => current + 1), handleGetMoreJobs())
-                : null;
-            }}
-            hasMore={moreAds}
-            endMessage={
-              <div
-                style={{
-                  width: "100%",
-                  marginTop: "2rem",
-                  textAlign: "center",
-                }}
-              >
-                <b>شما تمام آگهی ها را تماشا کردید</b>
-              </div>
-            }
-            // below props only if you need pull down functionality
-          >
-            {jobs.map((item, index) => (
-              <JobsCard
-                key={Math.random() * index}
-                image={item.images.split(",")[0]}
-                rate={
-                  item.formatted_average_rating
-                    ? item.formatted_average_rating
-                    : "جدید"
-                }
-                title={item.title}
-                description={item.descriptions}
-                isOpen={item.status}
-                location={item.district}
-                timeFrom={item.timeFrom}
-                timeTo={item.timeTo}
-                id={item.id}
-              />
-            ))}
-          </InfiniteScroll>
-          {loading && (
-            <>
-              <Skeleton
-                key={Math.random()}
-                borderRadius={"10px"}
-                className="flex-1"
-                width={"220px"}
-                height={"300px"}
-                style={{ margin: "1rem" }}
-              />
-              <Skeleton
-                key={Math.random()}
-                borderRadius={"10px"}
-                className="flex-1"
-                width={"220px"}
-                height={"300px"}
-                style={{ margin: "1rem" }}
-              />
-              <Skeleton
-                key={Math.random()}
-                borderRadius={"10px"}
-                className="flex-1"
-                width={"220px"}
-                height={"300px"}
-                style={{ margin: "1rem" }}
-              />
-              <Skeleton
-                key={Math.random()}
-                borderRadius={"10px"}
-                className="flex-1"
-                width={"220px"}
-                height={"300px"}
-                style={{ margin: "1rem" }}
-              />
-            </>
-          )}
-        </section>
-      );
-    } else if ((!jobs || !trades) && !loading) {
-      return (
-        <>
-          <div
-            style={{
-              textAlign: "center",
-              margin: "2rem 0",
-              fontWeight: "bold",
-              width: "100%",
-            }}
-          >
-            موردی یافت نشد!
-          </div>
-        </>
-      );
-    } else if (offers === "خدمات" || offers === "فروش") {
-      return (
-        <>
-          {marketItems.map((item, index) => (
-            <MarketCard
+  if (offers === "خرید و فروش" && trades && trades.length !== 0) {
+    return (
+      <section className={s.market_cards}>
+        <InfiniteScroll
+          className={s.market_cards}
+          style={{ overflow: "none" }}
+          dataLength={trades.length}
+          next={() => {
+            moreAds
+              ? (setAdsPage((current) => current + 1), handleGetMoreAds())
+              : null;
+          }}
+          hasMore={moreAds}
+          endMessage={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                marginTop: "2rem",
+              }}
+            >
+              <b>شما تمام آگهی ها را تماشا کردید</b>
+            </div>
+          }
+          // below props only if you need pull down functionality
+        >
+          {trades.map((item, index) => (
+            <BuySaleCard
               key={Math.random() * index}
-              image={item.image}
-              off={item.off}
+              createYear={item.production_year}
+              image={item.mainImage !== "undefined" ? item.mainImage : ""}
               title={item.title}
               description={item.description}
+              timePosted={item.timeAgo}
+              location={item.location}
               price={item.price}
-              index={index + 1}
+              id={item.id}
             />
           ))}
-        </>
-      );
-    }
+        </InfiniteScroll>
+        {loading && (
+          <>
+            <div className={s.buy_sale_card}></div>
+            <div className={s.buy_sale_card}></div>
+            <div className={s.buy_sale_card}></div>
+            <div className={s.buy_sale_card}></div>
+          </>
+        )}
+      </section>
+    );
+  } else if (offers === "کسب و کار" && jobs && jobs.length !== 0) {
+    return (
+      <section className={s.market_cards}>
+        <InfiniteScroll
+          className={s.market_cards}
+          style={{ overflow: "none" }}
+          dataLength={jobs.length}
+          next={() => {
+            moreJobs
+              ? (handleGetMoreJobs(), setJobsPage((current) => current + 1))
+              : null;
+          }}
+          hasMore={moreJobs}
+          endMessage={
+            <div
+              style={{
+                width: "100%",
+                marginTop: "2rem",
+                textAlign: "center",
+              }}
+            >
+              <b>شما تمام آگهی ها را تماشا کردید</b>
+            </div>
+          }
+          // below props only if you need pull down functionality
+        >
+          {jobs.map((item, index) => (
+            <JobsCard
+              key={Math.random() * index}
+              image={item.images.split(",")[0]}
+              rate={
+                item.formatted_average_rating
+                  ? item.formatted_average_rating
+                  : "جدید"
+              }
+              title={item.title}
+              description={item.descriptions}
+              isOpen={item.status}
+              location={item.district}
+              timeFrom={item.timeFrom}
+              timeTo={item.timeTo}
+              id={item.id}
+            />
+          ))}
+        </InfiniteScroll>
+        {loading && (
+          <>
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"220px"}
+              height={"300px"}
+              style={{ margin: "1rem" }}
+            />
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"220px"}
+              height={"300px"}
+              style={{ margin: "1rem" }}
+            />
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"220px"}
+              height={"300px"}
+              style={{ margin: "1rem" }}
+            />
+            <Skeleton
+              key={Math.random()}
+              borderRadius={"10px"}
+              className="flex-1"
+              width={"220px"}
+              height={"300px"}
+              style={{ margin: "1rem" }}
+            />
+          </>
+        )}
+      </section>
+    );
+  } else if ((!jobs || !trades) && !loading) {
+    return (
+      <>
+        <div
+          style={{
+            textAlign: "center",
+            margin: "2rem 0",
+            fontWeight: "bold",
+            width: "100%",
+          }}
+        >
+          موردی یافت نشد!
+        </div>
+      </>
+    );
+  } else if (offers === "خدمات" || offers === "فروش") {
+    return (
+      <>
+        {marketItems.map((item, index) => (
+          <MarketCard
+            key={Math.random() * index}
+            image={item.image}
+            off={item.off}
+            title={item.title}
+            description={item.description}
+            price={item.price}
+            index={index + 1}
+          />
+        ))}
+      </>
+    );
   } else if (loading && (!trades || !jobs)) {
     return (
       <>

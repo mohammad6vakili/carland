@@ -157,7 +157,9 @@ const offers = () => {
           ...jobFiltersSlected,
           categoryId: getLocal("jobCategory"),
         }),
-        removeLocal("jobCategory"))
+        setTimeout(() => {
+          removeLocal("jobCategory");
+        }, 1000))
       : null;
   }, [getLocal("jobCategory")]);
 
