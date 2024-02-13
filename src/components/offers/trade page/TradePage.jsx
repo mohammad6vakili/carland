@@ -22,7 +22,7 @@ import { useRouter } from "next/router";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import { convertDate } from "../../comments/CommentCards";
-import { handleCopy, handleTextCut } from "@/src/hooks/functions";
+import { getLocal, handleCopy, handleTextCut } from "@/src/hooks/functions";
 import { useWindowSize } from "@uidotdev/usehooks";
 import Head from "next/head";
 import { GoBookmark } from "react-icons/go";
@@ -41,7 +41,7 @@ const TradePage = () => {
   const [loading, setLoading] = useState(false);
   const [tradeData, setTradeData] = useState([]);
   const [photos, setPhotos] = useState([]);
-  const { httpService } = useHttp(true);
+  const { httpService } = useHttp();
   const [alikeOffers, setAlikeOffers] = useState([]);
   const [reportText, setReportText] = useState("");
   const [reportModal, setReportModal] = useState(false);
@@ -70,8 +70,12 @@ const TradePage = () => {
   //handle trade id
   useEffect(() => {
     const id = router.query.tradeId;
-    if (id) {
+    if (id && getLocal("token") !== "unAuth" && getLocal("token") !== "null") {
       httpService.get(`Showads/${id}`).then((res) => {
+        res.status === 200 ? setTradeData(res.data.data) : null;
+      });
+    } else {
+      httpService.get(`Show-ads/${id}`).then((res) => {
         res.status === 200 ? setTradeData(res.data.data) : null;
       });
     }
@@ -110,7 +114,7 @@ const TradePage = () => {
         }
       })
       .catch((err) => {
-        toast.error("مشکلی در پیدا کردن اطلاعات تماس آگهی مورد نظر بوجود آمد");
+        toast.error("شما باید برای گرفتن اطلاعات تماس آگهی ابتدا ثبت نام کنید");
         if (err) {
           return false;
         }
@@ -136,7 +140,8 @@ const TradePage = () => {
         }
       })
       .catch((err) => {
-        toast.error("مشکلی در پیدا کردن اطلاعات تماس آگهی مورد نظر بوجود آمد");
+        console.log(err);
+        toast.error("برای گرفتن اطلاعات تماس آگهی باید ابتدا ثبت نام کنید");
         if (err) {
           return false;
         }
@@ -539,16 +544,17 @@ const TradePage = () => {
                 onSwiper={setAdsSwiper}
               >
                 {alikeOffers.length !== 0
-                  ? alikeOffers.map((offer, index) => (
+                  ? alikeOffers.map((item, index) => (
                       <SwiperSlide
                         className={s.slide}
                         key={Math.random() * index}
                       >
                         <SuggestCard
-                          image={url + offer.mainImage}
-                          title={offer.title}
-                          description={handleTextCut(offer.description, 200)}
-                          time={convertDate(offer.created_at)}
+                          image={url + item.mainImage}
+                          title={item.title}
+                          description={handleTextCut(item.description, 200)}
+                          time={convertDate(item.created_at)}
+                          href={`trades/${item.id}`}
                         />
                       </SwiperSlide>
                     ))

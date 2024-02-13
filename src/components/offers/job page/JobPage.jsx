@@ -404,8 +404,7 @@ const JobPage = ({ jobData }) => {
                           image={url + item.images.split(",")[0]}
                           title={item.title}
                           description={item.descriptions}
-                          time={convertDate(item.updated_at)}
-                          href={`/${item.id}`}
+                          href={`jobs/${item.id}`}
                         />
                       </SwiperSlide>
                     ))
