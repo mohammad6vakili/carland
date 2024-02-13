@@ -182,6 +182,12 @@ const CreateJob = ({ jobCategories, type }) => {
       : null;
   }, [formik.values.categoryId]);
 
+  useEffect(() => {
+    if (currentStep > 5) {
+      setCurrentStep((current) => current - 1);
+    }
+  }, [currentStep]);
+
   const handleStep = (step) => {
     if (currentStep === step) {
       return true;
@@ -260,7 +266,7 @@ const CreateJob = ({ jobCategories, type }) => {
               : null;
             toast.success("عکس شما با موفقیت آپلود شد");
             console.log(photos);
-            setLoadingImage();
+            setLoadingImage([]);
           })
           .catch(() => {
             toast.error("مشکلی در اپلود عکس شما بوجود آمد");
@@ -736,7 +742,13 @@ const CreateJob = ({ jobCategories, type }) => {
                 {handleStep(5) && (
                   <div className={s.inputs}>
                     {Object.keys(formik.errors).length !== 0 && (
-                      <span style={{ textAlign: "center", color: "red" }}>
+                      <span
+                        style={{
+                          textAlign: "center",
+                          color: "red",
+                          marginTop: "4rem",
+                        }}
+                      >
                         لطفا به مراحل قبل برگردید و اطلاعات خود را کامل کنید
                         {console.log(formik.errors)}
                       </span>
