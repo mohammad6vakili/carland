@@ -198,7 +198,7 @@ const CreateJob = ({ jobCategories, type }) => {
       currentStep < 5 ? setCurrentStep((current) => current + 1) : null;
     } else if (currentStep === 3 && formik.values.description) {
       currentStep < 5 ? setCurrentStep((current) => current + 1) : null;
-    } else if (currentStep === 4 && localImages) {
+    } else if (currentStep === 4 && localImages && loadingImage.length === 0) {
       currentStep < 5 ? setCurrentStep((current) => current + 1) : null;
     } else {
       toast("لطفا اطلاعات این مرحله کامل کنید");

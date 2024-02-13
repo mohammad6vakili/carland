@@ -1,12 +1,12 @@
 import Image from "next/image";
-import logo from "../public/assets/carland-logo.png";
-import s from "../styles/main.module.scss";
+import logo from "@/public/assets/carland-logo.png";
+import s from "../styles/custom-errors.module.scss";
 
-export default CustomeLoading = () => {
+export default function CustomLoading() {
   return (
     <>
       <div className={s.loading}>
-        <div>
+        <div className={s.content}>
           <div classNames={s.logo}>
             <Image src={logo} alt="logo" />
           </div>
@@ -20,4 +20,4 @@ export default CustomeLoading = () => {
       </div>
     </>
   );
-};
+}
