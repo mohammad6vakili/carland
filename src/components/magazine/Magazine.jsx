@@ -33,7 +33,7 @@ const Magazine = ({ magazines }) => {
   const pathname = usePathname();
   const { httpService } = useHttp();
 
-  const latestClubs = [{}, {}, {}];
+  const latestmagazines = [{}, {}, {}];
   const [magData, setMagData] = useState([]);
   const [photos, setPhotos] = useState([]);
 
@@ -592,7 +592,7 @@ const Magazine = ({ magazines }) => {
                     <div className={s.text}>کلاسیک</div>
                   </div>
 
-                  {latestClubs.map((item, index) => (
+                  {magazines.map((item, index) => (
                     <MySkeleton width={"100%"} height={"15px"} />
                   ))}
                 </div>
@@ -703,16 +703,9 @@ const Magazine = ({ magazines }) => {
                 className="mySwiper"
                 onSwiper={setAdsSwiper}
               >
-                {latestClubs.map((offer, index) => (
+                {magazines.map((magazine, index) => (
                   <SwiperSlide key={Math.random() * index}>
-                    <SuggestCard
-                      image={"/assets/main/car-2.png"}
-                      title={"ام وی ام، X55 PRO"}
-                      description={
-                        "تکمیل فرآیند خرید از محل سامانه ، به صورت غیر حضوری و فوری از طریق مجموعه شعب نمایندگی 777 انجام می شود"
-                      }
-                      time={"۱۴۰۲/۰۸/۰۱"}
-                    />
+                    <MySkeleton width={"250px"} height={"500px"} />
                   </SwiperSlide>
                 ))}
               </Swiper>

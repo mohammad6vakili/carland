@@ -117,7 +117,7 @@ const ContactUs = ({ contactInfo }) => {
             </div>
 
             <div className={s.address}>
-              <span>{contactInfo.phone}</span>
+              <span>مشاهده موقعیت بر روی نقشه</span>
               <div className={s.line}></div>
             </div>
           </div>
