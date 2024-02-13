@@ -191,14 +191,14 @@ const CreateAdd = ({ addCategories, type }) => {
   }, [formik.values.category]);
 
   useEffect(() => {
-    if (brand.length !== 0) {
+    if (brand) {
       brand.map((brand) => {
         if (Object.values(brand).indexOf(`${formik.values.brand}`) > -1) {
           setModels(brand.model.split(",").filter((model) => model !== ""));
         }
       });
     }
-  }, [brand]);
+  }, [formik.values.brand]);
 
   const handleUploadPhoto = (e, selectedPhoto) => {
     // const canUpload = e?.target?.files[0].size / 1024 / 1000;

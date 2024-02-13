@@ -159,7 +159,7 @@ const offers = () => {
         }),
         setTimeout(() => {
           removeLocal("jobCategory");
-        }, 1000))
+        }, 3000))
       : null;
   }, [getLocal("jobCategory")]);
 
