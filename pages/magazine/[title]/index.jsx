@@ -6,7 +6,7 @@ const index = () => {
   return (
     <>
       <Header />
-      <Magazine />
+      {/* <Magazine /> */}
       <Footer />
     </>
   );
