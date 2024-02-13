@@ -1223,6 +1223,77 @@ $light-theme: #fff;
   }
 }
 
+//loading styles
+.loading {
+  @include flex(row, center, center);
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgb(0, 0, 0, 0.4);
+  z-index: 100000;
+
+  div {
+    @include flex(column, center, center);
+    width: 200px;
+    height: 150px;
+    border-radius: 20px;
+    padding: 10px;
+    background: #fff;
+
+    .logo {
+      @include flex(row, center, center);
+      gap: 10px;
+      width: 100%;
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+      p {
+        @include flex(column, center, flex-start);
+        font-weight: bolder;
+        font-size: 1.2em;
+      }
+    }
+
+    .lds_ellipsis {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    .lds_ellipsis div {
+      position: absolute;
+      top: 33px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #142d5d;
+      animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+    .lds_ellipsis div:nth-child(1) {
+      left: 8px;
+      animation: lds-ellipsis1 0.6s infinite;
+    }
+    .lds_ellipsis div:nth-child(2) {
+      left: 8px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds_ellipsis div:nth-child(3) {
+      left: 32px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds_ellipsis div:nth-child(4) {
+      left: 56px;
+      animation: lds-ellipsis3 0.6s infinite;
+    }
+  }
+}
+
 @media only screen and (max-width: 1200px) {
   .main {
     font-size: 14px;
@@ -1575,5 +1646,31 @@ $light-theme: #fff;
     .menu {
       width: 98%;
     }
+  }
+}
+
+//loading animations
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
   }
 }
