@@ -118,22 +118,20 @@ const Magazine = ({ magData, magazines }) => {
                           alt="magazine"
                           width={700}
                           height={500}
+                          loading="lazy"
                         />
                       </SwiperSlide>
                     ))}
-                    {magData
-                      ? magData.video_url &&
-                        magData.video_url.length !== 0 && (
-                          <SwiperSlide className={s.slide}>
-                            <ReactPlayer
-                              width={"100%"}
-                              height={"100%"}
-                              controls
-                              url={url + "/" + magData.video_url}
-                            />
-                          </SwiperSlide>
-                        )
-                      : null}
+                    {magData.video_url && magData.video_url.length !== 0 && (
+                      <SwiperSlide className={s.slide}>
+                        <ReactPlayer
+                          width={"100%"}
+                          height={"100%"}
+                          controls
+                          url={url + "/" + magData.video_url}
+                        />
+                      </SwiperSlide>
+                    )}
                   </Swiper>
 
                   {magData.imageAddresses ? (
@@ -167,10 +165,10 @@ const Magazine = ({ magData, magazines }) => {
                 <div className={s.magazine_details}>
                   <p className={s.name}>{magData.AuthorName}</p>
                   <p>{convertDate(magData.created_at)}</p>
-                  <p>
+                  <div>
                     زمان مطالعه:{" "}
                     <span>{toPersianString(magData.StudyTime)} دقیقه</span>
-                  </p>
+                  </div>
                 </div>
               </div>
 
@@ -406,6 +404,7 @@ const Magazine = ({ magData, magazines }) => {
             <div className={s.cards}>
               <Swiper
                 slidesPerView={"auto"}
+                spaceBetween={35}
                 navigation={{
                   prevEl: prevAdRef?.current,
                   nextEl: nextAdRef?.current,

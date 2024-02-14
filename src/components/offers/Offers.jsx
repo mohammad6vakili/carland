@@ -655,14 +655,13 @@ const offers = () => {
               <>
                 <OfferCardSkeleton width={"90%"} height={"250px"} />
                 <OfferCardSkeleton width={"90%"} height={"250px"} />
-                <OfferCardSkeleton width={"90%"} height={"250px"} />
               </>
             )}
           </div>
 
           <div className={s.market_items}>
             <div className={s.tabs}>
-              {size.width > 1000 ? (
+              {/* {size.width > 1000 ? (
                 <Nav className={s.tabs_names}>
                   {offers === "کسب و کار" ? (
                     <>
@@ -800,7 +799,7 @@ const offers = () => {
                     </DropdownMenu>
                   </Dropdown>
                 </div>
-              )}
+              )} */}
               <div className="d-flex">
                 <Dropdown
                   isOpen={dropdownOpen}

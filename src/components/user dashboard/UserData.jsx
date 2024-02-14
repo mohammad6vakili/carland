@@ -28,6 +28,7 @@ import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 import { DatePicker } from "zaman";
 import moment from "jalali-moment";
 import { InputDatePicker } from "jalaali-react-date-picker";
+import { formatStringJSON } from "@/src/hooks/functions";
 
 const UserData = () => {
   const { httpService } = useHttp();
@@ -65,7 +66,7 @@ const UserData = () => {
       carType: "",
       idCard: "",
       address: "",
-      technicalDiagnosis: "1402/10/2",
+      technicalDiagnosis: "",
       expirationInsurance: "",
       expirationCertificate: "",
       dateofCarInstallments: "",
@@ -112,8 +113,12 @@ const UserData = () => {
       // formik.setFieldValue("profile", userData.image_profile);
       formik.setFieldValue("address", userData.city);
       formik.setFieldValue("idCard", userData.NationalCode);
-      // formik.setFieldValue("expirationInsurance", userData.ExpirationInsurance);
+      // formik.setFieldValue(
+      //   "technicalDiagnosis",
+      //   JSON.parse(formatStringJSON(userData.TechnicalDiagnosis))
+      // );
       // formik.setFieldValue("technicalDiagnosis", userData.TechnicalDiagnosis);
+
       console.log(userData);
     }
   }, [userData]);
@@ -263,11 +268,12 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="address">معاینه فنی</Label>
                 <InputGroup className={s.input}>
-                  <DatePicker
+                  <InputDatePicker
                     name="technicalDiagnosis"
                     value={formik.values.technicalDiagnosis}
                     onChange={(date) => {
-                      formik.setFieldValue("technicalDiagnosis", date.value);
+                      console.log(formik.values);
+                      formik.setFieldValue("technicalDiagnosis", date);
                     }}
                   />
                 </InputGroup>
@@ -277,11 +283,10 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="date">انقضای بیمه</Label>
                 <InputGroup className={s.input}>
-                  <DatePicker
+                  <InputDatePicker
                     name="expirationInsurance"
                     value={formik.values.expirationInsurance}
                     onChange={(date) => {
-                      console.log(date);
                       formik.setFieldValue("expirationInsurance", date);
                     }}
                   />
@@ -310,7 +315,7 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="expirationCertificate">انقضای گواهینامه</Label>
                 <InputGroup className={s.input}>
-                  <DatePicker
+                  <InputDatePicker
                     name="expirationCertificate"
                     value={formik.values.expirationCertificate}
                     onChange={(date) =>
@@ -327,7 +332,7 @@ const UserData = () => {
               <FormGroup className={s.formGroup}>
                 <Label for="dateofCarInstallments">تاریخ تعمیرات خودرو</Label>
                 <InputGroup className={s.input}>
-                  <DatePicker
+                  <InputDatePicker
                     name="dateofCarInstallments"
                     value={formik.values.dateofCarInstallments}
                     onChange={(date) =>
