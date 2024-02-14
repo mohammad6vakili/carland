@@ -9,12 +9,47 @@
   margin: 0 auto;
 }
 
+@mixin scrolStyle {
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+}
+
 .magazines,
 .clubs {
   @include flex(column, flex-start, center);
   @include responsive();
   width: 100%;
   padding: 2rem;
+  overflow: hidden;
+
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #afb6b9;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #c7dde1;
+  }
 
   p,
   h1 {
@@ -168,9 +203,9 @@
     .categories {
       @include flex(row, flex-start, center);
       width: 100%;
-      height: 70px;
       background: rgb(204, 204, 204, 0.5);
       overflow-x: scroll;
+      padding: 1rem 0;
 
       .category,
       .selected_cat {

@@ -114,6 +114,7 @@ const Club = ({ clubs }) => {
                           alt="club"
                           width={700}
                           height={500}
+                          loading="lazy"
                         />
                       </SwiperSlide>
                     ))}
