@@ -6,7 +6,7 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import CustomPagination from "./CustomPagination";
 import MainPageMagazine from "../main/magazines/MainPageMagazine";
-import useHttp, { url } from "@/src/axiosConfig/useHttp";
+import useHttp, { loaderImage, url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import SuggestCard from "../suggest card";
 import { getLocal, handleTextCut, removeLocal } from "@/src/hooks/functions";

@@ -63,6 +63,7 @@ const TradePage = ({ tradeData }) => {
           { src: tradeData.rear_view },
           { src: tradeData.right_view },
           { src: tradeData.left_view },
+          { src: tradeData.kilometers_view },
         ])
       : null;
   }, [tradeData]);
@@ -240,9 +241,7 @@ const TradePage = ({ tradeData }) => {
                   className={s.bookmark}
                 >
                   {loadingFav ? (
-                    <Spinner
-                      style={{ width: "20px", height: "20px" }}
-                    ></Spinner>
+                    <Spinner></Spinner>
                   ) : favList.some((ad) => {
                       return ad.ad_id == tradeData.id;
                     }) ? (
