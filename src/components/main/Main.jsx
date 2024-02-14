@@ -201,8 +201,8 @@ const Main = ({ jobCategories }) => {
                   <section className={styles.service_list}>
                     {serviceCat.map((item, index) => (
                       <Link
-                        href={"/offers/jobs"}
-                        onClick={() => setLocal("jobCategory", item.id)}
+                        href={`/offers/jobs?jobCategory=${item.id}`}
+                        // onClick={() => setLocal("jobCategory", item.id)}
                         key={index}
                         className={styles.service}
                       >
@@ -286,8 +286,8 @@ const Main = ({ jobCategories }) => {
                   className={styles.swiper_slide2}
                 >
                   <Link
-                    href={"/offers/jobs"}
-                    onClick={() => setLocal("jobCategory", item.id)}
+                    href={`/offers/jobs?jobCategory=${item.id}`}
+                    // onClick={() => setLocal("jobCategory", item.id)}
                     key={index}
                     className={styles.service}
                   >
