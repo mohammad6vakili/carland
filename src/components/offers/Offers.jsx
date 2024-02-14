@@ -632,7 +632,7 @@ const offers = () => {
                       <div className={s.list}>
                         {jobsCategory[
                           `${jobFiltersSlected.categoryId}`
-                        ].filters.map((filter, index) => (
+                        ]?.filters.map((filter, index) => (
                           <section
                             key={Math.random() * index}
                             className={s.list_item}

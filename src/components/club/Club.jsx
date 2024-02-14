@@ -14,7 +14,7 @@ import { Button } from "reactstrap";
 import { useWindowSize } from "@uidotdev/usehooks";
 import SuggestCard from "../suggest card";
 import { useRouter } from "next/router";
-import useHttp, { url } from "@/src/axiosConfig/useHttp";
+import useHttp, { loaderImage, url } from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
 import MySkeleton from "../skeleton/Skeleton";
 import { usePathname } from "next/navigation";

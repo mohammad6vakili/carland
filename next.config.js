@@ -14,7 +14,7 @@ const nextConfig = {
         hostname: "api.carland.ir",
       },
     ],
-    // formats: ["image/avif", "image/webp"],
+    formats: ["image/avif", "image/webp"],
   },
   transpilePackages: ["zaman", "@jalaali-react-date-picker"],
   reactStrictMode: false,

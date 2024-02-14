@@ -26,6 +26,7 @@ import MySkeleton from "../skeleton/Skeleton";
 import Compressor from "compressorjs";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 import { DatePicker } from "zaman";
+import moment from "jalali-moment";
 import { InputDatePicker } from "jalaali-react-date-picker";
 
 const UserData = () => {
@@ -33,6 +34,7 @@ const UserData = () => {
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
   const userData = useSelector((state) => state.userInfo.userInfo);
+  const m = moment();
 
   //handle requests
   const validationSchema = Yup.object().shape({
@@ -63,7 +65,7 @@ const UserData = () => {
       carType: "",
       idCard: "",
       address: "",
-      technicalDiagnosis: "",
+      technicalDiagnosis: "1402/10/2",
       expirationInsurance: "",
       expirationCertificate: "",
       dateofCarInstallments: "",
@@ -220,7 +222,7 @@ const UserData = () => {
                 </InputGroup>
                 <FormText className={s.error}>
                   {formik.errors.age && formik.touched.age && formik.errors.age}
-                </FormText>{" "}
+                </FormText>
               </FormGroup>
 
               <FormGroup className={s.formGroup}>
@@ -265,7 +267,7 @@ const UserData = () => {
                     name="technicalDiagnosis"
                     value={formik.values.technicalDiagnosis}
                     onChange={(date) => {
-                      formik.setFieldValue("technicalDiagnosis", date);
+                      formik.setFieldValue("technicalDiagnosis", date.value);
                     }}
                   />
                 </InputGroup>
@@ -278,9 +280,10 @@ const UserData = () => {
                   <DatePicker
                     name="expirationInsurance"
                     value={formik.values.expirationInsurance}
-                    onChange={(date) =>
-                      formik.setFieldValue("expirationInsurance", date)
-                    }
+                    onChange={(date) => {
+                      console.log(date);
+                      formik.setFieldValue("expirationInsurance", date);
+                    }}
                   />
                   <Button type="button">
                     <LiaEditSolid />
