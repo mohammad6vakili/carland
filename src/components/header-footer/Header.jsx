@@ -122,13 +122,16 @@ const Header = () => {
                       alt="logo"
                       width={15}
                       height={15}
-                    />{" "}
+                    />
                     دسته بندی
                   </DropdownToggle>
                   <DropdownMenu>
                     {jobCategories && jobCategories !== "null"
                       ? jobCategories.map((cat) => (
-                          <Link key={cat.id} href={"/offers/jobs"}>
+                          <Link
+                            key={cat.id}
+                            href={`/offers/jobs?jobCategory=${cat.id}`}
+                          >
                             <DropdownItem
                               style={{ margin: "15px 0", textAlign: "center" }}
                               onClick={() => setLocal("jobCategory", cat.id)}

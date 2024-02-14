@@ -164,16 +164,24 @@ const offers = () => {
   }, [offers]);
 
   useEffect(() => {
-    getLocal("jobCategory") !== "null"
-      ? (setJobFiltersSlected({
+    const jobCategory = router.query.jobCategory;
+
+    jobCategory
+      ? setJobFiltersSlected({
           ...jobFiltersSlected,
-          categoryId: getLocal("jobCategory"),
-        }),
-        setTimeout(() => {
-          removeLocal("jobCategory");
-        }, 3000))
+          categoryId: jobCategory,
+        })
       : null;
-  }, [getLocal("jobCategory")]);
+    // getLocal("jobCategory") !== "null"
+    //   ? (setJobFiltersSlected({
+    //       ...jobFiltersSlected,
+    //       categoryId: getLocal("jobCategory"),
+    //     }),
+    //     setTimeout(() => {
+    //       removeLocal("jobCategory");
+    //     }, 3000))
+    //   : null;
+  }, [router]);
 
   useEffect(() => {
     const offersGroup = router.query.adGroup;
