@@ -280,6 +280,7 @@ const TradePage = ({ tradeData }) => {
                             alt="images"
                             width={600}
                             height={400}
+                            loading="eager"
                           />
                         </SwiperSlide>
                       ) : null
@@ -425,12 +426,19 @@ const TradePage = ({ tradeData }) => {
                 >
                   گزارش این آگهی
                 </Button>
+
                 {size.width > 1000 && (
                   <Button
                     onClick={handleGetPhonAdsPc}
                     style={{ background: "#142D5D" }}
+                    disabled={loadingGetNum}
                     active
                   >
+                    {loadingGetNum && (
+                      <Spinner
+                        style={{ width: "10px", height: "10px" }}
+                      ></Spinner>
+                    )}
                     اطلاعات تماس این آگهی
                   </Button>
                 )}
@@ -569,10 +577,10 @@ const TradePage = ({ tradeData }) => {
               onClick={() => handleGetPhonAds()}
               className={s.phone_call_mobile}
             >
-              {loading && (
+              {loadingGetNum && (
                 <Spinner style={{ width: "20px", height: "20px" }}></Spinner>
               )}
-              <PhoneFilled /> تماس با این آگهی
+              <PhoneFilled /> تماس با فروشنده
             </Button>
           ) : null}
 

@@ -126,8 +126,17 @@ a {
   height: 100% !important;
   border-radius: 10px !important;
 }
-.picker-input-wrapper input {
-  border: none !important;
+
+.DatePicker {
+  width: 100%;
+}
+.DatePicker input {
+  font-family: dana;
+  font-size: 1em;
+  z-index: 2;
+}
+.Calendar {
+  z-index: 2;
 }
 
 .infinite-scroll-component__outerdiv {

@@ -234,6 +234,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                           alt=""
                           width={300}
                           height={150}
+                          loading="eager"
                         />
 
                         <div className={s.blur}>
@@ -389,6 +390,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                 nextEl: "#suggested_next",
                 clickabl: true,
               }}
+              grabCursor
               modules={[Navigation]}
               slidesPerView={"auto"}
               className={s.swiper}
