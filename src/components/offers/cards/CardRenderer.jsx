@@ -16,10 +16,10 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
 
   //cards
   const [trades, setTrades] = useState([]);
-  const [jobs, setJobs] = useState([]);
-  const [jobsPage, setJobsPage] = useState(1);
   const [moreAds, setMoreAds] = useState(false);
   const [adsPage, setAdsPage] = useState(1);
+  const [jobs, setJobs] = useState([]);
+  const [jobsPage, setJobsPage] = useState(1);
   const [moreJobs, setMoreJobs] = useState(false);
   const [sale, setSale] = useState([]);
   const [loading, setLoading] = useState(true);

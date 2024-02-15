@@ -121,7 +121,7 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
                             alt="club"
                             width={600}
                             height={300}
-                            loading="lazy"
+                            loading="eager"
                           />
                           <div className={s.descriptions}>
                             <h1 className={s.title}>{club.title}</h1>

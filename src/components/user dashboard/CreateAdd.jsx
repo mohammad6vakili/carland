@@ -329,8 +329,8 @@ const CreateAdd = ({ addCategories, type }) => {
       addData.kilometers_view &&
         setLocalKilometers(url + addData.kilometers_view);
       addData.mainImage && setLocalMoreSide(url + addData.mainImage);
-      setLoading(false);
     }
+    setLoading(false);
   }, [addData]);
 
   return (
