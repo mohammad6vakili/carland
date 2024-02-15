@@ -637,7 +637,8 @@
           }
         }
 
-        .end_message {
+        .end_message,
+        .not_found_message {
           @include flex(row, center, center);
           width: 100%;
           margin: 120px 0;
@@ -813,7 +814,6 @@
   .offers {
     .market {
       .market_items {
-        padding: 0 15px;
         padding-bottom: 2rem;
 
         .market_cards {
@@ -821,7 +821,7 @@
           .buy_sale_card,
           .job_card {
             width: 150px;
-            height: 320px;
+            height: 250px;
           }
         }
       }

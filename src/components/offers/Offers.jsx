@@ -1,5 +1,4 @@
 import s from "../../../styles/main.module.scss";
-import MarketCard from "../main/MarketCard";
 import Image from "next/image";
 import {
   Button,
@@ -19,26 +18,21 @@ import {
   UpOutlined,
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import BuySaleCard from "./cards/BuySaleCard";
-import JobsCard from "./cards/JobsCard";
 import { useWindowSize } from "@uidotdev/usehooks";
 import HCarousel from "../main/HCarousel";
 import useHttp from "@/src/axiosConfig/useHttp";
 import toast from "react-hot-toast";
-import {
-  formatStringJSON,
-  getLocal,
-  removeLocal,
-  setLocal,
-} from "@/src/hooks/functions";
+import { getLocal, removeLocal, setLocal } from "@/src/hooks/functions";
 import OfferCardSkeleton from "../skeleton/OfferCardSkeleton";
 import CardRenderer from "./cards/CardRenderer";
 import { useRouter } from "next/router";
 import DownButton from "@/src/assets/icons/down_button";
 import { cityNames } from "./cities";
 import { HiRefresh } from "react-icons/hi";
+import JobCards from "./cards/JobCards";
+import AdCards from "./cards/AdCards";
 
-const offers = () => {
+const offers = ({ offersGroup }) => {
   const router = useRouter();
   const { httpService } = useHttp();
   const [loading, setLoading] = useState(true);
@@ -74,7 +68,7 @@ const offers = () => {
     state: "",
     city: "",
   });
-  const [offers, setOffers] = useState("خرید و فروش");
+  const [offers, setOffers] = useState();
   const [filters, setFilters] = useState("جدیدترین");
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -139,27 +133,35 @@ const offers = () => {
           setLoading(false);
           setLocal("adsFilter", JSON.stringify(res.data));
         })
-        .catch((err) => toast.error(err.message));
+        .catch((err) => toast.error(err.message))
+        .finally(() => {
+          setLoading(false);
+        });
     }
 
     if (offers === "کسب و کار") {
-      httpService.get("categories").then((res) => {
-        let data = [];
-        res.status === 200
-          ? res.data.data.map((cat) => {
-              data = [
-                ...data,
-                {
-                  id: cat.id,
-                  title: cat.title,
-                  filters: cat.filters.split(","),
-                },
-              ];
-            })
-          : null;
-        setJobsCategory(data);
-        setAdsFilter(null);
-      });
+      httpService
+        .get("categories")
+        .then((res) => {
+          let data = [];
+          res.status === 200
+            ? res.data.data.map((cat) => {
+                data = [
+                  ...data,
+                  {
+                    id: cat.id,
+                    title: cat.title,
+                    filters: cat.filters.split(","),
+                  },
+                ];
+              })
+            : null;
+          setJobsCategory(data);
+          setAdsFilter(null);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, [offers]);
 
@@ -184,25 +186,26 @@ const offers = () => {
   }, [router]);
 
   useEffect(() => {
-    const offersGroup = router.query.adGroup;
-    if (offersGroup === "trades") {
-      setOffers("خرید و فروش");
-    } else if (offersGroup === "jobs") {
-      setOffers("کسب و کار");
-    } else if (offersGroup === "market") {
-      setOffers("بازارچه");
+    if (offersGroup) {
+      if (offersGroup === "jobs") {
+        setOffers("کسب و کار");
+      } else if (offersGroup === "market") {
+        setOffers("بازارچه");
+      } else {
+        setOffers("خرید و فروش");
+      }
     }
-  }, [router]);
+  }, [offersGroup]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   const handleChangeCards = (selected) => {
     if (selected === "خرید و فروش") {
       router.push("/offers/trades");
-      setOffers(selected);
+      // setOffers(selected);
     } else if (selected === "کسب و کار") {
       router.push("/offers/jobs");
-      setOffers(selected);
+      // setOffers(selected);
     } else {
       router.push("/offers/market");
     }
@@ -837,11 +840,17 @@ const offers = () => {
               </div>
             </div>
 
-            <CardRenderer
-              offers={offers}
+            {offers === "کسب و کار" ? (
+              <JobCards jobsFilter={jobFiltersSlected} />
+            ) : offers === "خرید و فروش" ? (
+              <AdCards adsFilter={adsfilterSelected} />
+            ) : null}
+
+            {/* <CardRenderer
               adsFilter={adsfilterSelected}
               jobsFilter={jobFiltersSlected}
-            />
+              offers={offers}
+            /> */}
           </div>
         </section>
       </div>
