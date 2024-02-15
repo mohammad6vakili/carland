@@ -133,11 +133,11 @@ const UserData = () => {
           "expirationInsurance",
           JSON.parse(formatStringJSON(userData.ExpirationInsurance))
         );
-      // userData.TechnicalDiagnosis &&
-      formik.setFieldValue(
-        "technicalDiagnosis",
-        JSON.parse(formatStringJSON(userData.TechnicalDiagnosis))
-      );
+      userData.TechnicalDiagnosis &&
+        formik.setFieldValue(
+          "technicalDiagnosis",
+          JSON.parse(formatStringJSON(userData.TechnicalDiagnosis))
+        );
       userData.ExpirationCertificate &&
         formik.setFieldValue(
           "expirationCertificate",
