@@ -114,6 +114,7 @@ const JobPage = ({ jobData }) => {
                         width={1000}
                         height={700}
                         className={s.my_swiper}
+                        loading="eager"
                       />
                       <div className={s.details}>
                         <div className={s.title}>{jobData.title}</div>

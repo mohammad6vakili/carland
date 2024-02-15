@@ -41,6 +41,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
               alt="مجله"
               width={500}
               height={480}
+              loading="lazy"
             />
             {overflowedDes ? (
               <div className={styles.caption}>
@@ -77,6 +78,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                         alt="مجله"
                         width={50}
                         height={50}
+                        loading="eager"
                       />
                     </div>
 

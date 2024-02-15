@@ -13,7 +13,7 @@ export async function getStaticProps() {
       return res.data;
     })
     .catch((err) => {
-      return;
+      return {};
     });
 
   return { props: { jobCategories } };

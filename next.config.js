@@ -16,7 +16,11 @@ const nextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
   },
-  transpilePackages: ["zaman", "@jalaali-react-date-picker"],
+  transpilePackages: [
+    "zaman",
+    "jalaali-react-date-picker",
+    "react-modern-calendar-datepicker",
+  ],
   reactStrictMode: false,
 };
 

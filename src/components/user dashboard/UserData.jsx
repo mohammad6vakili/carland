@@ -25,7 +25,9 @@ import { useSelector } from "react-redux";
 import MySkeleton from "../skeleton/Skeleton";
 import Compressor from "compressorjs";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
-import { DatePicker } from "zaman";
+// import DatePicker from "react-modern-calendar-datepicker";
+import { Calendar } from "react-modern-calendar-datepicker";
+import DatePicker from "@hassanmojab/react-modern-calendar-datepicker";
 import moment from "jalali-moment";
 import { InputDatePicker } from "jalaali-react-date-picker";
 import { formatStringJSON, toPersianString } from "@/src/hooks/functions";
@@ -77,18 +79,29 @@ const UserData = () => {
 
     onSubmit: (values) => {
       setLoading(true);
-      console.log(values.expirationInsurance);
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("Gender", values.gender);
       formData.append("age", values.age);
       formData.append("NationalCode", values.idCard);
       formData.append("city", values.address);
-      formData.append("TechnicalDiagnosis", values.technicalDiagnosis);
-      formData.append("DateofCarInstallments", values.dateofCarInstallments);
-      formData.append("ExpirationInsurance", values.expirationInsurance);
       formData.append("CarType", values.carType);
-      formData.append("ExpirationCertificate", values.expirationCertificate);
+      formData.append(
+        "ExpirationInsurance",
+        JSON.stringify(values.expirationInsurance)
+      );
+      formData.append(
+        "DateofCarInstallments",
+        JSON.stringify(values.dateofCarInstallments)
+      );
+      formData.append(
+        "TechnicalDiagnosis",
+        JSON.stringify(values.technicalDiagnosis)
+      );
+      formData.append(
+        "ExpirationCertificate",
+        JSON.stringify(values.expirationCertificate)
+      );
 
       httpService
         .post("user", formData)
@@ -106,6 +119,7 @@ const UserData = () => {
   });
 
   useEffect(() => {
+    console.log(userData);
     if (userData) {
       setLoading(false);
       formik.setFieldValue("name", userData.name);
@@ -116,10 +130,26 @@ const UserData = () => {
       formik.setFieldValue("idCard", userData.NationalCode);
       formik.setFieldValue("address", userData.city);
       formik.setFieldValue("carType", userData.CarType);
-      // formik.setFieldValue("technicalDiagnosis", userData.TechnicalDiagnosis);
-      // formik.setFieldValue("expirationInsurance", userData.ExpirationInsurance);
-      // formik.setFieldValue("expirationCertificate", userData.ExpirationCertificate);
-      // formik.setFieldValue("dateofCarInstallments", userData.dateofCarInstallments);
+      userData.ExpirationInsurance &&
+        formik.setFieldValue(
+          "expirationInsurance",
+          JSON.parse(formatStringJSON(userData.ExpirationInsurance))
+        );
+      // userData.TechnicalDiagnosis &&
+      formik.setFieldValue(
+        "technicalDiagnosis",
+        JSON.parse(formatStringJSON(userData.TechnicalDiagnosis))
+      );
+      userData.ExpirationCertificate &&
+        formik.setFieldValue(
+          "expirationCertificate",
+          JSON.parse(formatStringJSON(userData.ExpirationCertificate))
+        );
+      userData.DateofCarInstallments &&
+        formik.setFieldValue(
+          "dateofCarInstallments",
+          JSON.parse(formatStringJSON(userData.DateofCarInstallments))
+        );
 
       console.log(userData);
     }
@@ -166,245 +196,224 @@ const UserData = () => {
   return (
     <>
       <div className={s.user_data}>
-        <section className={s.user_form}>
-          {userData ? (
-            <Form onSubmit={formik.handleSubmit} className={s.form}>
-              <FormGroup className={s.formGroup}>
-                <Label for="name">نام کاربری</Label>
-                <InputGroup className={s.input}>
-                  <Input
-                    name="name"
-                    value={formik.values.name}
-                    onChange={formik.handleChange}
-                  />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
-                </InputGroup>
-                <FormText className={s.error}>
-                  {formik.errors.name &&
-                    formik.touched.name &&
-                    formik.errors.name}
-                </FormText>
-              </FormGroup>
+        {userData ? (
+          <Form onSubmit={formik.handleSubmit} className={s.form}>
+            <FormGroup className={s.formGroup}>
+              <Label for="name">نام کاربری</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                />
+              </InputGroup>
+              <FormText className={s.error}>
+                {formik.errors.name &&
+                  formik.touched.name &&
+                  formik.errors.name}
+              </FormText>
+            </FormGroup>
 
-              <FormGroup className={s.formGroup}>
-                <Label for="gender">جنسیت</Label>
-                <InputGroup className={s.input}>
-                  <Input
-                    name="gender"
-                    type="select"
-                    value={formik.values.gender}
-                    onChange={formik.handleChange}
+            <FormGroup className={s.formGroup}>
+              <Label for="gender">جنسیت</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="gender"
+                  type="select"
+                  value={formik.values.gender}
+                  onChange={formik.handleChange}
+                >
+                  <option selected value="" disabled>
+                    جنسیت
+                  </option>
+                  <option value="مرد">مرد</option>
+                  <option value="زن">زن</option>
+                </Input>
+              </InputGroup>
+              <FormText className={s.error}>
+                {formik.errors.gender &&
+                  formik.touched.gender &&
+                  formik.errors.gender}
+              </FormText>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="">سن</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="age"
+                  type="number"
+                  value={formik.values.age}
+                  onChange={formik.handleChange}
+                />
+              </InputGroup>
+              <FormText className={s.error}>
+                {formik.errors.age && formik.touched.age && formik.errors.age}
+              </FormText>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="id-card">کد ملی</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="idCard"
+                  value={formik.values.idCard}
+                  onChange={formik.handleChange}
+                />
+              </InputGroup>
+              <FormFeedback>لطفا پر کنید</FormFeedback>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="address">آدرس</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  className={s.address}
+                  name="address"
+                  value={formik.values.address}
+                  onChange={formik.handleChange}
+                />
+              </InputGroup>
+              <FormText className={s.error}>
+                {formik.errors.address &&
+                  formik.touched.address &&
+                  formik.errors.address}
+              </FormText>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="address">معاینه فنی</Label>
+              <InputGroup className={s.input}>
+                <DatePicker
+                  name="technicalDiagnosis"
+                  value={formik.values.technicalDiagnosis}
+                  onChange={(date) => {
+                    formik.setFieldValue("technicalDiagnosis", date);
+                  }}
+                  locale="fa"
+                  inputPlaceholder="لطفا تاریخ را انتخاب کنید..."
+                  shouldHighlightWeekends
+                />
+              </InputGroup>
+              <FormFeedback>لطفا ادرس خود را وارد کنید</FormFeedback>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="date">انقضای بیمه</Label>
+              <InputGroup className={s.input}>
+                <DatePicker
+                  name="expirationInsurance"
+                  value={formik.values.expirationInsurance}
+                  onChange={(date) => {
+                    formik.setFieldValue("expirationInsurance", date);
+                  }}
+                  locale="fa"
+                  inputPlaceholder="لطفا تاریخ را انتخاب کنید..."
+                  shouldHighlightWeekends
+                />
+              </InputGroup>
+              <FormFeedback>لطفا پر کنید</FormFeedback>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="carType">نوع ماشین</Label>
+              <InputGroup className={s.input}>
+                <Input
+                  name="carType"
+                  value={formik.values.carType}
+                  onChange={formik.handleChange}
+                />
+              </InputGroup>
+              <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="expirationCertificate">انقضای گواهینامه</Label>
+              <InputGroup className={s.input}>
+                <DatePicker
+                  name="expirationCertificate"
+                  value={formik.values.expirationCertificate}
+                  onChange={(date) =>
+                    formik.setFieldValue("expirationCertificate", date)
+                  }
+                  locale="fa"
+                  inputPlaceholder="لطفا تاریخ را انتخاب کنید..."
+                  shouldHighlightWeekends
+                />
+              </InputGroup>
+              <FormFeedback>لطفا پر کنید</FormFeedback>
+            </FormGroup>
+
+            <FormGroup className={s.formGroup}>
+              <Label for="dateofCarInstallments">تاریخ تعمیرات خودرو</Label>
+              <InputGroup className={s.input}>
+                <DatePicker
+                  name="dateofCarInstallments"
+                  value={formik.values.dateofCarInstallments}
+                  onChange={(date) =>
+                    formik.setFieldValue("dateofCarInstallments", date)
+                  }
+                  locale="fa"
+                  inputPlaceholder="لطفا تاریخ را انتخاب کنید..."
+                  shouldHighlightWeekends
+                />
+              </InputGroup>
+              <FormFeedback>لطفا پر کنید</FormFeedback>
+            </FormGroup>
+
+            <div className={s.profile}>
+              <div className={s.text}>
+                <section className={s.profile_place}>
+                  <Image
+                    src={
+                      userData?.image_profile
+                        ? url + userData.image_profile
+                        : profilePlaceholder
+                    }
+                    alt=""
+                    width={100}
+                    height={100}
+                    style={imageLoading ? { opacity: 0.5 } : {}}
+                  />
+                </section>
+
+                <div>
+                  <p>عکس پروفایل خود را انتخاب کنید</p>
+                  <span>حداکثر ۵ مگابایت باشد</span>
+                </div>
+              </div>
+
+              <div className={s.input_place}>
+                <div className={s.input}>
+                  <label
+                    onChange={(e) => console.log(e.target.files[0])}
+                    htmlFor="file"
                   >
-                    <option selected value="" disabled>
-                      جنسیت
-                    </option>
-                    <option value="مرد">مرد</option>
-                    <option value="زن">زن</option>
-                  </Input>
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
-                </InputGroup>
-                <FormText className={s.error}>
-                  {formik.errors.gender &&
-                    formik.touched.gender &&
-                    formik.errors.gender}
-                </FormText>
-              </FormGroup>
-
-              <FormGroup className={s.formGroup}>
-                <Label for="">سن</Label>
-                <InputGroup className={s.input}>
-                  <Input
-                    name="age"
-                    type="number"
-                    value={formik.values.age}
-                    onChange={formik.handleChange}
-                  />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
-                </InputGroup>
-                <FormText className={s.error}>
-                  {formik.errors.age && formik.touched.age && formik.errors.age}
-                </FormText>
-              </FormGroup>
-
-              <FormGroup className={s.formGroup}>
-                <Label for="id-card">کد ملی</Label>
-                <InputGroup className={s.input}>
-                  <Input
-                    name="idCard"
-                    value={formik.values.idCard}
-                    onChange={formik.handleChange}
-                  />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
-                </InputGroup>
-                <FormFeedback>لطفا پر کنید</FormFeedback>
-              </FormGroup>
-
-              <FormGroup className={s.formGroup}>
-                <Label for="address">آدرس</Label>
-                <InputGroup className={s.input}>
-                  <Input
-                    className={s.address}
-                    name="address"
-                    value={formik.values.address}
-                    onChange={formik.handleChange}
-                  />
-                  <Button type="button">
-                    <MdOutlineEditLocationAlt />
-                  </Button>
-                </InputGroup>
-                <FormText className={s.error}>
-                  {formik.errors.address &&
-                    formik.touched.address &&
-                    formik.errors.address}
-                </FormText>
-              </FormGroup>
-
-              <FormGroup className={s.formGroup}>
-                <Label for="address">معاینه فنی</Label>
-                <InputGroup className={s.input}>
-                  <InputDatePicker
-                    name="technicalDiagnosis"
-                    value={formik.values.technicalDiagnosis}
-                    onChange={(date) => {
-                      console.log(formik.values);
-                      formik.setFieldValue("technicalDiagnosis", date);
-                    }}
-                  />
-                </InputGroup>
-                <FormFeedback>لطفا ادرس خود را وارد کنید</FormFeedback>
-              </FormGroup>
-
-              <FormGroup className={s.formGroup}>
-                <Label for="date">انقضای بیمه</Label>
-                <InputGroup className={s.input}>
-                  <InputDatePicker
-                    name="expirationInsurance"
-                    value={formik.values.expirationInsurance}
-                    onChange={(date) => {
-                      console.log(formik.values);
-                      formik.setFieldValue("expirationInsurance", date);
-                    }}
-                  />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
-                </InputGroup>
-                <FormFeedback>لطفا پر کنید</FormFeedback>
-              </FormGroup>
-
-              <FormGroup className={s.formGroup}>
-                <Label for="carType">نوع ماشین</Label>
-                <InputGroup className={s.input}>
-                  <Input
-                    name="carType"
-                    value={formik.values.carType}
-                    onChange={formik.handleChange}
-                  />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
-                </InputGroup>
-                <FormFeedback tooltip>لطفا پر کنید</FormFeedback>
-              </FormGroup>
-
-              <FormGroup className={s.formGroup}>
-                <Label for="expirationCertificate">انقضای گواهینامه</Label>
-                <InputGroup className={s.input}>
-                  <InputDatePicker
-                    name="expirationCertificate"
-                    value={formik.values.expirationCertificate}
-                    onChange={(date) =>
-                      formik.setFieldValue("expirationCertificate", date)
-                    }
-                  />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
-                </InputGroup>
-                <FormFeedback>لطفا پر کنید</FormFeedback>
-              </FormGroup>
-
-              <FormGroup className={s.formGroup}>
-                <Label for="dateofCarInstallments">تاریخ تعمیرات خودرو</Label>
-                <InputGroup className={s.input}>
-                  <InputDatePicker
-                    name="dateofCarInstallments"
-                    value={formik.values.dateofCarInstallments}
-                    onChange={(date) =>
-                      formik.setFieldValue("dateofCarInstallments", date)
-                    }
-                  />
-                  <Button type="button">
-                    <LiaEditSolid />
-                  </Button>
-                </InputGroup>
-                <FormFeedback>لطفا پر کنید</FormFeedback>
-              </FormGroup>
-
-              <div className={s.profile}>
-                <div className={s.text}>
-                  <section className={s.profile_place}>
-                    <Image
-                      src={
-                        userData?.image_profile
-                          ? url + userData.image_profile
-                          : profilePlaceholder
-                      }
-                      alt=""
-                      width={100}
-                      height={100}
-                      style={imageLoading ? { opacity: 0.5 } : {}}
+                    <Input
+                      type="file"
+                      id="file"
+                      value={formik.values.profile}
+                      onChange={(e) => handleUploadProfile(e)}
+                      hidden
                     />
-                  </section>
-
-                  <div>
-                    <p>عکس پروفایل خود را انتخاب کنید</p>
-                    <span>حداکثر ۵ مگابایت باشد</span>
-                  </div>
-                </div>
-
-                <div className={s.input_place}>
-                  <div className={s.input}>
-                    <label
-                      onChange={(e) => console.log(e.target.files[0])}
-                      htmlFor="file"
-                    >
-                      <Input
-                        type="file"
-                        id="file"
-                        value={formik.values.profile}
-                        onChange={(e) => handleUploadProfile(e)}
-                        hidden
-                      />
-                      <span>افزودن عکس</span>
-                    </label>
-                  </div>
+                    <span>افزودن عکس</span>
+                  </label>
                 </div>
               </div>
+            </div>
 
-              <div className={s.submit}>
-                <Button disabled={loading} type="submit">
-                  {loading ? (
-                    <Spinner
-                      style={{ width: "20px", height: "20px" }}
-                    ></Spinner>
-                  ) : null}{" "}
-                  ثبت اطلاعات
-                </Button>
-              </div>
-            </Form>
-          ) : (
-            <MySkeleton width={"100%"} height={"500px"} />
-          )}
-        </section>
+            <div className={s.submit}>
+              <Button disabled={loading} type="submit">
+                {loading ? (
+                  <Spinner style={{ width: "20px", height: "20px" }}></Spinner>
+                ) : null}{" "}
+                ثبت اطلاعات
+              </Button>
+            </div>
+          </Form>
+        ) : (
+          <MySkeleton width={"100%"} height={"500px"} />
+        )}
       </div>
     </>
   );
