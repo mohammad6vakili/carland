@@ -2,7 +2,7 @@ import Image from "next/image";
 import logo from "@/public/assets/carland-logo.png";
 import s from "../styles/custom-errors.module.scss";
 
-export default function CustomLoading() {
+export default function Loading() {
   return (
     <>
       <div className={s.loading}>
