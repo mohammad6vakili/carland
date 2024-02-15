@@ -28,7 +28,7 @@ import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 import { DatePicker } from "zaman";
 import moment from "jalali-moment";
 import { InputDatePicker } from "jalaali-react-date-picker";
-import { formatStringJSON } from "@/src/hooks/functions";
+import { formatStringJSON, toPersianString } from "@/src/hooks/functions";
 
 const UserData = () => {
   const { httpService } = useHttp();
@@ -77,6 +77,7 @@ const UserData = () => {
 
     onSubmit: (values) => {
       setLoading(true);
+      console.log(values.expirationInsurance);
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("Gender", values.gender);
@@ -113,11 +114,12 @@ const UserData = () => {
       // formik.setFieldValue("profile", userData.image_profile);
       formik.setFieldValue("address", userData.city);
       formik.setFieldValue("idCard", userData.NationalCode);
-      // formik.setFieldValue(
-      //   "technicalDiagnosis",
-      //   JSON.parse(formatStringJSON(userData.TechnicalDiagnosis))
-      // );
+      formik.setFieldValue("address", userData.city);
+      formik.setFieldValue("carType", userData.CarType);
       // formik.setFieldValue("technicalDiagnosis", userData.TechnicalDiagnosis);
+      // formik.setFieldValue("expirationInsurance", userData.ExpirationInsurance);
+      // formik.setFieldValue("expirationCertificate", userData.ExpirationCertificate);
+      // formik.setFieldValue("dateofCarInstallments", userData.dateofCarInstallments);
 
       console.log(userData);
     }
@@ -287,6 +289,7 @@ const UserData = () => {
                     name="expirationInsurance"
                     value={formik.values.expirationInsurance}
                     onChange={(date) => {
+                      console.log(formik.values);
                       formik.setFieldValue("expirationInsurance", date);
                     }}
                   />

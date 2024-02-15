@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputGroup, Spinner } from "reactstrap";
+import { Button, Form, Input, InputGroup, Label, Spinner } from "reactstrap";
 import s from "../../../styles/main.module.scss";
 import Image from "next/image";
 import background from "../../../public/assets/userDashboard/create-add.png";
@@ -12,7 +12,11 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import useHttp, { url } from "@/src/axiosConfig/useHttp";
-import { formatStringJSON, getLocal } from "@/src/hooks/functions";
+import {
+  formatStringJSON,
+  getLocal,
+  toPersianString,
+} from "@/src/hooks/functions";
 import toast from "react-hot-toast";
 import { IoAddCircle } from "react-icons/io5";
 import { useRouter } from "next/router";
@@ -38,7 +42,6 @@ const CreateAdd = ({ addCategories, type }) => {
   const [bodyCondition, setBodyCondition] = useState([]);
 
   //edit data
-  const [editCategories, setEditCategories] = useState(null);
   const [addData, setaddData] = useState(null);
 
   //local images
@@ -49,7 +52,7 @@ const CreateAdd = ({ addCategories, type }) => {
   const [localRight, setLocalRight] = useState();
   const [localKilometers, setLocalKilometers] = useState();
 
-  const validationSchema = Yup.object().shape({
+  const validationSchemaCreate = Yup.object().shape({
     category: Yup.string().required(
       "لطفا این دسته بندی اگهی خود را انتخاب کنید"
     ),
@@ -104,37 +107,56 @@ const CreateAdd = ({ addCategories, type }) => {
       description: "",
     },
 
-    validationSchema,
+    validationSchema:
+      type !== "edit" ? validationSchemaCreate : validationSchemaEdit,
 
     onSubmit: (values) => {
       const formData = new FormData();
-      const selectedCategoryIndex = parseInt(values.category) + 1;
+      if (type !== "edit") {
+        const selectedCategoryIndex = parseInt(values.category) + 1;
 
-      formData.append("front_view", photos.frontView ? photos.frontView : "");
-      formData.append("rear_view", photos.rearView ? photos.rearView : "");
-      formData.append("left_view", photos.leftView ? photos.leftView : "");
-      formData.append("right_view", photos.rightView ? photos.rightView : "");
-      formData.append("more_view", photos.moreView ? photos.moreView : "");
-      formData.append(
-        "kilometers_view",
-        photos.kilometersView ? photos.kilometersView : ""
-      );
-      formData.append("model_id", values.category);
-      formData.append("car_type", addCategories[selectedCategoryIndex].name);
-      formData.append("car_name", values.brand);
-      formData.append("car_model", values.model);
-      formData.append("production_year", values.productYear);
-      formData.append("kilometers", values.kilometers);
-      formData.append("Fuel_type", values.fuel);
-      formData.append("color", values.color);
-      formData.append("body_condition", values.bodyCondition);
-      formData.append("gearbox_type", values.gearbox);
-      formData.append("title", values.title);
-      formData.append("description", values.description);
-      formData.append("location", values.location);
-      formData.append("price", values.price);
-      formData.append("state", values.state);
-      formData.append("city", values.city);
+        formData.append("front_view", photos.frontView ? photos.frontView : "");
+        formData.append("rear_view", photos.rearView ? photos.rearView : "");
+        formData.append("left_view", photos.leftView ? photos.leftView : "");
+        formData.append("right_view", photos.rightView ? photos.rightView : "");
+        formData.append("more_view", photos.moreView ? photos.moreView : "");
+        formData.append(
+          "kilometers_view",
+          photos.kilometersView ? photos.kilometersView : ""
+        );
+        formData.append("model_id", values.category);
+        formData.append("car_type", addCategories[selectedCategoryIndex].name);
+        formData.append("car_name", values.brand);
+        formData.append("car_model", values.model);
+        formData.append("production_year", values.productYear);
+        formData.append("kilometers", values.kilometers);
+        formData.append("Fuel_type", values.fuel);
+        formData.append("color", values.color);
+        formData.append("body_condition", values.bodyCondition);
+        formData.append("gearbox_type", values.gearbox);
+        formData.append("title", values.title);
+        formData.append("description", values.description);
+        formData.append("location", values.location);
+        formData.append("price", values.price);
+        formData.append("state", values.state);
+        formData.append("city", values.city);
+      } else {
+        formData.append("front_view", photos.frontView ? photos.frontView : "");
+        formData.append("rear_view", photos.rearView ? photos.rearView : "");
+        formData.append("left_view", photos.leftView ? photos.leftView : "");
+        formData.append("right_view", photos.rightView ? photos.rightView : "");
+        formData.append("more_view", photos.moreView ? photos.moreView : "");
+        formData.append(
+          "kilometers_view",
+          photos.kilometersView ? photos.kilometersView : ""
+        );
+        formData.append("production_year", values.productYear);
+        formData.append("kilometers", values.kilometers);
+        formData.append("title", values.title);
+        formData.append("description", values.description);
+        formData.append("price", values.price);
+      }
+
       handleCreateAd(formData);
     },
   });
@@ -172,6 +194,10 @@ const CreateAdd = ({ addCategories, type }) => {
       });
     }
   }, [formik.values.brand]);
+
+  useEffect(() => {
+    console.log(formik.errors);
+  }, [formik.errors]);
 
   const handleUploadPhoto = (e, selectedPhoto) => {
     // const canUpload = e?.target?.files[0].size / 1024 / 1000;
@@ -237,14 +263,15 @@ const CreateAdd = ({ addCategories, type }) => {
   const handleCreateAd = (formData) => {
     setLoading(true);
     const id = router?.query?.adId;
-    console.log(type);
+    console.log(id);
 
     type !== "edit"
       ? httpService
           .post("ads", formData)
           .then((res) => {
             res.status === 200
-              ? toast.success("آگهی شما با موفقیت ثبت شد")
+              ? (router.push("/userDashboard/myAdds"),
+                toast.success(" اگهی شما ثبت شد و پس از بررسی منتشر خواهد شد"))
               : null;
             router.back();
           })
@@ -257,11 +284,12 @@ const CreateAdd = ({ addCategories, type }) => {
           .put(`ads/${id}`, formData)
           .then((res) => {
             res.status === 200
-              ? toast.success("آگهی شما با موفقیت بروزرسانی شد")
+              ? (toast.success("آگهی شما با موفقیت بروزرسانی شد"),
+                toast.success(
+                  " تغییرات اگهی شما ثبت شد و پس از بررسی منتشر خواهد شد"
+                ))
               : null;
             setLoading(false);
-            router.push("/userDashboard/myAdds");
-            toast.success(" اگهی شما ثبت شد و پس از بررسی منتشر خواهد شد");
           })
           .catch((err) => {
             toast.error("مشکلی در بروزرسانی آگهی بوجود امد");
@@ -281,32 +309,17 @@ const CreateAdd = ({ addCategories, type }) => {
           res.status === 200 ? setaddData(res.data.data) : null;
         })
         .catch((err) => {
-          console.log(err);
+          toast.error("اطلاعات آگهی مورد نظر شما یافت نشد");
         });
-
-      //categories
-      httpService
-        .get("/CategoryCars")
-        .then((res) => {
-          res.status === 200 ? setEditCategories(res.data) : null;
-        })
-        .catch((err) => {});
     }
   }, [router]);
 
   useEffect(() => {
+    setLoading(true);
     if (addData) {
-      formik.setFieldValue("category", parseInt(addData.car_model));
-      formik.setFieldValue("color", addData.color);
+      formik.setFieldValue("title", addData.title);
       formik.setFieldValue("kilometers", addData.kilometers);
       formik.setFieldValue("description", addData.description);
-      formik.setFieldValue("description", addData.description);
-      formik.setFieldValue("fuel", addData.Fuel_type);
-      formik.setFieldValue("bodyCondition", addData.body_condition);
-      formik.setFieldValue("gearbox", addData.gearbox_type);
-      formik.setFieldValue("title", addData.title);
-      formik.setFieldValue("location", addData.location);
-      formik.setFieldValue("state", addData.state);
       formik.setFieldValue("price", addData.price);
       formik.setFieldValue("productYear", addData.production_year);
       addData.front_view && setLocalFront(url + addData.front_view);
@@ -316,6 +329,7 @@ const CreateAdd = ({ addCategories, type }) => {
       addData.kilometers_view &&
         setLocalKilometers(url + addData.kilometers_view);
       addData.mainImage && setLocalMoreSide(url + addData.mainImage);
+      setLoading(false);
     }
   }, [addData]);
 
@@ -325,31 +339,36 @@ const CreateAdd = ({ addCategories, type }) => {
         <Form onSubmit={formik.handleSubmit} className={s.form}>
           <section className={s.add_details}>
             <div className={s.title}>
-              <h1>ثبت آگهی</h1>
-
-              <Input
-                name="category"
-                value={formik.values.category}
-                onChange={formik.handleChange}
-                type="select"
-                className={s.category}
-              >
-                <option defaultValue value="" disabled>
-                  دسته بندی
-                </option>
-                {addCategories && type !== "edit"
-                  ? addCategories.map((cat) => (
-                      <option value={cat.id} key={cat.id}>
-                        {cat.name}
-                      </option>
-                    ))
-                  : editCategories &&
-                    editCategories.map((cat) => (
-                      <option value={cat.id} key={cat.id}>
-                        {cat.name}
-                      </option>
-                    ))}
-              </Input>
+              {type !== "edit" ? (
+                <>
+                  <h1>ثبت آگهی</h1>
+                  <Input
+                    name="category"
+                    value={formik.values.category}
+                    onChange={formik.handleChange}
+                    type="select"
+                    className={s.category}
+                  >
+                    <option defaultValue value="" disabled>
+                      دسته بندی
+                    </option>
+                    {addCategories && type !== "edit"
+                      ? addCategories.map((cat) => (
+                          <option value={cat.id} key={cat.id}>
+                            {cat.name}
+                          </option>
+                        ))
+                      : editCategories &&
+                        editCategories.map((cat) => (
+                          <option value={cat.id} key={cat.id}>
+                            {cat.name}
+                          </option>
+                        ))}
+                  </Input>
+                </>
+              ) : (
+                <h1>اصلاح آگهی</h1>
+              )}
             </div>
 
             <section className={s.images}>
@@ -544,270 +563,348 @@ const CreateAdd = ({ addCategories, type }) => {
               </div>
             </section>
 
-            <div className={s.details}>
-              {/* brand */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="brand"
-                  value={formik.values.brand}
-                  onChange={formik.handleChange}
-                  type="select"
-                  disabled={loading}
-                >
-                  <option defaultValue value="" disabled>
-                    مدل خودرو
-                  </option>
-                  {brand.length !== 0 &&
-                    brand.map((brand, index) => (
-                      <option value={brand.brand}>{brand.brand}</option>
-                    ))}
-                </Input>
-                {formik.errors.brand && formik.touched.brand && (
-                  <span className={s.error}>{formik.errors.brand}</span>
-                )}
-              </InputGroup>
-
-              {/* model */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="model"
-                  value={formik.values.model}
-                  onChange={formik.handleChange}
-                  type="select"
-                  disabled={loading}
-                >
-                  <option defaultValue value="" disabled>
-                    اسم مدل
-                  </option>
-                  {models.length !== 0 &&
-                    models.map((model, index) => (
-                      <option value={model}>{model}</option>
-                    ))}
-                </Input>
-                {formik.errors.model && formik.touched.model && (
-                  <span className={s.error}>{formik.errors.model}</span>
-                )}
-              </InputGroup>
-
-              {/* fuel */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="fuel"
-                  value={formik.values.fuel}
-                  onChange={formik.handleChange}
-                  type="select"
-                >
-                  <option defaultValue value="" disabled>
-                    نوع سوخت
-                  </option>
-                  <option value="بنزین">بنزین</option>
-                  <option value="گازوئیل(دیزل)">گازوئیل(دیزل)</option>
-                  <option value="دوگانه سوز">دوگانه سوز</option>
-                  <option value="هیبریدی">هیبریدی</option>
-                </Input>
-                {formik.errors.fuel && formik.touched.fuel && (
-                  <span className={s.error}>{formik.errors.fuel}</span>
-                )}
-              </InputGroup>
-
-              {/* productYear */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="productYear"
-                  value={formik.values.productYear}
-                  onChange={formik.handleChange}
-                  type="number"
-                  placeholder="سال تولید"
-                />
-                {formik.errors.productYear && formik.touched.productYear && (
-                  <span className={s.error}>{formik.errors.productYear}</span>
-                )}
-              </InputGroup>
-
-              {/* color */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="color"
-                  value={formik.values.color}
-                  onChange={formik.handleChange}
-                  type="select"
-                >
-                  <option defaultValue value="" disabled>
-                    رنگ
-                  </option>
-                  {colors && colors.length !== 0
-                    ? colors.map((color) => (
-                        <option key={color} value={color}>
-                          {color}
-                        </option>
-                      ))
-                    : null}
-                </Input>
-                {formik.errors.color && formik.touched.color && (
-                  <span className={s.error}>{formik.errors.color}</span>
-                )}
-              </InputGroup>
-
-              {/* kilometers */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="kilometers"
-                  value={formik.values.kilometers}
-                  onChange={formik.handleChange}
-                  className={s.input}
-                  placeholder="کیلومتر"
-                  type="number"
-                />
-                {formik.errors.kilometers && formik.touched.kilometers && (
-                  <span className={s.error}>{formik.errors.kilometers}</span>
-                )}
-              </InputGroup>
-
-              {/* bodyCondition */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="bodyCondition"
-                  value={formik.values.bodyCondition}
-                  onChange={formik.handleChange}
-                  type="select"
-                >
-                  <option defaultValue value="" disabled>
-                    وضعیت بدنه
-                  </option>
-                  {bodyCondition && bodyCondition.length !== 0
-                    ? bodyCondition.map((bc) => (
-                        <option key={bc} value={bc}>
-                          {bc}
-                        </option>
-                      ))
-                    : null}
-                </Input>
-                {formik.errors.bodyCondition &&
-                  formik.touched.bodyCondition && (
-                    <span className={s.error}>
-                      {formik.errors.bodyCondition}
-                    </span>
-                  )}
-              </InputGroup>
-
-              {/* gearbox */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="gearbox"
-                  value={formik.values.gearbox}
-                  onChange={formik.handleChange}
-                  type="select"
-                >
-                  <option defaultValue value="" disabled>
-                    گیربکس
-                  </option>
-                  <option value="دنده ای">دنده ای</option>
-                  <option value="اتوماتیک">اتوماتیک</option>
-                </Input>
-                {formik.errors.gearbox && formik.touched.gearbox && (
-                  <span className={s.error}>{formik.errors.gearbox}</span>
-                )}
-              </InputGroup>
-
-              {/* title */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="title"
-                  value={formik.values.title}
-                  onChange={formik.handleChange}
-                  placeholder="عنوان آگهی"
-                />
-                {formik.errors.title && formik.touched.title && (
-                  <span className={s.error}>{formik.errors.title}</span>
-                )}
-              </InputGroup>
-
-              {/* location */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="location"
-                  value={formik.values.location}
-                  onChange={formik.handleChange}
-                  placeholder="مکان"
-                />
-                {formik.errors.location && formik.touched.location && (
-                  <span className={s.error}>{formik.errors.location}</span>
-                )}
-              </InputGroup>
-
-              {/* state */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="state"
-                  value={formik.values.state}
-                  onChange={formik.handleChange}
-                  type="select"
-                >
-                  <option defaultValue value="" disabled>
-                    استان
-                  </option>
-                  {statesNames.map((state) => (
-                    <option key={state} value={state}>
-                      {state}
+            {type !== "edit" ? (
+              <div className={s.details}>
+                {/* brand */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="brand"
+                    value={formik.values.brand}
+                    onChange={formik.handleChange}
+                    type="select"
+                    disabled={loading}
+                  >
+                    <option defaultValue value="" disabled>
+                      مدل خودرو
                     </option>
-                  ))}
-                </Input>
-                {formik.errors.state && formik.touched.state && (
-                  <span className={s.error}>{formik.errors.state}</span>
-                )}
-              </InputGroup>
+                    {brand.length !== 0 &&
+                      brand.map((brand, index) => (
+                        <option value={brand.brand}>{brand.brand}</option>
+                      ))}
+                  </Input>
+                  {formik.errors.brand && formik.touched.brand && (
+                    <span className={s.error}>{formik.errors.brand}</span>
+                  )}
+                </InputGroup>
 
-              {/* city */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="city"
-                  value={formik.values.city}
-                  onChange={formik.handleChange}
-                  placeholder="شهر"
-                  type="select"
-                >
-                  <option defaultValue value="" disabled>
-                    شهر
-                  </option>
-                  {formik.values.state &&
-                    cityNames[`${formik.values.state}`].map((city) => (
-                      <option key={city} value={city}>
-                        {city}
+                {/* model */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="model"
+                    value={formik.values.model}
+                    onChange={formik.handleChange}
+                    type="select"
+                    disabled={loading}
+                  >
+                    <option defaultValue value="" disabled>
+                      اسم مدل
+                    </option>
+                    {models.length !== 0 &&
+                      models.map((model, index) => (
+                        <option value={model}>{model}</option>
+                      ))}
+                  </Input>
+                  {formik.errors.model && formik.touched.model && (
+                    <span className={s.error}>{formik.errors.model}</span>
+                  )}
+                </InputGroup>
+
+                {/* fuel */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="fuel"
+                    value={formik.values.fuel}
+                    onChange={formik.handleChange}
+                    type="select"
+                  >
+                    <option defaultValue value="" disabled>
+                      نوع سوخت
+                    </option>
+                    <option value="بنزین">بنزین</option>
+                    <option value="گازوئیل(دیزل)">گازوئیل(دیزل)</option>
+                    <option value="دوگانه سوز">دوگانه سوز</option>
+                    <option value="هیبریدی">هیبریدی</option>
+                  </Input>
+                  {formik.errors.fuel && formik.touched.fuel && (
+                    <span className={s.error}>{formik.errors.fuel}</span>
+                  )}
+                </InputGroup>
+
+                {/* productYear */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="productYear"
+                    value={formik.values.productYear}
+                    onChange={formik.handleChange}
+                    type="number"
+                    placeholder="سال تولید"
+                  />
+                  {formik.errors.productYear && formik.touched.productYear && (
+                    <span className={s.error}>{formik.errors.productYear}</span>
+                  )}
+                </InputGroup>
+
+                {/* color */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="color"
+                    value={formik.values.color}
+                    onChange={formik.handleChange}
+                    type="select"
+                  >
+                    <option defaultValue value="" disabled>
+                      رنگ
+                    </option>
+                    {colors && colors.length !== 0
+                      ? colors.map((color) => (
+                          <option key={color} value={color}>
+                            {color}
+                          </option>
+                        ))
+                      : null}
+                  </Input>
+                  {formik.errors.color && formik.touched.color && (
+                    <span className={s.error}>{formik.errors.color}</span>
+                  )}
+                </InputGroup>
+
+                {/* kilometers */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="kilometers"
+                    value={formik.values.kilometers}
+                    onChange={formik.handleChange}
+                    className={s.input}
+                    placeholder="کیلومتر"
+                    type="number"
+                  />
+                  {formik.errors.kilometers && formik.touched.kilometers && (
+                    <span className={s.error}>{formik.errors.kilometers}</span>
+                  )}
+                </InputGroup>
+
+                {/* bodyCondition */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="bodyCondition"
+                    value={formik.values.bodyCondition}
+                    onChange={formik.handleChange}
+                    type="select"
+                  >
+                    <option defaultValue value="" disabled>
+                      وضعیت بدنه
+                    </option>
+                    {bodyCondition && bodyCondition.length !== 0
+                      ? bodyCondition.map((bc) => (
+                          <option key={bc} value={bc}>
+                            {bc}
+                          </option>
+                        ))
+                      : null}
+                  </Input>
+                  {formik.errors.bodyCondition &&
+                    formik.touched.bodyCondition && (
+                      <span className={s.error}>
+                        {formik.errors.bodyCondition}
+                      </span>
+                    )}
+                </InputGroup>
+
+                {/* gearbox */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="gearbox"
+                    value={formik.values.gearbox}
+                    onChange={formik.handleChange}
+                    type="select"
+                  >
+                    <option defaultValue value="" disabled>
+                      گیربکس
+                    </option>
+                    <option value="دنده ای">دنده ای</option>
+                    <option value="اتوماتیک">اتوماتیک</option>
+                  </Input>
+                  {formik.errors.gearbox && formik.touched.gearbox && (
+                    <span className={s.error}>{formik.errors.gearbox}</span>
+                  )}
+                </InputGroup>
+
+                {/* title */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="title"
+                    value={formik.values.title}
+                    onChange={formik.handleChange}
+                    placeholder="عنوان آگهی"
+                  />
+                  {formik.errors.title && formik.touched.title && (
+                    <span className={s.error}>{formik.errors.title}</span>
+                  )}
+                </InputGroup>
+
+                {/* location */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="location"
+                    value={formik.values.location}
+                    onChange={formik.handleChange}
+                    placeholder="مکان"
+                  />
+                  {formik.errors.location && formik.touched.location && (
+                    <span className={s.error}>{formik.errors.location}</span>
+                  )}
+                </InputGroup>
+
+                {/* state */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="state"
+                    value={formik.values.state}
+                    onChange={formik.handleChange}
+                    type="select"
+                  >
+                    <option defaultValue value="" disabled>
+                      استان
+                    </option>
+                    {statesNames.map((state) => (
+                      <option key={state} value={state}>
+                        {state}
                       </option>
                     ))}
-                </Input>
-                {formik.errors.city && formik.touched.city && (
-                  <span className={s.error}>{formik.errors.city}</span>
-                )}
-              </InputGroup>
+                  </Input>
+                  {formik.errors.state && formik.touched.state && (
+                    <span className={s.error}>{formik.errors.state}</span>
+                  )}
+                </InputGroup>
 
-              {/* price */}
-              <InputGroup className={s.input}>
-                <Input
-                  name="price"
-                  value={formik.values.price}
-                  onChange={formik.handleChange}
-                  placeholder="قیمت"
-                />
-                {formik.errors.price && formik.touched.price && (
-                  <span className={s.error}>{formik.errors.price}</span>
-                )}
-              </InputGroup>
+                {/* city */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="city"
+                    value={formik.values.city}
+                    onChange={formik.handleChange}
+                    placeholder="شهر"
+                    type="select"
+                  >
+                    <option defaultValue value="" disabled>
+                      شهر
+                    </option>
+                    {formik.values.state &&
+                      cityNames[`${formik.values.state}`].map((city) => (
+                        <option key={city} value={city}>
+                          {city}
+                        </option>
+                      ))}
+                  </Input>
+                  {formik.errors.city && formik.touched.city && (
+                    <span className={s.error}>{formik.errors.city}</span>
+                  )}
+                </InputGroup>
 
-              {/* dexcription */}
-              <InputGroup className={s.description}>
-                <Input
-                  name="description"
-                  value={formik.values.description}
-                  onChange={formik.handleChange}
-                  type="textarea"
-                  placeholder="توضیحات"
-                />
-                {formik.errors.description && formik.touched.description && (
-                  <span className={s.error}>{formik.errors.description}</span>
-                )}
-              </InputGroup>
-            </div>
+                {/* price */}
+                <InputGroup className={s.input}>
+                  <Input
+                    name="price"
+                    value={formik.values.price}
+                    onChange={formik.handleChange}
+                    placeholder="قیمت"
+                  />
+                  {formik.errors.price && formik.touched.price && (
+                    <span className={s.error}>{formik.errors.price}</span>
+                  )}
+                </InputGroup>
+
+                {/* dexcription */}
+                <InputGroup className={s.description}>
+                  <Input
+                    name="description"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    type="textarea"
+                    placeholder="توضیحات"
+                  />
+                  {formik.errors.description && formik.touched.description && (
+                    <span className={s.error}>{formik.errors.description}</span>
+                  )}
+                </InputGroup>
+              </div>
+            ) : (
+              <div className={s.details}>
+                {/* productYear */}
+                <InputGroup className={s.input}>
+                  <Label>سال تولید</Label>
+                  <Input
+                    name="productYear"
+                    value={formik.values.productYear}
+                    onChange={formik.handleChange}
+                    type="number"
+                    placeholder="سال تولید"
+                  />
+                  {formik.errors.productYear && formik.touched.productYear && (
+                    <span className={s.error}>{formik.errors.productYear}</span>
+                  )}
+                </InputGroup>
+
+                {/* kilometers */}
+                <InputGroup className={s.input}>
+                  <Label>کارکرد (کیلومتر)</Label>
+                  <Input
+                    name="kilometers"
+                    value={formik.values.kilometers}
+                    onChange={formik.handleChange}
+                    className={s.input}
+                    placeholder="کیلومتر"
+                    type="number"
+                  />
+                  {formik.errors.kilometers && formik.touched.kilometers && (
+                    <span className={s.error}>{formik.errors.kilometers}</span>
+                  )}
+                </InputGroup>
+
+                {/* title */}
+                <InputGroup className={s.input}>
+                  <Label>عنوان</Label>
+                  <Input
+                    name="title"
+                    value={formik.values.title}
+                    onChange={formik.handleChange}
+                    placeholder="عنوان آگهی"
+                  />
+                  {formik.errors.title && formik.touched.title && (
+                    <span className={s.error}>{formik.errors.title}</span>
+                  )}
+                </InputGroup>
+
+                {/* price */}
+                <InputGroup className={s.input}>
+                  <Label>قیمت</Label>
+                  <Input
+                    name="price"
+                    value={formik.values.price}
+                    onChange={formik.handleChange}
+                    placeholder="قیمت"
+                  />
+                  {formik.errors.price && formik.touched.price && (
+                    <span className={s.error}>{formik.errors.price}</span>
+                  )}
+                </InputGroup>
+
+                {/* description */}
+                <InputGroup className={s.description}>
+                  <Label>توضیحات</Label>
+                  <Input
+                    name="description"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    type="textarea"
+                    placeholder="توضیحات"
+                  />
+                  {formik.errors.description && formik.touched.description && (
+                    <span className={s.error}>{formik.errors.description}</span>
+                  )}
+                </InputGroup>
+              </div>
+            )}
 
             <div className={s.submit_btn}>
               <Button disabled={loading} type="submit">

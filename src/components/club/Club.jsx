@@ -412,6 +412,7 @@ const Club = ({ clubs }) => {
                   prevEl: "#suggested-prev",
                   nextEl: "#suggested-next",
                 }}
+                grabCursor
                 freeMode
                 spaceBetween={35}
                 slidesPerView={"auto"}

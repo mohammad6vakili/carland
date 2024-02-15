@@ -13,6 +13,8 @@ import { getLocal, handleTextCut, removeLocal } from "@/src/hooks/functions";
 import { convertDate } from "../comments/CommentCards";
 import MySkeleton from "../skeleton/Skeleton";
 import Link from "next/link";
+import { Suspense } from "react";
+import Loading from "@/pages/loading";
 
 const ClubsCategory = ({ clubCategories, clubs }) => {
   const photos = [
@@ -88,77 +90,79 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
           <h1>منتخب کلوپ‌ها</h1>
         </section>
 
-        <div className={s.gallery}>
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={"20%"}
-            pagination={{
-              renderPagination: (swiper) => (
-                <CustomPagination
-                  slidesLength={swiper.slides.length}
-                  activeSlideIndex={swiper.activeIndex}
-                />
-              ),
-            }}
-            navigation={{
-              prevEl: "#gallery_prev",
-              nextEl: "#gallery_next",
-            }}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className={s.mySwiper}
-          >
-            {clubs ? (
-              clubs.map((club, index) => (
-                <>
-                  {index <= 2 && (
-                    <SwiperSlide key={Math.random()} className={s.slide}>
-                      <Link href={`/club/${club.title}/${club.id}`}>
-                        <Image
-                          src={url + "/" + club.image_url}
-                          alt="club"
-                          width={600}
-                          height={300}
-                          loading="lazy"
-                        />
-                        <div className={s.descriptions}>
-                          <h1 className={s.title}>{club.title}</h1>
-                          <div className={s.texts}>
-                            {handleTextCut(club.description, 100)}
-                          </div>
+        <Suspense fallback={<Loading />}>
+          <div className={s.gallery}>
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={"20%"}
+              pagination={{
+                renderPagination: (swiper) => (
+                  <CustomPagination
+                    slidesLength={swiper.slides.length}
+                    activeSlideIndex={swiper.activeIndex}
+                  />
+                ),
+              }}
+              navigation={{
+                prevEl: "#gallery_prev",
+                nextEl: "#gallery_next",
+              }}
+              modules={[FreeMode, Navigation, Thumbs]}
+              className={s.mySwiper}
+            >
+              {clubs ? (
+                clubs.map((club, index) => (
+                  <>
+                    {index <= 2 && (
+                      <SwiperSlide key={Math.random()} className={s.slide}>
+                        <Link href={`/club/${club.title}/${club.id}`}>
+                          <Image
+                            src={url + "/" + club.image_url}
+                            alt="club"
+                            width={600}
+                            height={300}
+                            loading="lazy"
+                          />
+                          <div className={s.descriptions}>
+                            <h1 className={s.title}>{club.title}</h1>
+                            <div className={s.texts}>
+                              {handleTextCut(club.description, 100)}
+                            </div>
 
-                          {/* small boxes */}
-                          <div className={s.box1}>
-                            <div></div>
+                            {/* small boxes */}
+                            <div className={s.box1}>
+                              <div></div>
+                            </div>
+                            <div className={s.box2}>
+                              <div></div>
+                            </div>
                           </div>
-                          <div className={s.box2}>
-                            <div></div>
-                          </div>
-                        </div>
-                      </Link>
-                    </SwiperSlide>
-                  )}
-                </>
-              ))
-            ) : (
-              <MySkeleton width={"100%"} height={"400px"} />
-            )}
-          </Swiper>
+                        </Link>
+                      </SwiperSlide>
+                    )}
+                  </>
+                ))
+              ) : (
+                <MySkeleton width={"100%"} height={"400px"} />
+              )}
+            </Swiper>
 
-          <div className={s.navigation_nexprev}>
-            <div className={s.navigation}>
-              <div className={s.next} id="gallery_next">
-                <ArrowLeftOutlined />
+            <div className={s.navigation_nexprev}>
+              <div className={s.navigation}>
+                <div className={s.next} id="gallery_next">
+                  <ArrowLeftOutlined />
+                </div>
+                <div className={s.prev} id="gallery_prev">
+                  <ArrowRightOutlined />
+                </div>
               </div>
-              <div className={s.prev} id="gallery_prev">
-                <ArrowRightOutlined />
-              </div>
-            </div>
 
-            <div className={s.pagination}>
-              <CustomPagination />
+              <div className={s.pagination}>
+                <CustomPagination />
+              </div>
             </div>
           </div>
-        </div>
+        </Suspense>
 
         <div className={s.best_clubs}>
           <section className={s.title}>
