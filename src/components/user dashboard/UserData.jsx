@@ -26,10 +26,8 @@ import MySkeleton from "../skeleton/Skeleton";
 import Compressor from "compressorjs";
 import { setUserInfo } from "@/src/app/slices/userInfoSlice";
 // import DatePicker from "react-modern-calendar-datepicker";
-import { Calendar } from "react-modern-calendar-datepicker";
 import DatePicker from "@hassanmojab/react-modern-calendar-datepicker";
 import moment from "jalali-moment";
-import { InputDatePicker } from "jalaali-react-date-picker";
 import { formatStringJSON, toPersianString } from "@/src/hooks/functions";
 
 const UserData = () => {
