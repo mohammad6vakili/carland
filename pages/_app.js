@@ -11,6 +11,9 @@ import "leaflet/dist/leaflet.css";
 import "react-loading-skeleton/dist/skeleton.css";
 // import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import "@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css";
+import NProgress from "nprogress";
+import "@/styles/nprogress.css";
+import Router from "next/router";
 import localFont from "next/font/local";
 import MobileMenu from "@/src/components/mobile menu/MobileMenu";
 import { Toaster } from "react-hot-toast";
@@ -18,6 +21,17 @@ import { Provider } from "react-redux";
 import { store } from "@/src/app/store";
 
 const dana = localFont({ src: "../public/fonts/Dana-Medium.woff" });
+
+Router.events.on("routeChangeStart", (url) => {
+  // console.log(`Loading: ${url}`);
+  NProgress.start();
+});
+Router.events.on("routeChangeComplete", () => {
+  NProgress.done();
+});
+Router.events.on("routeChangeError", () => {
+  NProgress.done();
+});
 
 const MyApp = ({ Component, pageProps }) => {
   return (
