@@ -145,7 +145,7 @@ const Main = ({ jobCategories }) => {
     calculateTime(
       parseInt(JSON.parse(formatStringJSON(getLocal("updateTime")))),
       new Date().getTime()
-    ) >= 0
+    ) >= 1
       ? httpService
           .get("categories")
           .then((res) => {
