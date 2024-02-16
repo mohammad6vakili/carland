@@ -33,16 +33,17 @@ import {
   removeFavList,
   setFavList,
 } from "@/src/app/slices/favListSlice";
+import MySkeleton from "../../skeleton/Skeleton";
 
 const TradePage = ({ tradeData }) => {
+  const { httpService } = useHttp();
   const router = useRouter();
   const size = useWindowSize();
   const [loadingGetNum, setLoadingGetNum] = useState(false);
   const [loading, setLoading] = useState(false);
   // const [tradeData, setTradeData] = useState([]);
   const [photos, setPhotos] = useState([]);
-  const { httpService } = useHttp();
-  const [alikeOffers, setAlikeOffers] = useState([]);
+  const [alikeOffers, setAlikeOffers] = useState(null);
   const [reportText, setReportText] = useState("");
   const [reportModal, setReportModal] = useState(false);
   const dispatch = useDispatch();
@@ -86,8 +87,9 @@ const TradePage = ({ tradeData }) => {
     httpService
       .post("advertisements")
       .then((res) => {
-        res.status === 200
-          ? (console.log(res.data), setAlikeOffers([res.data.data.data]))
+        res?.status === 200
+          ? (console.log(res.data.data.data),
+            setAlikeOffers(res.data.data.data))
           : null;
       })
       .catch(() => {
@@ -544,29 +546,37 @@ const TradePage = ({ tradeData }) => {
                 className={s.swiper}
                 onSwiper={setAdsSwiper}
               >
-                {alikeOffers.length !== 0 ? (
-                  alikeOffers.map((item, index) => (
-                    <>
-                      {index > 5 && (
-                        <SwiperSlide
-                          className={s.slide}
-                          key={Math.random() * index}
-                        >
-                          <SuggestCard
-                            image={url + item.mainImage}
-                            title={item.title}
-                            description={handleTextCut(item.description, 200)}
-                            time={convertDate(item.created_at)}
-                            href={`trades/${item.id}`}
-                          />
-                        </SwiperSlide>
-                      )}
-                    </>
-                  ))
+                {alikeOffers ? (
+                  alikeOffers.length !== 0 ? (
+                    alikeOffers.map((item, index) => (
+                      <>
+                        {index < 5 && (
+                          <SwiperSlide
+                            className={s.slide}
+                            key={Math.random() * index}
+                          >
+                            <SuggestCard
+                              image={url + item.mainImage}
+                              title={item.title}
+                              description={handleTextCut(item.description, 200)}
+                              time={convertDate(item.created_at)}
+                              href={`trades/${item.id}`}
+                            />
+                          </SwiperSlide>
+                        )}
+                      </>
+                    ))
+                  ) : (
+                    <SwiperSlide
+                      style={{ width: "100%" }}
+                      className={s.slide}
+                      key={Math.random()}
+                    >
+                      <span>آگهی مرتبطی وجود ندارد</span>
+                    </SwiperSlide>
+                  )
                 ) : (
-                  <SwiperSlide className={s.slide} key={Math.random()}>
-                    <span>آگهی مرتبطی وجود ندارد</span>
-                  </SwiperSlide>
+                  <MySkeleton width={"300px"} height={"500px"} />
                 )}
               </Swiper>
             </div>

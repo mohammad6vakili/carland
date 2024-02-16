@@ -161,44 +161,6 @@ const CreateAdd = ({ addCategories, type }) => {
     },
   });
 
-  useEffect(() => {
-    const categoryId = formik.values.category;
-    const adsFilter = JSON.parse(formatStringJSON(getLocal("adsFilter")));
-    setLoading(true);
-
-    categoryId
-      ? httpService
-          .get(`models/${categoryId}`)
-          .then((res) => {
-            setBrand(res.data.models);
-          })
-          .catch(() => {
-            toast.error("مشکلی در گرفتن اطلاعات سرور بوجود امده");
-          })
-      : null;
-
-    adsFilter
-      ? (setColors(adsFilter.colors),
-        setBodyCondition(adsFilter.body_conditions))
-      : null;
-
-    setLoading(false);
-  }, [formik.values.category]);
-
-  useEffect(() => {
-    if (brand) {
-      brand.map((brand) => {
-        if (Object.values(brand).indexOf(`${formik.values.brand}`) > -1) {
-          setModels(brand.model.split(",").filter((model) => model !== ""));
-        }
-      });
-    }
-  }, [formik.values.brand]);
-
-  useEffect(() => {
-    console.log(formik.errors);
-  }, [formik.errors]);
-
   const handleUploadPhoto = (e, selectedPhoto) => {
     // const canUpload = e?.target?.files[0].size / 1024 / 1000;
     // console.log(e?.target?.files[0].size / 1024 / 1000);
@@ -297,6 +259,56 @@ const CreateAdd = ({ addCategories, type }) => {
             setLoading(false);
           });
   };
+
+  function commafy(num) {
+    var str = num.toString().split(".");
+    if (str[0].length >= 5) {
+      str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+    }
+    if (str[1] && str[1].length >= 5) {
+      str[1] = str[1].replace(/(\d{3})/g, "$1 ");
+    }
+    return str.join(",");
+  }
+
+  useEffect(() => {
+    const categoryId = formik.values.category;
+    const adsFilter = JSON.parse(formatStringJSON(getLocal("adsFilter")));
+    setLoading(true);
+
+    categoryId
+      ? httpService
+          .get(`models/${categoryId}`)
+          .then((res) => {
+            setBrand(res.data.models);
+          })
+          .catch(() => {
+            toast.error("مشکلی در گرفتن اطلاعات سرور بوجود امده");
+          })
+      : null;
+
+    adsFilter
+      ? (setColors(adsFilter.colors),
+        setBodyCondition(adsFilter.body_conditions))
+      : null;
+
+    setLoading(false);
+  }, [formik.values.category]);
+
+  useEffect(() => {
+    if (brand) {
+      brand.map((brand) => {
+        if (Object.values(brand).indexOf(`${formik.values.brand}`) > -1) {
+          setModels(brand.model.split(",").filter((model) => model !== ""));
+        }
+      });
+    }
+  }, [formik.values.brand]);
+
+  useEffect(() => {
+    console.log(commafy(formik.values.price));
+    formik.setFieldValue("price", commafy(formik.values.price));
+  }, [formik.values.price]);
 
   //edit conditions
   useEffect(() => {
@@ -808,6 +820,7 @@ const CreateAdd = ({ addCategories, type }) => {
                     value={formik.values.price}
                     onChange={formik.handleChange}
                     placeholder="قیمت"
+                    type="number"
                   />
                   {formik.errors.price && formik.touched.price && (
                     <span className={s.error}>{formik.errors.price}</span>
@@ -883,6 +896,7 @@ const CreateAdd = ({ addCategories, type }) => {
                     value={formik.values.price}
                     onChange={formik.handleChange}
                     placeholder="قیمت"
+                    type="number"
                   />
                   {formik.errors.price && formik.touched.price && (
                     <span className={s.error}>{formik.errors.price}</span>
@@ -917,7 +931,7 @@ const CreateAdd = ({ addCategories, type }) => {
           </section>
 
           <section className={s.image}>
-            <Image src={background} alt="" />
+            <Image src={background} alt="" fill quality={100} />
           </section>
         </Form>
       </div>

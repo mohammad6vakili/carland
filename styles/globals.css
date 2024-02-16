@@ -129,14 +129,14 @@ a {
 
 .DatePicker {
   width: 100%;
+  z-index: 0;
 }
 .DatePicker input {
   font-family: dana;
   font-size: 1em;
-  z-index: 2;
 }
-.Calendar {
-  z-index: 2;
+.DatePicker .DatePicker__calendarContainer {
+  z-index: 2 !important;
 }
 
 .infinite-scroll-component__outerdiv {

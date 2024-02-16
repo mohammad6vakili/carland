@@ -306,8 +306,8 @@ $carousel-borderRadius: 20px;
       width: 100%;
 
       .slide {
+        @include flex(row, center, center);
         width: max-content;
-        height: 500px;
       }
     }
 

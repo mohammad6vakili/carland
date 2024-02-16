@@ -327,7 +327,7 @@ const MagazineCategory = ({ magsCategories, magazines }) => {
               </div>
             </section>
 
-            <div className={s.suggested_cards}>
+            <div className={s.cards}>
               <Swiper
                 navigation={{
                   prevEl: "#suggested_prev",
