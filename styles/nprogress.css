@@ -50,7 +50,6 @@
   border-left-color: #142d5d;
   border-radius: 50%;
 
-  /* transform: translate(-50%, -50%); */
   -webkit-animation: nprogress-spinner 400ms linear infinite;
   animation: nprogress-spinner 400ms linear infinite;
 }
