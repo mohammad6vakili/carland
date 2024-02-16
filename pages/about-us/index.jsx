@@ -9,7 +9,7 @@ const index = () => {
       <Head>
         <meta
           property="og:image"
-          content={"https://api.carland.ir/carland-logo.png"}
+          content="https://api.carland.ir/carland-logo.png"
         />
       </Head>
       <Header />

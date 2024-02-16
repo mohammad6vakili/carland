@@ -24,12 +24,12 @@ export default function Home({ jobCategories }) {
     <>
       <Head>
         <title>{jobCategories.title}</title>
-        <meta name="og:title" content={jobCategories.title} />
+        <meta property="og:title" content={jobCategories.title} />
+        <meta property="og:description" content={jobCategories.descriptions} />
         <meta name="keywords" content={jobCategories.keywords} />
-        <meta name="description" content={jobCategories.descriptions} />
         <meta
           property="og:image"
-          content={"https://api.carland.ir/carland-logo.png"}
+          content="https://api.carland.ir/carland-logo.png"
         />
       </Head>
       <Header />
