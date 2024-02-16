@@ -22,6 +22,7 @@
     "jalali-moment": "^3.3.11",
     "leaflet": "^1.9.4",
     "next": "14.0.3",
+    "nprogress": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
