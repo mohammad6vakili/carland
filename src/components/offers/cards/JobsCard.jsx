@@ -116,7 +116,13 @@ const JobsCard = ({
       ) : null}
 
       <div className={s.image}>
-        <Image src={url + "/" + image} alt="" width={250} height={200} />{" "}
+        <Image
+          src={url + "/" + image}
+          alt=""
+          width={250}
+          height={200}
+          loading="lazy"
+        />{" "}
         <div className={s.rate_box}>
           <StarFilled style={{ color: "#FFD029" }} /> {toPersianString(rate)}
         </div>

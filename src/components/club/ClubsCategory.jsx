@@ -383,12 +383,11 @@ const ClubsCategory = ({ clubCategories, clubs }) => {
             </div>
           </section>
 
-          <div className={s.suggested_cards}>
+          <div className={s.cards}>
             <Swiper
               navigation={{
                 prevEl: "#suggested_prev",
                 nextEl: "#suggested_next",
-                clickabl: true,
               }}
               grabCursor
               modules={[Navigation]}
