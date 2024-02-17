@@ -75,9 +75,7 @@ const Email = ({ verify }) => {
             toast.success("کد به شماره شما ارسال شد"))
           : toast.error("مشکلی در ارسال کد پیش امد");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const handleVerify = (values) => {
@@ -94,6 +92,7 @@ const Email = ({ verify }) => {
         res.status === 200
           ? (toast.success("خوش آمدید!"),
             removeLocal("number"),
+            removeLocal("email"),
             setLocal("token", res.data.token),
             router.push("/userDashboard/userData"))
           : toast.error("کد مطابقت ندارد");
