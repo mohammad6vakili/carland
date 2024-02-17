@@ -560,7 +560,7 @@ const TradePage = ({ tradeData }) => {
                               title={item.title}
                               description={handleTextCut(item.description, 200)}
                               time={convertDate(item.created_at)}
-                              href={`trades/${item.id}`}
+                              href={`/trades/${item.id}`}
                             />
                           </SwiperSlide>
                         )}
