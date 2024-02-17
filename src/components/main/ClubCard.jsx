@@ -18,7 +18,7 @@ const ClubCard = ({ image, title, description, id, authorName }) => {
             <div className={styles.profile}></div>
             <span>{authorName}</span>
           </div>
-          <Link href={`/club/${id}`}>
+          <Link href={`/club/${club.title}/${id}`}>
             <Button>
               مشاهده{" "}
               <div>
