@@ -108,7 +108,7 @@ export const handleCopy = (value, toastText) => {
         ? toast.success(toastText)
         : toast.success("متن با موفقیت کپی شد");
     })
-    .catch((error) => toast.success("مشکلی در کپی متن بوجود امد"));
+    .catch((error) => toast.error("مشکلی در کپی متن بوجود امد"));
 };
 
 //local storage

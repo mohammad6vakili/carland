@@ -11,18 +11,26 @@ import { InstagramOutlined } from "@ant-design/icons";
 import { useWindowSize } from "@uidotdev/usehooks";
 import LocationIcon from "@/src/assets/icons/location_icon";
 import { useEffect, useState } from "react";
-import { formatStringJSON, getLocal } from "@/src/hooks/functions";
+import { formatStringJSON, getLocal, setLocal } from "@/src/hooks/functions";
 import Link from "next/link";
 import { BsTelegram } from "react-icons/bs";
+import useHttp from "@/src/axiosConfig/useHttp";
 
 const Footer = () => {
+  const { httpService } = useHttp();
   const size = useWindowSize();
   const [contactData, setContactData] = useState();
 
   useEffect(() => {
     getLocal("contactData") != "null"
       ? setContactData(JSON.parse(formatStringJSON(getLocal("contactData"))))
-      : null;
+      : httpService
+          .get("categories")
+          .then((res) => {
+            res.status === 200 && setContactData(res.data),
+              setLocal("contactData", JSON.stringify(res.data));
+          })
+          .catch((err) => {});
   }, []);
 
   const scrollToHeader = () => {
