@@ -710,7 +710,7 @@ const Main = ({ jobCategories }) => {
                       image={club.image_url}
                       description={club.description}
                       authorName={club.AuthorName}
-                      id={club.id}
+                      href={`/club/${club.title}/${club.id}`}
                       title={club.title}
                     />
                   ) : (
