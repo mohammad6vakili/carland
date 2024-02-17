@@ -1,6 +1,11 @@
 import Image from "next/image";
 import styles from "../../../styles/header.module.scss";
-import { PhoneOutlined, ArrowUpOutlined } from "@ant-design/icons";
+import {
+  PhoneOutlined,
+  ArrowUpOutlined,
+  TwitterOutlined,
+  WhatsAppOutlined,
+} from "@ant-design/icons";
 import { Button } from "reactstrap";
 import { InstagramOutlined } from "@ant-design/icons";
 import { useWindowSize } from "@uidotdev/usehooks";
@@ -8,6 +13,7 @@ import LocationIcon from "@/src/assets/icons/location_icon";
 import { useEffect, useState } from "react";
 import { formatStringJSON, getLocal } from "@/src/hooks/functions";
 import Link from "next/link";
+import { BsTelegram } from "react-icons/bs";
 
 const Footer = () => {
   const size = useWindowSize();
@@ -47,7 +53,6 @@ const Footer = () => {
                   alt="carland logo"
                   width={50}
                   height={50}
-                  style={{ color: "#fff" }}
                 />
               </div>
 
@@ -160,19 +165,13 @@ const Footer = () => {
                   />
                 </Button>
                 <Button className={styles.btn}>
-                  <InstagramOutlined
-                    style={{ color: "#fff", opacity: "0.6" }}
-                  />
+                  <BsTelegram style={{ color: "#fff", opacity: "0.6" }} />
                 </Button>
                 <Button className={styles.btn}>
-                  <InstagramOutlined
-                    style={{ color: "#fff", opacity: "0.6" }}
-                  />
+                  <TwitterOutlined style={{ color: "#fff", opacity: "0.6" }} />
                 </Button>
                 <Button className={styles.btn}>
-                  <InstagramOutlined
-                    style={{ color: "#fff", opacity: "0.6" }}
-                  />
+                  <WhatsAppOutlined style={{ color: "#fff", opacity: "0.6" }} />
                 </Button>
               </div>
             ) : (
