@@ -77,17 +77,17 @@ const Magazine = ({ magData, magazines }) => {
 
   //swiper
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [adsSwiper, setAdsSwiper] = useState();
-  const prevAdRef = useRef();
-  const nextAdRef = useRef();
-  useEffect(() => {
-    if (adsSwiper) {
-      adsSwiper.params.navigation.prevEl = prevAdRef.current;
-      adsSwiper.params.navigation.nextEl = nextAdRef.current;
-      adsSwiper.navigation.init();
-      adsSwiper.navigation.update();
-    }
-  }, [adsSwiper]);
+  // const [adsSwiper, setAdsSwiper] = useState();
+  // const prevAdRef = useRef();
+  // const nextAdRef = useRef();
+  // useEffect(() => {
+  //   if (adsSwiper) {
+  //     adsSwiper.params.navigation.prevEl = prevAdRef.current;
+  //     adsSwiper.params.navigation.nextEl = nextAdRef.current;
+  //     adsSwiper.navigation.init();
+  //     adsSwiper.navigation.update();
+  //   }
+  // }, [adsSwiper]);
 
   if (magData) {
     return (
@@ -105,7 +105,7 @@ const Magazine = ({ magData, magazines }) => {
                     grabCursor
                     spaceBetween={50}
                     thumbs={{ swiper: thumbsSwiper }}
-                    modules={[FreeMode, Navigation, Thumbs]}
+                    modules={[FreeMode, Thumbs]}
                     className={s.my_swiper}
                   >
                     {photos.map((ph, index) => (
@@ -118,7 +118,7 @@ const Magazine = ({ magData, magazines }) => {
                           alt="magazine"
                           width={700}
                           height={500}
-                          loading="lazy"
+                          loading="eager"
                         />
                       </SwiperSlide>
                     ))}
@@ -174,9 +174,9 @@ const Magazine = ({ magData, magazines }) => {
 
               <div className={s.texts}>
                 <div className={s.title}>{magData.title}</div>
-                <p className={s.descriptions}>
+                <div className={s.descriptions}>
                   {handleDescription(magData.description)}
-                </p>
+                </div>
               </div>
 
               <div className={s.share}>
@@ -245,57 +245,57 @@ const Magazine = ({ magData, magazines }) => {
                     />
 
                     {/* <div className={s.blur}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="362"
-                        height="62"
-                        viewBox="0 0 362 62"
-                        fill="none"
-                      >
-                        <g filter="url(#filter0_b_1375_15567)">
-                          <path
-                            d="M117.888 17.9911H239.837C241.256 17.9911 242.673 17.8905 244.077 17.6901L361 1V46C361 54.2843 354.284 61 346 61H16C7.71574 61 1 54.2843 1 46V1L113.491 17.6672C114.947 17.8829 116.416 17.9911 117.888 17.9911Z"
-                            fill="white"
-                            fillOpacity="0.2"
-                          />
-                          <path
-                            d="M117.888 17.9911H239.837C241.256 17.9911 242.673 17.8905 244.077 17.6901L361 1V46C361 54.2843 354.284 61 346 61H16C7.71574 61 1 54.2843 1 46V1L113.491 17.6672C114.947 17.8829 116.416 17.9911 117.888 17.9911Z"
-                            stroke="white"
-                          />
-                        </g>
-                        <defs>
-                          <filter
-                            id="filter0_b_1375_15567"
-                            x="-34.5"
-                            y="-34.5801"
-                            width="431"
-                            height="131.08"
-                            filterUnits="userSpaceOnUse"
-                            colorInterpolationFilters="sRGB"
-                          >
-                            <feFlood
-                              floodOpacity="0"
-                              result="BackgroundImageFix"
-                            />
-                            <feGaussianBlur
-                              in="BackgroundImageFix"
-                              stdDeviation="17.5"
-                            />
-                            <feComposite
-                              in2="SourceAlpha"
-                              operator="in"
-                              result="effect1_backgroundBlur_1375_15567"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in="SourceGraphic"
-                              in2="effect1_backgroundBlur_1375_15567"
-                              result="shape"
-                            />
-                          </filter>
-                        </defs>
-                      </svg>
-                    </div> */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="362"
+                  height="62"
+                  viewBox="0 0 362 62"
+                  fill="none"
+                >
+                  <g filter="url(#filter0_b_1375_15567)">
+                    <path
+                      d="M117.888 17.9911H239.837C241.256 17.9911 242.673 17.8905 244.077 17.6901L361 1V46C361 54.2843 354.284 61 346 61H16C7.71574 61 1 54.2843 1 46V1L113.491 17.6672C114.947 17.8829 116.416 17.9911 117.888 17.9911Z"
+                      fill="white"
+                      fillOpacity="0.2"
+                    />
+                    <path
+                      d="M117.888 17.9911H239.837C241.256 17.9911 242.673 17.8905 244.077 17.6901L361 1V46C361 54.2843 354.284 61 346 61H16C7.71574 61 1 54.2843 1 46V1L113.491 17.6672C114.947 17.8829 116.416 17.9911 117.888 17.9911Z"
+                      stroke="white"
+                    />
+                  </g>
+                  <defs>
+                    <filter
+                      id="filter0_b_1375_15567"
+                      x="-34.5"
+                      y="-34.5801"
+                      width="431"
+                      height="131.08"
+                      filterUnits="userSpaceOnUse"
+                      colorInterpolationFilters="sRGB"
+                    >
+                      <feFlood
+                        floodOpacity="0"
+                        result="BackgroundImageFix"
+                      />
+                      <feGaussianBlur
+                        in="BackgroundImageFix"
+                        stdDeviation="17.5"
+                      />
+                      <feComposite
+                        in2="SourceAlpha"
+                        operator="in"
+                        result="effect1_backgroundBlur_1375_15567"
+                      />
+                      <feBlend
+                        mode="normal"
+                        in="SourceGraphic"
+                        in2="effect1_backgroundBlur_1375_15567"
+                        result="shape"
+                      />
+                    </filter>
+                  </defs>
+                </svg>
+              </div> */}
                   </div>
 
                   {magazines.map((magazine, index) => (
@@ -392,10 +392,10 @@ const Magazine = ({ magData, magazines }) => {
               </span>{" "}
               <p>مجلات پیشنهادی</p>
               <div className={s.next_prev_offers}>
-                <div className={s.prev} ref={prevAdRef}>
+                <div className={s.prev} id="prev-mag-photo">
                   <ArrowRightOutlined />
                 </div>
-                <div className={s.next} ref={nextAdRef}>
+                <div className={s.next} id="next-mag-photo">
                   <ArrowLeftOutlined />
                 </div>
               </div>
@@ -406,12 +406,11 @@ const Magazine = ({ magData, magazines }) => {
                 slidesPerView={"auto"}
                 spaceBetween={35}
                 navigation={{
-                  prevEl: prevAdRef?.current,
-                  nextEl: nextAdRef?.current,
+                  prevEl: "#prev-mag-photo",
+                  nextEl: "#next-mag-photo",
                 }}
                 modules={[Navigation, FreeMode]}
                 className={s.swiper}
-                onSwiper={setAdsSwiper}
               >
                 {magazines.map((magazine, index) => (
                   <SwiperSlide className={s.slide} key={Math.random() * index}>
