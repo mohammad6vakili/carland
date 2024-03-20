@@ -32,30 +32,33 @@ import Head from "next/head";
 import ReactPlayer from "react-player";
 import ReactImageGallery from "react-image-gallery";
 
-const Club = ({ clubs }) => {
+const Club = ({ clubs, clubData }) => {
+  const { httpService } = useHttp();
   const size = useWindowSize();
   const router = useRouter();
   const pathname = usePathname();
   const isAuth = useSelector((state) => state.isAuth.isAuth);
-  const { httpService } = useHttp();
 
   const latestClubs = [{}, {}, {}];
-  const [clubData, setClubData] = useState([]);
+  // const [clubData, setClubData] = useState([]);
   const [photos, setPhotos] = useState([]);
 
   //handleRequests
   useEffect(() => {
-    const id = router.query.clubId;
-    if (id) {
-      httpService
-        .get(`club/${id}`)
-        .then((res) => {
-          res.status === 200 ? setClubData(res.data) : null;
-          handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
-        })
-        .catch((err) => toast.error("خطا در پیدا کردن اطلاعات کلوپ مورد نظر"));
-    }
-  }, [router]);
+    // const id = router.query.clubId;
+    // if (id) {
+    //   httpService
+    //     .get(`club/${id}`)
+    //     .then((res) => {
+    //       res.status === 200 ? setClubData(res.data) : null;
+    //       handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
+    //     })
+    //     .catch((err) => toast.error("خطا در پیدا کردن اطلاعات کلوپ مورد نظر"));
+    // }
+
+    clubData &&
+      handlePhotos(clubData.data.image_url, clubData.data.imageAddresses);
+  }, []);
 
   const handleDescription = (text) => {
     let texts = text.split("\n");
@@ -70,13 +73,13 @@ const Club = ({ clubs }) => {
   const handlePhotos = (banner, images) => {
     const data = [];
 
+    data.push(banner);
     images
       ? images.split(",").map((ph) => {
           let converted = ph.replace(`${url}/`, "").replace(" ", "");
           data.push({ original: converted, thumbnail: converted });
         })
       : null;
-    data.push(banner);
 
     setPhotos(data);
   };
@@ -178,9 +181,9 @@ const Club = ({ clubs }) => {
 
               <div className={s.texts}>
                 <div className={s.title}>{clubData.data.title}</div>
-                <p className={s.descriptions}>
+                <div className={s.descriptions}>
                   {handleDescription(clubData.data.description)}
-                </p>
+                </div>
               </div>
 
               <div className={s.share}>
