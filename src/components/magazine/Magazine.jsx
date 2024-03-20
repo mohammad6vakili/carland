@@ -28,39 +28,41 @@ import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 
 const Magazine = ({ magData, magazines }) => {
+  const { httpService } = useHttp();
   const size = useWindowSize();
   const router = useRouter();
   const pathname = usePathname();
-  const { httpService } = useHttp();
 
   const latestmagazines = [{}, {}, {}];
   // const [magData, setMagData] = useState([]);
   const [photos, setPhotos] = useState([]);
 
   //handleRequests
-  // useEffect(() => {
-  //   const id = router.query.magId;
-  //   if (id) {
-  //     httpService
-  //       .get(`magazine/${id}`)
-  //       .then((res) => {
-  //         res.status === 200 ? setMagData(res.data.data) : null;
-  //         handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
-  //       })
-  //       .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
-  //   }
-  // }, [router]);
+  useEffect(() => {
+    //   const id = router.query.magId;
+    //   if (id) {
+    //     httpService
+    //       .get(`magazine/${id}`)
+    //       .then((res) => {
+    //         res.status === 200 ? setMagData(res.data.data) : null;
+    //         handlePhotos(res.data.data.image_url, res.data.data.imageAddresses);
+    //       })
+    //       .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
+    //   }
+
+    magData && handlePhotos(magData.image_url, magData.imageAddresses);
+  }, []);
 
   const handlePhotos = (banner, images) => {
     const data = [];
 
+    data.push(banner);
     images
       ? images.split(",").map((ph) => {
           let converted = ph.replace(`${url}`, "");
           data.push(converted.replace(" ", ""));
         })
       : null;
-    data.push(banner);
 
     setPhotos(data);
   };

@@ -37,7 +37,7 @@ export const getServerSideProps = async (context) => {
   const data = await axios
     .get(`${baseUrl}/club/${clubId}`)
     .then((res) => {
-      return res.data.data;
+      return res.data;
     })
     .catch(() => {
       return [];
