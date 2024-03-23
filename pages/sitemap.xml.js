@@ -86,7 +86,7 @@ function generateSiteMap({ adids, serviceIds }) {
        .map(({ id }) => {
          return `
       <url>
-          <loc>${`${EXTERNAL_DATA_URL}/trades/${id}`}</loc>
+          <loc>${`${url}/trades/${id}`}</loc>
           <priority>1</priority>
       </url>
     `;
@@ -96,7 +96,7 @@ function generateSiteMap({ adids, serviceIds }) {
        .map(({ id }) => {
          return `
       <url>
-          <loc>${`${EXTERNAL_DATA_URL}/jobs/${id}`}</loc>
+          <loc>${`${url}/jobs/${id}`}</loc>
           <priority>1</priority>
       </url>
     `;
