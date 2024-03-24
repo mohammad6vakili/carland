@@ -60,7 +60,7 @@ const Header = () => {
 
   return (
     <>
-      <div id="header" className={styles.header}>
+      <noindex id="header" className={styles.header}>
         <section className={styles.background}>
           <Image
             src={"/assets/header-background.png"}
@@ -122,7 +122,7 @@ const Header = () => {
                       alt="logo"
                       width={15}
                       height={15}
-                    />
+                    />{" "}
                     دسته بندی
                   </DropdownToggle>
                   <DropdownMenu>
@@ -299,7 +299,7 @@ const Header = () => {
             )}
           </div>
         </section>
-      </div>
+      </noindex>
     </>
   );
 };
