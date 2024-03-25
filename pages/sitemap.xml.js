@@ -1,6 +1,6 @@
 import axios from "axios";
-export const url = "https://api.carland.ir";
-export const baseUrl = "https://api.carland.ir/api";
+export const url = "https://carland.ir";
+export const baseUrl = "https://api.carland.ir";
 
 function generateSiteMap({ adids, serviceIds }) {
   return `<?xml version="1.0" encoding="UTF-8"?>

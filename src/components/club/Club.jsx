@@ -77,7 +77,7 @@ const Club = ({ clubs, clubData }) => {
     images
       ? images.split(",").map((ph) => {
           let converted = ph.replace(`${url}/`, "").replace(" ", "");
-          data.push({ original: converted, thumbnail: converted });
+          data.push(converted);
         })
       : null;
 
