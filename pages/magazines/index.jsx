@@ -13,14 +13,14 @@ export async function getStaticProps() {
     })
     .catch((err) => null);
 
-  const magazines = await axios
-    .get(`${baseUrl}/magazines`)
-    .then((res) => {
-      return res.data.data;
-    })
-    .catch((err) => []);
+  // const magazines = await axios
+  //   .get(`${baseUrl}/magazines`)
+  //   .then((res) => {
+  //     return res.data.data;
+  //   })
+  //   .catch((err) => []);
 
-  return { props: { magsCategories, magazines } };
+  return { props: { magsCategories, magazines: null } };
 }
 
 const index = ({ magsCategories, magazines }) => {
@@ -28,7 +28,7 @@ const index = ({ magsCategories, magazines }) => {
     <>
       <Head>
         <title>کارلند | مجلات</title>
-        <meta property="og:title" content="مجله ماشین کارلند" key="کجله" />
+        <meta property="og:title" content="مجله ماشین کارلند" key="مجله" />
         <meta
           property="og:image"
           content="https://api.carland.ir/carland-logo.png"

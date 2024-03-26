@@ -363,15 +363,14 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
     return (
       <>
         <section className={s.market_cards}>
-          <Skeleton
+          <MySkeleton
             key={Math.random()}
             borderRadius={"10px"}
-            className="flex-1"
             width={"210px"}
             height={"300px"}
-            style={{ margin: "1rem" }}
+            style={{ margin: "0 auto" }}
           />
-          <Skeleton
+          <MySkeleton
             key={Math.random()}
             borderRadius={"10px"}
             className="flex-1"
@@ -379,7 +378,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
             height={"300px"}
             style={{ margin: "1rem" }}
           />
-          <Skeleton
+          <MySkeleton
             key={Math.random()}
             borderRadius={"10px"}
             className="flex-1"
@@ -387,7 +386,7 @@ const CardRenderer = ({ offers, adsFilter, jobsFilter }) => {
             height={"300px"}
             style={{ margin: "1rem" }}
           />
-          <Skeleton
+          <MySkeleton
             key={Math.random()}
             borderRadius={"10px"}
             className="flex-1"

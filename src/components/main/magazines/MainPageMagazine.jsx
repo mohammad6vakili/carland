@@ -70,7 +70,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
           <div className={styles.options}>
             {magazines.map((mag, index) => (
               <React.Fragment key={Math.random() * index}>
-                {index !== 0 ? (
+                {index !== 0 && index < 4 ? (
                   <section className={styles.option}>
                     <div className={styles.pic}>
                       <Image
@@ -79,6 +79,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                         width={50}
                         height={50}
                         loading="eager"
+                        quality={100}
                       />
                     </div>
 

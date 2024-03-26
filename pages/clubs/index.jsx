@@ -16,16 +16,16 @@ export async function getStaticProps() {
       return null;
     });
 
-  const clubs = await axios
-    .get(`${baseUrl}/clubs`)
-    .then((res) => {
-      return res.data.data;
-    })
-    .catch((err) => {
-      return [];
-    });
+  // const clubs = await axios
+  //   .get(`${baseUrl}/clubs`)
+  //   .then((res) => {
+  //     return res.data.data;
+  //   })
+  //   .catch((err) => {
+  //     return [];
+  //   });
 
-  return { props: { clubCategories, clubs } };
+  return { props: { clubCategories, clubs: null } };
 }
 
 const index = ({ clubCategories, clubs }) => {
