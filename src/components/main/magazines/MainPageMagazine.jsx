@@ -9,6 +9,7 @@ import MySkeleton from "../../skeleton/Skeleton";
 import React from "react";
 import { handleTextCut } from "@/src/hooks/functions";
 import Link from "next/link";
+import { convertDate } from "../../comments/CommentCards";
 
 const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
   const navigate = useRouter();
@@ -91,7 +92,7 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                           : mag.description}
                       </p>
                       <div className={styles.refrences}>
-                        <span>۱۴۰۲/۰۸/۰۱</span>
+                        <span>{convertDate(mag.created_at)}</span>
                         <Link href={`/${method}/${mag.title}/${mag.id}`}>
                           <Button>
                             مشاهده{" "}

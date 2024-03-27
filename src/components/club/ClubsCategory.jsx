@@ -97,7 +97,7 @@ const ClubsCategory = ({ clubCategories }) => {
               prevEl: "#gallery_prev",
               nextEl: "#gallery_next",
             }}
-            autoplay={{ delay: 2000 }}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
             modules={[FreeMode, Navigation, Thumbs, Autoplay]}
             className={s.mySwiper}
           >
