@@ -6,6 +6,7 @@ import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
 } from "@ant-design/icons";
+import { IoMdEye } from "react-icons/io";
 import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { useState, useRef, useEffect } from "react";
@@ -39,8 +40,8 @@ const Club = ({ clubs, clubData }) => {
   const pathname = usePathname();
   const isAuth = useSelector((state) => state.isAuth.isAuth);
 
-  const latestClubs = [{}, {}, {}];
   // const [clubData, setClubData] = useState([]);
+  const [popularClub, setPopularClub] = useState([]);
   const [photos, setPhotos] = useState([]);
 
   //handleRequests
@@ -57,8 +58,21 @@ const Club = ({ clubs, clubData }) => {
     // }
 
     clubData &&
-      handlePhotos(clubData.data.image_url, clubData.data.imageAddresses);
+      handlePhotos(clubData?.data?.image_url, clubData?.data?.imageAddresses);
+
+    handleGetPopular();
   }, []);
+
+  const handleGetPopular = () => {
+    httpService("/clubsPopular")
+      .then((res) => {
+        res?.data ? setPopularClub(res.data.data) : null;
+      })
+      .then(() => console.log(popularClub))
+      .catch((err) => {
+        toast.error("");
+      });
+  };
 
   const handleDescription = (text) => {
     let texts = text.split("\n");
@@ -306,29 +320,33 @@ const Club = ({ clubs, clubData }) => {
                     />
                   </div>
 
-                  {clubs.map((club, index) => (
-                    <Link
-                      href={`/club/${club.title}/${club.id}`}
-                      key={Math.random()}
-                      className={s.list_item}
-                    >
-                      <div className={s.title}>
-                        <span>
-                          <Image
-                            src={"/assets/trades/triangle.svg"}
-                            alt="icon"
-                            width={15}
-                            height={15}
-                          />
-                        </span>{" "}
-                        <p>{club.title}</p>
-                      </div>
+                  {clubs.map((club, index) => {
+                    if (index < 5) {
+                      return (
+                        <Link
+                          href={`/club/${club.title}/${club.id}`}
+                          key={Math.random()}
+                          className={s.list_item}
+                        >
+                          <div className={s.title}>
+                            <span>
+                              <Image
+                                src={"/assets/trades/triangle.svg"}
+                                alt="icon"
+                                width={15}
+                                height={15}
+                              />
+                            </span>{" "}
+                            <p>{club.title}</p>
+                          </div>
 
-                      <div className={s.description}>
-                        {handleTextCut(club.description, 50)}
-                      </div>
-                    </Link>
-                  ))}
+                          <div className={s.description}>
+                            {handleTextCut(club.description, 50)}
+                          </div>
+                        </Link>
+                      );
+                    }
+                  })}
                 </div>
               </div>
 
@@ -355,34 +373,51 @@ const Club = ({ clubs, clubData }) => {
                 </div>
 
                 <div className={s.list}>
-                  <div className={s.card}>
-                    <div className={s.image}>
-                      <Image
-                        src={"/assets/trades/fan-club-car.png"}
-                        alt=""
-                        width={30}
-                        height={30}
-                      />
-                    </div>
+                  {popularClub.length !== 0 &&
+                    popularClub.map((club, index) => {
+                      if (index < 5)
+                        return (
+                          <div key={club.id} className={s.card}>
+                            <div className={s.image}>
+                              <Image
+                                src={url + "/" + club.image_url}
+                                alt={club.title}
+                                quality={100}
+                                width={30}
+                                height={30}
+                              />
+                            </div>
 
-                    <div className={s.texts}>
-                      <div className={s.title}> تاریخچه خودروهای قدیمی</div>
-                      <div className={s.detail}>
-                        <span>۱۴۰۲/۰۸/۰۱</span>
-                        <Button>
-                          <p>مشاهده</p>
-                          <div>
-                            <Image
-                              src={"/assets/main/see-more.svg"}
-                              alt="more"
-                              width={20}
-                              height={20}
-                            />
+                            <div className={s.texts}>
+                              <div className={s.title}>{club.title}</div>
+                              <div className={s.des}>
+                                {handleTextCut(club.description, 100)}
+                              </div>
+                              <div className={s.see_more}>
+                                <Link href={`/club/${club.title}/${club.id}`}>
+                                  <Button>
+                                    <p>مشاهده</p>
+                                    <div>
+                                      <Image
+                                        src={"/assets/main/see-more.svg"}
+                                        alt="more"
+                                        width={20}
+                                        height={20}
+                                      />
+                                    </div>
+                                  </Button>
+                                </Link>
+                              </div>
+                              <div className={s.details}>
+                                <span>{club.AuthorName}</span>
+                                <span>
+                                  {toPersianString(club.count_view)} <IoMdEye />
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                        );
+                    })}
                 </div>
               </div>
             </div>

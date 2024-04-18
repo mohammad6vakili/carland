@@ -80,7 +80,7 @@ export const toEnglishString = (str) => {
 
 export const handleTextCut = (text, number) => {
   if (text.length > number) {
-    return `${text.substring(0, number)}.....`;
+    return `${text.substring(0, number)}...`;
   } else {
     return `${text}`;
   }

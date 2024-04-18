@@ -817,8 +817,8 @@
                 font-weight: bold;
                 font-size: 0.9em;
               }
-              .detail {
-                @include flex(row, space-between, flex-end);
+              .see_more {
+                @include flex(row, flex-end, center);
                 width: 100%;
                 font-size: 0.8em;
                 button {
@@ -839,6 +839,12 @@
                     }
                   }
                 }
+              }
+              .details {
+                @include flex(row, space-between, center);
+                width: 100%;
+                gap: 7px;
+                font-size: 14px;
               }
             }
           }

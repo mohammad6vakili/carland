@@ -26,6 +26,7 @@ import { convertDate } from "../comments/CommentCards";
 import { usePathname } from "next/navigation";
 import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
+import { IoMdEye } from "react-icons/io";
 
 const Magazine = ({ magData, magazines }) => {
   const { httpService } = useHttp();
@@ -35,6 +36,7 @@ const Magazine = ({ magData, magazines }) => {
 
   const latestmagazines = [{}, {}, {}];
   // const [magData, setMagData] = useState([]);
+  const [popularMagazine, setPopularMagazine] = useState([]);
   const [photos, setPhotos] = useState([]);
 
   //handleRequests
@@ -50,8 +52,20 @@ const Magazine = ({ magData, magazines }) => {
     //       .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
     //   }
 
-    magData && handlePhotos(magData.image_url, magData.imageAddresses);
+    magData && handlePhotos(magData?.image_url, magData?.imageAddresses);
+
+    handleGetPopular();
   }, []);
+
+  const handleGetPopular = () => {
+    httpService("/MagazinesPopular")
+      .then((res) => {
+        res?.data ? setPopularMagazine(res.data.data) : null;
+      })
+      .catch((err) => {
+        toast.error("");
+      });
+  };
 
   const handlePhotos = (banner, images) => {
     const data = [];
@@ -300,29 +314,33 @@ const Magazine = ({ magData, magazines }) => {
               </div> */}
                   </div>
 
-                  {magazines.map((magazine, index) => (
-                    <Link
-                      href={`/magazine/${magazine.title}/${magazine.id}`}
-                      key={index}
-                      className={s.list_item}
-                    >
-                      <div className={s.title}>
-                        <span>
-                          <Image
-                            src={"/assets/trades/triangle.svg"}
-                            alt=""
-                            width={15}
-                            height={15}
-                          />
-                        </span>{" "}
-                        <p>{magazine.title}</p>
-                      </div>
+                  {magazines.map((magazine, index) => {
+                    if (index < 5) {
+                      return (
+                        <Link
+                          href={`/magazine/${magazine.title}/${magazine.id}`}
+                          key={index}
+                          className={s.list_item}
+                        >
+                          <div className={s.title}>
+                            <span>
+                              <Image
+                                src={"/assets/trades/triangle.svg"}
+                                alt=""
+                                width={15}
+                                height={15}
+                              />
+                            </span>{" "}
+                            <p>{magazine.title}</p>
+                          </div>
 
-                      <div className={s.description}>
-                        {handleTextCut(magazine.description, 50)}
-                      </div>
-                    </Link>
-                  ))}
+                          <div className={s.description}>
+                            {handleTextCut(magazine.description, 50)}
+                          </div>
+                        </Link>
+                      );
+                    }
+                  })}
                 </div>
               </div>
 
@@ -349,34 +367,54 @@ const Magazine = ({ magData, magazines }) => {
                 </div>
 
                 <div className={s.list}>
-                  <div className={s.card}>
-                    <div className={s.image}>
-                      <Image
-                        src={"/assets/trades/fan-club-car.png"}
-                        alt=""
-                        width={30}
-                        height={30}
-                      />
-                    </div>
+                  {popularMagazine.length !== 0 &&
+                    popularMagazine.map((magazine, index) => {
+                      if (index < 5)
+                        return (
+                          <div key={magazine.id} className={s.card}>
+                            <div className={s.image}>
+                              <Image
+                                src={url + "/" + magazine.image_url}
+                                alt={magazine.title}
+                                quality={100}
+                                width={30}
+                                height={30}
+                              />
+                            </div>
 
-                    <div className={s.texts}>
-                      <div className={s.title}> تاریخچه خودروهای قدیمی</div>
-                      <div className={s.detail}>
-                        <span>۱۴۰۲/۰۸/۰۱</span>
-                        <Button>
-                          <p>مشاهده</p>
-                          <div>
-                            <Image
-                              src={"/assets/main/see-more.svg"}
-                              alt=""
-                              width={20}
-                              height={20}
-                            />
+                            <div className={s.texts}>
+                              <div className={s.title}>{magazine.title}</div>
+                              <div className={s.des}>
+                                {handleTextCut(magazine.description, 100)}
+                              </div>
+                              <div className={s.see_more}>
+                                <Link
+                                  href={`/magazine/${magazine.title}/${magazine.id}`}
+                                >
+                                  <Button>
+                                    <p>مشاهده</p>
+                                    <div>
+                                      <Image
+                                        src={"/assets/main/see-more.svg"}
+                                        alt="more"
+                                        width={20}
+                                        height={20}
+                                      />
+                                    </div>
+                                  </Button>
+                                </Link>
+                              </div>
+                              <div className={s.details}>
+                                <span>{magazine.AuthorName}</span>
+                                <span>
+                                  {toPersianString(magazine.count_view)}{" "}
+                                  <IoMdEye />
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                        );
+                    })}
                 </div>
               </div>
             </div>

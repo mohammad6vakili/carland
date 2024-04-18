@@ -26,7 +26,7 @@ const MobileMenu = () => {
   return (
     <>
       {/* mobile menu */}
-      {size.width < 1000 && !pathname?.includes("/login") ? (
+      {size.width && size.width < 1000 && !pathname?.includes("/login") ? (
         <div className={s.mobile_menu}>
           <div className={s.menu}>
             <div className={s.routes}>
