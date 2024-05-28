@@ -57,11 +57,12 @@ const Club = ({ clubs, clubData }) => {
     //     .catch((err) => toast.error("خطا در پیدا کردن اطلاعات کلوپ مورد نظر"));
     // }
 
-    clubData &&
-      handlePhotos(clubData?.data?.image_url, clubData?.data?.imageAddresses);
-
     handleGetPopular();
   }, []);
+
+  useEffect(() => {
+    handlePhotos(clubData?.data?.image_url, clubData?.data?.imageAddresses);
+  }, [clubData]);
 
   const handleGetPopular = () => {
     httpService("/clubsPopular")

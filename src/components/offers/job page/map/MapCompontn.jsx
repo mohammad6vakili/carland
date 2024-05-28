@@ -8,8 +8,8 @@ const MapComponent = () => {
       <Image
         width={40}
         height={40}
-        src={"/assets//main/car-1.png"}
-        alt="کلینیک درمان ناخن بهار پودولوژی"
+        src={"/assets/main/car-1.png"}
+        alt=""
         loading="lazy"
       />
     </div>

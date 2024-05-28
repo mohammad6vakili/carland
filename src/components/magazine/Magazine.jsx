@@ -52,10 +52,12 @@ const Magazine = ({ magData, magazines }) => {
     //       .catch((err) => toast.error("خطا در پیدا کردن اطلاعات مجله مورد نظر"));
     //   }
 
-    magData && handlePhotos(magData?.image_url, magData?.imageAddresses);
-
     handleGetPopular();
   }, []);
+
+  useEffect(() => {
+    handlePhotos(magData.image_url, magData.imageAddresses);
+  }, [magData]);
 
   const handleGetPopular = () => {
     httpService("/MagazinesPopular")
@@ -72,13 +74,13 @@ const Magazine = ({ magData, magazines }) => {
 
     data.push(banner);
     images
-      ? images.split(",").map((ph) => {
+      ? images.split(",").forEach((ph) => {
           let converted = ph.replace(`${url}`, "");
           data.push(converted.replace(" ", ""));
         })
       : null;
 
-    setPhotos(data);
+    return setPhotos(data);
   };
 
   const handleDescription = (text) => {
@@ -190,8 +192,11 @@ const Magazine = ({ magData, magazines }) => {
 
               <div className={s.texts}>
                 <div className={s.title}>{magData.title}</div>
-                <div className={s.descriptions}>
-                  {handleDescription(magData.description)}
+                <div
+                  className={s.descriptions}
+                  dangerouslySetInnerHTML={{ __html: magData.description }}
+                >
+                  {}
                 </div>
               </div>
 
