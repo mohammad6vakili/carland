@@ -194,7 +194,8 @@ const Magazine = ({ magData, magazines }) => {
                 <div className={s.title}>{magData.title}</div>
                 <div
                   className={s.descriptions}
-                  dangerouslySetInnerHTML={{ __html: magData.description }}
+                  //@ts-ignore
+                  // dangerouslySetInnerHTML={{ __html: magData.description }}
                 >
                   {}
                 </div>
