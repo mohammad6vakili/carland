@@ -27,11 +27,12 @@ import {
 import CommentCards, { convertDate } from "../comments/CommentCards";
 import SendComment from "../comments/SendComment";
 import CommentCard from "../comments/CommentCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Head from "next/head";
 import ReactPlayer from "react-player";
 import ReactImageGallery from "react-image-gallery";
+import { setMedia } from "@/src/app/slices/media";
 
 const Club = ({ clubs, clubData }) => {
   const { httpService } = useHttp();
@@ -39,6 +40,7 @@ const Club = ({ clubs, clubData }) => {
   const router = useRouter();
   const pathname = usePathname();
   const isAuth = useSelector((state) => state.isAuth.isAuth);
+  const dispatch = useDispatch();
 
   // const [clubData, setClubData] = useState([]);
   const [popularClub, setPopularClub] = useState([]);
@@ -126,6 +128,7 @@ const Club = ({ clubs, clubData }) => {
                       <SwiperSlide
                         key={Math.random() * index}
                         className={s.slide}
+                        onClick={() => dispatch(setMedia(url + "/" + ph))}
                       >
                         <Image
                           src={url + "/" + ph}

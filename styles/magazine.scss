@@ -89,6 +89,7 @@
       margin-bottom: 2rem;
       overflow: visible;
       border-radius: 20px;
+      cursor: pointer;
 
       .slide {
         width: 100%;
@@ -403,6 +404,7 @@
         @include flex(column, center, flex-start);
         gap: 1rem;
         width: 100%;
+        cursor: pointer;
 
         .photos {
           @include flex(row, center, flex-start);

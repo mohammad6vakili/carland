@@ -34,6 +34,7 @@ import {
   setFavList,
 } from "@/src/app/slices/favListSlice";
 import MySkeleton from "../../skeleton/Skeleton";
+import { setMedia } from "@/src/app/slices/media";
 
 const TradePage = ({ tradeData }) => {
   const { httpService } = useHttp();
@@ -276,6 +277,7 @@ const TradePage = ({ tradeData }) => {
                         <SwiperSlide
                           className={s.slide}
                           key={Math.random() * index}
+                          onClick={() => dispatch(setMedia(url + ph.src))}
                         >
                           <Image
                             src={url + ph.src}

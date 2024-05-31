@@ -101,7 +101,7 @@ const AdCards = ({ adsFilter }) => {
               <div
                 style={{
                   width: "100%",
-                  marginTop: "2rem",
+                  marginTop: "5rem",
                   textAlign: "center",
                 }}
               >

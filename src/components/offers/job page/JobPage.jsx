@@ -25,13 +25,14 @@ import {
   toPersianString,
 } from "@/src/hooks/functions";
 import CommentCards, { convertDate } from "../../comments/CommentCards";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { useWindowSize } from "@uidotdev/usehooks";
 import toast from "react-hot-toast";
 import MySkeleton from "../../skeleton/Skeleton";
+import { setMedia } from "@/src/app/slices/media";
 
 const JobPage = ({ jobData }) => {
   const pathname = usePathname();
@@ -40,6 +41,7 @@ const JobPage = ({ jobData }) => {
   // const [jobData, setJobData] = useState([]);
   const [aroundJobs, setAroundJobs] = useState(null);
   const [photos, setPhotos] = useState([]);
+  const dispatch = useDispatch();
   const router = useRouter();
   const isAuth = useSelector((state) => state.isAuth.isAuth);
 
@@ -107,6 +109,7 @@ const JobPage = ({ jobData }) => {
                     <SwiperSlide
                       className={s.slide}
                       key={Math.random() * index}
+                      onClick={() => dispatch(setMedia(url + ph))}
                     >
                       <Image
                         src={url + ph}

@@ -1,0 +1,50 @@
+@mixin flex($d, $j, $a) {
+  display: flex;
+  flex-direction: $d;
+  justify-content: $j;
+  align-items: $a;
+}
+
+.media_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba($color: #000000, $alpha: 0.8);
+  z-index: 100;
+
+  .image {
+    @include flex(row, center, center);
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+
+    img {
+      width: max-content;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .cross {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 101;
+    background: #000000;
+    border-radius: 50%;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    path {
+      color: rgba($color: #fff, $alpha: 0.7);
+    }
+  }
+}

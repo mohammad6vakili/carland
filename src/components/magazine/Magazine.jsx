@@ -27,11 +27,14 @@ import { usePathname } from "next/navigation";
 import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 import { IoMdEye } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { setMedia } from "@/src/app/slices/media";
 
 const Magazine = ({ magData, magazines }) => {
   const { httpService } = useHttp();
   const size = useWindowSize();
   const router = useRouter();
+  const dispatch = useDispatch();
   const pathname = usePathname();
 
   const latestmagazines = [{}, {}, {}];
@@ -130,6 +133,7 @@ const Magazine = ({ magData, magazines }) => {
                       <SwiperSlide
                         key={Math.random() * index}
                         className={s.slide}
+                        onClick={() => dispatch(setMedia(url + "/" + ph))}
                       >
                         <Image
                           src={url + "/" + ph}
@@ -195,10 +199,8 @@ const Magazine = ({ magData, magazines }) => {
                 <div
                   className={s.descriptions}
                   //@ts-ignore
-                  // dangerouslySetInnerHTML={{ __html: magData.description }}
-                >
-                  {}
-                </div>
+                  dangerouslySetInnerHTML={{ __html: magData.description }}
+                ></div>
               </div>
 
               <div className={s.share}>

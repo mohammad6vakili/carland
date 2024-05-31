@@ -3,6 +3,7 @@ import isAuth from "./slices/isAuthSlice";
 import userInfo from "./slices/userInfoSlice";
 import favList from "./slices/favListSlice";
 import loading from "./slices/Loading";
+import media from "./slices/media";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     userInfo,
     favList,
     loading,
+    media,
   },
 });
