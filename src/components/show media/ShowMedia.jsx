@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "@/styles/main.module.scss";
 import { setMedia } from "@/src/app/slices/media";
@@ -8,10 +8,6 @@ import { FaTimesCircle } from "react-icons/fa";
 export default function ShowMedia() {
   const media = useSelector((state) => state.media.media);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(media);
-  }, [media]);
 
   return (
     <>

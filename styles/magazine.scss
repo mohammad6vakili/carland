@@ -399,6 +399,15 @@
       @include flex(column, flex-start, center);
       gap: 2rem;
       width: 65%;
+      word-wrap: break-word;
+      word-spacing: justify;
+
+      img,
+      video {
+        max-width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
 
       .gallery {
         @include flex(column, center, flex-start);

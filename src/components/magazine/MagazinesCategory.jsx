@@ -144,7 +144,7 @@ const MagazineCategory = ({ magsCategories }) => {
               )}
             </Swiper>
           ) : (
-            <MySkeleton width={"100%"} height={"100%"} />
+            <MySkeleton width={"100%"} height={"400px"} />
           )}
 
           <div className={s.navigation_nexprev}>

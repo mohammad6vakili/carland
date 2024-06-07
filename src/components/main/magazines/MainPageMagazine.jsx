@@ -56,7 +56,12 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
                   <span>{magazines[0].title}</span>
                 </div>
                 <div className={styles.description}>
-                  <span>{handleTextCut(magazines[0].description, 200)}</span>
+                  <span
+                    style={{ wordWrap: "break-word" }}
+                    dangerouslySetInnerHTML={{
+                      __html: magazines[0].description,
+                    }}
+                  ></span>
                   <Image
                     src={"/assets/main/quotation.svg"}
                     alt="icon"
@@ -86,11 +91,12 @@ const MainPageMagazine = ({ magazines, overflowedDes, method, header }) => {
 
                     <div className={styles.texts}>
                       <div className={styles.title}>{mag.title}</div>
-                      <p className={styles.description}>
-                        {mag.description.length > 60
-                          ? mag.description.substring(1, 60) + "..."
-                          : mag.description}
-                      </p>
+                      <p
+                        className={styles.description}
+                        dangerouslySetInnerHTML={{
+                          __html: handleTextCut(mag.description, 50),
+                        }}
+                      ></p>
                       <div className={styles.refrences}>
                         <span>{convertDate(mag.created_at)}</span>
                         <Link href={`/${method}/${mag.title}/${mag.id}`}>
